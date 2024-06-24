@@ -1,0 +1,3 @@
+bin/cpp2go.exe
+bin/*.test.exe
+test/

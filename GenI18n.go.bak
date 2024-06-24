@@ -1,0 +1,155 @@
+package app
+
+import (
+	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
+	"os"
+	"path/filepath"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/richardwilkes/toolbox/i18n"
+	"github.com/richardwilkes/toolbox/txt"
+
+	"github.com/ddkwork/GolandProjects/translate"
+	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/golibrary/stream"
+)
+
+func init() {
+	i18n.Dir = "."
+}
+
+func transLateToChinese() {
+	const name = "zh-CN.i18n"
+	lines := stream.ReadFileToLines(name)
+	t := translate.New()
+	for i, line := range lines {
+		if strings.Contains(line, "v:") {
+			split := strings.Split(line, ":")
+			v := split[1]
+			// v:"Toggle Equipped"
+			// todo call nlp
+			comment := t.Translate(v)
+			println(i)
+			println(v)
+			println(comment)
+			if !strings.Contains(comment, `"`) {
+				comment = strconv.Quote(comment)
+			}
+			lines[i] = "v:" + comment
+			if i == 40 {
+				// break
+			}
+		}
+	}
+	linesToString := stream.NewBuffer("").LinesToString(lines)
+	stream.WriteTruncate(name, linesToString)
+}
+
+func GenI18nWithTransLateToChinese(path string) {
+	mylog.Call(func() {
+		GenI18n(path)
+		// transLateToChinese()
+	})
+}
+
+func GenI18n(path string) {
+	outPath := i18n.Locale() + ".i18n"
+	args := []string{path}
+	kv := make(map[string]string)
+	fileSet := token.NewFileSet()
+
+	const (
+		LookForPackageState = iota
+		LookForTextCallState
+		LookForParameterState
+	)
+
+	for _, pathArg := range args {
+		pathArg = mylog.Check2(filepath.Abs(pathArg))
+		mylog.Check(filepath.WalkDir(pathArg, func(path string, fi os.DirEntry, err error) error { // WalkDir is ok ?
+			if fi.IsDir() && filepath.Ext(path) != ".go" {
+				return err
+			}
+			fmt.Println(path)
+			var file *ast.File
+			file = mylog.Check2(parser.ParseFile(fileSet, path, nil, 0))
+			mylog.Check(err)
+			mylog.Check(fmt.Fprintln(os.Stderr, err))
+			state := LookForPackageState
+			ast.Inspect(file, func(node ast.Node) bool {
+				switch x := node.(type) {
+				case *ast.Ident:
+					switch state {
+					case LookForPackageState:
+						if x.Name == "i18n" {
+							state = LookForTextCallState
+						}
+					case LookForTextCallState:
+						if x.Name == "Text" {
+							state = LookForParameterState
+						} else {
+							state = LookForPackageState
+						}
+					default:
+						state = LookForPackageState
+					}
+				case *ast.BasicLit:
+					if state == LookForParameterState {
+						if x.Kind == token.STRING {
+							v := mylog.Check2(strconv.Unquote(x.Value))
+							mylog.Check(err)
+							kv[v] = v
+						}
+					}
+					state = LookForPackageState
+				case nil:
+				default:
+					state = LookForPackageState
+				}
+				return true
+			})
+			return nil
+		}))
+	}
+
+	keys := make([]string, 0, len(kv))
+	for key := range kv {
+		keys = append(keys, key)
+	}
+	sort.Slice(keys, func(i, j int) bool {
+		return txt.NaturalLess(keys[i], keys[j], true)
+	})
+	out := mylog.Check2(os.OpenFile(outPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o644))
+	//# 翻译替换所有v:"xxx"为v:"翻译的中文内容"，保留原始换行格式和k:"xxx"，发成代码块过来
+	mylog.Check(fmt.Fprintf(out, `
+# Generated on %v
+#
+# Label-value pairs are defined as one or more lines prefixed with "k:" for the
+# key, followed by one or more lines prefixed with "v:" for the value. These
+# prefixes are then followed by a quoted string, using escaping rules for Go
+# strings where needed. When two or more lines are present in a row, they will
+# be concatenated together with an intervening \n character.
+#
+# Do NOT modify the 'k' values. They are the values as seen in the code.
+#
+# Replace the 'v' values with the appropriate translation.
+`, time.Now().Format(time.RFC1123)),
+	)
+
+	for _, key := range keys {
+		mylog.Check(fmt.Fprintln(out))
+		for _, p := range strings.Split(key, "\n") {
+			mylog.Check(fmt.Fprintf(out, "k:%q\n", p))
+		}
+		for _, p := range strings.Split(key, "\n") {
+			mylog.Check(fmt.Fprintf(out, "v:%q\n", p))
+		}
+	}
+	mylog.Check(out.Close())
+}

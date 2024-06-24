@@ -1,0 +1,6 @@
+log.log
+.idea
+*.json
+*.txt
+bindgen/astCC/sdk-api-docs.zip
+reset git.cmd

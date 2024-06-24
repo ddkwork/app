@@ -1,0 +1,116 @@
+package driver
+
+import (
+	"os"
+	"path/filepath"
+	"time"
+
+	"golang.org/x/sys/windows"
+	"golang.org/x/sys/windows/svc"
+	"golang.org/x/sys/windows/svc/mgr" // todo if build on linux,it need change to cmd
+
+	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/golibrary/stream"
+)
+
+type (
+	helper interface {
+		SetService()
+		SetManager()
+		StartService()
+		StopService()
+		DeleteService()
+		QueryService()
+	}
+	Interface interface {
+		Load(sysPath string)
+		Unload()
+	}
+	Object struct {
+		Status     uint32
+		service    *mgr.Service
+		manager    *mgr.Mgr
+		driverPath string
+		DeviceName string
+	}
+)
+
+func NewObject() *Object {
+	return &Object{
+		Status:     0,
+		service:    nil,
+		manager:    nil,
+		driverPath: "",
+		DeviceName: "",
+	}
+}
+
+func New() Interface {
+	return NewObject()
+}
+
+func (o *Object) Load(sysPath string) {
+	o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
+	o.DeviceName = stream.BaseName(sysPath)
+	mylog.Trace("deviceName", o.DeviceName)
+	mylog.Trace("driverPath", o.driverPath)
+	stream.WriteBinaryFile(o.driverPath, stream.NewBuffer(sysPath).Bytes())
+	o.SetManager()
+	o.SetService()
+	o.StartService()
+	mylog.Success("status", "驱动加载成功 ", sysPath)
+	o.QueryService()
+}
+
+func (o *Object) Unload() {
+	o.StopService()
+	o.DeleteService()
+	mylog.Check(o.manager.Disconnect())
+	mylog.Check(o.service.Close())
+	mylog.Success("status", "驱动卸载成功 ", o.driverPath)
+	mylog.Check(os.Remove(o.driverPath))
+}
+
+func (o *Object) SetService() {
+	var e error
+	o.service, e = o.manager.OpenService(o.DeviceName)
+	if e != nil {
+		config := mgr.Config{
+			ServiceType: windows.SERVICE_KERNEL_DRIVER,
+			StartType:   mgr.StartManual,
+		}
+		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.driverPath, config))
+	}
+}
+
+func (o *Object) SetManager() {
+	connect := mylog.Check2(mgr.Connect())
+
+	o.manager = connect
+}
+
+func (o *Object) QueryService() {
+	status := mylog.Check2(o.service.Query())
+
+	o.Status = status.ServiceSpecificExitCode
+}
+
+func (o *Object) StopService() {
+	status := mylog.Check2(o.service.Control(svc.Stop))
+	timeout := time.Now().Add(10 * time.Second)
+	for status.State != svc.Stopped {
+		if timeout.Before(time.Now()) {
+			mylog.Check("Timed out waiting for service to stop")
+		}
+		time.Sleep(300 * time.Millisecond)
+		o.QueryService()
+		mylog.Trace("Service stopped")
+	}
+}
+
+func (o *Object) DeleteService() {
+	mylog.Check(o.service.Delete())
+	mylog.Trace("Service deleted")
+	o.QueryService()
+}
+func (o *Object) StartService() { mylog.Check(o.service.Start()) }
