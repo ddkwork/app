@@ -129,8 +129,8 @@ func (o *object[T]) decode(is64Bit bool) *object[T] {
 	}
 	o.AsmObjects = make([]Disassembly, 0)
 	for len(o.data) > 0 {
-		mylog.Todo("inst need make object for set color") // todo D:\workspace\workspace\app\widget\CodeView.go return []label
-		inst, e := x86asm.Decode(o.data, mode)            // token 就不用解了，直接按nasm关键字着色返回label切片即可，然后在表格控件中填充每一行
+		// mylog.Todo("inst need make object for set color") // todo D:\workspace\workspace\app\widget\CodeView.go return []label
+		inst, e := x86asm.Decode(o.data, mode) // token 就不用解了，直接按nasm关键字着色返回label切片即可，然后在表格控件中填充每一行
 		if e != nil {
 			mylog.CheckIgnore(e)
 			return o

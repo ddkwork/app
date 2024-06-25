@@ -380,7 +380,7 @@ func compileMemberExpr(ctx *blockCtx, v *ast.Node, lhs bool) {
 	if lhs {
 		cb.MemberRef(name, src)
 	} else {
-		_ := mylog.Check2(cb.Member(name, gogen.MemberFlagVal, src))
+		mylog.Check2(cb.Member(name, gogen.MemberFlagVal, src))
 		// see aslong @ testdata/compoundlit.c
 	}
 }

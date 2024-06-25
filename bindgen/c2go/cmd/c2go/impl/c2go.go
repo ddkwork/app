@@ -7,7 +7,6 @@ import (
 	"github.com/ddkwork/app/bindgen/c2go"
 	"github.com/ddkwork/app/bindgen/c2go/cl"
 	"github.com/ddkwork/app/bindgen/c2go/clang/preprocessor"
-	"github.com/ddkwork/golibrary/mylog"
 	"github.com/goplus/gogen"
 )
 
@@ -16,7 +15,7 @@ const (
 )
 
 func isDir(name string) bool {
-	if fi := mylog.Check2(os.Lstat(name)); err == nil {
+	if fi, e := os.Lstat(name); e == nil {
 		return fi.IsDir()
 	}
 	return false

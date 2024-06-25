@@ -24,6 +24,7 @@ type Pos struct {
 	IncludedFrom *IncludedFrom `json:"includedFrom,omitempty"` // "sqlite3.c"
 	SpellingLoc  *Loc          `json:"spellingLoc,omitempty"`
 	ExpansionLoc *Loc          `json:"expansionLoc,omitempty"`
+	Loc          *Type
 }
 
 type Range struct {
@@ -201,6 +202,7 @@ type Type struct {
 	QualType          string `json:"qualType"`
 	DesugaredQualType string `json:"desugaredQualType,omitempty"`
 	TypeAliasDeclID   ID     `json:"typeAliasDeclId,omitempty"`
+	File              string
 }
 
 type Node struct {

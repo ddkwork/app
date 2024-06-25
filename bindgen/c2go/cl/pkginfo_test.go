@@ -53,9 +53,7 @@ func f() {
 		t.Fatalf("WriteDepTo:\n%s\n", deps)
 	}
 	genfile := tmpDir + "c2go_autogen.go"
-	if mylog.Check(pkg.WriteDepFile(genfile)); err != nil {
-		t.Fatal("WriteDepFile failed:", err)
-	}
+	mylog.Check(pkg.WriteDepFile(genfile))
 	os.Remove(genfile)
 }
 
@@ -87,9 +85,7 @@ func X__builtin_inf() float64 {
 		t.Fatalf("WriteDepTo:\n%s\n", deps)
 	}
 	genfile := tmpDir + "c2go_autogen.go"
-	if mylog.Check(pkg.WriteDepFile(genfile)); err != nil {
-		t.Fatal("WriteDepFile failed:", err)
-	}
+	mylog.Check(pkg.WriteDepFile(genfile))
 	os.Remove(genfile)
 }
 

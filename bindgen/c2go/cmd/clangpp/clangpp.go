@@ -19,8 +19,5 @@ func main() {
 	}
 	infile := os.Args[1]
 	outfile := infile + ".i"
-	if mylog.Check(preprocessor.Do(infile, outfile, nil)); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+	mylog.Check(preprocessor.Do(infile, outfile, nil))
 }

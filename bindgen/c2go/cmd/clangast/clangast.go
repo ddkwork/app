@@ -31,7 +31,6 @@ func main() {
 			os.Stdout.Write(doc)
 			return
 		}
-		err = e
 	} else {
 		doc, _, e := parser.ParseFile(file, 0)
 		if e == nil {
@@ -40,8 +39,5 @@ func main() {
 			enc.Encode(doc)
 			return
 		}
-		err = e
 	}
-	fmt.Fprintln(os.Stderr, err)
-	os.Exit(1)
 }

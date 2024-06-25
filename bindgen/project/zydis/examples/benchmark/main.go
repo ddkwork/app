@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"runtime/pprof"
 	"time"
@@ -30,13 +29,9 @@ func readFile() []byte {
 	file := mylog.Check2(os.Open(*fInputFile))
 
 	defer file.Close()
-	if _ := mylog.Check2(file.Seek(int64(*fCodeOffset), 0)); err != nil {
-		log.Fatalf("Unable to seek input file: %v", err)
-	}
+	mylog.Check2(file.Seek(int64(*fCodeOffset), 0))
 	data := make([]byte, *fCodeSize)
-	if _ := mylog.Check2(file.Read(data)); err != nil {
-		log.Fatalf("Unable to read input file: %v", err)
-	}
+	mylog.Check2(file.Read(data))
 	return data
 }
 

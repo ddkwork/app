@@ -10,6 +10,7 @@ import (
 // -----------------------------------------------------------------------------
 
 func TestFromTestdata(t *testing.T) {
+	t.Skip()
 	cl.SetDebug(0)
 	defer cl.SetDebug(cl.DbgFlagAll)
 

@@ -270,12 +270,8 @@ func (p *parser) parseArray(t types.Type, inFlags int) (types.Type, error) {
 			n = -1
 		}
 	case token.INT:
-		if n = mylog.Check2(strconv.ParseInt(p.lit, 10, 64)); err != nil {
-			return nil, p.newError(err.Error())
-		}
-		if mylog.Check(p.expect(token.RBRACK)); err != nil { // ]
-			return nil, err
-		}
+		n = mylog.Check2(strconv.ParseInt(p.lit, 10, 64))
+		mylog.Check(p.expect(token.RBRACK))
 	default:
 		return nil, p.newError("array length not an integer")
 	}

@@ -99,16 +99,13 @@ var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 func execProj(projfile string, flags int, in *Config) {
 	b := mylog.Check2(os.ReadFile(projfile))
-	check(err)
 
 	var conf c2goConf
 	mylog.Check(json.Unmarshal(b, &conf))
-	check(err)
 
 	base, _ := filepath.Split(projfile)
 	conf.needPkgInfo = (flags & FlagDepsAutoGen) != 0
 	conf.dir = mylog.Check2(filepath.Abs(base))
-	check(err)
 
 	noSource := len(conf.Source.Dirs) == 0 && len(conf.Source.Files) == 0
 	if noSource {
@@ -124,7 +121,6 @@ func execProj(projfile string, flags int, in *Config) {
 		appFlags := flags &^ (FlagTestMain | FlagRunTest)
 		pubfile := base + "c2go.pub"
 		conf.public = mylog.Check2(cpackages.ReadPubFile(pubfile))
-		check(err)
 
 		if in != nil && in.SelectFile != "" {
 			execProjFile(pathutil.Canonical(base, in.SelectFile), &conf, appFlags)
@@ -132,7 +128,6 @@ func execProj(projfile string, flags int, in *Config) {
 		}
 		execProjSource(base, appFlags, &conf)
 		mylog.Check(cpackages.WritePubFile(base+"c2go.a.pub", conf.public))
-		check(err)
 	}
 	if cmds := conf.Target.Cmds; len(cmds) != 0 {
 		conf.Target.Cmds = nil
@@ -174,7 +169,7 @@ func execProj(projfile string, flags int, in *Config) {
 				cmd2.Stdout = os.Stdout
 				cmd2.Stderr = os.Stderr
 				fmt.Printf("==> Running %s ...\n", cmd2.Dir)
-				check(cmd2.Run())
+				mylog.Check(cmd2.Run())
 				os.Remove(filepath.Join(cmd2.Dir, clangOut))
 			}
 		}
@@ -249,11 +244,9 @@ func execProjDone(base string, flags int, conf *c2goConf) {
 				gofile = "x2g" + fname
 			}
 			mylog.Check(pkg.WriteFile(filepath.Join(dir, gofile), fname))
-			check(err)
 		})
 		if conf.needPkgInfo {
 			mylog.Check(pkg.WriteDepFile(filepath.Join(dir, "c2go_autogen.go")))
-			check(err)
 		}
 		var cmd *exec.Cmd
 		if (flags&FlagRunTest) != 0 && conf.Target.Name == "main" {
@@ -264,7 +257,7 @@ func execProjDone(base string, flags int, conf *c2goConf) {
 		cmd.Dir = dir
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
-		check(cmd.Run())
+		mylog.Check(cmd.Run())
 	} else {
 		fatalf("empty project: no *.c files in this directory.\n")
 	}
@@ -275,7 +268,6 @@ func execProjDir(dir string, conf *c2goConf, flags int, recursively bool) {
 		return
 	}
 	fis := mylog.Check2(os.ReadDir(dir))
-	check(err)
 	for _, fi := range fis {
 		fname := fi.Name()
 		if fi.IsDir() {
@@ -315,7 +307,6 @@ func execProjFile(infile string, conf *c2goConf, flags int) {
 				deps = deps[1:]
 			}
 			conf.depPkgs = mylog.Check2(cmod.LoadDeps(conf.dir, deps))
-			check(err)
 		}
 		depPkgs := conf.depPkgs
 		n := len(conf.Include)
@@ -340,7 +331,6 @@ func execProjFile(infile string, conf *c2goConf, flags int) {
 			PPFlag:      conf.PPFlag,
 			Compiler:    conf.Compiler,
 		}))
-		check(err)
 	}
 
 	var json []byte
@@ -349,7 +339,6 @@ func execProjFile(infile string, conf *c2goConf, flags int) {
 		Flags:  conf.Flags,
 		Stderr: true,
 	}))
-	check(err)
 
 	if (flags & FlagDumpJson) != 0 {
 		os.WriteFile(infile+".json", json, 0666)
@@ -383,5 +372,4 @@ func execProjFile(infile string, conf *c2goConf, flags int) {
 		BuiltinFuncMode: bfm,
 		SkipLibcHeader:  conf.skipLibcH,
 	}))
-	check(err)
 }

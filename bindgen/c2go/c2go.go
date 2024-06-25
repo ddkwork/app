@@ -48,14 +48,14 @@ const (
 )
 
 func isDir(name string) bool {
-	if fi := mylog.Check2(os.Lstat(name)); err == nil {
+	if fi, e := (os.Lstat(name)); e == nil {
 		return fi.IsDir()
 	}
 	return false
 }
 
 func isFile(name string) bool {
-	if fi := mylog.Check2(os.Lstat(name)); err == nil {
+	if fi, e := (os.Lstat(name)); e == nil {
 		return !fi.IsDir()
 	}
 	return false
@@ -73,12 +73,10 @@ func Run(pkgname, infile string, flags int, conf *Config) {
 	case ".c":
 		outfile = infile + ".i"
 		mylog.Check(preprocessor.Do(infile, outfile, nil))
-		check(err)
 	default:
 		if strings.HasSuffix(infile, "/...") {
 			infile = strings.TrimSuffix(infile, "/...")
 			mylog.Check(execDirRecursively(infile, flags, conf))
-			check(err)
 		} else if isDir(infile) {
 			projfile := filepath.Join(infile, "c2go.cfg")
 			if isFile(projfile) {
@@ -86,7 +84,6 @@ func Run(pkgname, infile string, flags int, conf *Config) {
 				return
 			}
 			n := mylog.Check2(execDir(pkgname, infile, flags))
-			check(err)
 			switch n {
 			case 1:
 			case 0:
@@ -115,8 +112,7 @@ func execDirRecursively(dir string, flags int, conf *Config) (last error) {
 		return
 	}
 
-	fis, last := os.ReadDir(dir)
-	check(last)
+	fis := mylog.Check2(os.ReadDir(dir))
 	var cfiles int
 	for _, fi := range fis {
 		if fi.IsDir() {
@@ -163,13 +159,11 @@ func execDir(pkgname string, dir string, flags int) (n int, err error) {
 
 	var infile, outfile string
 	files := mylog.Check2(filepath.Glob("*.c"))
-	check(err)
 	switch n = len(files); n {
 	case 1:
 		infile = files[0]
 		outfile = infile + ".i"
 		mylog.Check(preprocessor.Do(infile, outfile, nil))
-		check(err)
 		execFile(pkgname, outfile, flags)
 	}
 	return
@@ -181,7 +175,6 @@ func execFile(pkgname string, outfile string, flags int) {
 		Json:   &json,
 		Stderr: true,
 	}))
-	check(err)
 
 	if (flags & FlagDumpJson) != 0 {
 		os.WriteFile(strings.TrimSuffix(outfile, ".i")+".json", json, 0666)
@@ -191,17 +184,14 @@ func execFile(pkgname string, outfile string, flags int) {
 	pkg := mylog.Check2(cl.NewPackage("", pkgname, doc, &cl.Config{
 		SrcFile: outfile, NeedPkgInfo: needPkgInfo,
 	}))
-	check(err)
 
 	gofile := outfile + ".go"
 	mylog.Check(pkg.WriteFile(gofile))
-	check(err)
 
 	dir, _ := filepath.Split(gofile)
 
 	if needPkgInfo {
 		mylog.Check(pkg.WriteDepFile(filepath.Join(dir, "c2go_autogen.go")))
-		check(err)
 	}
 
 	if (flags & flagChdir) != 0 {
@@ -246,7 +236,6 @@ func runTest(dir string) {
 
 func runGoApp(dir string, stdout, stderr io.Writer, doRunTest bool) (dontRunTest bool) {
 	files := mylog.Check2(filepath.Glob("*.go"))
-	check(err)
 
 	for i, n := 0, len(files); i < n; i++ {
 		fname := filepath.Base(files[i])
@@ -282,13 +271,12 @@ func runGoApp(dir string, stdout, stderr io.Writer, doRunTest bool) (dontRunTest
 
 func runCApp(dir string, stdout, stderr io.Writer) {
 	files := mylog.Check2(filepath.Glob("*.c"))
-	check(err)
 
 	cmd := exec.Command("clang", files...)
 	cmd.Dir = dir
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	check(cmd.Run())
+	mylog.Check(cmd.Run())
 
 	cmd2 := exec.Command(clangOut)
 	cmd.Dir = dir
@@ -309,14 +297,8 @@ func init() {
 
 func chdir(dir string) string {
 	cwd := mylog.Check2(os.Getwd())
-	check(err)
 	mylog.Check(os.Chdir(dir))
-	check(err)
-
 	return cwd
-}
-
-func check(err error) {
 }
 
 func checkWith(err error, stdout, stderr io.Writer) {

@@ -1005,5 +1005,3 @@
        336 |   ZydisDecodedOperand[10] operands
       1136 |   char[96] text
            | [sizeof=1232, align=8]
-
-

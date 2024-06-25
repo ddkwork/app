@@ -24,6 +24,7 @@ require (
 	github.com/spyre-project/spyre v1.2.5
 	github.com/stretchr/testify v1.9.0
 	github.com/valyala/fastjson v1.6.4
+	github.com/zyantific/zydis-go v1.2.1
 	github.com/zzl/go-win32api/v2 v2.2.0
 	golang.org/x/arch v0.8.0
 	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8
@@ -32,6 +33,7 @@ require (
 
 require (
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
+	github.com/can1357/gengo v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dc0d/caseconv v0.5.0 // indirect

@@ -24,8 +24,7 @@ func toType(ctx *blockCtx, typ *ast.Type, flags int) types.Type {
 }
 
 func toTypeEx(ctx *blockCtx, scope *types.Scope, tyAnonym types.Type, typ *ast.Type, flags int, pub bool) (t types.Type, kind int) {
-	t, kind := mylog.Check3(parseType(ctx, scope, tyAnonym, typ, flags, pub))
-
+	t, kind = mylog.Check3(parseType(ctx, scope, tyAnonym, typ, flags, pub))
 	return
 }
 
@@ -33,9 +32,7 @@ func parseType(ctx *blockCtx, scope *types.Scope, tyAnonym types.Type, typ *ast.
 	conf := &parser.Config{
 		Scope: scope, Flags: flags, Anonym: tyAnonym, ParseEnv: ctx,
 	}
-retry:
 	t, kind = mylog.Check3(parser.ParseType(typ.QualType, conf))
-
 	return
 }
 
@@ -320,13 +317,13 @@ func compileVarDecl(ctx *blockCtx, decl *ast.Node, global bool) {
 	origScope := ctx.cb.Scope()
 	scope := origScope
 	flags := 0
-	gblStatic := false
+	// gblStatic := false
 	switch decl.StorageClass {
 	case ast.Extern:
 		flags = parser.FlagIsExtern
 	case ast.Static:
 		if global { // global static
-			gblStatic = true
+			// gblStatic = true
 		} else { // local static variable
 			scope = ctx.pkg.Types.Scope() // Go don't have local static variable, change to global
 		}
