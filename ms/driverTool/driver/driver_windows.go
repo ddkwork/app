@@ -84,15 +84,11 @@ func (o *Object) SetService() {
 }
 
 func (o *Object) SetManager() {
-	connect := mylog.Check2(mgr.Connect())
-
-	o.manager = connect
+	o.manager = mylog.Check2(mgr.Connect())
 }
 
 func (o *Object) QueryService() {
-	status := mylog.Check2(o.service.Query())
-
-	o.Status = status.ServiceSpecificExitCode
+	o.Status = mylog.Check2(o.service.Query()).ServiceSpecificExitCode
 }
 
 func (o *Object) StopService() {
