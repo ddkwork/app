@@ -28,7 +28,6 @@ const (
 )
 
 type dataType struct {
-
 	// Name of the type: PVOID, DWORD_PTR, ...
 	Name string
 	// Kind of data type: typeScalar, ...
@@ -159,7 +158,6 @@ func InitCustomTypes(winStructs []Struct) {
 	// We repeat this process 2 times as some types won't be know only after
 	// first iteration.
 	for i := 0; i < 3; i++ {
-
 		for k, v := range Typedefs {
 			// No need to go further if the type is already known.
 			if _, ok := dataTypes[k]; ok {
@@ -186,19 +184,22 @@ func InitCustomTypes(winStructs []Struct) {
 				if val.Kind == typeScalar {
 					if _, ok := dataTypes[k+"*"]; !ok {
 						dt := dataType{
-							Name: k + "*", Size: val.Size, Kind: typePtrScalar}
+							Name: k + "*", Size: val.Size, Kind: typePtrScalar,
+						}
 						dataTypes[k+"*"] = dt
 					}
 				} else if val.Kind == typeASCIIStr {
 					if _, ok := dataTypes[k+"*"]; !ok {
 						dt := dataType{
-							Name: k + "*", Size: val.Size, Kind: typeArrASCIIStr}
+							Name: k + "*", Size: val.Size, Kind: typeArrASCIIStr,
+						}
 						dataTypes[k+"*"] = dt
 					}
 				} else if val.Kind == typeWideStr {
 					if _, ok := dataTypes[k+"*"]; !ok {
 						dt := dataType{
-							Name: k + "*", Size: val.Size, Kind: typeArrWideStr}
+							Name: k + "*", Size: val.Size, Kind: typeArrWideStr,
+						}
 						dataTypes[k+"*"] = dt
 					}
 				}
@@ -227,7 +228,6 @@ func InitCustomTypes(winStructs []Struct) {
 }
 
 func typefromString(t string) dataType {
-
 	// Remove non-important C language modifiers like CONST ...
 	t = strings.ReplaceAll(t, "CONST ", "")
 	t = strings.ReplaceAll(t, " FAR", "")
@@ -244,7 +244,6 @@ func typefromString(t string) dataType {
 }
 
 func ParseTypedefs(data []byte) {
-
 	// Retrieve all typedeffed names.
 	re := regexp.MustCompile(regAllTypedef)
 	matches := re.FindAllStringSubmatch(string(data), -1)

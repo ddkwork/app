@@ -15,25 +15,22 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/ddkwork/golibrary/mylog"
 	"github.com/dlclark/regexp2"
 )
 
-var (
-	// RegDllName extracts DLL name from markdown spec.
-	RegDllName = `req\.dll: (?P<DLL>[\w]+\.dll)`
-)
+// RegDllName extracts DLL name from markdown spec.
+var RegDllName = `req\.dll: (?P<DLL>[\w]+\.dll)`
 
 // WriteStrSliceToFile writes a slice of string line by line to a file.
 func WriteStrSliceToFile(filename string, data []string) (int, error) {
 	// Open a new file for writing only
-	file, err := os.OpenFile(
+	file := mylog.Check2(os.OpenFile(
 		filename,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
 		0666,
-	)
-	if err != nil {
-		return 0, err
-	}
+	))
+
 	defer file.Close()
 
 	// Create a new writer.
@@ -50,23 +47,20 @@ func WriteStrSliceToFile(filename string, data []string) (int, error) {
 
 // Read a whole file into the memory and store it as array of lines
 func ReadLines(path string) (lines []string, err error) {
-
 	var (
 		part   []byte
 		prefix bool
 	)
 
 	// Start by getting a file descriptor over the file
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
+	file := mylog.Check2(os.Open(path))
+
 	defer file.Close()
 
 	reader := bufio.NewReader(file)
 	buffer := bytes.NewBuffer(make([]byte, 0))
 	for {
-		if part, prefix, err = reader.ReadLine(); err != nil {
+		if part, prefix = mylog.Check3(reader.ReadLine()); err != nil {
 			break
 		}
 		buffer.Write(part)
@@ -83,7 +77,7 @@ func ReadLines(path string) (lines []string, err error) {
 
 // Exists reports whether the named file or directory exists.
 func Exists(name string) bool {
-	if _, err := os.Stat(name); err != nil {
+	if _ := mylog.Check2(os.Stat(name)); err != nil {
 		if os.IsNotExist(err) {
 			return false
 		}
@@ -100,6 +94,7 @@ func StringInSlice(a string, list []string) bool {
 	}
 	return false
 }
+
 func regexp2FindAllString(re *regexp2.Regexp, s string) []string {
 	var matches []string
 	m, _ := re.FindStringMatch(s)
@@ -111,7 +106,6 @@ func regexp2FindAllString(re *regexp2.Regexp, s string) []string {
 }
 
 func RegSubMatchToMapString(regEx, s string) (paramsMap map[string]string) {
-
 	r := regexp.MustCompile(regEx)
 	match := r.FindStringSubmatch(s)
 
@@ -152,7 +146,6 @@ func SpaceFieldsJoin(s string) string {
 // Remove C language comments.
 // Removes both single line and multi-line comments.
 func StripComments(s string) string {
-
 	// Remove first the single line ones.
 	regSingleLine := regexp.MustCompile(`//.*`)
 	s = regSingleLine.ReplaceAllString(s, "")
@@ -221,7 +214,6 @@ func KeepOnlyParenthesis(s string) string {
 }
 
 func IsValid(s string) bool {
-
 	s = KeepOnlyParenthesis(s)
 	// if the string isn't of even length,
 	// it can't be valid so we can return early
@@ -267,33 +259,26 @@ func IsValid(s string) bool {
 // ReadAll reads the entire file into memory.
 func ReadAll(filePath string) ([]byte, error) {
 	// Start by getting a file descriptor over the file
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
+	file := mylog.Check2(os.Open(filePath))
+
 	defer file.Close()
 
 	// Get the file size to know how much we need to allocate
-	fileinfo, err := file.Stat()
-	if err != nil {
-		return nil, err
-	}
+	fileinfo := mylog.Check2(file.Stat())
+
 	filesize := fileinfo.Size()
 	buffer := make([]byte, filesize)
 
 	// Read the whole binary
-	_, err = file.Read(buffer)
-	if err != nil {
-		return nil, err
-	}
+	_ = mylog.Check2(file.Read(buffer))
+
 	return buffer, nil
 }
 
 // WalkAllFilesInDir returns list of files in directory.
 func WalkAllFilesInDir(dir string) ([]string, error) {
-
 	fileList := []string{}
-	err := filepath.Walk(dir, func(path string, info os.FileInfo, e error) error {
+	mylog.Check(filepath.Walk(dir, func(path string, info os.FileInfo, e error) error {
 		if e != nil {
 			return e
 		}
@@ -303,36 +288,27 @@ func WalkAllFilesInDir(dir string) ([]string, error) {
 			fileList = append(fileList, path)
 		}
 		return nil
-	})
+	}))
 
 	return fileList, err
 }
 
 // WriteBytesFile write Bytes to a File.
 func WriteBytesFile(filename string, r io.Reader) (int, error) {
-
 	// Open a new file for writing only
-	file, err := os.OpenFile(
+	file := mylog.Check2(os.OpenFile(
 		filename,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
 		0666,
-	)
-	if err != nil {
-		return 0, err
-	}
+	))
+
 	defer file.Close()
 
 	// Read for the reader bytes to file
-	b, err := ioutil.ReadAll(r)
-	if err != nil {
-		return 0, err
-	}
+	b := mylog.Check2(ioutil.ReadAll(r))
 
 	// Write bytes to disk
-	bytesWritten, err := file.Write(b)
-	if err != nil {
-		return 0, err
-	}
+	bytesWritten := mylog.Check2(file.Write(b))
 
 	return bytesWritten, nil
 }
@@ -375,10 +351,8 @@ func GetDLLName(file, apiname, sdkpath string) (string, error) {
 	cat := strings.TrimSuffix(filepath.Base(file), ".h")
 	functionName := "nf-" + cat + "-" + strings.ToLower(apiname) + ".md"
 	mdFile := path.Join(sdkpath, "sdk-api-src", "content", cat, functionName)
-	mdFileContent, err := ReadAll(mdFile)
-	if err != nil {
-		return "", err
-	}
+	mdFileContent := mylog.Check2(ReadAll(mdFile))
+
 	m := RegSubMatchToMapString(RegDllName, string(mdFileContent))
 	return strings.ToLower(m["DLL"]), nil
 }

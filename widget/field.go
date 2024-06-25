@@ -112,7 +112,7 @@ func NewField() *Field {
 		FieldTheme:    DefaultFieldTheme,
 		undoID:        unison.NextUndoID(),
 		linesBuiltFor: -1,
-		//AutoScroll:    true,
+		// AutoScroll:    true,
 	}
 	f.Self = f
 	f.SetBorder(f.UnfocusedBorder)

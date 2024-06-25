@@ -89,7 +89,8 @@ func getNameFromAnnotation(param APIParam) string {
 }
 
 func getBytePtrIndex(api API, param APIParam, dt dataType,
-	parammini *APIParamMini) uint8 {
+	parammini *APIParamMini,
+) uint8 {
 	if dt.Kind == typeBytePtr {
 		// log.Printf("API: %s, Name: %s, Type: %s, Anno: %s\n", api.Name,
 		// 	param.Name, param.Type, param.Annotation)
@@ -117,7 +118,6 @@ func getBytePtrIndex(api API, param APIParam, dt dataType,
 	}
 
 	return dt.Size
-
 }
 
 func MinifyAPIs(apis map[string]map[string]API, customHookHHandlerAPIs []string) map[string]map[string]APIMini {

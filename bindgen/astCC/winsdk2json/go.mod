@@ -1,6 +1,6 @@
 module github.com/saferwall/winsdk2json
 
-go 1.19
+go 1.22.4
 
 require (
 	github.com/dlclark/regexp2 v1.11.0
@@ -11,6 +11,7 @@ require (
 )
 
 require (
+	github.com/ddkwork/golibrary v0.0.83 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/spf13/pflag v1.0.5 // indirect

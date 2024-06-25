@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/ddkwork/golibrary/mylog"
 	log "github.com/saferwall/winsdk2json/internal/logger"
 	"github.com/saferwall/winsdk2json/internal/utils"
 	"github.com/spf13/cobra"
@@ -27,7 +28,6 @@ var (
 )
 
 func init() {
-
 	parseCmd.Flags().StringVarP(&includePath, "include", "i", "./winsdk/10.0.22000.0",
 		"Path to the Windows Kits include directory")
 	parseCmd.Flags().StringVarP(&sdkapiPath, "sdk-api", "", "./sdk-api",
@@ -50,27 +50,20 @@ var parseCmd = &cobra.Command{
 }
 
 func run() {
-
 	logger := log.NewCustom("info").With(context.TODO())
-	if _, err := os.Stat(includePath); os.IsNotExist(err) {
+	if _ := mylog.Check2(os.Stat(includePath)); os.IsNotExist(err) {
 		logger.Errorf("The include directory does not exist ..")
 		flag.Usage()
 		os.Exit(0)
 	}
 
 	filePath := filepath.Join("assets", "header.h")
-	code, err := utils.ReadAll(filePath)
-	if err != nil {
-		logger.Fatalf("reading header.h failed: %v", err)
-	}
+	code := mylog.Check2(utils.ReadAll(filePath))
 
 	w32apis1 := translate(code)
 
 	filePath = filepath.Join("assets", "header2.h")
-	code, err = utils.ReadAll(filePath)
-	if err != nil {
-		logger.Fatalf("reading header2.h failed: %v", err)
-	}
+	code = mylog.Check2(utils.ReadAll(filePath))
 
 	w32apis2 := translate(code)
 
@@ -88,19 +81,14 @@ func run() {
 		}
 	}
 
-	marshaled, err := json.MarshalIndent(w32apis1, "", "   ")
-	if err != nil {
-		logger.Fatal(err)
-	}
+	marshaled := mylog.Check2(json.MarshalIndent(w32apis1, "", "   "))
+
 	utils.WriteBytesFile("./assets/w32apis-full.json", bytes.NewReader(marshaled))
 
 	if genJSONForUI {
 
 		// Read the list of APIs we are interested to hook.
-		wantedAPIs, err := utils.ReadLines("./assets/hookapis.md")
-		if err != nil {
-			logger.Fatal(err)
-		}
+		wantedAPIs := mylog.Check2(utils.ReadLines("./assets/hookapis.md"))
 
 		uiMap := make(map[string][][2]string)
 		for _, w32api := range w32apis1 {
@@ -126,10 +114,8 @@ func run() {
 		}
 		logger.Infof("APIs not found: %d", notFound)
 
-		marshaled, err := json.MarshalIndent(uiMap, "", "   ")
-		if err != nil {
-			logger.Fatal(err)
-		}
+		marshaled := mylog.Check2(json.MarshalIndent(uiMap, "", "   "))
+
 		utils.WriteBytesFile("./assets/w32apis-ui.json", bytes.NewReader(marshaled))
 	}
 }

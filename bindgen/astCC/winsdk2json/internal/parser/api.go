@@ -6,7 +6,6 @@ package parser
 
 import (
 	"log"
-
 	"regexp"
 	"strings"
 

@@ -85,7 +85,6 @@ func stripStructEnd(s string) string {
 }
 
 func parseStructBody(body string) []StructMember {
-
 	var structMembers []StructMember
 
 	pos := 0
@@ -132,7 +131,6 @@ func parseStructBody(body string) []StructMember {
 }
 
 func parseStruct(structBeg, structBody, structEnd string) Struct {
-
 	winStruct := Struct{}
 
 	// Start by deleteing unecessery characters like comments and whitespaces.
@@ -168,7 +166,6 @@ func parseStruct(structBeg, structBody, structEnd string) Struct {
 }
 
 func GetAllStructs(data []byte) ([]string, []Struct) {
-
 	var winstructs []Struct
 	var strStructs []string
 
@@ -192,7 +189,6 @@ func GetAllStructs(data []byte) ([]string, []Struct) {
 
 // Size returns the size of a member of a structure.
 func (sm *StructMember) Size(is64 bool) uint8 {
-
 	var memberSize uint8
 
 	dt, ok := dataTypes[sm.Type]

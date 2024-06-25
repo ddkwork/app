@@ -72,7 +72,6 @@ func NewCustom(level string) Logger {
 	return NewWithZap(logger)
 }
 
-
 // NewWithZap creates a new logger using the pre-configured zap logger.
 func NewWithZap(l *zap.Logger) Logger {
 	return &logger{l.Sugar()}

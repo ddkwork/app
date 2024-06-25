@@ -9,9 +9,9 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/saferwall/winsdk2json/internal/utils"
+	"github.com/ddkwork/golibrary/mylog"
 	"github.com/saferwall/winsdk2json/internal/parser"
-
+	"github.com/saferwall/winsdk2json/internal/utils"
 )
 
 const (
@@ -31,7 +31,6 @@ var reTypedefsTests = []struct {
 	in  string
 	out int
 }{
-
 	{sdkDir + "\\shared\\ntdef.h", 186},
 	{sdkDir + "\\shared\\minwindef.h", 42},
 	{sdkDir + "\\shared\\basetsd.h", 42},
@@ -59,39 +58,38 @@ var parseStructTests = []struct {
 	in   string
 	out  parser.Struct
 }{
-	{sdkDir + "\\um\\processthreadsapi.h", "PROCESS_INFORMATION", parser.Struct{
-		Name:             "PROCESS_INFORMATION",
-		TypedefName:      "_PROCESS_INFORMATION",
-		PointerAlias:     "PPROCESS_INFORMATION",
-		LongPointerAlias: "LPPROCESS_INFORMATION",
-		Members: []parser.StructMember{
-			{
-				Name: "hProcess",
-				Type: "HANDLE",
+	{
+		sdkDir + "\\um\\processthreadsapi.h", "PROCESS_INFORMATION", parser.Struct{
+			Name:             "PROCESS_INFORMATION",
+			TypedefName:      "_PROCESS_INFORMATION",
+			PointerAlias:     "PPROCESS_INFORMATION",
+			LongPointerAlias: "LPPROCESS_INFORMATION",
+			Members: []parser.StructMember{
+				{
+					Name: "hProcess",
+					Type: "HANDLE",
+				},
+				{
+					Name: "hThread",
+					Type: "HANDLE",
+				},
+				{
+					Name: "dwProcessId",
+					Type: "DWORD",
+				},
+				{
+					Name: "dwThreadId",
+					Type: "DWORD",
+				},
 			},
-			{
-				Name: "hThread",
-				Type: "HANDLE",
-			},
-			{
-				Name: "dwProcessId",
-				Type: "DWORD",
-			},
-			{
-				Name: "dwThreadId",
-				Type: "DWORD",
-			},
-		}},
+		},
 	},
 }
 
 func TestGetAPIPrototypes(t *testing.T) {
 	for _, tt := range rePrototypeTests {
 		t.Run(tt.in, func(t *testing.T) {
-			data, err := utils.ReadAll(tt.in)
-			if err != nil {
-				t.Errorf("ReadAll(%s) failed, got: %s", tt.in, err)
-			}
+			data := mylog.Check2(utils.ReadAll(tt.in))
 
 			r := regexp.MustCompile(parser.RegAPIs)
 			matches := r.FindAllString(string(data), -1)
@@ -106,10 +104,8 @@ func TestGetAPIPrototypes(t *testing.T) {
 func TestParseTypedefs(t *testing.T) {
 	for _, tt := range reTypedefsTests {
 		t.Run(tt.in, func(t *testing.T) {
-			data, err := utils.ReadAll(tt.in)
-			if err != nil {
-				t.Errorf("ReadAll(%s) failed, got: %s", tt.in, err)
-			}
+			data := mylog.Check2(utils.ReadAll(tt.in))
+
 			parser.ParseTypedefs(data)
 			got := len(parser.Typedefs)
 			if got != tt.out {
@@ -118,7 +114,6 @@ func TestParseTypedefs(t *testing.T) {
 			for k := range parser.Typedefs {
 				delete(parser.Typedefs, k)
 			}
-
 		})
 	}
 }
@@ -126,10 +121,7 @@ func TestParseTypedefs(t *testing.T) {
 func TestGetStructs(t *testing.T) {
 	for _, tt := range reStructTests {
 		t.Run(tt.in, func(t *testing.T) {
-			data, err := utils.ReadAll(tt.in)
-			if err != nil {
-				t.Errorf("TestGetStructs(%s) failed, got: %s", tt.in, err)
-			}
+			data := mylog.Check2(utils.ReadAll(tt.in))
 
 			matches, _ := parser.GetAllStructs(data)
 			got := len(matches)
@@ -143,11 +135,7 @@ func TestGetStructs(t *testing.T) {
 func TestParseStruct(t *testing.T) {
 	for _, tt := range parseStructTests {
 		t.Run(tt.in, func(t *testing.T) {
-
-			data, err := utils.ReadAll(tt.path)
-			if err != nil {
-				t.Errorf("ReadAll(%s) failed with : %s", tt.path, err)
-			}
+			data := mylog.Check2(utils.ReadAll(tt.path))
 
 			_, matches := parser.GetAllStructs(data)
 			for _, got := range matches {
@@ -155,7 +143,6 @@ func TestParseStruct(t *testing.T) {
 					if !reflect.DeepEqual(got, tt.out) {
 						t.Errorf("TestParseStruct(%s) got %v, want %v", tt.in, got, tt.out)
 					}
-
 				}
 			}
 		})

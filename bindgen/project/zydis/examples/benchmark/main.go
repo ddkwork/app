@@ -9,11 +9,14 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/ddkwork/golibrary/mylog"
 	"github.com/zyantific/zydis-go"
 )
 
-const DISAS_BENCH_NO_FORMAT = true
-const DISAS_BENCH_DECODE_MINIMAL = true
+const (
+	DISAS_BENCH_NO_FORMAT      = true
+	DISAS_BENCH_DECODE_MINIMAL = true
+)
 
 var (
 	fProfile    = flag.Bool("cpuprofile", false, "write cpu profile to file")
@@ -24,16 +27,14 @@ var (
 )
 
 func readFile() []byte {
-	file, err := os.Open(*fInputFile)
-	if err != nil {
-		log.Fatalf("Unable to open input file: %v", err)
-	}
+	file := mylog.Check2(os.Open(*fInputFile))
+
 	defer file.Close()
-	if _, err := file.Seek(int64(*fCodeOffset), 0); err != nil {
+	if _ := mylog.Check2(file.Seek(int64(*fCodeOffset), 0)); err != nil {
 		log.Fatalf("Unable to seek input file: %v", err)
 	}
 	data := make([]byte, *fCodeSize)
-	if _, err := file.Read(data); err != nil {
+	if _ := mylog.Check2(file.Read(data)); err != nil {
 		log.Fatalf("Unable to read input file: %v", err)
 	}
 	return data

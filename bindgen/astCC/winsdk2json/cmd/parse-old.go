@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/ddkwork/golibrary/mylog"
 	"github.com/saferwall/winsdk2json/internal/parser"
 	"github.com/saferwall/winsdk2json/internal/utils"
 	"github.com/spf13/cobra"
@@ -30,7 +31,6 @@ var (
 )
 
 func init() {
-
 	parseCmdOld.Flags().StringVarP(&sdkumPath, "sdk", "", "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\",
 		"The path to the windows sdk directory")
 	parseCmdOld.Flags().StringVarP(&sdkapiPath, "sdk-api", "", ".\\sdk-api",
@@ -55,7 +55,6 @@ var parseCmdOld = &cobra.Command{
 }
 
 func runOld() {
-
 	if sdkumPath == "" {
 		flag.Usage()
 		os.Exit(0)
@@ -75,19 +74,15 @@ func runOld() {
 	}
 
 	// Read the list of APIs we are interested to hook.
-	wantedAPIs, err := utils.ReadLines(hookapisPath)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	wantedAPIs := mylog.Check2(utils.ReadLines(hookapisPath))
+
 	if len(wantedAPIs) == 0 {
 		log.Fatalln("hookapis.md is empty")
 	}
 
 	// Read the list of APIs we uses that uses a custom hook handler.
-	customHookHHandlerAPIs, err := utils.ReadLines(customhookPath)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	customHookHHandlerAPIs := mylog.Check2(utils.ReadLines(customhookPath))
+
 	if len(customHookHHandlerAPIs) == 0 {
 		log.Println("customhookapis.md is empty")
 	}
@@ -96,10 +91,8 @@ func runOld() {
 	parser.InitBuiltInTypes()
 
 	// Get the list of files in the Windows SDK.
-	files, err := utils.WalkAllFilesInDir(sdkumPath)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	files := mylog.Check2(utils.WalkAllFilesInDir(sdkumPath))
+
 	files = append(files, ".\\assets\\custom-def.h")
 
 	// Defines some vars.
@@ -107,7 +100,7 @@ func runOld() {
 	var winStructsRaw []string
 	var winStructs []parser.Struct
 	funcPtrs := make([]string, 0)
-	var interestingHeaders = []string{
+	interestingHeaders := []string{
 		"\\fileapi.h", "\\processthreadsapi.h", "\\winreg.h", "\\bcrypt.h", "\\rpcdce.h",
 		"\\winbase.h", "\\urlmon.h", "\\memoryapi.h", "\\tlhelp32.h", "\\debugapi.h",
 		"\\handleapi.h", "\\heapapi.h", "\\winsvc.h", "\\wincrypt.h", "\\wow64apiset.h",
@@ -137,10 +130,7 @@ func runOld() {
 
 		// Read Win32 include API headers.
 		log.Printf("Processing %s ...\n", file)
-		data, err := utils.ReadAll(file)
-		if err != nil {
-			log.Fatalln(err)
-		}
+		data := mylog.Check2(utils.ReadAll(file))
 
 		// Parse typedefs.
 		parser.ParseTypedefs(data)
@@ -186,7 +176,6 @@ func runOld() {
 				prototype = "PCWSTR LWSTDAPI" + prototype
 			} else if strings.Contains(prototype, "// deprecated: annotation is as good as it gets") {
 				prototype = strings.ReplaceAll(prototype, "// deprecated: annotation is as good as it gets", "")
-
 			}
 			mProto := utils.RegSubMatchToMapString(parser.RegProto, prototype)
 			if !utils.StringInSlice(mProto["ApiName"], wantedAPIs) && !utils.StringInSlice(mProto["ApiName"], customHookHHandlerAPIs) {
@@ -200,11 +189,8 @@ func runOld() {
 			// not give you this information, we look into the sdk-api markdown
 			// docs instead. (Normally, we could have parsed everything from
 			// the md files, but they are missing the parameters type!).
-			dllname, err := utils.GetDLLName(file, papi.Name, sdkapiPath)
-			if err != nil {
-				log.Printf("Failed to get the DLL name for: %s", papi.Name)
-				dllname = "ntdll.dll"
-			}
+			dllname := mylog.Check2(utils.GetDLLName(file, papi.Name, sdkapiPath))
+
 			if _, ok := m[dllname]; !ok {
 				m[dllname] = make(map[string]parser.API)
 			}
@@ -215,32 +201,23 @@ func runOld() {
 
 		// Write raw prototypes to a text file.
 		if len(prototypes) > 0 {
-			_, err = utils.WriteStrSliceToFile("./dump/prototypes-"+filepath.Base(file)+".inc", prototypes)
-			if err != nil {
-				log.Fatalf("Failed to dump prototype %s", filepath.Base(file)+".inc")
-			}
+			_ = mylog.Check2(utils.WriteStrSliceToFile("./dump/prototypes-"+filepath.Base(file)+".inc", prototypes))
 		}
 	}
 
 	// Append the NTDLL definitions.
-	ntdll_json, err := utils.ReadAll("./assets/ntdll.json")
-	if err != nil {
-		log.Fatalf("Failed to read NTDLL definitions,, err: %v", err)
-	}
+	ntdll_json := mylog.Check2(utils.ReadAll("./assets/ntdll.json"))
+
 	ntdll_defs := make(map[string]map[string]parser.API)
-	err = json.Unmarshal([]byte(ntdll_json), &ntdll_defs)
-	if err != nil {
-		log.Fatalf("Failed to unmarshall NTDLL definitions,, err: %v", err)
-	}
+	mylog.Check(json.Unmarshal([]byte(ntdll_json), &ntdll_defs))
+
 	m["ntdll.dll"] = ntdll_defs["ntdll.dll"]
 
 	// Marshall and write to json file.
 	if len(m) > 0 {
 		data, _ := json.MarshalIndent(m, "", " ")
-		_, err = utils.WriteBytesFile("./assets/apis.json", bytes.NewReader(data))
-		if err != nil {
-			log.Fatalf("Failed to dump apis.json")
-		}
+		_ = mylog.Check2(utils.WriteBytesFile("./assets/apis.json", bytes.NewReader(data)))
+
 	}
 
 	// Write struct results.
@@ -267,15 +244,10 @@ func runOld() {
 	parser.InitCustomTypes(winStructs)
 
 	if printanno || minify {
-		data, err := utils.ReadAll("./assets/apis.json")
-		if err != nil {
-			log.Fatalln(err)
-		}
+		data := mylog.Check2(utils.ReadAll("./assets/apis.json"))
+
 		apis := make(map[string]map[string]parser.API)
-		err = json.Unmarshal(data, &apis)
-		if err != nil {
-			log.Fatalln(err)
-		}
+		mylog.Check(json.Unmarshal(data, &apis))
 
 		if printanno {
 			var annotations []string

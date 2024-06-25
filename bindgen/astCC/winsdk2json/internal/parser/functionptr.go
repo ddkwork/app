@@ -9,12 +9,9 @@ import (
 	"regexp"
 )
 
-var (
-	regFunctionPtr = `typedef[\w\s]+\(WINAPI \*(?P<Name>\w+)\)\(`
-)
+var regFunctionPtr = `typedef[\w\s]+\(WINAPI \*(?P<Name>\w+)\)\(`
 
 func ParseFunctionPointers(data string) []string {
-
 	var funcPtrs []string
 	r := regexp.MustCompile(regFunctionPtr)
 	matches := r.FindAllStringSubmatch(data, -1)

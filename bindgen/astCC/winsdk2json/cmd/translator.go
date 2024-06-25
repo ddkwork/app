@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/ddkwork/golibrary/mylog"
 	"github.com/saferwall/winsdk2json/internal/entity"
 	log "github.com/saferwall/winsdk2json/internal/logger"
 	"github.com/saferwall/winsdk2json/internal/utils"
@@ -18,13 +19,9 @@ import (
 )
 
 func translate(source []byte) []entity.W32API {
-
 	logger := log.NewCustom("info").With(context.TODO())
 
-	config, err := cc.NewConfig(runtime.GOOS, runtime.GOARCH)
-	if err != nil {
-		logger.Fatal(err)
-	}
+	config := mylog.Check2(cc.NewConfig(runtime.GOOS, runtime.GOARCH))
 
 	config.HostSysIncludePaths = config.HostSysIncludePaths[:0]
 	config.IncludePaths = config.IncludePaths[:0]
@@ -49,30 +46,24 @@ func translate(source []byte) []entity.W32API {
 	config.Predefined += "#define __unaligned\n"
 	config.Predefined += "#define _MSC_FULL_VER 192930133\n"
 	config.Predefined += "#define WIN32_LEAN_AND_MEAN\n"
-	//config.Predefined += "#define __cplusplus\n"//todo test cpp stl ast dump
+	// config.Predefined += "#define __cplusplus\n"//todo test cpp stl ast dump
 
 	var sources []cc.Source
 	sources = append(sources, cc.Source{Name: "<predefined>", Value: config.Predefined})
 	sources = append(sources, cc.Source{Name: "<builtin>", Value: cc.Builtin})
 	sources = append(sources, cc.Source{Name: "saferwall.c", Value: source})
 
-	ast, err := cc.Translate(config, sources)
-	if err != nil {
-		logger.Fatalf("cc translate failed with:%v", err)
-	}
+	ast := mylog.Check2(cc.Translate(config, sources))
+
 	if dumpAST {
 		r := strings.NewReader(ast.TranslationUnit.String())
-		_, err = utils.WriteBytesFile("ast.txt", r)
-		if err != nil {
-			logger.Fatalf("failed to write ast: %v", err)
-		}
+		_ = mylog.Check2(utils.WriteBytesFile("ast.txt", r))
+
 	}
 
 	// Use c-for-go to translate the AST to high level objects.
-	myTranslator, err := translator.New(&translator.Config{})
-	if err != nil {
-		logger.Fatalf("failed to create new translator: %v", err)
-	}
+	myTranslator := mylog.Check2(translator.New(&translator.Config{}))
+
 	myTranslator.Learn(ast)
 
 	// Walk through all declarations and create list of APIs.
@@ -83,7 +74,6 @@ func translate(source []byte) []entity.W32API {
 			continue
 		}
 
-		var err error
 		funcSpec, ok := d.Spec.(*translator.CFunctionSpec)
 		if !ok {
 			continue
@@ -104,15 +94,7 @@ func translate(source []byte) []entity.W32API {
 		}
 
 		w32api.Name = d.Name
-		w32api.DLL, err = utils.GetDLLName(d.Position.Filename, d.Name, sdkapiPath)
-		if err != nil {
-			if strings.Contains(d.Position.Filename, "phnt\\") {
-				w32api.DLL = "ntdll.dll"
-			} else {
-				logger.Infof("failed to get the DLL name for: %s [%s]", d.Name, d.Position.Filename)
-				continue
-			}
-		}
+		w32api.DLL = mylog.Check2(utils.GetDLLName(d.Position.Filename, d.Name, sdkapiPath))
 
 		funcDecl := ast.Scope.Nodes[d.Name][0].(*cc.Declarator)
 		ft := funcDecl.Type().(*cc.FunctionType)
@@ -134,7 +116,7 @@ func translate(source []byte) []entity.W32API {
 				}
 			case *translator.CStructSpec:
 				paramSpec := param.Spec.(*translator.CStructSpec)
-				//w32apiParam.Type = paramSpec.Raw
+				// w32apiParam.Type = paramSpec.Raw
 				w32apiParam.Type = paramSpec.Typedef
 				for i := uint8(0); i < paramSpec.Pointers; i++ {
 					w32apiParam.Type = w32apiParam.Type + "*"
