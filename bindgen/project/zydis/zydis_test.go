@@ -10,7 +10,6 @@ import (
 
 /*
 func TestZydis(t *testing.T) {
-	mylog.SetDebug(false)
 	pkg := gengo.NewPackage("zydis",
 		gengo.WithRemovePrefix(
 			"Zydis_", "Zyan_", "Zycore_",
@@ -60,7 +59,6 @@ func (p *zydisProvider) NameField(name string, recordName string) string {
 }
 
 func TestZydis(t *testing.T) {
-	mylog.SetDebug(false)
 	prov := &zydisProvider{
 		BaseProvider: gengo.NewBaseProvider(
 			gengo.WithRemovePrefix(
