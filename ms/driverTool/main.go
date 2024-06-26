@@ -5,6 +5,8 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/ddkwork/golibrary/stream"
+
 	"github.com/ddkwork/app/ms/driverTool/driver"
 
 	"github.com/ddkwork/app"
@@ -62,7 +64,9 @@ func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
 	p.SelectionChangedCallback = func(popup *unison.PopupMenu[string]) {
 		if title, ok := popup.Selected(); ok {
 			structView.MetaData.ReloadPath = title
+			structView.MetaData.Link = stream.BaseName(title)
 			structView.UpdateField(0, title)
+			structView.UpdateField(1, stream.BaseName(title))
 		}
 	}
 
