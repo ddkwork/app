@@ -8,13 +8,11 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 )
 
-// 定义系统常量
 const (
 	IOCTL_STORAGE_QUERY_PROPERTY  = 0x2D1400
 	IOCTL_DISK_GET_DRIVE_GEOMETRY = 0x70000
 )
 
-// 定义结构
 type HDiskInfo struct {
 	module   []byte // 40
 	firmware [8]byte
@@ -51,12 +49,7 @@ type DISK_GEOMETRY struct {
 	BytesPerSector    uint32
 }
 
-func readHarddiskInfo(pinfo *HDiskInfo) int {
-	if pinfo == nil {
-		return -1
-	}
-
-	// 打开物理驱动器
+func readHarddiskInfo(pinfo *HDiskInfo) {
 	hDevice := mylog.Check2(syscall.CreateFile(
 		syscall.StringToUTF16Ptr(`\\.\PhysicalDrive0`),
 		syscall.GENERIC_READ|syscall.GENERIC_WRITE,
@@ -66,32 +59,24 @@ func readHarddiskInfo(pinfo *HDiskInfo) int {
 		0,
 		0,
 	))
-
 	defer syscall.CloseHandle(hDevice)
-
 	query := STORAGE_PROPERTY_QUERY{
 		PropertyId: 0,
 		QueryType:  0,
 	}
-
 	buffer := make([]byte, 1024)
-
 	var bytesReturned uint32
-	mylog.
-		// 查询硬盘属性
-		Check(syscall.DeviceIoControl(
-			hDevice,
-			IOCTL_STORAGE_QUERY_PROPERTY,
-			(*byte)(unsafe.Pointer(&query)),
-			uint32(unsafe.Sizeof(query)),
-			&buffer[0],
-			uint32(len(buffer)),
-			&bytesReturned,
-			nil,
-		))
-
+	mylog.Check(syscall.DeviceIoControl(
+		hDevice,
+		IOCTL_STORAGE_QUERY_PROPERTY,
+		(*byte)(unsafe.Pointer(&query)),
+		uint32(unsafe.Sizeof(query)),
+		&buffer[0],
+		uint32(len(buffer)),
+		&bytesReturned,
+		nil,
+	))
 	deviceDescriptor := (*STORAGE_DEVICE_DESCRIPTOR)(unsafe.Pointer(&buffer[0]))
-
 	if deviceDescriptor.SerialNumberOffset != 0 {
 		copy(pinfo.serialno[:], buffer[deviceDescriptor.SerialNumberOffset:])
 	}
@@ -113,8 +98,6 @@ func readHarddiskInfo(pinfo *HDiskInfo) int {
 	if deviceDescriptor.ProductRevisionOffset != 0 {
 		copy(pinfo.firmware[:], buffer[deviceDescriptor.ProductRevisionOffset:])
 	}
-
-	// 查询硬盘容量
 	geom := DISK_GEOMETRY{}
 	mylog.Check(syscall.DeviceIoControl(
 		hDevice,
@@ -127,20 +110,14 @@ func readHarddiskInfo(pinfo *HDiskInfo) int {
 		nil,
 	))
 	pinfo.capacity = uint32(geom.Cylinders) * geom.TracksPerCylinder * geom.SectorsPerTrack * geom.BytesPerSector / (1024 * 1024)
-	return 0
 }
 
 func nvme() {
 	var hddInfo HDiskInfo
-	status := readHarddiskInfo(&hddInfo)
-
-	if status == 0 {
-		fmt.Printf("硬盘信息获取成功:\n")
-		fmt.Printf("型号: %s\n", hddInfo.module)
-		fmt.Printf("固件版本: %s\n", hddInfo.firmware)
-		fmt.Printf("序列号: %s\n", hddInfo.serialno)
-		fmt.Printf("容量: %d MB\n", hddInfo.capacity)
-	} else {
-		fmt.Printf("硬盘信息获取失败，错误码: %d\n", status)
-	}
+	readHarddiskInfo(&hddInfo)
+	fmt.Printf("硬盘信息获取成功:\n")
+	fmt.Printf("型号: %s\n", hddInfo.module)
+	fmt.Printf("固件版本: %s\n", hddInfo.firmware)
+	fmt.Printf("序列号: %s\n", hddInfo.serialno)
+	fmt.Printf("容量: %d MB\n", hddInfo.capacity)
 }
