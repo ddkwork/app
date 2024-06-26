@@ -1,17 +1,5 @@
 package hardwareIndo
 
-import (
-	"github.com/ddkwork/app/ms/windef"
-	"github.com/stretchr/testify/assert"
-	"testing"
-)
-
-func TestName(t *testing.T) {
-	assert.True(windef.Creat(name, true))
-	path := "./windefTest/windef.c"
-	cpp2go.New().TranslateCFile(path, "hardwareIndo")
-}
-
 var name = `
 typedef struct _IDINFO {
     USHORT GenConfig;
