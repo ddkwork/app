@@ -1,4 +1,4 @@
-package bindgen
+package main
 
 type (
 	Binder interface {
