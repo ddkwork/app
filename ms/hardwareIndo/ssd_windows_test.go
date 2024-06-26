@@ -1,14 +1,15 @@
 package hardwareIndo
 
 import (
+	"github.com/ddkwork/app/ms/windef"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestName(t *testing.T) {
-	return
-	// mylog.Assert(t).True(windef.Creat(name, true))
-	// path := "./windefTest/windef.c"
-	// cpp2go.New().TranslateCFile(path, "hardwareIndo")
+	assert.True(windef.Creat(name, true))
+	path := "./windefTest/windef.c"
+	cpp2go.New().TranslateCFile(path, "hardwareIndo")
 }
 
 var name = `
