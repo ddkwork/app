@@ -1,7 +1,6 @@
 package hardwareIndo
 
 import (
-	"fmt"
 	"syscall"
 	"unsafe"
 
@@ -14,10 +13,10 @@ const (
 )
 
 type HDiskInfo struct {
-	module   []byte // 40
-	firmware [8]byte
-	serialno [20]byte
-	capacity uint32
+	module   []byte   // 40 型号
+	firmware [8]byte  // 固件版本
+	serialno [20]byte // 序列号
+	capacity uint32   // 容量
 }
 
 func (h HDiskInfo) String() {
@@ -34,7 +33,6 @@ func (h HDiskInfo) String() {
 		Serialno: string(h.serialno[:]),
 		Capacity: h.capacity,
 	}
-	// mylog.Struct(i)
 	mylog.MarshalJson("capacity", i)
 }
 
@@ -133,9 +131,5 @@ func readHarddiskInfo(pinfo *HDiskInfo) {
 func nvme() {
 	var hddInfo HDiskInfo
 	readHarddiskInfo(&hddInfo)
-	fmt.Printf("型号: %s\n", hddInfo.module)
-	fmt.Printf("固件版本: %s\n", hddInfo.firmware)
-	fmt.Printf("序列号: %s\n", hddInfo.serialno)
-	fmt.Printf("容量: %d MB\n", hddInfo.capacity)
 	hddInfo.String()
 }
