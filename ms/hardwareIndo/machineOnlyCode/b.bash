@@ -1,2 +1,1 @@
 clang machineOnlyCode.cpp
-a
