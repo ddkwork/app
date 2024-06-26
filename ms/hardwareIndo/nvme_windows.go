@@ -20,6 +20,24 @@ type HDiskInfo struct {
 	capacity uint32
 }
 
+func (h HDiskInfo) String() {
+	type info struct {
+		Module   string
+		Firmware string
+		Serialno string
+		Capacity uint32
+	}
+
+	i := info{
+		Module:   string(h.module),
+		Firmware: string(h.firmware[:]),
+		Serialno: string(h.serialno[:]),
+		Capacity: h.capacity,
+	}
+	// mylog.Struct(i)
+	mylog.MarshalJson("capacity", i)
+}
+
 type STORAGE_PROPERTY_QUERY struct {
 	PropertyId           uint32
 	QueryType            uint32
@@ -85,7 +103,7 @@ func readHarddiskInfo(pinfo *HDiskInfo) {
 		end := 0
 		size := 0
 		for i, b := range all {
-			if b == 0 {
+			if b == 0 { // c string end
 				end = i + int(deviceDescriptor.ProductIdOffset)
 				all = buffer[deviceDescriptor.ProductIdOffset:end]
 				size = i
@@ -115,9 +133,9 @@ func readHarddiskInfo(pinfo *HDiskInfo) {
 func nvme() {
 	var hddInfo HDiskInfo
 	readHarddiskInfo(&hddInfo)
-	fmt.Printf("硬盘信息获取成功:\n")
 	fmt.Printf("型号: %s\n", hddInfo.module)
 	fmt.Printf("固件版本: %s\n", hddInfo.firmware)
 	fmt.Printf("序列号: %s\n", hddInfo.serialno)
 	fmt.Printf("容量: %d MB\n", hddInfo.capacity)
+	hddInfo.String()
 }
