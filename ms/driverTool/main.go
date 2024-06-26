@@ -83,21 +83,26 @@ func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
 	rowPanel.AddChild(popupMenu)
 
 	d := driver.NewObject()
-	log := widget.NewMultiLineField()
-	log.MinimumTextWidth = 520
-	log.SetText("loading...")
-	rowPanel.AddChild(log) //todo bug
+	log := unison.NewMultiLineField()
+	log.MinimumTextWidth = 600
+	log.SetText(`log view
+
+
+
+
+
+
+`)
+	parent.AsPanel().AddChild(log)
 	widget.NewButtonsPanel(structView,
 		[]string{"load", "unload"},
 		func() {
 			d.Load(structView.MetaData.ReloadPath)
-			// log.SetBuf(texteditor.NewBuf().SetText([]byte(mylog.Reason())))// todo
-			log.SetText(structView.MetaData.ReloadPath + " load successfully.")
+			log.SetText(mylog.Reason())
 		},
 		func() {
 			d.Unload()
-			// log.SetBuf(texteditor.NewBuf().SetText([]byte(mylog.Reason())))// todo
-			log.SetText(structView.MetaData.ReloadPath + " unload successfully.")
+			log.SetText(mylog.Reason())
 		},
 	)
 	return structView
