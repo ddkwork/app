@@ -46,6 +46,7 @@ func NewPackage(name string, opts ...BaseProviderOption) *Package {
 }
 
 func (p *Package) Transform(module string, opt *clang.Options) error {
+	mylog.Trace(module, " is file name,please check the tagger dir has repeated name go file")
 	mylog.Call(func() {
 		ast, layouts := mylog.Check3(clang.Parse(opt))
 

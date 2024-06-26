@@ -85,6 +85,8 @@ func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
 	d := driver.NewObject()
 	log := widget.NewMultiLineField()
 	log.MinimumTextWidth = 520
+	log.SetText("loading...")
+	rowPanel.AddChild(log)
 	widget.NewButtonsPanel(structView,
 		[]string{"load", "unload"},
 		func() {
