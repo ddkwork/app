@@ -10,7 +10,7 @@ import (
 )
 
 func TestUpdateAppModule(t *testing.T) {
-	//t.Skip()
+	t.Skip()
 	mylog.Check(os.Chdir("D:\\workspace\\workspace\\branch\\golibrary"))
 	session := stream.RunCommand("git log -1 --format=\"%H\"")
 	mylog.Check(os.Chdir("D:\\workspace\\workspace\\app"))
