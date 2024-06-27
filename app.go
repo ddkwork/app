@@ -12,6 +12,27 @@ import (
 	"github.com/richardwilkes/unison/enums/thememode"
 )
 
+/*
+func (d *colorSettingsDockable) addToStartToolbar(toolbar *unison.Panel) {
+	label := unison.NewLabel()
+	label.SetTitle(i18n.Text("Color Mode"))
+	toolbar.AddChild(label)
+	p := unison.NewPopupMenu[thememode.Enum]()
+	for _, mode := range thememode.All {
+		p.AddItem(mode)
+	}
+	p.Select(gurps.GlobalSettings().ThemeMode)
+	p.SelectionChangedCallback = func(popup *unison.PopupMenu[thememode.Enum]) {
+		if mode, ok := popup.Selected(); ok {
+			gurps.GlobalSettings().ThemeMode = mode
+			unison.SetThemeMode(mode)
+		}
+	}
+	toolbar.AddChild(p)
+}
+
+*/
+
 func Run(title string, layoutCallback func(w *unison.Window)) {
 	run(title, nil, layoutCallback)
 }

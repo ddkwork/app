@@ -22,7 +22,7 @@ func main() {
 	app.Run("driver tool", func(w *unison.Window) {
 		img := mylog.Check2(unison.NewImageFromBytes(icon, 0.5))
 		w.SetTitleIcons([]*unison.Image{img})
-		New(w).Layout(w.Content())
+		w.Content().AddChild(New().Layout())
 	})
 }
 
@@ -32,33 +32,26 @@ type DriverLoad struct {
 	IoCode     string
 }
 
-type StructView struct {
-	w *unison.Window
+type StructView struct{}
+
+func New() widget.API {
+	return &StructView{}
 }
 
-func New(w *unison.Window) widget.API {
-	return &StructView{w: w}
-}
-
-func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
+func (s *StructView) Layout() unison.Paneler {
 	view := DriverLoad{
 		ReloadPath: "",
 		Link:       "",
 		IoCode:     "",
 	}
-	structView, rowPanel := widget.NewStructView(s.w, view, func(data DriverLoad) (values []widget.CellData) {
+	structView, rowPanel := widget.NewStructView(view, func(data DriverLoad) (values []widget.CellData) {
 		return []widget.CellData{
 			{ImageBuffer: nil, Text: data.ReloadPath, Tooltip: "", FgColor: 0},
 			{ImageBuffer: nil, Text: data.Link, Tooltip: "", FgColor: 0},
 			{ImageBuffer: nil, Text: data.IoCode, Tooltip: "", FgColor: 0},
 		}
 	})
-	widget.NewLabelKey(widget.KeyValueToolTip{
-		Parent:  rowPanel,
-		Key:     "driver name",
-		Value:   "",
-		Tooltip: "",
-	})
+
 	p := unison.NewPopupMenu[string]()
 
 	p.SelectionChangedCallback = func(popup *unison.PopupMenu[string]) {
@@ -80,11 +73,20 @@ func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
 	}
 
 	popupMenu := widget.CreatePopupMenu(rowPanel, p, 0, "choose a driver", names...)
-	rowPanel.AddChild(popupMenu)
+
+	kv := widget.NewKeyValuePanel()
+	key := widget.NewLabelKey(widget.KeyValueToolTip{
+		Key:     "sys path",
+		Value:   "",
+		Tooltip: "",
+	})
+	kv.AddChild(key)
+	kv.AddChild(popupMenu)
+	structView.AddChildAtIndex(kv, 0) // todo bug need rowPanel AddChildAtIndex
 
 	d := driver.NewObject()
-	log := unison.NewMultiLineField()
-	log.MinimumTextWidth = 600
+	log := unison.NewMultiLineField() // todo log out format is not good
+	log.MinimumTextWidth = 800
 	log.SetText(`log view
 
 
@@ -93,18 +95,20 @@ func (s *StructView) Layout(parent unison.Paneler) unison.Paneler {
 
 
 `)
-	parent.AsPanel().AddChild(log)
-	widget.NewButtonsPanel(structView,
+	panel := widget.NewButtonsPanel(
 		[]string{"load", "unload"},
 		func() {
 			d.Load(structView.MetaData.ReloadPath)
-			log.SetText(mylog.Reason())
+			log.SetText(mylog.Body())
 		},
 		func() {
 			d.Unload()
-			log.SetText(mylog.Reason())
+			log.SetText(mylog.Body())
 		},
 	)
+	structView.AddChild(widget.NewVSpacer())
+	structView.AddChild(panel)
+	structView.AddChild(log)
 	return structView
 }
 

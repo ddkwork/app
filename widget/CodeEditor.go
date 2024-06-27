@@ -18,7 +18,7 @@ type CodeEditor struct {
 	scroller *unison.ScrollPanel
 }
 
-func NewCodeEditor(parent unison.Paneler, filePath string) *CodeEditor {
+func NewCodeEditor(filePath string) *CodeEditor {
 	c := &CodeEditor{
 		Panel:    unison.Panel{},
 		Editor:   NewMultiLineField(),
@@ -117,6 +117,5 @@ func NewCodeEditor(parent unison.Paneler, filePath string) *CodeEditor {
 		},
 	).Install()
 	c.Editor.RequestFocus()
-	parent.AsPanel().AddChild(c)
 	return c
 }

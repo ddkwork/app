@@ -18,7 +18,7 @@ import (
 )
 
 type API interface {
-	Layout(parent unison.Paneler) unison.Paneler
+	Layout() unison.Paneler
 }
 
 // todo
@@ -102,7 +102,7 @@ func SetScrollLayout(paneler unison.Paneler, Columns int) {
 	})
 }
 
-func NewScrollPanelFill(content, parent unison.Paneler) *unison.ScrollPanel {
+func NewScrollPanelFill(content unison.Paneler) *unison.ScrollPanel {
 	scrollArea := unison.NewScrollPanel()
 	scrollArea.SetContent(content, behavior.Fill, behavior.Fill) // 滚动条与布局边缘重叠
 	scrollArea.SetLayoutData(&unison.FlexLayoutData{
@@ -111,12 +111,11 @@ func NewScrollPanelFill(content, parent unison.Paneler) *unison.ScrollPanel {
 		HGrab:  true,
 		VGrab:  true,
 	})
-	parent.AsPanel().AddChild(scrollArea)
 	scrollArea.Content().AsPanel().ValidateScrollRoot()
 	return scrollArea
 }
 
-func NewScrollPanelHintedFill(content, parent unison.Paneler) *unison.ScrollPanel {
+func NewScrollPanelHintedFill(content unison.Paneler) *unison.ScrollPanel {
 	scrollArea := unison.NewScrollPanel()
 	scrollArea.SetContent(content, behavior.HintedFill, behavior.Fill) // 滚动条在布局之外
 	scrollArea.SetLayoutData(&unison.FlexLayoutData{
@@ -125,12 +124,11 @@ func NewScrollPanelHintedFill(content, parent unison.Paneler) *unison.ScrollPane
 		HGrab:  true,
 		VGrab:  true,
 	})
-	parent.AsPanel().AddChild(scrollArea)
 	scrollArea.Content().AsPanel().ValidateScrollRoot()
 	return scrollArea
 }
 
-func NewToolBar(parent unison.Paneler, buttons ...*unison.Button) unison.Paneler {
+func NewToolBar(buttons ...*unison.Button) unison.Paneler {
 	panel := unison.NewPanel()
 	PanelSetBorder(panel)
 	panel.SetLayout(&unison.FlowLayout{
@@ -148,8 +146,6 @@ func NewToolBar(parent unison.Paneler, buttons ...*unison.Button) unison.Paneler
 		button.SetLayoutData(align.Middle)
 		panel.AddChild(button)
 	}
-	parent.AsPanel().AddChild(panel)
-	AddSeparator(parent)
 	return panel
 }
 
@@ -163,7 +159,7 @@ func createImageButton(img *unison.Image, actionText string, panel *unison.Panel
 	return btn
 }
 
-func AddSeparator(parent unison.Paneler) {
+func NewSeparator() *unison.Separator {
 	sep := unison.NewSeparator()
 	sep.SetLayoutData(&unison.FlexLayoutData{
 		HSpan:  1,
@@ -171,8 +167,7 @@ func AddSeparator(parent unison.Paneler) {
 		HAlign: align.Fill,
 		VAlign: align.Middle,
 	})
-	parent.AsPanel().SetLayout(&unison.FlexLayout{Columns: 1})
-	parent.AsPanel().AddChild(sep)
+	return sep
 }
 
 func NewImageButton[T stream.Type](imageBuf T, clickCallback func()) *unison.Button {
@@ -260,7 +255,6 @@ type (
 		KeyValueToolTip
 	}
 	KeyValueToolTip struct {
-		Parent  unison.Paneler
 		Key     string
 		Value   string
 		Tooltip string
@@ -287,7 +281,7 @@ func (s structField) SetTooltip() string {
 	return b.String()
 }
 
-func NewStructView[T any](w *unison.Window, data T, marshal func(data T) (values []CellData)) (view *StructView[T], kvPanel *unison.Panel) {
+func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (view *StructView[T], kvPanel *unison.Panel) {
 	visibleFields := stream.ReflectVisibleFields(data)
 	fields := make([]structField, len(visibleFields))
 	values := marshal(data)
@@ -312,19 +306,20 @@ func NewStructView[T any](w *unison.Window, data T, marshal func(data T) (values
 	view.Self = view
 	// view.undoMgr = unison.NewUndoManager(100, func(err error) { errs.Log(err) })
 	view.SetLayout(&unison.FlexLayout{Columns: 1})
-	AddVSpacer(w.Content(), nil)
 	kvPanel = NewKeyValuePanel()
 	for _, editor := range fields {
-		editor.KeyValueToolTip.Parent = kvPanel
+		key := NewLabelKey(editor.KeyValueToolTip)
+		value := NewFieldEx(editor.KeyValueToolTip)
 		view.Editors = append(view.Editors, StructEditor{
-			Label:           NewLabelKey(editor.KeyValueToolTip),
-			Field:           NewFieldEx(editor.KeyValueToolTip),
+			Label:           key,
+			Field:           value,
 			KeyValueToolTip: editor.KeyValueToolTip,
 		})
+		kvPanel.AddChild(key)
+		kvPanel.AddChild(value)
 	}
 	view.AddChild(kvPanel)
-	//	NewScrollPanelHintedFill(view.AsPanel(), w.Content())
-	w.Content().AddChild(view)
+	// NewScrollPanelHintedFill(view.AsPanel())
 	return
 }
 
@@ -390,7 +385,7 @@ func NewFieldContextMenuItems(filed *unison.Field) {
 }
 
 func NewApplyCancelButtonPanel(parent *unison.Panel, applyCallback, cancelCallback func()) {
-	AddVSpacer(unison.NewPanel(), parent)
+	NewVSpacer()
 	buttonPanel := NewPanel().SetFlexLayout(unison.FlexLayout{
 		Columns:      3,
 		HSpacing:     unison.StdHSpacing * 2,
@@ -414,8 +409,7 @@ func NewApplyCancelButtonPanel(parent *unison.Panel, applyCallback, cancelCallba
 	parent.AddChild(buttonPanel)
 }
 
-func NewButtonsPanel(parent unison.Paneler, titles []string, callbacks ...func()) {
-	AddVSpacer(unison.NewPanel(), parent)
+func NewButtonsPanel(titles []string, callbacks ...func()) *unison.Panel {
 	buttonCount := len(titles)
 	callbackCount := len(callbacks)
 	mylog.Check(buttonCount == callbackCount)
@@ -440,19 +434,18 @@ func NewButtonsPanel(parent unison.Paneler, titles []string, callbacks ...func()
 		HAlign: align.End,
 		VAlign: align.Middle,
 	})
-	parent.AsPanel().AddChild(buttonPanel)
+	return buttonPanel.AsPanel()
 }
 
-func AddVSpacer(vSpacer, parent unison.Paneler) {
+func NewVSpacer() *unison.Panel {
+	vSpacer := unison.NewPanel()
 	vSpacer.AsPanel().SetBorder(unison.NewEmptyBorder(unison.NewUniformInsets(10)))
 	vSpacer.AsPanel().SetLayout(&unison.FlexLayout{
 		Columns:  1,
 		HSpacing: unison.StdHSpacing,
 		VSpacing: 10,
 	})
-	if parent != nil {
-		parent.AsPanel().AddChild(vSpacer)
-	}
+	return vSpacer
 }
 
 func NewFieldEx(kvt KeyValueToolTip) *unison.Field {
@@ -480,13 +473,11 @@ func NewFieldEx(kvt KeyValueToolTip) *unison.Field {
 		HGrab:    true,
 		VGrab:    true,
 	})
-	kvt.Parent.AsPanel().AddChild(field)
 	return field
 }
 
 func NewKeyValuePanel() *unison.Panel {
 	kvPanel := unison.NewPanel()
-	// kvPanel.SetBorder(unison.NewEmptyBorder(unison.NewUniformInsets(unison.StdHSpacing / 2)))
 	kvPanel.SetLayout(&unison.FlexLayout{
 		Columns:  2,
 		HSpacing: unison.StdHSpacing,
@@ -512,7 +503,6 @@ func NewLabelKey(kvt KeyValueToolTip) *unison.Label {
 	})
 	label.HAlign = align.End
 	label.VAlign = align.Middle
-	kvt.Parent.AsPanel().AddChild(label)
 	return label
 }
 

@@ -158,20 +158,23 @@ type Node[T any] struct {
 	dividerDrag              bool
 }
 
-func NewTableScrollPanel[T any](parent unison.Paneler, table *Node[T], header *TableHeader[T]) unison.Paneler {
+func NewTableScrollPanel[T any](table *Node[T], header *TableHeader[T]) *unison.Panel {
 	panel := NewPanel()
 	panel.AddChild(table)
 	panel.AddChild(header)
-	NewScrollPanelFill(panel, parent).SetColumnHeader(header)
-	return panel
+	scrollPanelFill := NewScrollPanelFill(panel)
+	scrollPanelFill.SetColumnHeader(header)
+	return scrollPanelFill.AsPanel()
 }
 
-func NewTableScroll[T any](parent unison.Paneler, data T, ctx TableContext[T]) {
+func NewTableScroll[T any](data T, ctx TableContext[T]) *unison.Panel {
 	table, header := NewTable[T](data, ctx)
 	content := NewPanel()
 	content.AddChild(table)
 	content.AddChild(header)
-	NewScrollPanelFill(content, parent).SetColumnHeader(header)
+	scrollPanelFill := NewScrollPanelFill(content)
+	scrollPanelFill.SetColumnHeader(header)
+	return scrollPanelFill.AsPanel()
 }
 
 func (n *Node[T]) AddChildByData(data T) { n.AddChild(NewNode(data)) }
@@ -437,10 +440,12 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 			rows := table.SelectedRows(false)
 			for i, row := range rows {
 				app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
-					nodeEditor, _ := NewStructView(w, row.Data, func(data T) (values []CellData) {
+					content := w.Content()
+					nodeEditor, _ := NewStructView(row.Data, func(data T) (values []CellData) {
 						return table.MarshalRow(row)
 					})
-					NewButtonsPanel(nodeEditor,
+					content.AddChild(nodeEditor)
+					panel := NewButtonsPanel(
 						[]string{
 							"apply", "cancel", "saveJson", "loadJson",
 						},
@@ -460,6 +465,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 							// todo load json
 						},
 					)
+					content.AddChild(panel)
 				})
 			}
 		}

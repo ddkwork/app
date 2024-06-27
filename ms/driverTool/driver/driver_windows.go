@@ -58,7 +58,7 @@ func (o *Object) Load(sysPath string) {
 	o.SetManager()
 	o.SetService()
 	o.StartService()
-	mylog.Success("status", "驱动加载成功 ", sysPath)
+	mylog.Success("driver load success", o.driverPath)
 	o.QueryService()
 }
 
@@ -67,7 +67,7 @@ func (o *Object) Unload() {
 	o.DeleteService()
 	mylog.Check(o.manager.Disconnect())
 	mylog.Check(o.service.Close())
-	mylog.Success("status", "驱动卸载成功 ", o.driverPath)
+	mylog.Success("driver unload success", o.driverPath)
 	mylog.Check(os.Remove(o.driverPath))
 }
 

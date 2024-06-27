@@ -2,6 +2,8 @@
 package libdemo
 
 import (
+	"unsafe"
+
 	"github.com/ddkwork/app/bindgen/bindlib"
 )
 

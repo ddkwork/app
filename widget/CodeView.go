@@ -19,10 +19,9 @@ type CodeView struct {
 	code      *stream.Buffer
 }
 
-func NewCodeViewWithScroll(parent unison.Paneler, path string) {
+func NewCodeViewWithScroll(path string) *unison.Panel {
 	view := NewCodeView(path)
-	NewScrollPanelFill(view, parent)
-	parent.AsPanel().AddChild(view)
+	return NewScrollPanelFill(view).AsPanel()
 }
 
 func NewCodeView(path string) *CodeView {

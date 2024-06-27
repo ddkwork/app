@@ -29,7 +29,7 @@ type (
 	}
 )
 
-func NewExplorer(parent unison.Paneler, walkDir string) unison.Paneler {
+func NewExplorer(walkDir string) unison.Paneler {
 	e := &Explorer{
 		Dock: unison.NewDock(),
 		Root: nil,
@@ -80,7 +80,7 @@ func NewExplorer(parent unison.Paneler, walkDir string) unison.Paneler {
 			IsDocument: false,
 		},
 	)
-	return NewTableScrollPanel(parent, table, header)
+	return NewTableScrollPanel(table, header)
 }
 
 func (e *Explorer) Walk(path string, parent *Node[DirTree]) (ok bool) {

@@ -1,3 +1,8 @@
 
-clang: error: no such file or directory: 'cpp\library.h'
-clang: error: no input files
+*** Dumping AST Record Layout
+         0 | struct __NSConstantString_tag
+         0 |   const int * isa
+         8 |   int flags
+        16 |   const char * str
+        24 |   long length
+           | [sizeof=32, align=8]

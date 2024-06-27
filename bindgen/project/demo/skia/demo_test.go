@@ -9,10 +9,11 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 )
 
-func TestDemoDll(t *testing.T) {
-	pkg := gengo.NewPackage("libdemo")
-	path := "dll\\library.h"
-	mylog.Check(pkg.Transform("libdemo", &clang.Options{
+func TestSkia(t *testing.T) {
+	t.Skip()
+	pkg := gengo.NewPackage("skia")
+	path := "sk_capi.h"
+	mylog.Check(pkg.Transform("skia", &clang.Options{
 		Sources:          []string{path},
 		AdditionalParams: []string{},
 	}),

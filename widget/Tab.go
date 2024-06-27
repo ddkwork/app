@@ -14,8 +14,7 @@ var (
 
 func (t *TabClose) SetContent(content unison.Paneler) {
 	content.AsPanel().RemoveFromParent()
-	t.AddChild(t.content)
-	t.ScrollPanel = NewScrollPanelFill(t.content, t)
+	t.ScrollPanel = NewScrollPanelFill(t)
 	t.MarkForLayoutAndRedraw()
 }
 
@@ -24,7 +23,6 @@ type TabClose struct {
 	title       string
 	tooltip     string
 	closeable   bool
-	content     unison.Paneler
 	ScrollPanel *unison.ScrollPanel
 }
 
@@ -76,16 +74,12 @@ func NewTabClose(title string, tooltip string, closeable bool, panel unison.Pane
 		title:       title,
 		tooltip:     tooltip,
 		closeable:   closeable,
-		content:     panel,
 		ScrollPanel: nil,
 	}
 
 	d.Self = d
 	SetScrollLayout(d, 1)
-	if d.content != nil {
-		d.AddChild(d.content)
-		d.ScrollPanel = NewScrollPanelFill(d.content, d)
-	}
+	d.AddChild(panel)
 	return d
 }
 
@@ -132,7 +126,6 @@ type Tab struct {
 	title       string
 	tooltip     string
 	closeable   bool
-	content     unison.Paneler
 	ScrollPanel *unison.ScrollPanel
 }
 
@@ -140,8 +133,8 @@ func NewTabWithTable[T any](table *Node[T], header *TableHeader[T], title string
 	panel := NewPanel()
 	panel.AddChild(table)
 	panel.AddChild(header)
-
 	tab := NewTab(title, tooltip, closeable, panel)
+	tab.ScrollPanel = NewScrollPanelFill(panel) //todo test
 	tab.ScrollPanel.SetColumnHeader(header)
 	return tab
 }
@@ -152,15 +145,10 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 		title:       title,
 		tooltip:     tooltip,
 		closeable:   closeable,
-		content:     panel,
 		ScrollPanel: nil,
 	}
 	d.Self = d
 	SetScrollLayout(d, 1)
-	if d.content != nil {
-		d.AddChild(d.content)
-		d.ScrollPanel = NewScrollPanelFill(d.content, d)
-	}
 	return d
 }
 
@@ -188,9 +176,7 @@ func (t *Tab) SetCloseable(closeable bool) {
 func (t *Tab) SetContent(content unison.Paneler) {
 	// t.content.AsPanel().RemoveFromParent()
 	t.RemoveChild(content)
-	t.content = content
-	t.AddChild(t.content)
-	t.ScrollPanel = NewScrollPanelFill(t.content, t)
+	t.ScrollPanel = NewScrollPanelFill(t)
 	t.MarkForLayoutAndRedraw()
 }
 

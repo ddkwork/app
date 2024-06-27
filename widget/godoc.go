@@ -33,9 +33,8 @@ func NewGodoc(libDir string) *Godoc {
 	}
 }
 
-func (d *Godoc) Layout(parent unison.Paneler) unison.Paneler {
-	NewTableScroll(
-		parent,
+func (d *Godoc) Layout() unison.Paneler {
+	return NewTableScroll(
 		Godoc{
 			Path:    "",
 			Func:    "",
@@ -82,7 +81,6 @@ func (d *Godoc) Layout(parent unison.Paneler) unison.Paneler {
 			IsDocument: true,
 		},
 	)
-	return nil
 }
 
 func countFunctionsAndMethods(filePath string) bool {

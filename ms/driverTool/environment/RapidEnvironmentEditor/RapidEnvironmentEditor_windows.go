@@ -31,7 +31,7 @@ type EnvironmentEditor struct {
 	Type    kind
 }
 
-func Layout(parent unison.Paneler) unison.Paneler {
+func Layout() unison.Paneler {
 	table, header := widget.NewTable(
 		EnvironmentEditor{},
 		widget.TableContext[EnvironmentEditor]{
@@ -74,7 +74,7 @@ func Layout(parent unison.Paneler) unison.Paneler {
 			IsDocument: false,
 		},
 	)
-	return widget.NewTableScrollPanel(parent, table, header)
+	return widget.NewTableScrollPanel(table, header)
 }
 
 func layout(parent *widget.Node[EnvironmentEditor], data EnvironmentEditor) {
