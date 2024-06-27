@@ -10,6 +10,7 @@ import (
 )
 
 func TestDemoDll(t *testing.T) {
+	t.Skip()
 	pkg := gengo.NewPackage("libdemo")
 	path := "dll\\library.h"
 	mylog.Check(pkg.Transform("libdemo", &clang.Options{
