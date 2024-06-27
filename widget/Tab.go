@@ -149,6 +149,7 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 	}
 	d.Self = d
 	SetScrollLayout(d, 1)
+	panel.AsPanel().AddChild(d) //todo test
 	return d
 }
 
