@@ -123,10 +123,9 @@ var _ unison.Dockable = &Tab{}
 
 type Tab struct {
 	unison.Panel
-	title       string
-	tooltip     string
-	closeable   bool
-	ScrollPanel *unison.ScrollPanel
+	title     string
+	tooltip   string
+	closeable bool
 }
 
 func NewTabWithTable[T any](table *Node[T], header *TableHeader[T], title string, tooltip string, closeable bool) *Tab {
@@ -134,22 +133,17 @@ func NewTabWithTable[T any](table *Node[T], header *TableHeader[T], title string
 	panel.AddChild(table)
 	panel.AddChild(header)
 	tab := NewTab(title, tooltip, closeable, panel)
-	//tab.ScrollPanel = NewScrollPanelFill(panel) // todo test
-	tab.ScrollPanel.SetColumnHeader(header)
 	return tab
 }
 
 func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) *Tab {
 	d := &Tab{
-		Panel:       unison.Panel{},
-		title:       title,
-		tooltip:     tooltip,
-		closeable:   closeable,
-		ScrollPanel: nil,
+		Panel:     unison.Panel{},
+		title:     title,
+		tooltip:   tooltip,
+		closeable: closeable,
 	}
 	d.Self = d
-	//SetScrollLayout(d, 1)
-	//panel.AsPanel().AddChild(d) //todo test
 	return d
 }
 
@@ -172,22 +166,6 @@ func (t *Tab) SetTooltip(tooltip string) {
 
 func (t *Tab) SetCloseable(closeable bool) {
 	t.closeable = closeable
-}
-
-func (t *Tab) SetContent(content unison.Paneler) {
-	// t.content.AsPanel().RemoveFromParent()
-	t.RemoveChild(content)
-	t.ScrollPanel = NewScrollPanelFill(t)
-	t.MarkForLayoutAndRedraw()
-}
-
-func (t *Tab) SetScrollPanel(ScrollPanel *unison.ScrollPanel) {
-	t.ScrollPanel = ScrollPanel
-}
-
-func (t *Tab) SetColumnHeader(header unison.Paneler) {
-	mylog.CheckNil(t.ScrollPanel)
-	t.ScrollPanel.SetColumnHeader(header)
 }
 
 func (t *Tab) TitleIcon(suggestedSize unison.Size) unison.Drawable {
