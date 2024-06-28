@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	_ unison.Dockable  = &Tab{}
 	_ unison.Dockable  = &TabClose{}
 	_ unison.TabCloser = &TabClose{}
 )
@@ -147,7 +148,7 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 	return d
 }
 
-func NewTabs(tabContents ...TabContent) []*Tab {
+func NewTabs(tabContents ...TabContent) []*Tab { //todo delete
 	var tabs []*Tab
 	for _, tabContent := range tabContents {
 		tab := NewTab(tabContent.Title, tabContent.Tooltip+" "+tabContent.Title, tabContent.Closeable, tabContent.Panel)
