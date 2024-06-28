@@ -35,7 +35,7 @@ func NewCodeView(path string) *CodeView {
 	c.code = stream.NewBuffer(path)
 	tokens, style := languages.GetTokens(c.code, languages.CodeFile2Language(path))
 	c.newCodeView(tokens, style)
-	c.AddChild(c.codePanel)
+	c.AddChild(NewScrollPanelFill(c.codePanel))
 	return c
 }
 
