@@ -19,11 +19,6 @@ type CodeView struct {
 	code      *stream.Buffer
 }
 
-func NewCodeViewWithScroll(path string) *unison.Panel {
-	view := NewCodeView(path)
-	return NewScrollPanelFill(view).AsPanel()
-}
-
 func NewCodeView(path string) *CodeView {
 	stream.IsFilePathEx(path)
 	c := &CodeView{
