@@ -134,7 +134,7 @@ func NewTabWithTable[T any](table *Node[T], header *TableHeader[T], title string
 	panel.AddChild(table)
 	panel.AddChild(header)
 	tab := NewTab(title, tooltip, closeable, panel)
-	tab.ScrollPanel = NewScrollPanelFill(panel) // todo test
+	//tab.ScrollPanel = NewScrollPanelFill(panel) // todo test
 	tab.ScrollPanel.SetColumnHeader(header)
 	return tab
 }
@@ -148,8 +148,8 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 		ScrollPanel: nil,
 	}
 	d.Self = d
-	SetScrollLayout(d, 1)
-	panel.AsPanel().AddChild(d) //todo test
+	//SetScrollLayout(d, 1)
+	//panel.AsPanel().AddChild(d) //todo test
 	return d
 }
 
