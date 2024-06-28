@@ -150,7 +150,7 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 	return d
 }
 
-func NewTabs(tabContents ...TabContent) []*Tab { //todo delete
+func NewTabs(tabContents ...TabContent) []*Tab { // todo delete
 	var tabs []*Tab
 	for _, tabContent := range tabContents {
 		tab := NewTab(tabContent.Title, tabContent.Tooltip+" "+tabContent.Title, tabContent.Closeable, tabContent.Panel)

@@ -158,7 +158,7 @@ type Node[T any] struct {
 	dividerDrag              bool
 }
 
-func NewTableScrollPanel[T any](table *Node[T], header *TableHeader[T]) *unison.Panel { //todo remove
+func NewTableScrollPanel[T any](table *Node[T], header *TableHeader[T]) *unison.Panel { // todo remove
 	panel := NewPanel()
 	panel.AddChild(table)
 	panel.AddChild(header)

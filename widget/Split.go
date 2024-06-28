@@ -184,7 +184,7 @@ func NewHSplit(left, right *Tab, scale float32) *HSplit {
 		HGrab:  true,
 		VGrab:  true,
 	})
-	//SetScrollLayout(dock, 1) //todo test
+	// SetScrollLayout(dock, 1) //todo test
 	display := unison.PrimaryDisplay()
 	r := display.Usable.Size
 	pos := float32(0)
