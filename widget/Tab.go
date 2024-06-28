@@ -145,6 +145,8 @@ func NewTab(title string, tooltip string, closeable bool, panel unison.Paneler) 
 		closeable: closeable,
 	}
 	d.Self = d
+	SetScrollLayout(d, 1)
+	d.AddChild(panel)
 	return d
 }
 
