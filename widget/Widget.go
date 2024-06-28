@@ -136,6 +136,7 @@ func NewToolBar(buttons ...*unison.Button) unison.Paneler {
 		VSpacing: unison.StdVSpacing,
 	})
 	field := unison.NewField()
+	field.Tooltip = unison.NewTooltipWithText("global filter...")
 	field.MinimumTextWidth = 100
 	field.SetLayoutData(align.Middle)
 	field.EditableInk = unison.RGB(43, 43, 43)
