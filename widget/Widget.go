@@ -171,8 +171,9 @@ func NewSeparator() *unison.Separator {
 	return sep
 }
 
-func NewImageButton[T stream.Type](imageBuf T, clickCallback func()) *unison.Button {
+func NewImageButton[T stream.Type](tooltip string, imageBuf T, clickCallback func()) *unison.Button {
 	button := NewButton("")
+	button.Tooltip = unison.NewTooltipWithText(tooltip)
 	button.ClickCallback = clickCallback
 	fromBytes := mylog.Check2(unison.NewImageFromBytes(stream.NewBuffer(imageBuf).Bytes(), 0.5))
 	button.Drawable = &unison.SizedDrawable{
