@@ -107,6 +107,7 @@ func (o *object[T]) SetIsFilterModel(isFilterModel bool) { o.isFilterModel = isF
 
 func New[T stream.Type](data T) (x *object[T]) {
 	b := stream.NewBuffer(data)
+	mylog.HexDump("data", b.Bytes())
 	return &object[T]{
 		baseAddress:    0xFFFFF8015FA00000,
 		data:           b.Bytes(),
