@@ -30,16 +30,8 @@ github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8Yc
 github.com/daviddengcn/go-colortext v1.0.0/go.mod h1:zDqEI5NVUop5QPpVJUxE9UO10hRnmkD5G4Pmri9+m4c=
 github.com/dc0d/caseconv v0.5.0 h1:z3Ki2zszD03beetWyNAGa3NOAbnDJk+bX0tvcx9BKjQ=
 github.com/dc0d/caseconv v0.5.0/go.mod h1:/CrBBNtMoPTPf0INHrwyyhDrDjAJ9PFE+WuxSJHU0ZE=
-github.com/ddkwork/golibrary v0.0.84-0.20240627172929-2c42a990d2b5 h1:vkXs9ZrxzZ2cU0LVx1u9Hwkhm7hLQmTywT8PXRVwd+A=
-github.com/ddkwork/golibrary v0.0.84-0.20240627172929-2c42a990d2b5/go.mod h1:GlLX0w5HQ9dhHS5hhwcOJNSoLUO8ud4WnrbKa41MmcE=
-github.com/ddkwork/golibrary v0.0.84-0.20240627173943-eddb080cb496 h1:dQMoale9N6LVy20B0ACxeqruZHXjPwdldgisdCjyK34=
-github.com/ddkwork/golibrary v0.0.84-0.20240627173943-eddb080cb496/go.mod h1:GlLX0w5HQ9dhHS5hhwcOJNSoLUO8ud4WnrbKa41MmcE=
-github.com/ddkwork/golibrary v0.0.85 h1:JyR3G/8Om6B7LpCyBjSryFxhspNjCsZyBc+AJbS4hww=
-github.com/ddkwork/golibrary v0.0.85/go.mod h1:GlLX0w5HQ9dhHS5hhwcOJNSoLUO8ud4WnrbKa41MmcE=
 github.com/ddkwork/golibrary v0.0.86 h1:uw9EkT1l/1H8wGtIMmW37rtNwb++c0qDGuisT5j5p1Y=
 github.com/ddkwork/golibrary v0.0.86/go.mod h1:GlLX0w5HQ9dhHS5hhwcOJNSoLUO8ud4WnrbKa41MmcE=
-github.com/ddkwork/golibrary v0.0.87-0.20240629154701-6b1a7cfafb0d h1:uLLXVxmA6Lps5OFzXYoIfMBKtTCPKUK97Io/wvcjtDM=
-github.com/ddkwork/golibrary v0.0.87-0.20240629154701-6b1a7cfafb0d/go.mod h1:GlLX0w5HQ9dhHS5hhwcOJNSoLUO8ud4WnrbKa41MmcE=
 github.com/dlclark/regexp2 v1.11.0 h1:G/nrcoOa7ZXlpoa/91N3X7mM3r8eIlMBBJZvsz/mxKI=
 github.com/dlclark/regexp2 v1.11.0/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
 github.com/ebitengine/purego v0.7.1 h1:6/55d26lG3o9VCZX8lping+bZcmShseiqlh2bnUDiPA=
