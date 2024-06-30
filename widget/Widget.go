@@ -308,6 +308,7 @@ func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (vie
 	view.Self = view
 	// view.undoMgr = unison.NewUndoManager(100, func(err error) { errs.Log(err) })
 	view.SetLayout(&unison.FlexLayout{Columns: 1})
+	view.AddChild(NewVSpacer())
 	kvPanel = NewKeyValuePanel()
 	for _, editor := range fields {
 		key := NewLabelKey(editor.KeyValueToolTip)
@@ -321,6 +322,7 @@ func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (vie
 		kvPanel.AddChild(value)
 	}
 	view.AddChild(kvPanel)
+	kvPanel.AddChild(NewVSpacer())
 	// NewScrollPanelHintedFill(view.AsPanel())
 	return
 }
