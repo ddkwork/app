@@ -183,7 +183,12 @@ func NewImageButton[T stream.Type](tooltip string, imageBuf T, clickCallback fun
 	return button
 }
 
-func NewButton(Text string) *unison.Button {
+func NewButtonEx(Text string, ClickCallback func()) *unison.Button {
+	b := NewButton(Text)
+	b.ClickCallback = ClickCallback
+	return b
+}
+func NewButton(Text string) *unison.Button { //todo remove
 	b := unison.NewButton()
 	b.CornerRadius = 18
 	b.HMargin = 12
