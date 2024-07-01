@@ -241,6 +241,27 @@ func (s *StructView[T]) UpdateField(index int, value string) {
 	s.Editors[index].Field.SetText(value)
 }
 
+func NewLogView() *unison.Field {
+	f := unison.NewMultiLineField()
+	f.MinimumTextWidth = 666
+	f.SetText(`
+log ...
+
+
+
+
+
+
+
+
+
+
+
+
+`)
+	return f
+}
+
 type (
 	StructView[T any] struct {
 		unison.Panel
@@ -261,33 +282,69 @@ type (
 		Value   string
 		Tooltip string
 	}
+
+	RowValueType interface {
+		*unison.PopupMenu[string] | []*unison.Button | *unison.Field //|constraints.Ordered
+	}
 )
 
-func (s structField) SetTooltip() string {
-	b := stream.NewBuffer("")
-	fnSep := func() { b.WriteString("    |    ") }
+type StructViewPanel struct {
+	unison.Panel
+	keyValuePanel *unison.Panel
+}
 
-	b.WriteString(s.Name)
-	fnSep()
+func NewStructViewPanel() *StructViewPanel {
+	s := &StructViewPanel{}
+	s.Self = s
+	s.SetLayout(&unison.FlexLayout{Columns: 1})
+	s.AddChild(NewVSpacer())
+	s.keyValuePanel = NewKeyValuePanel()
+	s.AddChild(s.keyValuePanel)
+	return s
+}
 
-	b.WriteString(s.Type.String())
-	fnSep()
-
-	get := s.Tag.Get("json")
-	if get != "" {
-		b.WriteString(get)
-		fnSep()
+func AddRowForStructViewPanel[T RowValueType](s *StructViewPanel, key, tooltip string, value T) {
+	s.keyValuePanel.AddChild(NewLabelRightAlign(KeyValueToolTip{
+		Key:     key,
+		Value:   "",
+		Tooltip: tooltip,
+	}))
+	switch v := any(value).(type) {
+	case *unison.PopupMenu[string]:
+		v.SelectIndex(0)
+		s.keyValuePanel.AddChild(v)
+	case []*unison.Button:
+		buttonCount := len(v)
+		buttonPanel := NewPanel().SetFlexLayout(unison.FlexLayout{
+			Columns:      buttonCount + 1,
+			HSpacing:     unison.StdHSpacing * 2,
+			VSpacing:     unison.StdVSpacing,
+			EqualColumns: true,
+		})
+		buttonPanel.AddChild(unison.NewPanel()) // left spacer
+		for _, button := range v {
+			buttonPanel.AddChild(button)
+		}
+		buttonPanel.SetLayoutData(&unison.FlexLayoutData{
+			HSpan:  3,
+			VSpan:  1,
+			HAlign: align.End,
+			VAlign: align.Middle,
+		})
+		s.keyValuePanel.AddChild(buttonPanel)
+	case *unison.Field:
+		v.MinimumTextWidth = 300
+		s.keyValuePanel.AddChild(v)
 	}
-
-	b.WriteString(s.Value)
-	return b.String()
 }
 
 func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (view *StructView[T], kvPanel *unison.Panel) {
 	visibleFields := stream.ReflectVisibleFields(data)
 	fields := make([]structField, len(visibleFields))
 	values := marshal(data)
-	mylog.Check(len(visibleFields) == len(values))
+	if len(visibleFields) != len(values) {
+		mylog.Check("NewStructView init error : len(visibleFields) != len(values)")
+	}
 	for i, field := range visibleFields {
 		f := structField{
 			StructField: field,
@@ -311,8 +368,8 @@ func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (vie
 	view.AddChild(NewVSpacer())
 	kvPanel = NewKeyValuePanel()
 	for _, editor := range fields {
-		key := NewLabelKey(editor.KeyValueToolTip)
-		value := NewFieldEx(editor.KeyValueToolTip)
+		key := NewLabelRightAlign(editor.KeyValueToolTip)
+		value := NewFieldLeftAlign(editor.KeyValueToolTip)
 		view.Editors = append(view.Editors, StructEditor{
 			Label:           key,
 			Field:           value,
@@ -325,6 +382,26 @@ func NewStructView[T any](data T, marshal func(data T) (values []CellData)) (vie
 	kvPanel.AddChild(NewVSpacer())
 	// NewScrollPanelHintedFill(view.AsPanel())
 	return
+}
+
+func (s structField) SetTooltip() string {
+	b := stream.NewBuffer("")
+	fnSep := func() { b.WriteString("    |    ") }
+
+	b.WriteString(s.Name)
+	fnSep()
+
+	b.WriteString(s.Type.String())
+	fnSep()
+
+	get := s.Tag.Get("json")
+	if get != "" {
+		b.WriteString(get)
+		fnSep()
+	}
+
+	b.WriteString(s.Value)
+	return b.String()
 }
 
 func NewFieldContextMenuItems(filed *unison.Field) {
@@ -450,20 +527,9 @@ func NewVSpacer() *unison.Panel {
 	return vSpacer
 }
 
-func NewFieldEx(kvt KeyValueToolTip) *unison.Field {
+func NewFieldLeftAlign(kvt KeyValueToolTip) *unison.Field {
 	field := unison.NewField()
 	field.MinimumTextWidth = 520
-	field.SetLayoutData(align.Middle)
-	field.SetLayoutData(&unison.FlexLayoutData{
-		SizeHint: unison.Size{},
-		MinSize:  unison.Size{},
-		HSpan:    1,
-		VSpan:    1,
-		HAlign:   align.Fill,
-		VAlign:   align.Middle,
-		HGrab:    true,
-		VGrab:    true,
-	})
 	NewFieldContextMenuItems(field)
 	field.SetText(kvt.Value)
 	field.SetLayoutData(&unison.FlexLayoutData{
@@ -490,7 +556,7 @@ func NewKeyValuePanel() *unison.Panel {
 	return kvPanel
 }
 
-func NewLabelKey(kvt KeyValueToolTip) *unison.Label {
+func NewLabelRightAlign(kvt KeyValueToolTip) *unison.Label {
 	label := unison.NewLabel()
 	label.SetTitle(i18n.Text(kvt.Key))
 	label.Tooltip = unison.NewTooltipWithText(kvt.Tooltip)

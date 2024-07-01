@@ -75,7 +75,7 @@ func (s *StructView) Layout() unison.Paneler {
 	popupMenu := widget.CreatePopupMenu(rowPanel, p, 0, "choose a driver", names...)
 
 	kv := widget.NewKeyValuePanel()
-	key := widget.NewLabelKey(widget.KeyValueToolTip{
+	key := widget.NewLabelRightAlign(widget.KeyValueToolTip{
 		Key:     "sys path",
 		Value:   "",
 		Tooltip: "",
