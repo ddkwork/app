@@ -172,9 +172,8 @@ func NewSeparator() *unison.Separator {
 }
 
 func NewImageButton[T stream.Type](tooltip string, imageBuf T, clickCallback func()) *unison.Button {
-	button := NewButton("")
+	button := NewButton("", clickCallback)
 	button.Tooltip = unison.NewTooltipWithText(tooltip)
-	button.ClickCallback = clickCallback
 	fromBytes := mylog.Check2(unison.NewImageFromBytes(stream.NewBuffer(imageBuf).Bytes(), 0.5))
 	button.Drawable = &unison.SizedDrawable{
 		Drawable: fromBytes,
@@ -183,13 +182,9 @@ func NewImageButton[T stream.Type](tooltip string, imageBuf T, clickCallback fun
 	return button
 }
 
-func NewButtonEx(Text string, ClickCallback func()) *unison.Button {
-	b := NewButton(Text)
-	b.ClickCallback = ClickCallback
-	return b
-}
-func NewButton(Text string) *unison.Button { //todo remove
+func NewButton(Text string, ClickCallback func()) *unison.Button {
 	b := unison.NewButton()
+	b.ClickCallback = ClickCallback
 	b.CornerRadius = 18
 	b.HMargin = 12
 	b.SetTitle(Text)
@@ -403,10 +398,8 @@ func NewApplyCancelButtonPanel(parent *unison.Panel, applyCallback, cancelCallba
 	})
 	buttonPanel.AddChild(unison.NewPanel()) // left spacer
 
-	applyButton := NewButton("apply")
-	cancelButton := NewButton("cancel")
-	applyButton.ClickCallback = applyCallback
-	cancelButton.ClickCallback = cancelCallback
+	applyButton := NewButton("apply", applyCallback)
+	cancelButton := NewButton("cancel", cancelCallback)
 	buttonPanel.AddChild(applyButton)
 	buttonPanel.AddChild(cancelButton)
 	buttonPanel.SetLayoutData(&unison.FlexLayoutData{
@@ -431,7 +424,7 @@ func NewButtonsPanel(titles []string, callbacks ...func()) *unison.Panel {
 	buttonPanel.AddChild(unison.NewPanel()) // left spacer
 
 	for i, title := range titles {
-		button := NewButton(title)
+		button := NewButton(title, nil)
 		if i < len(callbacks) {
 			button.ClickCallback = callbacks[i]
 		}
