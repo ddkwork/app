@@ -512,6 +512,7 @@ func NewButtonsPanel(titles []string, callbacks ...func()) *unison.Panel {
 		HAlign: align.End,
 		VAlign: align.Middle,
 	})
+	buttonPanel.AddChild(NewVSpacer())
 	return buttonPanel.AsPanel()
 }
 
