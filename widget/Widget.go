@@ -493,10 +493,9 @@ func NewButtonsPanel(titles []string, callbacks ...func()) *unison.Panel {
 	callbackCount := len(callbacks)
 	mylog.Check(buttonCount == callbackCount)
 	buttonPanel := NewPanel().SetFlexLayout(unison.FlexLayout{
-		Columns:      buttonCount + 1,
-		HSpacing:     unison.StdHSpacing * 2,
-		VSpacing:     unison.StdVSpacing,
-		EqualColumns: true,
+		Columns:  buttonCount + 1,
+		HSpacing: unison.StdHSpacing * 2,
+		VSpacing: unison.StdVSpacing,
 	})
 	buttonPanel.AddChild(unison.NewPanel()) // left spacer
 
