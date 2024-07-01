@@ -97,8 +97,8 @@ func SetScrollLayout(paneler unison.Paneler, Columns int) {
 		VSpan:  1,
 		HAlign: align.Fill,
 		VAlign: align.Fill,
-		HGrab:  true,
-		VGrab:  true,
+		//HGrab:  true,
+		//VGrab:  true,
 	})
 }
 
