@@ -35,7 +35,7 @@ type (
 	}
 )
 
-func NewObject() *Object {
+func NewObject() (d *Object) {
 	return &Object{
 		Status:     0,
 		service:    nil,
@@ -50,11 +50,15 @@ func New() Interface {
 }
 
 func (o *Object) Load(sysPath string) {
-	o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
-	o.DeviceName = stream.BaseName(sysPath)
+	if o.driverPath == "" {
+		o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
+		stream.WriteBinaryFile(o.driverPath, stream.NewBuffer(sysPath).Bytes())
+	}
+	if o.DeviceName == "" {
+		o.DeviceName = stream.BaseName(sysPath)
+	}
 	mylog.Trace("deviceName", o.DeviceName)
 	mylog.Trace("driverPath", o.driverPath)
-	stream.WriteBinaryFile(o.driverPath, stream.NewBuffer(sysPath).Bytes())
 	o.SetManager()
 	o.SetService()
 	o.StartService()
