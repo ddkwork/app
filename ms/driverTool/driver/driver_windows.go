@@ -35,18 +35,18 @@ type (
 	}
 )
 
-func NewObject() (d *Object) {
+func NewObject(driverPath, deviceName string) (d *Object) {
 	return &Object{
 		Status:     0,
 		service:    nil,
 		manager:    nil,
-		driverPath: "",
-		DeviceName: "",
+		driverPath: driverPath,
+		DeviceName: deviceName,
 	}
 }
 
 func New() Interface {
-	return NewObject()
+	return NewObject("", "")
 }
 
 func (o *Object) Load(sysPath string) {
