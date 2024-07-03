@@ -78,8 +78,19 @@ func (o *Object) SetService() {
 	o.service, e = o.manager.OpenService(o.DeviceName)
 	if e != nil {
 		config := mgr.Config{
-			ServiceType: windows.SERVICE_KERNEL_DRIVER,
-			StartType:   mgr.StartManual,
+			ServiceType:      windows.SERVICE_KERNEL_DRIVER,
+			StartType:        mgr.StartManual,
+			ErrorControl:     0,
+			BinaryPathName:   "",
+			LoadOrderGroup:   "",
+			TagId:            0,
+			Dependencies:     nil,
+			ServiceStartName: "",
+			DisplayName:      "",
+			Password:         "",
+			Description:      "",
+			SidType:          0,
+			DelayedAutoStart: false,
 		}
 		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.driverPath, config))
 	}
