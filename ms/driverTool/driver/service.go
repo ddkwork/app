@@ -102,9 +102,7 @@ func CreateService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (
 }
 
 func toUnicode(s string) *uint16 {
-	if len(s) == 0 {
-		return nil
-	}
+	mylog.Check(len(s) == 0)
 	return syscall.StringToUTF16Ptr(s)
 }
 
