@@ -18,22 +18,18 @@ const (
 )
 
 func SetUpService(serviceName string, driverFullPath string) {
-	connSCM := mylog.Check2(mgr.Connect())
-	service := CheckService(*connSCM, serviceName)
-	if service == nil {
-		service = mylog.Check2(CreateService(connSCM, serviceName, driverFullPath))
+	m := mylog.Check2(mgr.Connect())
+	s := mylog.Check2Ignore(m.OpenService(serviceName))
+	if s == nil {
+		s = mylog.Check2(CreateService(m, serviceName, driverFullPath))
 	}
-	if !VerifyServiceConfig(service, driverFullPath) {
-		mylog.Check(connSCM.Disconnect())
-		mylog.Check(service.Close())
+	if !VerifyServiceConfig(s, driverFullPath) {
+		mylog.Check(m.Disconnect())
+		mylog.Check(s.Close())
 		RemoveService(serviceName, driverFullPath)
 		SetUpService(serviceName, driverFullPath)
 	}
-	mylog.Check(service.Start())
-}
-
-func CheckService(connSCM mgr.Mgr, serviceName string) *mgr.Service {
-	return mylog.Check2(connSCM.OpenService(serviceName))
+	mylog.Check(s.Start())
 }
 
 func VerifyServiceConfig(service *mgr.Service, driverPath string) bool {
@@ -63,8 +59,8 @@ func VerifyServiceRunning(serviceName string) error {
 }
 
 func RemoveService(serviceName string, driverFullPath string) {
-	connSCM := mylog.Check2(mgr.Connect())
-	service := mylog.Check2(connSCM.OpenService(serviceName))
+	m := mylog.Check2(mgr.Connect())
+	service := mylog.Check2(m.OpenService(serviceName))
 	if !VerifyServiceConfig(service, driverFullPath) {
 		mylog.Check(errors.New("invalid service"))
 	}
@@ -90,13 +86,13 @@ func CreateService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (
 		nil, toStringBlock(c.Dependencies), toUnicode(c.ServiceStartName), toUnicode(c.Password)))
 
 	if c.SidType != windows.SERVICE_SID_TYPE_NONE {
-		mylog.Check(updateSidType(h, c.SidType))
+		updateSidType(h, c.SidType)
 	}
 	if c.Description != "" {
-		mylog.Check(updateDescription(h, c.Description))
+		updateDescription(h, c.Description)
 	}
 	if c.DelayedAutoStart {
-		mylog.Check(updateStartUp(h, c.DelayedAutoStart))
+		updateStartUp(h, c.DelayedAutoStart)
 	}
 	return &mgr.Service{Name: serviceName, Handle: h}, nil
 }
@@ -123,20 +119,19 @@ func toStringBlock(ss []string) *uint16 {
 	return &utf16.Encode([]rune(t))[0]
 }
 
-func updateSidType(handle windows.Handle, sidType uint32) error {
-	return windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_SERVICE_SID_INFO, (*byte)(unsafe.Pointer(&sidType)))
+func updateSidType(handle windows.Handle, sidType uint32) {
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_SERVICE_SID_INFO, (*byte)(unsafe.Pointer(&sidType))))
 }
 
-func updateDescription(handle windows.Handle, desc string) error {
+func updateDescription(handle windows.Handle, desc string) {
 	d := windows.SERVICE_DESCRIPTION{Description: toUnicode(desc)}
-	return windows.ChangeServiceConfig2(handle,
-		windows.SERVICE_CONFIG_DESCRIPTION, (*byte)(unsafe.Pointer(&d)))
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DESCRIPTION, (*byte)(unsafe.Pointer(&d))))
 }
 
-func updateStartUp(handle windows.Handle, isDelayed bool) error {
+func updateStartUp(handle windows.Handle, isDelayed bool) {
 	var d windows.SERVICE_DELAYED_AUTO_START_INFO
 	if isDelayed {
 		d.IsDelayedAutoStartUp = 1
 	}
-	return windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d)))
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d))))
 }
