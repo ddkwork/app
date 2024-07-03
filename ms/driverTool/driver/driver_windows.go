@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"syscall"
 	"time"
 
@@ -18,79 +17,65 @@ import (
 	"golang.org/x/sys/windows/svc/mgr"
 )
 
-func Load(deviceName, fileName string, Dependencies []string) error {
-	log.Println("Loading Winpmem Driver...")
+func Load(deviceName, fileName string, Dependencies []string) {
+	mylog.Call(func() {
+		log.Println("Loading Winpmem Driver...")
 
-	content := stream.NewBuffer(fileName).Bytes()
+		content := stream.NewBuffer(fileName).Bytes()
 
-	// write to file
-	driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", fileName)
-	mylog.Check(os.WriteFile(driverPath, content, 0755))
+		// write to file
+		driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", fileName)
+		mylog.Check(os.WriteFile(driverPath, content, 0755))
 
-	log.Println("Driver saved to", driverPath)
+		log.Println("Driver saved to", driverPath)
 
-	// create service
-	m := mylog.Check2(mgr.Connect())
+		// create service
+		m := mylog.Check2(mgr.Connect())
 
-	defer m.Disconnect()
+		defer m.Disconnect()
 
-	s, e := (m.OpenService(deviceName))
-	if e == nil {
-		s.Close()
-		mylog.Check("serivce already exists")
-	}
-	config := mgr.Config{
-		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
-		StartType:        mgr.StartManual,
-		ErrorControl:     0,
-		BinaryPathName:   "",
-		LoadOrderGroup:   "",
-		TagId:            0,
-		Dependencies:     Dependencies,
-		ServiceStartName: "",
-		DisplayName:      "",
-		Password:         "",
-		Description:      "",
-		SidType:          0,
-		DelayedAutoStart: false,
-	}
-
-	s = mylog.Check2(m.CreateService(deviceName, driverPath, config))
-
-	defer s.Close()
-
-	log.Println("Service created.")
-
-	// start service
-	mylog.Check(ControlService(deviceName, "start"))
-
-	return nil
+		s, e := (m.OpenService(deviceName))
+		if e == nil {
+			s.Close()
+			mylog.Check("serivce already exists")
+		}
+		config := mgr.Config{
+			ServiceType:      windows.SERVICE_KERNEL_DRIVER,
+			StartType:        mgr.StartManual,
+			ErrorControl:     0,
+			BinaryPathName:   "",
+			LoadOrderGroup:   "",
+			TagId:            0,
+			Dependencies:     Dependencies,
+			ServiceStartName: "",
+			DisplayName:      "",
+			Password:         "",
+			Description:      "",
+			SidType:          0,
+			DelayedAutoStart: false,
+		}
+		s = mylog.Check2(m.CreateService(deviceName, driverPath, config))
+		defer s.Close()
+		log.Println("Service created.")
+		mylog.Check(ControlService(deviceName, "start"))
+	})
 }
 
-func Unload(deviceName string) error {
-	log.Println("Unloading Winpmem Driver...")
+func Unload(deviceName, fileName string) {
+	mylog.Call(func() {
+		log.Println("Unloading Winpmem Driver...")
 
-	// Store driver to tempfile
-	var driverName string
-	if runtime.GOARCH == "386" {
-		driverName = "winpmem_x86.sys"
-	} else if runtime.GOARCH == "amd64" {
-		driverName = "winpmem_x64.sys"
-	} else {
-		return errors.New("Architecture not supported: " + runtime.GOARCH)
-	}
+		driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", fileName)
 
-	driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", driverName)
+		// stop service
+		mylog.Check(ControlService(deviceName, "stop"))
 
-	// stop service
-	mylog.Check(ControlService(deviceName, "stop"))
-
-	// remove service
-	mylog.Check(ControlService(deviceName, "delete"))
-	// Delete driver file
-	mylog.Check(os.Remove(driverPath))
-	log.Printf("Drive file removed from: %v", driverPath)
-	return nil
+		// remove service
+		mylog.Check(ControlService(deviceName, "delete"))
+		// Delete driver file
+		mylog.Check(os.Remove(driverPath))
+		log.Printf("Drive file removed from: %v", driverPath)
+	})
 }
 
 func ControlService(serviceName, action string) error {
@@ -146,9 +131,9 @@ func GetProcessId(pid int, name string) int {
 }
 
 func AcquireImage(deviceName, mode, filename string) error {
-	Unload(deviceName)
-	mylog.Check(Load(deviceName, filename, nil))
-	defer Unload(deviceName)
+	Unload(deviceName, filename)
+	Load(deviceName, filename, nil)
+	defer Unload(deviceName, filename)
 	fd := mylog.Check2(syscall.CreateFile(
 		syscall.StringToUTF16Ptr("\\\\.\\"+deviceName),
 		syscall.GENERIC_READ|syscall.GENERIC_WRITE,
