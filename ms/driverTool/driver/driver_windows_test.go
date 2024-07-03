@@ -5,7 +5,7 @@ import (
 )
 
 func TestLoadSys(t *testing.T) {
-	sysName := "sysDemo.sys"
-	Load("", sysName, nil)
-	Unload("", sysName)
+	path := "sysDemo.sys"
+	Load("", path, nil)
+	Unload("")
 }

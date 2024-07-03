@@ -2,15 +2,14 @@ package driver
 
 import (
 	"errors"
-	"fmt"
-	"os"
-	"path/filepath"
-	"syscall"
-	"unicode/utf16"
-	"unsafe"
-
 	"github.com/ddkwork/golibrary/stream"
 	"github.com/shirou/gopsutil/v3/process"
+	"log"
+	"os"
+	"path/filepath"
+	"runtime"
+	"syscall"
+	"time"
 
 	"github.com/ddkwork/golibrary/mylog"
 	"golang.org/x/sys/windows"
@@ -18,98 +17,45 @@ import (
 	"golang.org/x/sys/windows/svc/mgr"
 )
 
-const (
-	ErrServiceStartPending = "SERVICE PENDING"
-)
+func Load(deviceName, fileName string, Dependencies []string) error {
+	log.Println("Loading Winpmem Driver...")
 
-func Load(serviceName string, fileName string, Dependencies []string) {
-	mylog.Call(func() {
-		fileName = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(fileName))
-		stream.WriteBinaryFile(fileName, stream.NewBuffer(fileName).Bytes())
-		if serviceName == "" {
-			serviceName = stream.BaseName(fileName)
-		}
-		mylog.Trace("deviceName", serviceName)
-		mylog.Trace("driverPath", fileName)
-		m := mylog.Check2(mgr.Connect())
-		s := mylog.Check2Ignore(m.OpenService(serviceName))
-		if s == nil {
-			s = mylog.Check2(createService(m, serviceName, fileName, Dependencies)) //todo bug
-		}
-		defer func() { mylog.Check(s.Close()) }()
-		if !verifyServiceConfig(s, fileName) {
-			mylog.Check(m.Disconnect())
-			mylog.Check(s.Close())
-			Unload(serviceName, fileName)
-			Load(serviceName, fileName, Dependencies)
-		}
-		mylog.Check(s.Start())
-		verifyServiceRunning(serviceName)
-		mylog.Success("driver load success", fileName)
-	})
-}
-
-func Unload(serviceName string, fileName string) {
-	mylog.Call(func() {
-		m := mylog.Check2(mgr.Connect())
-		service := mylog.Check2(m.OpenService(serviceName))
-		if !verifyServiceConfig(service, fileName) {
-			mylog.Check("invalid service")
-		}
-		mylog.Check2(service.Control(svc.Stop))
-		mylog.Check(service.Delete())
-		mylog.Success("driver unload success", fileName)
-	})
-}
-
-func verifyServiceConfig(service *mgr.Service, driverPath string) bool {
-	serviceConfig := mylog.Check2(service.Config())
-	if serviceConfig.ServiceType != windows.SERVICE_KERNEL_DRIVER {
-		return false
-	}
-	if serviceConfig.ErrorControl != windows.SERVICE_ERROR_IGNORE {
-		return false
-	}
-	if serviceConfig.BinaryPathName != fmt.Sprintf("\\??\\%s", driverPath) {
-		return false
-	}
-	return true
-}
-
-func verifyServiceRunning(serviceName string) {
-	connSCM := mylog.Check2(mgr.Connect())
-	service := mylog.Check2(connSCM.OpenService(serviceName))
-	serviceStatus := mylog.Check2(service.Query())
-	if serviceStatus.State == windows.SERVICE_START_PENDING {
-		mylog.Check(ErrServiceStartPending)
-	}
-	if serviceStatus.State != windows.SERVICE_RUNNING {
-		mylog.Check(errors.New("service was not started correctly"))
-	}
-}
-
-func createService(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string) (*mgr.Service, error) {
-	c := mgr.Config{
-		ServiceType:    windows.SERVICE_KERNEL_DRIVER,
-		StartType:      windows.SERVICE_DEMAND_START,
-		ErrorControl:   windows.SERVICE_ERROR_IGNORE,
-		BinaryPathName: driverPath,
-		Dependencies:   Dependencies,
+	// Store driver to tempfile
+	var driverName string
+	if runtime.GOARCH == "386" {
+		driverName = "winpmem_x86.sys"
+	} else if runtime.GOARCH == "amd64" {
+		driverName = "winpmem_x64.sys"
+	} else {
+		return errors.New("Architecture not supported: " + runtime.GOARCH)
 	}
 
-	h := mylog.Check2(windows.CreateService(m.Handle, toPtr(serviceName), toPtr(c.DisplayName),
-		windows.SERVICE_ALL_ACCESS, c.ServiceType,
-		c.StartType, c.ErrorControl, toPtr(driverPath), toPtr(c.LoadOrderGroup),
-		nil, toStringBlock(c.Dependencies), toPtr(c.ServiceStartName), toPtr(c.Password)))
+	content := stream.NewBuffer(fileName).Bytes()
 
-	return &mgr.Service{Name: serviceName, Handle: h}, nil
-}
+	//write to file
+	driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", driverName)
+	if err := os.WriteFile(driverPath, content, 0755); err != nil {
+		return err
+	}
 
-func createServiceOld(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string, args ...string) (*mgr.Service, error) {
-	c := mgr.Config{
+	log.Println("Driver saved to", driverPath)
+
+	//create service
+	m, err := mgr.Connect()
+	if err != nil {
+		return err
+	}
+	defer m.Disconnect()
+
+	s, err := m.OpenService(deviceName)
+	if err == nil {
+		s.Close()
+		return errors.New("serivce already exists")
+	}
+	config := mgr.Config{
 		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
-		StartType:        windows.SERVICE_DEMAND_START,
-		ErrorControl:     windows.SERVICE_ERROR_IGNORE,
+		StartType:        mgr.StartManual,
+		ErrorControl:     0,
 		BinaryPathName:   "",
 		LoadOrderGroup:   "",
 		TagId:            0,
@@ -121,66 +67,107 @@ func createServiceOld(m *mgr.Mgr, serviceName, driverPath string, Dependencies [
 		SidType:          0,
 		DelayedAutoStart: false,
 	}
-	if c.StartType == 0 {
-		c.StartType = mgr.StartManual
-	}
-	if c.ServiceType == 0 {
-		c.ServiceType = windows.SERVICE_WIN32_OWN_PROCESS
-	}
-	h := mylog.Check2(windows.CreateService(m.Handle, toPtr(serviceName), toPtr(c.DisplayName),
-		windows.SERVICE_ALL_ACCESS, c.ServiceType,
-		c.StartType, c.ErrorControl, toPtr(driverPath), toPtr(c.LoadOrderGroup),
-		nil, toStringBlock(c.Dependencies), toPtr(c.ServiceStartName), toPtr(c.Password)))
 
-	if c.SidType != windows.SERVICE_SID_TYPE_NONE {
-		updateSidType(h, c.SidType)
+	s, err = m.CreateService(deviceName, driverPath, config)
+	if err != nil {
+		return err
 	}
-	if c.Description != "" {
-		updateDescription(h, c.Description)
+	defer s.Close()
+
+	log.Println("Service created.")
+
+	//start service
+	if err := ControlService(deviceName, "start"); err != nil {
+		return err
 	}
-	if c.DelayedAutoStart {
-		updateStartUp(h, c.DelayedAutoStart)
-	}
-	return &mgr.Service{Name: serviceName, Handle: h}, nil
+
+	return nil
 }
 
-func toPtr(s string) *uint16 {
-	mylog.Check(len(s) == 0)
-	return syscall.StringToUTF16Ptr(s)
+func Unload(deviceName string) error {
+	log.Println("Unloading Winpmem Driver...")
+
+	// Store driver to tempfile
+	var driverName string
+	if runtime.GOARCH == "386" {
+		driverName = "winpmem_x86.sys"
+	} else if runtime.GOARCH == "amd64" {
+		driverName = "winpmem_x64.sys"
+	} else {
+		return errors.New("Architecture not supported: " + runtime.GOARCH)
+	}
+
+	driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", driverName)
+
+	//stop service
+	if err := ControlService(deviceName, "stop"); err != nil {
+		log.Printf("Unable to stop service: %v", err)
+	}
+
+	//remove service
+	if err := ControlService(deviceName, "delete"); err != nil {
+		log.Printf("Unable to delete service: %v", err)
+	}
+
+	//Delete driver file
+	if err := os.Remove(driverPath); err != nil {
+		log.Printf("Unable to remove driver file %v : %v", driverPath, err)
+	} else {
+		log.Printf("Drive file removed from: %v", driverPath)
+	}
+	return nil
 }
 
-func toStringBlock(ss []string) *uint16 {
-	if len(ss) == 0 {
-		return nil
+func ControlService(serviceName, action string) error {
+	//open manager
+	m, err := mgr.Connect()
+	if err != nil {
+		return err
 	}
-	t := ""
-	for _, s := range ss {
-		if s != "" {
-			t += s + "\x00"
+	defer m.Disconnect()
+
+	//open service
+	s, err := m.OpenService(serviceName)
+	if err != nil {
+		return err
+	}
+	defer s.Close()
+
+	//stop service
+	if action == "stop" {
+		status, err := s.Control(svc.Stop)
+		if err != nil {
+			return err
+		}
+		timeout := time.Now().Add(10 * time.Second)
+		for status.State != svc.Stopped {
+			if timeout.Before(time.Now()) {
+				return errors.New("timed out waiting for service to stop")
+			}
+			time.Sleep(300 * time.Millisecond)
+			status, err = s.Query()
+			if err != nil {
+				return err
+			}
+		}
+		log.Println("Service stopped.")
+	}
+	if action == "delete" {
+		if err := s.Delete(); err != nil {
+			log.Printf("Unable to delete service: %v", err)
+
+		} else {
+			log.Println("Service deleted.")
 		}
 	}
-	if t == "" {
-		return nil
+	if action == "start" {
+		if err := s.Start(); err != nil {
+			return err
+		}
+		log.Println("Service started")
 	}
-	t += "\x00"
-	return &utf16.Encode([]rune(t))[0]
-}
 
-func updateSidType(handle windows.Handle, sidType uint32) {
-	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_SERVICE_SID_INFO, (*byte)(unsafe.Pointer(&sidType))))
-}
-
-func updateDescription(handle windows.Handle, desc string) {
-	d := windows.SERVICE_DESCRIPTION{Description: toPtr(desc)}
-	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DESCRIPTION, (*byte)(unsafe.Pointer(&d))))
-}
-
-func updateStartUp(handle windows.Handle, isDelayed bool) {
-	var d windows.SERVICE_DELAYED_AUTO_START_INFO
-	if isDelayed {
-		d.IsDelayedAutoStartUp = 1
-	}
-	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d))))
+	return nil
 }
 
 func GetProcessId(pid int, name string) int {
@@ -195,4 +182,27 @@ func GetProcessId(pid int, name string) int {
 		}
 	}
 	return 0
+}
+
+func AcquireImage(deviceName, mode, filename string) error {
+	Unload(deviceName)
+	if err := Load(deviceName, filename, nil); err != nil {
+		return err
+	}
+	defer Unload(deviceName)
+	fd, err := syscall.CreateFile(
+		syscall.StringToUTF16Ptr("\\\\.\\"+deviceName),
+		syscall.GENERIC_READ|syscall.GENERIC_WRITE,
+		syscall.FILE_SHARE_READ|syscall.FILE_SHARE_WRITE,
+		nil,
+		syscall.OPEN_EXISTING,
+		syscall.FILE_ATTRIBUTE_NORMAL,
+		0,
+	)
+	if err != nil {
+		return err
+	}
+	defer syscall.Close(fd)
+
+	return nil
 }
