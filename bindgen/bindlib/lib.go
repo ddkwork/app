@@ -58,7 +58,6 @@ func (l *Library) LoadFrom(path string) (LoadedLibrary, error) {
 
 func (l *Library) LoadEmbed(data []byte) (LoadedLibrary, error) {
 	loaded := mylog.Check2(LoadLibraryEmbed(data))
-
 	l.cache = loaded
 	l.done.Store(true)
 	return loaded, nil
