@@ -27,13 +27,18 @@ type (
 		Unload()
 	}
 	Object struct {
-		Status     uint32
-		service    *mgr.Service
-		manager    *mgr.Mgr
-		driverPath string
-		DeviceName string
+		Status       uint32
+		service      *mgr.Service
+		manager      *mgr.Mgr
+		driverPath   string
+		DeviceName   string
+		dependencies []string
 	}
 )
+
+func (o *Object) SetDependencies(dependencies []string) {
+	o.dependencies = dependencies
+}
 
 func NewObject(deviceName, driverPath string) *Object {
 	return &Object{
@@ -78,19 +83,22 @@ func (o *Object) SetService() {
 	o.service, e = o.manager.OpenService(o.DeviceName)
 	if e != nil {
 		config := mgr.Config{
-			ServiceType:      windows.SERVICE_KERNEL_DRIVER,
-			StartType:        mgr.StartManual,
-			ErrorControl:     0,
-			BinaryPathName:   "",
-			LoadOrderGroup:   "",
-			TagId:            0,
-			Dependencies:     nil,
+			ServiceType:    windows.SERVICE_KERNEL_DRIVER,
+			StartType:      mgr.StartManual,
+			ErrorControl:   0,
+			BinaryPathName: "",
+			LoadOrderGroup: "",
+			TagId:          0,
+			// Dependencies:     o.dependencies,
 			ServiceStartName: "",
 			DisplayName:      "",
 			Password:         "",
 			Description:      "",
 			SidType:          0,
 			DelayedAutoStart: false,
+		}
+		if o.dependencies != nil {
+			config.Dependencies = o.dependencies
 		}
 		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.driverPath, config))
 	}
