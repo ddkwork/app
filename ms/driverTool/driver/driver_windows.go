@@ -1,44 +1,70 @@
 package driver
 
 import (
-	"errors"
-	"log"
 	"os"
 	"path/filepath"
-	"syscall"
 	"time"
 
-	"github.com/ddkwork/golibrary/stream"
-	"github.com/shirou/gopsutil/v3/process"
-
-	"github.com/ddkwork/golibrary/mylog"
 	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/svc"
-	"golang.org/x/sys/windows/svc/mgr"
+	"golang.org/x/sys/windows/svc/mgr" // todo if build on linux,it need change to cmd
+
+	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/golibrary/stream"
 )
 
-func Load(deviceName, fileName string, Dependencies []string) {
-	mylog.Call(func() {
-		log.Println("Loading Winpmem Driver...")
+type (
+	Object struct {
+		Status       uint32
+		service      *mgr.Service
+		manager      *mgr.Mgr
+		path         string
+		DeviceName   string
+		Dependencies []string
+	}
+)
 
-		content := stream.NewBuffer(fileName).Bytes()
+func New(deviceName, driverPath string, Dependencies []string) (d *Object) {
+	return &Object{
+		Status:       0,
+		service:      nil,
+		manager:      nil,
+		path:         driverPath,
+		DeviceName:   deviceName,
+		Dependencies: Dependencies,
+	}
+}
 
-		// write to file
-		driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", fileName)
-		mylog.Check(os.WriteFile(driverPath, content, 0755))
+func (o *Object) Load() {
+	if o.path == "" {
+		o.path = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(o.path))
+		stream.WriteBinaryFile(o.path, stream.NewBuffer(o.path).Bytes())
+	}
+	if o.DeviceName == "" {
+		o.DeviceName = stream.BaseName(o.path)
+	}
+	mylog.Trace("deviceName", o.DeviceName)
+	mylog.Trace("path", o.path)
+	o.manager = mylog.Check2(mgr.Connect())
+	o.SetService()
+	o.StartService()
+	mylog.Success("driver load success", o.path)
+	o.QueryService()
+}
 
-		log.Println("Driver saved to", driverPath)
+func (o *Object) Unload() {
+	o.StopService()
+	o.DeleteService()
+	mylog.Check(o.manager.Disconnect())
+	mylog.Check(o.service.Close())
+	mylog.Success("driver unload success", o.path)
+	mylog.Check(os.Remove(o.path))
+}
 
-		// create service
-		m := mylog.Check2(mgr.Connect())
-
-		defer m.Disconnect()
-
-		s, e := (m.OpenService(deviceName))
-		if e == nil {
-			s.Close()
-			mylog.Check("serivce already exists")
-		}
+func (o *Object) SetService() {
+	var e error
+	o.service, e = o.manager.OpenService(o.DeviceName)
+	if e != nil {
 		config := mgr.Config{
 			ServiceType:      windows.SERVICE_KERNEL_DRIVER,
 			StartType:        mgr.StartManual,
@@ -46,7 +72,7 @@ func Load(deviceName, fileName string, Dependencies []string) {
 			BinaryPathName:   "",
 			LoadOrderGroup:   "",
 			TagId:            0,
-			Dependencies:     Dependencies,
+			Dependencies:     o.Dependencies,
 			ServiceStartName: "",
 			DisplayName:      "",
 			Password:         "",
@@ -54,97 +80,30 @@ func Load(deviceName, fileName string, Dependencies []string) {
 			SidType:          0,
 			DelayedAutoStart: false,
 		}
-		s = mylog.Check2(m.CreateService(deviceName, driverPath, config))
-		defer s.Close()
-		log.Println("Service created.")
-		mylog.Check(ControlService(deviceName, "start"))
-	})
+		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.path, config))
+	}
 }
 
-func Unload(deviceName, fileName string) {
-	mylog.Call(func() {
-		log.Println("Unloading Winpmem Driver...")
-
-		driverPath := filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", fileName)
-
-		// stop service
-		mylog.Check(ControlService(deviceName, "stop"))
-
-		// remove service
-		mylog.Check(ControlService(deviceName, "delete"))
-		// Delete driver file
-		mylog.Check(os.Remove(driverPath))
-		log.Printf("Drive file removed from: %v", driverPath)
-	})
+func (o *Object) QueryService() {
+	o.Status = mylog.Check2(o.service.Query()).ServiceSpecificExitCode
 }
 
-func ControlService(serviceName, action string) error {
-	// open manager
-	m := mylog.Check2(mgr.Connect())
-
-	defer m.Disconnect()
-
-	// open service
-	s := mylog.Check2(m.OpenService(serviceName))
-
-	defer s.Close()
-
-	// stop service
-	if action == "stop" {
-		status := mylog.Check2(s.Control(svc.Stop))
-
-		timeout := time.Now().Add(10 * time.Second)
-		for status.State != svc.Stopped {
-			if timeout.Before(time.Now()) {
-				return errors.New("timed out waiting for service to stop")
-			}
-			time.Sleep(300 * time.Millisecond)
-			status = mylog.Check2(s.Query())
-
+func (o *Object) StopService() {
+	status := mylog.Check2(o.service.Control(svc.Stop))
+	timeout := time.Now().Add(10 * time.Second)
+	for status.State != svc.Stopped {
+		if timeout.Before(time.Now()) {
+			mylog.Check("Timed out waiting for service to stop")
 		}
-		log.Println("Service stopped.")
+		time.Sleep(300 * time.Millisecond)
+		o.QueryService()
+		mylog.Trace("Service stopped")
 	}
-	if action == "delete" {
-		mylog.Check(s.Delete())
-		log.Println("Service deleted.")
-	}
-	if action == "start" {
-		mylog.Check(s.Start())
-		log.Println("Service started")
-	}
-
-	return nil
 }
 
-func GetProcessId(pid int, name string) int {
-	if pid != 0 {
-		return pid
-	}
-	processes := mylog.Check2(process.Processes())
-
-	for _, each := range processes {
-		if procName := mylog.Check2(each.Name()); procName == name {
-			return int(each.Pid)
-		}
-	}
-	return 0
+func (o *Object) DeleteService() {
+	mylog.Check(o.service.Delete())
+	mylog.Trace("Service deleted")
+	o.QueryService()
 }
-
-func AcquireImage(deviceName, mode, filename string) error {
-	Unload(deviceName, filename)
-	Load(deviceName, filename, nil)
-	defer Unload(deviceName, filename)
-	fd := mylog.Check2(syscall.CreateFile(
-		syscall.StringToUTF16Ptr("\\\\.\\"+deviceName),
-		syscall.GENERIC_READ|syscall.GENERIC_WRITE,
-		syscall.FILE_SHARE_READ|syscall.FILE_SHARE_WRITE,
-		nil,
-		syscall.OPEN_EXISTING,
-		syscall.FILE_ATTRIBUTE_NORMAL,
-		0,
-	))
-
-	defer syscall.Close(fd)
-
-	return nil
-}
+func (o *Object) StartService() { mylog.Check(o.service.Start()) }

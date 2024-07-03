@@ -6,6 +6,7 @@ import (
 
 func TestLoadSys(t *testing.T) {
 	path := "sysDemo.sys"
-	Load("", path, nil)
-	Unload("", path)
+	d := New("", path, nil)
+	d.Load()
+	d.Unload()
 }
