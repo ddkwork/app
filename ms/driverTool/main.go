@@ -84,7 +84,6 @@ func (s *StructView) Layout() unison.Paneler {
 	kv.AddChild(popupMenu)
 	structView.AddChildAtIndex(kv, 0) // todo bug need rowPanel AddChildAtIndex
 
-	d := driver.NewObject()
 	log := unison.NewMultiLineField() // todo log out format is not good
 	log.MinimumTextWidth = 800
 	log.SetText(`log view
@@ -98,11 +97,11 @@ func (s *StructView) Layout() unison.Paneler {
 	panel := widget.NewButtonsPanel(
 		[]string{"load", "unload"},
 		func() {
-			d.Load(structView.MetaData.ReloadPath)
+			driver.Load("", structView.MetaData.ReloadPath)
 			log.SetText(mylog.Body())
 		},
 		func() {
-			d.Unload()
+			driver.Unload("", structView.MetaData.ReloadPath)
 			log.SetText(mylog.Body())
 		},
 	)

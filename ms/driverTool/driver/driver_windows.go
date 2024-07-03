@@ -1,99 +1,166 @@
 package driver
 
 import (
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
-	"time"
+	"syscall"
+	"unicode/utf16"
+	"unsafe"
 
-	"golang.org/x/sys/windows"
-	"golang.org/x/sys/windows/svc"
-	"golang.org/x/sys/windows/svc/mgr" // todo if build on linux,it need change to cmd
+	"github.com/ddkwork/golibrary/stream"
+	"github.com/shirou/gopsutil/v3/process"
 
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/ddkwork/golibrary/stream"
+	"golang.org/x/sys/windows"
+	"golang.org/x/sys/windows/svc"
+	"golang.org/x/sys/windows/svc/mgr"
 )
 
-type (
-	Object struct {
-		Status     uint32
-		service    *mgr.Service
-		manager    *mgr.Mgr
-		driverPath string
-		DeviceName string
-	}
+const (
+	ErrServiceStartPending = "SERVICE PENDING"
 )
 
-func NewObject(driverPath, deviceName string) (d *Object) {
-	return &Object{
-		Status:     0,
-		service:    nil,
-		manager:    nil,
-		driverPath: driverPath,
-		DeviceName: deviceName,
+func Load(serviceName string, fileName string) {
+	fileName = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(fileName))
+	stream.WriteBinaryFile(fileName, stream.NewBuffer(fileName).Bytes())
+	if serviceName == "" {
+		serviceName = stream.BaseName(fileName)
+	}
+	mylog.Trace("deviceName", serviceName)
+	mylog.Trace("driverPath", fileName)
+	m := mylog.Check2(mgr.Connect())
+	s := mylog.Check2Ignore(m.OpenService(serviceName))
+	if s == nil {
+		s = mylog.Check2(createService(m, serviceName, fileName))
+	}
+	if !verifyServiceConfig(s, fileName) {
+		mylog.Check(m.Disconnect())
+		mylog.Check(s.Close())
+		Unload(serviceName, fileName)
+		Load(serviceName, fileName)
+	}
+	mylog.Check(s.Start())
+	verifyServiceRunning(serviceName)
+	mylog.Success("driver load success", fileName)
+}
+
+func Unload(serviceName string, fileName string) {
+	m := mylog.Check2(mgr.Connect())
+	service := mylog.Check2(m.OpenService(serviceName))
+	if !verifyServiceConfig(service, fileName) {
+		mylog.Check("invalid service")
+	}
+	mylog.Check2(service.Control(svc.Stop))
+	mylog.Check(service.Delete())
+	mylog.Success("driver unload success", fileName)
+}
+
+func verifyServiceConfig(service *mgr.Service, driverPath string) bool {
+	serviceConfig := mylog.Check2(service.Config())
+	if serviceConfig.ServiceType != windows.SERVICE_KERNEL_DRIVER {
+		return false
+	}
+	if serviceConfig.ErrorControl != windows.SERVICE_ERROR_IGNORE {
+		return false
+	}
+	if serviceConfig.BinaryPathName != fmt.Sprintf("\\??\\%s", driverPath) {
+		return false
+	}
+	return true
+}
+
+func verifyServiceRunning(serviceName string) {
+	connSCM := mylog.Check2(mgr.Connect())
+	service := mylog.Check2(connSCM.OpenService(serviceName))
+	serviceStatus := mylog.Check2(service.Query())
+	if serviceStatus.State == windows.SERVICE_START_PENDING {
+		mylog.Check(ErrServiceStartPending)
+	}
+	if serviceStatus.State != windows.SERVICE_RUNNING {
+		mylog.Check(errors.New("service was not started correctly"))
 	}
 }
 
-func (o *Object) Load(sysPath string) {
-	if o.driverPath == "" {
-		o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
-		stream.WriteBinaryFile(o.driverPath, stream.NewBuffer(sysPath).Bytes())
+func createService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (*mgr.Service, error) {
+	c := mgr.Config{
+		ServiceType:  windows.SERVICE_KERNEL_DRIVER,
+		StartType:    windows.SERVICE_DEMAND_START,
+		ErrorControl: windows.SERVICE_ERROR_IGNORE,
 	}
-	if o.DeviceName == "" {
-		o.DeviceName = stream.BaseName(sysPath)
+	if c.StartType == 0 {
+		c.StartType = mgr.StartManual
 	}
-	mylog.Trace("deviceName", o.DeviceName)
-	mylog.Trace("driverPath", o.driverPath)
-	o.SetManager()
-	o.OpenService()
-	mylog.Check(o.service.Start())
-	mylog.Success("driver load success", o.driverPath)
-	o.QueryService()
+	if c.ServiceType == 0 {
+		c.ServiceType = windows.SERVICE_WIN32_OWN_PROCESS
+	}
+	h := mylog.Check2(windows.CreateService(m.Handle, toPtr(serviceName), toPtr(c.DisplayName),
+		windows.SERVICE_ALL_ACCESS, c.ServiceType,
+		c.StartType, c.ErrorControl, toPtr(driverPath), toPtr(c.LoadOrderGroup),
+		nil, toStringBlock(c.Dependencies), toPtr(c.ServiceStartName), toPtr(c.Password)))
+
+	if c.SidType != windows.SERVICE_SID_TYPE_NONE {
+		updateSidType(h, c.SidType)
+	}
+	if c.Description != "" {
+		updateDescription(h, c.Description)
+	}
+	if c.DelayedAutoStart {
+		updateStartUp(h, c.DelayedAutoStart)
+	}
+	return &mgr.Service{Name: serviceName, Handle: h}, nil
 }
 
-func (o *Object) Unload() {
-	o.StopService()
-	o.DeleteService()
-	mylog.Check(o.manager.Disconnect())
-	mylog.Check(o.service.Close())
-	mylog.Success("driver unload success", o.driverPath)
-	mylog.Check(os.Remove(o.driverPath))
+func toPtr(s string) *uint16 {
+	mylog.Check(len(s) == 0)
+	return syscall.StringToUTF16Ptr(s)
 }
 
-func (o *Object) OpenService() {
-	var e error
-	o.service, e = o.manager.OpenService(o.DeviceName)
-	if e != nil {
-		config := mgr.Config{
-			ServiceType: windows.SERVICE_KERNEL_DRIVER,
-			StartType:   mgr.StartManual,
+func toStringBlock(ss []string) *uint16 {
+	if len(ss) == 0 {
+		return nil
+	}
+	t := ""
+	for _, s := range ss {
+		if s != "" {
+			t += s + "\x00"
 		}
-		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.driverPath, config))
 	}
+	if t == "" {
+		return nil
+	}
+	t += "\x00"
+	return &utf16.Encode([]rune(t))[0]
 }
 
-func (o *Object) SetManager() {
-	o.manager = mylog.Check2(mgr.Connect())
+func updateSidType(handle windows.Handle, sidType uint32) {
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_SERVICE_SID_INFO, (*byte)(unsafe.Pointer(&sidType))))
 }
 
-func (o *Object) QueryService() {
-	o.Status = mylog.Check2(o.service.Query()).ServiceSpecificExitCode
+func updateDescription(handle windows.Handle, desc string) {
+	d := windows.SERVICE_DESCRIPTION{Description: toPtr(desc)}
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DESCRIPTION, (*byte)(unsafe.Pointer(&d))))
 }
 
-func (o *Object) StopService() {
-	status := mylog.Check2(o.service.Control(svc.Stop))
-	timeout := time.Now().Add(10 * time.Second)
-	for status.State != svc.Stopped {
-		if timeout.Before(time.Now()) {
-			mylog.Check("Timed out waiting for service to stop")
+func updateStartUp(handle windows.Handle, isDelayed bool) {
+	var d windows.SERVICE_DELAYED_AUTO_START_INFO
+	if isDelayed {
+		d.IsDelayedAutoStartUp = 1
+	}
+	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d))))
+}
+
+func GetProcessId(pid int, name string) int {
+	if pid != 0 {
+		return pid
+	}
+	processes := mylog.Check2(process.Processes())
+
+	for _, each := range processes {
+		if procName := mylog.Check2(each.Name()); procName == name {
+			return int(each.Pid)
 		}
-		time.Sleep(300 * time.Millisecond)
-		o.QueryService()
-		mylog.Trace("Service stopped")
 	}
-}
-
-func (o *Object) DeleteService() {
-	mylog.Check(o.service.Delete())
-	mylog.Trace("Service deleted")
-	o.QueryService()
+	return 0
 }
