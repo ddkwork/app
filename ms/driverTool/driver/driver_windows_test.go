@@ -6,6 +6,6 @@ import (
 
 func TestLoadSys(t *testing.T) {
 	sysName := "sysDemo.sys"
-	Load("", sysName)
+	Load("", sysName, nil)
 	Unload("", sysName)
 }

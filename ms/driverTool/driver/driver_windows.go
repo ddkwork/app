@@ -22,7 +22,7 @@ const (
 	ErrServiceStartPending = "SERVICE PENDING"
 )
 
-func Load(serviceName string, fileName string) {
+func Load(serviceName string, fileName string, Dependencies []string) {
 	mylog.Call(func() {
 		fileName = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(fileName))
 		stream.WriteBinaryFile(fileName, stream.NewBuffer(fileName).Bytes())
@@ -34,13 +34,13 @@ func Load(serviceName string, fileName string) {
 		m := mylog.Check2(mgr.Connect())
 		s := mylog.Check2Ignore(m.OpenService(serviceName))
 		if s == nil {
-			s = mylog.Check2(createService(m, serviceName, fileName))
+			s = mylog.Check2(createService(m, serviceName, fileName, Dependencies))
 		}
 		if !verifyServiceConfig(s, fileName) {
 			mylog.Check(m.Disconnect())
 			mylog.Check(s.Close())
 			Unload(serviceName, fileName)
-			Load(serviceName, fileName)
+			Load(serviceName, fileName, Dependencies)
 		}
 		mylog.Check(s.Start())
 		verifyServiceRunning(serviceName)
@@ -87,11 +87,21 @@ func verifyServiceRunning(serviceName string) {
 	}
 }
 
-func createService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (*mgr.Service, error) {
+func createService(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string, args ...string) (*mgr.Service, error) {
 	c := mgr.Config{
-		ServiceType:  windows.SERVICE_KERNEL_DRIVER,
-		StartType:    windows.SERVICE_DEMAND_START,
-		ErrorControl: windows.SERVICE_ERROR_IGNORE,
+		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
+		StartType:        windows.SERVICE_DEMAND_START,
+		ErrorControl:     windows.SERVICE_ERROR_IGNORE,
+		BinaryPathName:   "",
+		LoadOrderGroup:   "",
+		TagId:            0,
+		Dependencies:     Dependencies,
+		ServiceStartName: "",
+		DisplayName:      "",
+		Password:         "",
+		Description:      "",
+		SidType:          0,
+		DelayedAutoStart: false,
 	}
 	if c.StartType == 0 {
 		c.StartType = mgr.StartManual
