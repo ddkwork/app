@@ -23,38 +23,42 @@ const (
 )
 
 func Load(serviceName string, fileName string) {
-	fileName = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(fileName))
-	stream.WriteBinaryFile(fileName, stream.NewBuffer(fileName).Bytes())
-	if serviceName == "" {
-		serviceName = stream.BaseName(fileName)
-	}
-	mylog.Trace("deviceName", serviceName)
-	mylog.Trace("driverPath", fileName)
-	m := mylog.Check2(mgr.Connect())
-	s := mylog.Check2Ignore(m.OpenService(serviceName))
-	if s == nil {
-		s = mylog.Check2(createService(m, serviceName, fileName))
-	}
-	if !verifyServiceConfig(s, fileName) {
-		mylog.Check(m.Disconnect())
-		mylog.Check(s.Close())
-		Unload(serviceName, fileName)
-		Load(serviceName, fileName)
-	}
-	mylog.Check(s.Start())
-	verifyServiceRunning(serviceName)
-	mylog.Success("driver load success", fileName)
+	mylog.Call(func() {
+		fileName = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(fileName))
+		stream.WriteBinaryFile(fileName, stream.NewBuffer(fileName).Bytes())
+		if serviceName == "" {
+			serviceName = stream.BaseName(fileName)
+		}
+		mylog.Trace("deviceName", serviceName)
+		mylog.Trace("driverPath", fileName)
+		m := mylog.Check2(mgr.Connect())
+		s := mylog.Check2Ignore(m.OpenService(serviceName))
+		if s == nil {
+			s = mylog.Check2(createService(m, serviceName, fileName))
+		}
+		if !verifyServiceConfig(s, fileName) {
+			mylog.Check(m.Disconnect())
+			mylog.Check(s.Close())
+			Unload(serviceName, fileName)
+			Load(serviceName, fileName)
+		}
+		mylog.Check(s.Start())
+		verifyServiceRunning(serviceName)
+		mylog.Success("driver load success", fileName)
+	})
 }
 
 func Unload(serviceName string, fileName string) {
-	m := mylog.Check2(mgr.Connect())
-	service := mylog.Check2(m.OpenService(serviceName))
-	if !verifyServiceConfig(service, fileName) {
-		mylog.Check("invalid service")
-	}
-	mylog.Check2(service.Control(svc.Stop))
-	mylog.Check(service.Delete())
-	mylog.Success("driver unload success", fileName)
+	mylog.Call(func() {
+		m := mylog.Check2(mgr.Connect())
+		service := mylog.Check2(m.OpenService(serviceName))
+		if !verifyServiceConfig(service, fileName) {
+			mylog.Check("invalid service")
+		}
+		mylog.Check2(service.Control(svc.Stop))
+		mylog.Check(service.Delete())
+		mylog.Success("driver unload success", fileName)
+	})
 }
 
 func verifyServiceConfig(service *mgr.Service, driverPath string) bool {
