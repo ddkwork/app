@@ -1,9 +1,15 @@
 package driver
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/ddkwork/golibrary/mylog"
+)
 
 func TestLoadSys(t *testing.T) {
-	sysName := "sysDemo.sys"
-	Load("", sysName)
-	Unload("", sysName)
+	mylog.Call(func() {
+		sysName := "sysDemo.sys"
+		Load("", sysName)
+		Unload("", sysName)
+	})
 }
