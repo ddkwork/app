@@ -37,7 +37,7 @@ func Unload(serviceName string, driverFullPath string) {
 	m := mylog.Check2(mgr.Connect())
 	service := mylog.Check2(m.OpenService(serviceName))
 	if !verifyServiceConfig(service, driverFullPath) {
-		mylog.Check(errors.New("invalid service"))
+		mylog.Check("invalid service")
 	}
 	mylog.Check2(service.Control(svc.Stop))
 	mylog.Check(service.Delete())
@@ -81,10 +81,10 @@ func createService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (
 	if c.ServiceType == 0 {
 		c.ServiceType = windows.SERVICE_WIN32_OWN_PROCESS
 	}
-	h := mylog.Check2(windows.CreateService(m.Handle, toUnicode(serviceName), toUnicode(c.DisplayName),
+	h := mylog.Check2(windows.CreateService(m.Handle, toPtr(serviceName), toPtr(c.DisplayName),
 		windows.SERVICE_ALL_ACCESS, c.ServiceType,
-		c.StartType, c.ErrorControl, toUnicode(driverPath), toUnicode(c.LoadOrderGroup),
-		nil, toStringBlock(c.Dependencies), toUnicode(c.ServiceStartName), toUnicode(c.Password)))
+		c.StartType, c.ErrorControl, toPtr(driverPath), toPtr(c.LoadOrderGroup),
+		nil, toStringBlock(c.Dependencies), toPtr(c.ServiceStartName), toPtr(c.Password)))
 
 	if c.SidType != windows.SERVICE_SID_TYPE_NONE {
 		updateSidType(h, c.SidType)
@@ -98,7 +98,7 @@ func createService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (
 	return &mgr.Service{Name: serviceName, Handle: h}, nil
 }
 
-func toUnicode(s string) *uint16 {
+func toPtr(s string) *uint16 {
 	mylog.Check(len(s) == 0)
 	return syscall.StringToUTF16Ptr(s)
 }
@@ -125,7 +125,7 @@ func updateSidType(handle windows.Handle, sidType uint32) {
 }
 
 func updateDescription(handle windows.Handle, desc string) {
-	d := windows.SERVICE_DESCRIPTION{Description: toUnicode(desc)}
+	d := windows.SERVICE_DESCRIPTION{Description: toPtr(desc)}
 	mylog.Check(windows.ChangeServiceConfig2(handle, windows.SERVICE_CONFIG_DESCRIPTION, (*byte)(unsafe.Pointer(&d))))
 }
 

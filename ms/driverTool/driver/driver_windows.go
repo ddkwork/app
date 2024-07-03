@@ -14,18 +14,6 @@ import (
 )
 
 type (
-	helper interface {
-		SetService()
-		SetManager()
-		StartService()
-		StopService()
-		DeleteService()
-		QueryService()
-	}
-	Interface interface {
-		Load(sysPath string)
-		Unload()
-	}
 	Object struct {
 		Status     uint32
 		service    *mgr.Service
@@ -45,10 +33,6 @@ func NewObject(driverPath, deviceName string) (d *Object) {
 	}
 }
 
-func New() Interface {
-	return NewObject("", "")
-}
-
 func (o *Object) Load(sysPath string) {
 	if o.driverPath == "" {
 		o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
@@ -60,8 +44,8 @@ func (o *Object) Load(sysPath string) {
 	mylog.Trace("deviceName", o.DeviceName)
 	mylog.Trace("driverPath", o.driverPath)
 	o.SetManager()
-	o.SetService()
-	o.StartService()
+	o.OpenService()
+	mylog.Check(o.service.Start())
 	mylog.Success("driver load success", o.driverPath)
 	o.QueryService()
 }
@@ -75,7 +59,7 @@ func (o *Object) Unload() {
 	mylog.Check(os.Remove(o.driverPath))
 }
 
-func (o *Object) SetService() {
+func (o *Object) OpenService() {
 	var e error
 	o.service, e = o.manager.OpenService(o.DeviceName)
 	if e != nil {
@@ -113,4 +97,3 @@ func (o *Object) DeleteService() {
 	mylog.Trace("Service deleted")
 	o.QueryService()
 }
-func (o *Object) StartService() { mylog.Check(o.service.Start()) }
