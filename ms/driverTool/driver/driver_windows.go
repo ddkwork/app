@@ -14,41 +14,51 @@ import (
 )
 
 type (
+	helper interface {
+		SetService()
+		SetManager()
+		StartService()
+		StopService()
+		DeleteService()
+		QueryService()
+	}
+	Interface interface {
+		Load(sysPath string)
+		Unload()
+	}
 	Object struct {
-		Status       uint32
-		service      *mgr.Service
-		manager      *mgr.Mgr
-		path         string
-		DeviceName   string
-		Dependencies []string
+		Status     uint32
+		service    *mgr.Service
+		manager    *mgr.Mgr
+		driverPath string
+		DeviceName string
 	}
 )
 
-func New(deviceName, driverPath string, Dependencies []string) (d *Object) {
+func NewObject() *Object {
 	return &Object{
-		Status:       0,
-		service:      nil,
-		manager:      nil,
-		path:         driverPath,
-		DeviceName:   deviceName,
-		Dependencies: Dependencies,
+		Status:     0,
+		service:    nil,
+		manager:    nil,
+		driverPath: "",
+		DeviceName: "",
 	}
 }
 
-func (o *Object) Load() {
-	if o.path == "" {
-		o.path = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(o.path))
-		stream.WriteBinaryFile(o.path, stream.NewBuffer(o.path).Bytes())
-	}
-	if o.DeviceName == "" {
-		o.DeviceName = stream.BaseName(o.path)
-	}
+func New() Interface {
+	return NewObject()
+}
+
+func (o *Object) Load(sysPath string) {
+	o.driverPath = filepath.Join(os.Getenv("SYSTEMROOT"), "system32", "drivers", filepath.Base(sysPath))
+	o.DeviceName = stream.BaseName(sysPath)
 	mylog.Trace("deviceName", o.DeviceName)
-	mylog.Trace("path", o.path)
-	o.manager = mylog.Check2(mgr.Connect())
+	mylog.Trace("driverPath", o.driverPath)
+	stream.WriteBinaryFile(o.driverPath, stream.NewBuffer(sysPath).Bytes())
+	o.SetManager()
 	o.SetService()
-	mylog.Check(o.service.Start())
-	mylog.Success("driver load success", o.path)
+	o.StartService()
+	mylog.Success("driver load success", o.driverPath)
 	o.QueryService()
 }
 
@@ -57,28 +67,24 @@ func (o *Object) Unload() {
 	o.DeleteService()
 	mylog.Check(o.manager.Disconnect())
 	mylog.Check(o.service.Close())
-	mylog.Success("driver unload success", o.path)
-	mylog.Check(os.Remove(o.path))
+	mylog.Success("driver unload success", o.driverPath)
+	mylog.Check(os.Remove(o.driverPath))
 }
 
 func (o *Object) SetService() {
-	o.service = mylog.Check2(o.manager.OpenService(o.DeviceName))
-	config := mgr.Config{
-		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
-		StartType:        mgr.StartManual,
-		ErrorControl:     0,
-		BinaryPathName:   "",
-		LoadOrderGroup:   "",
-		TagId:            0,
-		Dependencies:     o.Dependencies,
-		ServiceStartName: "",
-		DisplayName:      "",
-		Password:         "",
-		Description:      "",
-		SidType:          0,
-		DelayedAutoStart: false,
+	var e error
+	o.service, e = o.manager.OpenService(o.DeviceName)
+	if e != nil {
+		config := mgr.Config{
+			ServiceType: windows.SERVICE_KERNEL_DRIVER,
+			StartType:   mgr.StartManual,
+		}
+		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.driverPath, config))
 	}
-	o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.path, config))
+}
+
+func (o *Object) SetManager() {
+	o.manager = mylog.Check2(mgr.Connect())
 }
 
 func (o *Object) QueryService() {
@@ -103,3 +109,4 @@ func (o *Object) DeleteService() {
 	mylog.Trace("Service deleted")
 	o.QueryService()
 }
+func (o *Object) StartService() { mylog.Check(o.service.Start()) }
