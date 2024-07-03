@@ -34,8 +34,9 @@ func Load(serviceName string, fileName string, Dependencies []string) {
 		m := mylog.Check2(mgr.Connect())
 		s := mylog.Check2Ignore(m.OpenService(serviceName))
 		if s == nil {
-			s = mylog.Check2(createService(m, serviceName, fileName, Dependencies))
+			s = mylog.Check2(createService(m, serviceName, fileName, Dependencies)) //todo bug
 		}
+		defer func() { mylog.Check(s.Close()) }()
 		if !verifyServiceConfig(s, fileName) {
 			mylog.Check(m.Disconnect())
 			mylog.Check(s.Close())
@@ -87,7 +88,24 @@ func verifyServiceRunning(serviceName string) {
 	}
 }
 
-func createService(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string, args ...string) (*mgr.Service, error) {
+func createService(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string) (*mgr.Service, error) {
+	c := mgr.Config{
+		ServiceType:    windows.SERVICE_KERNEL_DRIVER,
+		StartType:      windows.SERVICE_DEMAND_START,
+		ErrorControl:   windows.SERVICE_ERROR_IGNORE,
+		BinaryPathName: driverPath,
+		Dependencies:   Dependencies,
+	}
+
+	h := mylog.Check2(windows.CreateService(m.Handle, toPtr(serviceName), toPtr(c.DisplayName),
+		windows.SERVICE_ALL_ACCESS, c.ServiceType,
+		c.StartType, c.ErrorControl, toPtr(driverPath), toPtr(c.LoadOrderGroup),
+		nil, toStringBlock(c.Dependencies), toPtr(c.ServiceStartName), toPtr(c.Password)))
+
+	return &mgr.Service{Name: serviceName, Handle: h}, nil
+}
+
+func createServiceOld(m *mgr.Mgr, serviceName, driverPath string, Dependencies []string, args ...string) (*mgr.Service, error) {
 	c := mgr.Config{
 		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
 		StartType:        windows.SERVICE_DEMAND_START,
