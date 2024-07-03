@@ -47,7 +47,7 @@ func (o *Object) Load() {
 	mylog.Trace("path", o.path)
 	o.manager = mylog.Check2(mgr.Connect())
 	o.SetService()
-	o.StartService()
+	mylog.Check(o.service.Start())
 	mylog.Success("driver load success", o.path)
 	o.QueryService()
 }
@@ -62,26 +62,23 @@ func (o *Object) Unload() {
 }
 
 func (o *Object) SetService() {
-	var e error
-	o.service, e = o.manager.OpenService(o.DeviceName)
-	if e != nil {
-		config := mgr.Config{
-			ServiceType:      windows.SERVICE_KERNEL_DRIVER,
-			StartType:        mgr.StartManual,
-			ErrorControl:     0,
-			BinaryPathName:   "",
-			LoadOrderGroup:   "",
-			TagId:            0,
-			Dependencies:     o.Dependencies,
-			ServiceStartName: "",
-			DisplayName:      "",
-			Password:         "",
-			Description:      "",
-			SidType:          0,
-			DelayedAutoStart: false,
-		}
-		o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.path, config))
+	o.service = mylog.Check2(o.manager.OpenService(o.DeviceName))
+	config := mgr.Config{
+		ServiceType:      windows.SERVICE_KERNEL_DRIVER,
+		StartType:        mgr.StartManual,
+		ErrorControl:     0,
+		BinaryPathName:   "",
+		LoadOrderGroup:   "",
+		TagId:            0,
+		Dependencies:     o.Dependencies,
+		ServiceStartName: "",
+		DisplayName:      "",
+		Password:         "",
+		Description:      "",
+		SidType:          0,
+		DelayedAutoStart: false,
 	}
+	o.service = mylog.Check2(o.manager.CreateService(o.DeviceName, o.path, config))
 }
 
 func (o *Object) QueryService() {
@@ -106,4 +103,3 @@ func (o *Object) DeleteService() {
 	mylog.Trace("Service deleted")
 	o.QueryService()
 }
-func (o *Object) StartService() { mylog.Check(o.service.Start()) }
