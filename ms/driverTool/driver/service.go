@@ -17,22 +17,33 @@ const (
 	ErrServiceStartPending = "SERVICE PENDING"
 )
 
-func SetUpService(serviceName string, driverFullPath string) {
+func Load(serviceName string, driverFullPath string) {
 	m := mylog.Check2(mgr.Connect())
 	s := mylog.Check2Ignore(m.OpenService(serviceName))
 	if s == nil {
-		s = mylog.Check2(CreateService(m, serviceName, driverFullPath))
+		s = mylog.Check2(createService(m, serviceName, driverFullPath))
 	}
-	if !VerifyServiceConfig(s, driverFullPath) {
+	if !verifyServiceConfig(s, driverFullPath) {
 		mylog.Check(m.Disconnect())
 		mylog.Check(s.Close())
-		RemoveService(serviceName, driverFullPath)
-		SetUpService(serviceName, driverFullPath)
+		Unload(serviceName, driverFullPath)
+		Load(serviceName, driverFullPath)
 	}
 	mylog.Check(s.Start())
+	mylog.Check(verifyServiceRunning(serviceName))
 }
 
-func VerifyServiceConfig(service *mgr.Service, driverPath string) bool {
+func Unload(serviceName string, driverFullPath string) {
+	m := mylog.Check2(mgr.Connect())
+	service := mylog.Check2(m.OpenService(serviceName))
+	if !verifyServiceConfig(service, driverFullPath) {
+		mylog.Check(errors.New("invalid service"))
+	}
+	mylog.Check2(service.Control(svc.Stop))
+	mylog.Check(service.Delete())
+}
+
+func verifyServiceConfig(service *mgr.Service, driverPath string) bool {
 	serviceConfig := mylog.Check2(service.Config())
 	if serviceConfig.ServiceType != windows.SERVICE_KERNEL_DRIVER {
 		return false
@@ -46,7 +57,7 @@ func VerifyServiceConfig(service *mgr.Service, driverPath string) bool {
 	return true
 }
 
-func VerifyServiceRunning(serviceName string) error {
+func verifyServiceRunning(serviceName string) error {
 	connSCM := mylog.Check2(mgr.Connect())
 	service := mylog.Check2(connSCM.OpenService(serviceName))
 	serviceStatus := mylog.Check2(service.Query())
@@ -58,17 +69,7 @@ func VerifyServiceRunning(serviceName string) error {
 	return nil
 }
 
-func RemoveService(serviceName string, driverFullPath string) {
-	m := mylog.Check2(mgr.Connect())
-	service := mylog.Check2(m.OpenService(serviceName))
-	if !VerifyServiceConfig(service, driverFullPath) {
-		mylog.Check(errors.New("invalid service"))
-	}
-	mylog.Check2(service.Control(svc.Stop))
-	mylog.Check(service.Delete())
-}
-
-func CreateService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (*mgr.Service, error) {
+func createService(m *mgr.Mgr, serviceName, driverPath string, args ...string) (*mgr.Service, error) {
 	c := mgr.Config{
 		ServiceType:  windows.SERVICE_KERNEL_DRIVER,
 		StartType:    windows.SERVICE_DEMAND_START,
