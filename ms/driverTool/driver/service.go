@@ -3,46 +3,37 @@ package driver
 import (
 	"errors"
 	"fmt"
-	"golang.org/x/sys/windows"
-	"golang.org/x/sys/windows/svc"
-	"golang.org/x/sys/windows/svc/mgr"
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
+
+	"github.com/ddkwork/golibrary/mylog"
+	"golang.org/x/sys/windows"
+	"golang.org/x/sys/windows/svc"
+	"golang.org/x/sys/windows/svc/mgr"
 )
 
 const (
 	ErrServiceStartPending = "SERVICE PENDING"
 )
 
-func SetUpService(serviceName string, driverFullPath string) error {
-	connSCM, err := mgr.Connect()
+func SetUpService(serviceName string, driverFullPath string) {
+	connSCM := mylog.Check2(mgr.Connect())
 	service := CheckService(*connSCM, serviceName)
 	if service == nil {
-		service, err = CreateService(*connSCM, serviceName, driverFullPath)
-		if err != nil {
-			return CreateError(err)
-		}
+		service = mylog.Check2(CreateService(*connSCM, serviceName, driverFullPath))
 	}
 	if !VerifyServiceConfig(service, driverFullPath) {
-		connSCM.Disconnect()
-		service.Close()
-		if err = RemoveService(serviceName, driverFullPath); err != nil {
-			return CreateError(err)
-		}
-		return SetUpService(serviceName, driverFullPath)
+		mylog.Check(connSCM.Disconnect())
+		mylog.Check(service.Close())
+		RemoveService(serviceName, driverFullPath)
+		SetUpService(serviceName, driverFullPath)
 	}
-	if err = service.Start(); err != nil {
-		return CreateError(err)
-	}
-	return nil
+	mylog.Check(service.Start())
 }
 
 func CheckService(connSCM mgr.Mgr, serviceName string) *mgr.Service {
-	if service, err := connSCM.OpenService(serviceName); err == nil {
-		return service
-	}
-	return nil
+	return mylog.Check2(connSCM.OpenService(serviceName))
 }
 
 func CreateService(connSCM mgr.Mgr, serviceName string, driverPath string) (*mgr.Service, error) {
@@ -51,18 +42,14 @@ func CreateService(connSCM mgr.Mgr, serviceName string, driverPath string) (*mgr
 		StartType:    windows.SERVICE_DEMAND_START,
 		ErrorControl: windows.SERVICE_ERROR_IGNORE,
 	}
-	service, err := CreateServiceImported(&connSCM, serviceName, driverPath, serviceConfig)
-	if err != nil {
-		return nil, err
-	}
+	service := mylog.Check2(CreateServiceImported(&connSCM, serviceName, driverPath, serviceConfig))
+
 	return service, nil
 }
 
 func VerifyServiceConfig(service *mgr.Service, driverPath string) bool {
-	serviceConfig, err := service.Config()
-	if err != nil {
-		return false
-	}
+	serviceConfig := mylog.Check2(service.Config())
+
 	if serviceConfig.ServiceType != windows.SERVICE_KERNEL_DRIVER {
 		return false
 	}
@@ -76,38 +63,27 @@ func VerifyServiceConfig(service *mgr.Service, driverPath string) bool {
 }
 
 func VerifyServiceRunning(serviceName string) error {
-	connSCM, err := mgr.Connect()
-	if err != nil {
-		return CreateError(err)
-	}
-	service, err := connSCM.OpenService(serviceName)
-	if err != nil {
-		return CreateError(err)
-	}
-	if serviceStatus, _ := service.Query(); serviceStatus.State == windows.SERVICE_START_PENDING {
+	connSCM := mylog.Check2(mgr.Connect())
+
+	service := mylog.Check2(connSCM.OpenService(serviceName))
+
+	serviceStatus := mylog.Check2(service.Query())
+	if serviceStatus.State == windows.SERVICE_START_PENDING {
 		return errors.New(ErrServiceStartPending)
 	} else if serviceStatus.State != windows.SERVICE_RUNNING {
-		return CreateError(errors.New("service was not started correctly"))
+		mylog.Check(errors.New("service was not started correctly"))
 	}
 	return nil
 }
 
-func RemoveService(serviceName string, driverFullPath string) error {
-	connSCM, err := mgr.Connect()
-	if err != nil {
-		return CreateError(err)
-	}
-	service, err := connSCM.OpenService(serviceName)
-	if err != nil {
-		return CreateError(err)
-	}
+func RemoveService(serviceName string, driverFullPath string) {
+	connSCM := mylog.Check2(mgr.Connect())
+	service := mylog.Check2(connSCM.OpenService(serviceName))
 	if !VerifyServiceConfig(service, driverFullPath) {
-		return CreateError(errors.New("invalid service"))
+		mylog.Check(errors.New("invalid service"))
 	}
-	if _, err = service.Control(svc.Stop); err != nil {
-		return CreateError(err)
-	}
-	return CreateError(service.Delete())
+	mylog.Check2(service.Control(svc.Stop))
+	mylog.Check(service.Delete())
 }
 
 func CreateServiceImported(m *mgr.Mgr, name, exepath string, c mgr.Config, args ...string) (*mgr.Service, error) {
@@ -117,36 +93,19 @@ func CreateServiceImported(m *mgr.Mgr, name, exepath string, c mgr.Config, args 
 	if c.ServiceType == 0 {
 		c.ServiceType = windows.SERVICE_WIN32_OWN_PROCESS
 	}
-	h, err := windows.CreateService(m.Handle, toPtrImported(name), toPtrImported(c.DisplayName),
+	h := mylog.Check2(windows.CreateService(m.Handle, toPtrImported(name), toPtrImported(c.DisplayName),
 		windows.SERVICE_ALL_ACCESS, c.ServiceType,
 		c.StartType, c.ErrorControl, toPtrImported(exepath), toPtrImported(c.LoadOrderGroup),
-		nil, toStringBlockImported(c.Dependencies), toPtrImported(c.ServiceStartName), toPtrImported(c.Password))
-	if err != nil {
-		return nil, err
-	}
+		nil, toStringBlockImported(c.Dependencies), toPtrImported(c.ServiceStartName), toPtrImported(c.Password)))
+
 	if c.SidType != windows.SERVICE_SID_TYPE_NONE {
-		err = updateSidTypeImported(h, c.SidType)
-		if err != nil {
-			windows.DeleteService(h)
-			windows.CloseServiceHandle(h)
-			return nil, err
-		}
+		mylog.Check(updateSidTypeImported(h, c.SidType))
 	}
 	if c.Description != "" {
-		err = updateDescriptionImported(h, c.Description)
-		if err != nil {
-			windows.DeleteService(h)
-			windows.CloseServiceHandle(h)
-			return nil, err
-		}
+		mylog.Check(updateDescriptionImported(h, c.Description))
 	}
 	if c.DelayedAutoStart {
-		err = updateStartUpImported(h, c.DelayedAutoStart)
-		if err != nil {
-			windows.DeleteService(h)
-			windows.CloseServiceHandle(h)
-			return nil, err
-		}
+		mylog.Check(updateStartUpImported(h, c.DelayedAutoStart))
 	}
 	return &mgr.Service{Name: name, Handle: h}, nil
 }
