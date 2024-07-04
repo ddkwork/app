@@ -191,7 +191,7 @@ func (n *Node[T]) AddContainerByData(typeKey string, data T) (newContainer *Node
 }
 
 func (n *Node[T]) Sum(key string) string {
-	//container column 0 key is empty string
+	// container column 0 key is empty string
 	key = n.Type
 	key = strings.TrimSuffix(key, ContainerKeyPostfix)
 	key += " (" + fmt.Sprint(n.LenChildren()) + ")"
