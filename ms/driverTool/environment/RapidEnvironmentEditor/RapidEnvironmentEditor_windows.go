@@ -2,7 +2,6 @@ package rapidenvironmenteditor
 
 import (
 	_ "embed"
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -34,8 +33,8 @@ func Layout() unison.Paneler {
 			ContextMenuItems: nil,
 			MarshalRow: func(node *widget.Node[EnvironmentEditor]) (cells []widget.CellData) {
 				if node.Container() {
-					node.Data.Key = node.Type
-					node.Data.Value = fmt.Sprint(node.LenChildren()) + " items"
+					node.Data.Key = node.Sum(node.Data.Key)
+					node.Data.Value = ""
 				}
 				node.Data.IsValid = isValidPath(node.Data.Value)
 				enable := !node.Data.IsValid
