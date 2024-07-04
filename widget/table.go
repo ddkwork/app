@@ -392,9 +392,6 @@ func NewContainerNodes[T any](typeKeys []string, objects ...T) (containerNodes [
 	containerNodes = make([]*Node[T], 0)
 	var data T // it is zero value
 	for i, key := range typeKeys {
-		if strings.HasPrefix(key, "Invalid") {
-			continue
-		}
 		if len(objects) > 0 {
 			data = objects[i]
 		}
