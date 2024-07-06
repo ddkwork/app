@@ -50,7 +50,7 @@ func NewObject(deviceName, driverPath string) *Object {
 	}
 }
 
-func New() Interface {
+func New() (d Interface) {
 	return NewObject("", "")
 }
 

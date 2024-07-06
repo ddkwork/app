@@ -94,14 +94,15 @@ func (s *StructView) Layout() unison.Paneler {
 
 
 `)
+	d := driver.New()
 	panel := widget.NewButtonsPanel(
 		[]string{"load", "unload"},
 		func() {
-			driver.Load("", structView.MetaData.ReloadPath)
+			d.Load(structView.MetaData.ReloadPath)
 			log.SetText(mylog.Body())
 		},
 		func() {
-			driver.Unload("", structView.MetaData.ReloadPath)
+			d.Unload()
 			log.SetText(mylog.Body())
 		},
 	)
