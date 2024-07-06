@@ -3,7 +3,7 @@ module github.com/saferwall/winsdk2json
 go 1.22.4
 
 require (
-	github.com/ddkwork/golibrary v0.0.0-20240705133929-5aa35acd51d0
+	github.com/ddkwork/golibrary v0.0.0-20240706124243-7ed34ae5fd52
 	github.com/dlclark/regexp2 v1.11.0
 	github.com/spf13/cobra v1.8.1
 	github.com/xlab/c-for-go v1.2.0
