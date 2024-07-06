@@ -48,7 +48,7 @@ func NewExplorer(walkDir string) unison.Paneler {
 			ContextMenuItems: nil,
 			MarshalRow: func(node *Node[DirTree]) (cells []CellData) {
 				if node.Container() {
-					node.Data.Name = node.Data.Type
+					node.Data.Name = node.Sum(node.Data.Name)
 					sum := int64(0)
 					node.Data.Size = sum
 					node.Walk(func(node *Node[DirTree]) {
