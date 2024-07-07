@@ -47,7 +47,7 @@ func TestBindMacros(t *testing.T) {
 	g.P("package main")
 	g.P()
 
-	g.P("var (")
+	g.P("const (")
 	for _, p := range macros.List() {
 		p.Value = strings.TrimSpace(p.Value)
 		if strings.HasPrefix(p.Value, "sizeof") {
@@ -106,6 +106,8 @@ func TestBindMacros(t *testing.T) {
 		macros.Delete(p.Key)
 	}
 	g.P(")")
+	g.ReplaceAll("Glfw", "")
+	g.ReplaceAll("Cursor=0x00033001", "Cursor_=0x00033001")
 	stream.WriteGoFile("tmp/vars.go", g.Buffer)
 	for _, p := range macros.List() {
 		// return
