@@ -1,4 +1,4 @@
-package glfw3
+package main
 
 var (
 	GlfwVersionMajor              = 3

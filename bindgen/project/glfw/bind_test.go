@@ -44,7 +44,7 @@ func TestBindMacros(t *testing.T) {
 	)
 
 	g := stream.NewGeneratedFile()
-	g.P("package glfw3")
+	g.P("package main")
 	g.P()
 
 	g.P("var (")
