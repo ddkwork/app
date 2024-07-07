@@ -90,7 +90,11 @@ func TestBindMacros(t *testing.T) {
 		}
 
 		p.Value = strings.ReplaceAll(p.Value, "\\", "")
-		// p.Value = strings.Replace(p.Value, "6U", "6", 1)
+		p.Value = strings.Replace(p.Value, "GLFW_MOUSE_BUTTON_8", "GlfwMouseButton8", 1)
+		p.Value = strings.Replace(p.Value, "GLFW_MOUSE_BUTTON_1", "GlfwMouseButton1", 1)
+		p.Value = strings.Replace(p.Value, "GLFW_MOUSE_BUTTON_2", "GlfwMouseButton2", 1)
+		p.Value = strings.Replace(p.Value, "GLFW_MOUSE_BUTTON_3", "GlfwMouseButton3", 1)
+		p.Value = strings.Replace(p.Value, "GLFW_JOYSTICK_16", "GlfwJoystick16", 1)
 		// p.Value = strings.Replace(p.Value, "7U", "7", 1)
 		// p.Value = strings.Replace(p.Value, "8U", "8", 1)
 		// p.Value = strings.Replace(p.Value, "9U", "9", 1)
@@ -169,13 +173,15 @@ func TestBindMacros(t *testing.T) {
 }
 
 func TestIsAlphabetOrUnderscore(t *testing.T) {
-	assert.Equal(t, true, isAlphabetOrUnderscore("GLFW_HAT_RIGHT"))
+	println(stream.ToCamelUpper("GLFW_HAT_RIGHT | GLFW_HAT_UP", false))
+	assert.Equal(t, true, isAlphabetOrUnderscore("GLFW_HAT_RIGHT | GLFW_HAT_UP"))
+	assert.Equal(t, true, isAlphabetOrUnderscore("GLFW_MOUSE_BUTTON_8"))
 }
 
 // isAlphabetOrUnderscore 检查字符串是否仅由字母或下划线组成
 func isAlphabetOrUnderscore(s string) bool {
 	for _, r := range s {
-		if !unicode.IsLetter(r) && r != '_' {
+		if !unicode.IsLetter(r) && r != '_' && r != ' ' && r != '|' {
 			return false
 		}
 	}
