@@ -15,7 +15,10 @@ var dll []byte
 
 func init() {
 	runtime.LockOSThread()
-	stream.WriteTruncate("C:\\Windows\\glfw3.dll", dll)
+	path := "C:\\Windows\\glfw3.dll"
+	if !stream.IsFilePath(path) {
+		stream.WriteTruncate(path, dll)
+	}
 	mylog.Check2(GengoLibrary.LoadEmbed(dll))
 }
 
@@ -31,8 +34,8 @@ func main() {
 		PollEvents()
 		SwapBuffers(w)
 		if WindowShouldClose(w) != 0 {
-			// DestroyWindow(w)
-			// break
+			DestroyWindow(w)
+			break
 		}
 	}
 }
