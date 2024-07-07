@@ -5,25 +5,23 @@ import (
 	"testing"
 	"unicode"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/ddkwork/app/bindgen/clang"
 	"github.com/ddkwork/app/bindgen/gengo"
-
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
 	"github.com/ddkwork/golibrary/stream/orderedmap"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBindGlfw(t *testing.T) {
 	t.Skip()
-	pkg := gengo.NewPackage("glfw3",
+	pkg := gengo.NewPackage("glfw",
 		gengo.WithRemovePrefix(
 			"glfw",
 			"gl",
 		))
 	path := "include\\GLFW\\glfw3.h"
-	mylog.Check(pkg.Transform("glfw3", &clang.Options{
+	mylog.Check(pkg.Transform("glfw", &clang.Options{
 		Sources:          []string{path},
 		AdditionalParams: []string{},
 	}),

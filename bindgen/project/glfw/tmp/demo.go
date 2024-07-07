@@ -19,7 +19,13 @@ import (
 var dllData []byte
 
 func init() {
+	// All init functions are run on the startup thread. Calling LockOSThread from an init function will cause the main
+	// function to be invoked on that thread.
 	runtime.LockOSThread()
+}
+
+func init() {
+	// runtime.LockOSThread()
 	dir := mylog.Check2(os.UserCacheDir())
 	dir = filepath.Join(dir, "glfw3", "dll_cache")
 	stream.CreatDirectory(dir)
@@ -47,20 +53,22 @@ func main() {
 	// WindowHint(FocusOnShow, False)
 	// WindowHint(ScaleToMonitor, False)
 
+	// PostEmptyEvent()
+
 	w := CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
 
-	//SetCursorEnterCallback(w, func() {})
-	//SetCursorPosCallback(w, func() {})
-	//SetMouseButtonCallback(w, func() {})
-	//SetWindowFocusCallback(w, func() {})
-	//SetWindowCloseCallback(w, func() {})
-	//SetWindowSizeCallback(w, func() {})
-	//SetWindowRefreshCallback(w, func() {})
-	//SetScrollCallback(w, func() {})
-	//SetKeyCallback(w, func() {})
-	//SetCharCallback(w, func() {})
-	//SetDropCallback(w, func() {})
-	//SetWindowIcon(w,32, func() {})
+	// SetCursorEnterCallback(w, func() {})
+	// SetCursorPosCallback(w, func() {})
+	// SetMouseButtonCallback(w, func() {})
+	// SetWindowFocusCallback(w, func() {})
+	// SetWindowCloseCallback(w, func() {})
+	// SetWindowSizeCallback(w, func() {})
+	// SetWindowRefreshCallback(w, func() {})
+	// SetScrollCallback(w, func() {})
+	// SetKeyCallback(w, func() {})
+	// SetCharCallback(w, func() {})
+	// SetDropCallback(w, func() {})
+	// SetWindowIcon(w,32, func() {})
 
 	MakeContextCurrent(w)
 	for {
