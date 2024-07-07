@@ -19,9 +19,8 @@ import (
 var dllData []byte
 
 func init() {
-	// All init functions are run on the startup thread. Calling LockOSThread from an init function will cause the main
-	// function to be invoked on that thread.
 	runtime.LockOSThread()
+	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 
 func init() {
@@ -39,6 +38,10 @@ func init() {
 	mylog.Check2(GengoLibrary.LoadFrom(filePath))
 }
 
+// loadDll堆栈溢出
+// go build -buildmode=exe
+// go env -w GOFLAGS="-buildmode=exe"
+// https://github.com/golang/go/issues/42593
 func main() {
 	Init()
 	mylog.Info("version", BytePointerToString(GetVersionString()))
@@ -72,6 +75,7 @@ func main() {
 
 	MakeContextCurrent(w)
 	for {
+		// PostEmptyEvent()
 		PollEvents()
 		SwapBuffers(w)
 		if WindowShouldClose(w) != 0 {
