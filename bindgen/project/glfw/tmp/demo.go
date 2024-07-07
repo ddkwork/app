@@ -38,10 +38,6 @@ func init() {
 	mylog.Check2(GengoLibrary.LoadFrom(filePath))
 }
 
-// loadDll堆栈溢出
-// go build -buildmode=exe
-// go env -w GOFLAGS="-buildmode=exe"
-// https://github.com/golang/go/issues/42593
 func main() {
 	Init()
 	mylog.Info("version", BytePointerToString(GetVersionString()))
