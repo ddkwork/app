@@ -5,12 +5,6 @@ import (
 	"testing"
 )
 
-func StringToBytePointer(s string) *byte {
-	bytes := []byte(s)
-	ptr := &bytes[0]
-	return ptr
-}
-
 func TestBind(t *testing.T) {
 	windows.SetDllDirectory(".")
 	Init()
@@ -25,4 +19,10 @@ func TestBind(t *testing.T) {
 			break
 		}
 	}
+}
+
+func StringToBytePointer(s string) *byte {
+	bytes := []byte(s)
+	ptr := &bytes[0]
+	return ptr
 }
