@@ -6,6 +6,8 @@ import (
 	"testing"
 	"unicode"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/ddkwork/app/bindgen/clang"
 	"github.com/ddkwork/app/bindgen/gengo"
 	"github.com/ddkwork/golibrary/mylog"
@@ -164,6 +166,10 @@ func TestBindMacros(t *testing.T) {
 		// return
 		mylog.Todo(p.Key + " = " + p.Value)
 	}
+}
+
+func TestIsAlphabetOrUnderscore(t *testing.T) {
+	assert.Equal(t, true, isAlphabetOrUnderscore("GLFW_HAT_RIGHT"))
 }
 
 // isAlphabetOrUnderscore 检查字符串是否仅由字母或下划线组成
