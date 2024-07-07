@@ -1,22 +1,34 @@
 package glfw
 
 import (
-	"fmt"
 	"syscall"
 	"testing"
 	"unsafe"
 
+	"github.com/ddkwork/golibrary/mylog"
 	"golang.org/x/sys/windows"
 )
+
+func StringToBytePointer(s string) *byte {
+	bytes := []byte(s)
+	ptr := &bytes[0]
+	return ptr
+}
 
 func TestInit(t *testing.T) {
 	windows.SetDllDirectory(".")
 	Init()
-	//CreateWindow(200,200)
-	DestroyWindow(nil)
-	Terminate()
-	// GetError()
-	// SwapBuffers(nil)
+	defer Terminate()
+	w := CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
+	MakeContextCurrent(w)
+	for {
+		PollEvents()
+		SwapBuffers(w)
+		if WindowShouldClose(w) != 0 {
+			DestroyWindow(w)
+			break
+		}
+	}
 }
 
 func main() {
@@ -31,9 +43,9 @@ func main() {
 	glfwTerminate := glfw.MustFindProc("glfwTerminate")
 
 	// Initialize GLFW
-	ret, _, err := glfwInit.Call()
+	ret, _ := mylog.Check3(glfwInit.Call())
 	if ret == 0 {
-		fmt.Println("Failed to initialize GLFW:", err)
+		// fmt.Println("Failed to initialize GLFW:", err)
 		return
 	}
 	defer glfwTerminate.Call()
@@ -41,10 +53,10 @@ func main() {
 	// Create a windowed mode window and its OpenGL context
 	width, height := 640, 480
 	title := "Hello World"
-	window, _, err := glfwCreateWindow.Call(
-		uintptr(width), uintptr(height), uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))), 0, 0)
+	window, _ := mylog.Check3(glfwCreateWindow.Call(
+		uintptr(width), uintptr(height), uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))), 0, 0))
 	if window == 0 {
-		fmt.Println("Failed to create GLFW window:", err)
+		// fmt.Println("Failed to create GLFW window:", err)
 		return
 	}
 
