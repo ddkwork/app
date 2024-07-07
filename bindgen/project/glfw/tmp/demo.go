@@ -37,6 +37,16 @@ func main() {
 	Init()
 	mylog.Info("version", BytePointerToString(GetVersionString()))
 	defer Terminate()
+
+	// WindowHint(Visible, False)
+	// WindowHint(Resizable,Enable(!Resizable))
+	// WindowHint(Decorated,Enable(!w.Decorated))
+	// WindowHint(Floating,Enable(Floating))
+	// WindowHint(AutoIconify, False)
+	// WindowHint(TransparentFramebuffer, False)
+	// WindowHint(FocusOnShow, False)
+	// WindowHint(ScaleToMonitor, False)
+
 	w := CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
 	MakeContextCurrent(w)
 	for {
