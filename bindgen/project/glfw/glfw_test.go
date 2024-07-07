@@ -15,7 +15,7 @@ func TestGlfw(t *testing.T) {
 			"glfw",
 			"gl",
 		))
-	path := "D:\\fork\\glfw-master\\include\\GLFW\\glfw3.h"
+	path := "include\\GLFW\\glfw3.h"
 	mylog.Check(pkg.Transform("glfw3", &clang.Options{
 		Sources:          []string{path},
 		AdditionalParams: []string{},
