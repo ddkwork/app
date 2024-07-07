@@ -48,6 +48,20 @@ func main() {
 	// WindowHint(ScaleToMonitor, False)
 
 	w := CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
+
+	//SetCursorEnterCallback(w, func() {})
+	//SetCursorPosCallback(w, func() {})
+	//SetMouseButtonCallback(w, func() {})
+	//SetWindowFocusCallback(w, func() {})
+	//SetWindowCloseCallback(w, func() {})
+	//SetWindowSizeCallback(w, func() {})
+	//SetWindowRefreshCallback(w, func() {})
+	//SetScrollCallback(w, func() {})
+	//SetKeyCallback(w, func() {})
+	//SetCharCallback(w, func() {})
+	//SetDropCallback(w, func() {})
+	//SetWindowIcon(w,32, func() {})
+
 	MakeContextCurrent(w)
 	for {
 		PollEvents()
