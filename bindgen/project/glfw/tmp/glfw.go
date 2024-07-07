@@ -137,21 +137,21 @@ type (
 	UintFast64T                          = uint64
 	IntmaxT                              = int64
 	UintmaxT                             = uint64
-	GLenum                               = uint32
-	GLboolean                            = uint8
-	GLbitfield                           = uint32
-	GLbyte                               = int8
-	GLshort                              = int16
-	GLint                                = int32
-	GLsizei                              = int32
-	GLubyte                              = uint8
-	GLushort                             = uint16
-	GLuint                               = uint32
-	GLfloat                              = float32
-	GLclampf                             = float32
-	GLdouble                             = float64
-	GLclampd                             = float64
-	GLvoid                               = void
+	Enum                                 = uint32
+	Boolean                              = uint8
+	Bitfield                             = uint32
+	Byte                                 = int8
+	Short                                = int16
+	Int                                  = int32
+	Sizei                                = int32
+	Ubyte                                = uint8
+	Ushort                               = uint16
+	Uint                                 = uint32
+	Float                                = float32
+	Clampf                               = float32
+	Double                               = float64
+	Clampd                               = float64
+	Void                                 = void
 	Pfnglarrayelementextproc             = unsafe.Pointer
 	Pfngldrawarraysextproc               = unsafe.Pointer
 	Pfnglvertexpointerextproc            = unsafe.Pointer
@@ -1431,1873 +1431,1783 @@ func _Threadhandle() uintptr {
 
 var __imp_glAccum bindlib.PreloadProc
 
-func glAccum(op GLenum, value GLfloat) {
+func Accum(op Enum, value Float) {
 	bindlib.CCall2(__imp_glAccum.Addr(), bindlib.MarshallSyscall(op), bindlib.MarshallSyscall(value))
 }
 
 var __imp_glAlphaFunc bindlib.PreloadProc
 
-func glAlphaFunc(_func GLenum, ref GLclampf) {
+func AlphaFunc(_func Enum, ref Clampf) {
 	bindlib.CCall2(__imp_glAlphaFunc.Addr(), bindlib.MarshallSyscall(_func), bindlib.MarshallSyscall(ref))
 }
 
 var __imp_glAreTexturesResident bindlib.PreloadProc
 
-func glAreTexturesResident(n GLsizei, textures *GLuint, residences *GLboolean) GLboolean {
+func AreTexturesResident(n Sizei, textures *Uint, residences *Boolean) Boolean {
 	__res := bindlib.CCall3(__imp_glAreTexturesResident.Addr(), bindlib.MarshallSyscall(n), bindlib.MarshallSyscall(textures), bindlib.MarshallSyscall(residences))
-	return bindlib.UnmarshallSyscall[GLboolean](__res)
+	return bindlib.UnmarshallSyscall[Boolean](__res)
 }
 
 var __imp_glArrayElement bindlib.PreloadProc
 
-func glArrayElement(i GLint) { bindlib.CCall1(__imp_glArrayElement.Addr(), bindlib.MarshallSyscall(i)) }
+func ArrayElement(i Int) { bindlib.CCall1(__imp_glArrayElement.Addr(), bindlib.MarshallSyscall(i)) }
 
 var __imp_glBegin bindlib.PreloadProc
 
-func glBegin(mode GLenum) { bindlib.CCall1(__imp_glBegin.Addr(), bindlib.MarshallSyscall(mode)) }
+func Begin(mode Enum) { bindlib.CCall1(__imp_glBegin.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glBindTexture bindlib.PreloadProc
 
-func glBindTexture(target GLenum, texture GLuint) {
+func BindTexture(target Enum, texture Uint) {
 	bindlib.CCall2(__imp_glBindTexture.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(texture))
 }
 
 var __imp_glBitmap bindlib.PreloadProc
 
-func glBitmap(width GLsizei, height GLsizei, xorig GLfloat, yorig GLfloat, xmove GLfloat, ymove GLfloat, bitmap *GLubyte) {
+func Bitmap(width Sizei, height Sizei, xorig Float, yorig Float, xmove Float, ymove Float, bitmap *Ubyte) {
 	bindlib.CCall7(__imp_glBitmap.Addr(), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(xorig), bindlib.MarshallSyscall(yorig), bindlib.MarshallSyscall(xmove), bindlib.MarshallSyscall(ymove), bindlib.MarshallSyscall(bitmap))
 }
 
 var __imp_glBlendFunc bindlib.PreloadProc
 
-func glBlendFunc(sfactor GLenum, dfactor GLenum) {
+func BlendFunc(sfactor Enum, dfactor Enum) {
 	bindlib.CCall2(__imp_glBlendFunc.Addr(), bindlib.MarshallSyscall(sfactor), bindlib.MarshallSyscall(dfactor))
 }
 
 var __imp_glCallList bindlib.PreloadProc
 
-func glCallList(list GLuint) { bindlib.CCall1(__imp_glCallList.Addr(), bindlib.MarshallSyscall(list)) }
+func CallList(list Uint) { bindlib.CCall1(__imp_glCallList.Addr(), bindlib.MarshallSyscall(list)) }
 
 var __imp_glCallLists bindlib.PreloadProc
 
-func glCallLists(n GLsizei, _type GLenum, lists *GLvoid) {
+func CallLists(n Sizei, _type Enum, lists *Void) {
 	bindlib.CCall3(__imp_glCallLists.Addr(), bindlib.MarshallSyscall(n), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(lists))
 }
 
 var __imp_glClear bindlib.PreloadProc
 
-func glClear(mask GLbitfield) { bindlib.CCall1(__imp_glClear.Addr(), bindlib.MarshallSyscall(mask)) }
+func Clear(mask Bitfield) { bindlib.CCall1(__imp_glClear.Addr(), bindlib.MarshallSyscall(mask)) }
 
 var __imp_glClearAccum bindlib.PreloadProc
 
-func glClearAccum(red GLfloat, green GLfloat, blue GLfloat, alpha GLfloat) {
+func ClearAccum(red Float, green Float, blue Float, alpha Float) {
 	bindlib.CCall4(__imp_glClearAccum.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glClearColor bindlib.PreloadProc
 
-func glClearColor(red GLclampf, green GLclampf, blue GLclampf, alpha GLclampf) {
+func ClearColor(red Clampf, green Clampf, blue Clampf, alpha Clampf) {
 	bindlib.CCall4(__imp_glClearColor.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glClearDepth bindlib.PreloadProc
 
-func glClearDepth(depth GLclampd) {
+func ClearDepth(depth Clampd) {
 	bindlib.CCall1(__imp_glClearDepth.Addr(), bindlib.MarshallSyscall(depth))
 }
 
 var __imp_glClearIndex bindlib.PreloadProc
 
-func glClearIndex(c GLfloat) { bindlib.CCall1(__imp_glClearIndex.Addr(), bindlib.MarshallSyscall(c)) }
+func ClearIndex(c Float) { bindlib.CCall1(__imp_glClearIndex.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glClearStencil bindlib.PreloadProc
 
-func glClearStencil(s GLint) { bindlib.CCall1(__imp_glClearStencil.Addr(), bindlib.MarshallSyscall(s)) }
+func ClearStencil(s Int) { bindlib.CCall1(__imp_glClearStencil.Addr(), bindlib.MarshallSyscall(s)) }
 
 var __imp_glClipPlane bindlib.PreloadProc
 
-func glClipPlane(plane GLenum, equation *GLdouble) {
+func ClipPlane(plane Enum, equation *Double) {
 	bindlib.CCall2(__imp_glClipPlane.Addr(), bindlib.MarshallSyscall(plane), bindlib.MarshallSyscall(equation))
 }
 
 var __imp_glColor3b bindlib.PreloadProc
 
-func glColor3b(red GLbyte, green GLbyte, blue GLbyte) {
+func Color3b(red Byte, green Byte, blue Byte) {
 	bindlib.CCall3(__imp_glColor3b.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3bv bindlib.PreloadProc
 
-func glColor3bv(v *GLbyte) { bindlib.CCall1(__imp_glColor3bv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3bv(v *Byte) { bindlib.CCall1(__imp_glColor3bv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3d bindlib.PreloadProc
 
-func glColor3d(red GLdouble, green GLdouble, blue GLdouble) {
+func Color3d(red Double, green Double, blue Double) {
 	bindlib.CCall3(__imp_glColor3d.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3dv bindlib.PreloadProc
 
-func glColor3dv(v *GLdouble) { bindlib.CCall1(__imp_glColor3dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3dv(v *Double) { bindlib.CCall1(__imp_glColor3dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3f bindlib.PreloadProc
 
-func glColor3f(red GLfloat, green GLfloat, blue GLfloat) {
+func Color3f(red Float, green Float, blue Float) {
 	bindlib.CCall3(__imp_glColor3f.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3fv bindlib.PreloadProc
 
-func glColor3fv(v *GLfloat) { bindlib.CCall1(__imp_glColor3fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3fv(v *Float) { bindlib.CCall1(__imp_glColor3fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3i bindlib.PreloadProc
 
-func glColor3i(red GLint, green GLint, blue GLint) {
+func Color3i(red Int, green Int, blue Int) {
 	bindlib.CCall3(__imp_glColor3i.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3iv bindlib.PreloadProc
 
-func glColor3iv(v *GLint) { bindlib.CCall1(__imp_glColor3iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3iv(v *Int) { bindlib.CCall1(__imp_glColor3iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3s bindlib.PreloadProc
 
-func glColor3s(red GLshort, green GLshort, blue GLshort) {
+func Color3s(red Short, green Short, blue Short) {
 	bindlib.CCall3(__imp_glColor3s.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3sv bindlib.PreloadProc
 
-func glColor3sv(v *GLshort) { bindlib.CCall1(__imp_glColor3sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3sv(v *Short) { bindlib.CCall1(__imp_glColor3sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3ub bindlib.PreloadProc
 
-func glColor3ub(red GLubyte, green GLubyte, blue GLubyte) {
+func Color3ub(red Ubyte, green Ubyte, blue Ubyte) {
 	bindlib.CCall3(__imp_glColor3ub.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3ubv bindlib.PreloadProc
 
-func glColor3ubv(v *GLubyte) { bindlib.CCall1(__imp_glColor3ubv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3ubv(v *Ubyte) { bindlib.CCall1(__imp_glColor3ubv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3ui bindlib.PreloadProc
 
-func glColor3ui(red GLuint, green GLuint, blue GLuint) {
+func Color3ui(red Uint, green Uint, blue Uint) {
 	bindlib.CCall3(__imp_glColor3ui.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3uiv bindlib.PreloadProc
 
-func glColor3uiv(v *GLuint) { bindlib.CCall1(__imp_glColor3uiv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3uiv(v *Uint) { bindlib.CCall1(__imp_glColor3uiv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor3us bindlib.PreloadProc
 
-func glColor3us(red GLushort, green GLushort, blue GLushort) {
+func Color3us(red Ushort, green Ushort, blue Ushort) {
 	bindlib.CCall3(__imp_glColor3us.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue))
 }
 
 var __imp_glColor3usv bindlib.PreloadProc
 
-func glColor3usv(v *GLushort) { bindlib.CCall1(__imp_glColor3usv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color3usv(v *Ushort) { bindlib.CCall1(__imp_glColor3usv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4b bindlib.PreloadProc
 
-func glColor4b(red GLbyte, green GLbyte, blue GLbyte, alpha GLbyte) {
+func Color4b(red Byte, green Byte, blue Byte, alpha Byte) {
 	bindlib.CCall4(__imp_glColor4b.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4bv bindlib.PreloadProc
 
-func glColor4bv(v *GLbyte) { bindlib.CCall1(__imp_glColor4bv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4bv(v *Byte) { bindlib.CCall1(__imp_glColor4bv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4d bindlib.PreloadProc
 
-func glColor4d(red GLdouble, green GLdouble, blue GLdouble, alpha GLdouble) {
+func Color4d(red Double, green Double, blue Double, alpha Double) {
 	bindlib.CCall4(__imp_glColor4d.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4dv bindlib.PreloadProc
 
-func glColor4dv(v *GLdouble) { bindlib.CCall1(__imp_glColor4dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4dv(v *Double) { bindlib.CCall1(__imp_glColor4dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4f bindlib.PreloadProc
 
-func glColor4f(red GLfloat, green GLfloat, blue GLfloat, alpha GLfloat) {
+func Color4f(red Float, green Float, blue Float, alpha Float) {
 	bindlib.CCall4(__imp_glColor4f.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4fv bindlib.PreloadProc
 
-func glColor4fv(v *GLfloat) { bindlib.CCall1(__imp_glColor4fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4fv(v *Float) { bindlib.CCall1(__imp_glColor4fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4i bindlib.PreloadProc
 
-func glColor4i(red GLint, green GLint, blue GLint, alpha GLint) {
+func Color4i(red Int, green Int, blue Int, alpha Int) {
 	bindlib.CCall4(__imp_glColor4i.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4iv bindlib.PreloadProc
 
-func glColor4iv(v *GLint) { bindlib.CCall1(__imp_glColor4iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4iv(v *Int) { bindlib.CCall1(__imp_glColor4iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4s bindlib.PreloadProc
 
-func glColor4s(red GLshort, green GLshort, blue GLshort, alpha GLshort) {
+func Color4s(red Short, green Short, blue Short, alpha Short) {
 	bindlib.CCall4(__imp_glColor4s.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4sv bindlib.PreloadProc
 
-func glColor4sv(v *GLshort) { bindlib.CCall1(__imp_glColor4sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4sv(v *Short) { bindlib.CCall1(__imp_glColor4sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4ub bindlib.PreloadProc
 
-func glColor4ub(red GLubyte, green GLubyte, blue GLubyte, alpha GLubyte) {
+func Color4ub(red Ubyte, green Ubyte, blue Ubyte, alpha Ubyte) {
 	bindlib.CCall4(__imp_glColor4ub.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4ubv bindlib.PreloadProc
 
-func glColor4ubv(v *GLubyte) { bindlib.CCall1(__imp_glColor4ubv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4ubv(v *Ubyte) { bindlib.CCall1(__imp_glColor4ubv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4ui bindlib.PreloadProc
 
-func glColor4ui(red GLuint, green GLuint, blue GLuint, alpha GLuint) {
+func Color4ui(red Uint, green Uint, blue Uint, alpha Uint) {
 	bindlib.CCall4(__imp_glColor4ui.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4uiv bindlib.PreloadProc
 
-func glColor4uiv(v *GLuint) { bindlib.CCall1(__imp_glColor4uiv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4uiv(v *Uint) { bindlib.CCall1(__imp_glColor4uiv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColor4us bindlib.PreloadProc
 
-func glColor4us(red GLushort, green GLushort, blue GLushort, alpha GLushort) {
+func Color4us(red Ushort, green Ushort, blue Ushort, alpha Ushort) {
 	bindlib.CCall4(__imp_glColor4us.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColor4usv bindlib.PreloadProc
 
-func glColor4usv(v *GLushort) { bindlib.CCall1(__imp_glColor4usv.Addr(), bindlib.MarshallSyscall(v)) }
+func Color4usv(v *Ushort) { bindlib.CCall1(__imp_glColor4usv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glColorMask bindlib.PreloadProc
 
-func glColorMask(red GLboolean, green GLboolean, blue GLboolean, alpha GLboolean) {
+func ColorMask(red Boolean, green Boolean, blue Boolean, alpha Boolean) {
 	bindlib.CCall4(__imp_glColorMask.Addr(), bindlib.MarshallSyscall(red), bindlib.MarshallSyscall(green), bindlib.MarshallSyscall(blue), bindlib.MarshallSyscall(alpha))
 }
 
 var __imp_glColorMaterial bindlib.PreloadProc
 
-func glColorMaterial(face GLenum, mode GLenum) {
+func ColorMaterial(face Enum, mode Enum) {
 	bindlib.CCall2(__imp_glColorMaterial.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(mode))
 }
 
 var __imp_glColorPointer bindlib.PreloadProc
 
-func glColorPointer(size GLint, _type GLenum, stride GLsizei, pointer *GLvoid) {
+func ColorPointer(size Int, _type Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall4(__imp_glColorPointer.Addr(), bindlib.MarshallSyscall(size), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glCopyPixels bindlib.PreloadProc
 
-func glCopyPixels(x GLint, y GLint, width GLsizei, height GLsizei, _type GLenum) {
+func CopyPixels(x Int, y Int, width Sizei, height Sizei, _type Enum) {
 	bindlib.CCall5(__imp_glCopyPixels.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(_type))
 }
 
 var __imp_glCopyTexImage1D bindlib.PreloadProc
 
-func glCopyTexImage1D(target GLenum, level GLint, internalFormat GLenum, x GLint, y GLint, width GLsizei, border GLint) {
+func CopyTexImage1D(target Enum, level Int, internalFormat Enum, x Int, y Int, width Sizei, border Int) {
 	bindlib.CCall7(__imp_glCopyTexImage1D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(internalFormat), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(border))
 }
 
 var __imp_glCopyTexImage2D bindlib.PreloadProc
 
-func glCopyTexImage2D(target GLenum, level GLint, internalFormat GLenum, x GLint, y GLint, width GLsizei, height GLsizei, border GLint) {
+func CopyTexImage2D(target Enum, level Int, internalFormat Enum, x Int, y Int, width Sizei, height Sizei, border Int) {
 	bindlib.CCall8(__imp_glCopyTexImage2D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(internalFormat), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(border))
 }
 
 var __imp_glCopyTexSubImage1D bindlib.PreloadProc
 
-func glCopyTexSubImage1D(target GLenum, level GLint, xoffset GLint, x GLint, y GLint, width GLsizei) {
+func CopyTexSubImage1D(target Enum, level Int, xoffset Int, x Int, y Int, width Sizei) {
 	bindlib.CCall6(__imp_glCopyTexSubImage1D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(xoffset), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width))
 }
 
 var __imp_glCopyTexSubImage2D bindlib.PreloadProc
 
-func glCopyTexSubImage2D(target GLenum, level GLint, xoffset GLint, yoffset GLint, x GLint, y GLint, width GLsizei, height GLsizei) {
+func CopyTexSubImage2D(target Enum, level Int, xoffset Int, yoffset Int, x Int, y Int, width Sizei, height Sizei) {
 	bindlib.CCall8(__imp_glCopyTexSubImage2D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(xoffset), bindlib.MarshallSyscall(yoffset), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height))
 }
 
 var __imp_glCullFace bindlib.PreloadProc
 
-func glCullFace(mode GLenum) { bindlib.CCall1(__imp_glCullFace.Addr(), bindlib.MarshallSyscall(mode)) }
+func CullFace(mode Enum) { bindlib.CCall1(__imp_glCullFace.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glDeleteLists bindlib.PreloadProc
 
-func glDeleteLists(list GLuint, _range GLsizei) {
+func DeleteLists(list Uint, _range Sizei) {
 	bindlib.CCall2(__imp_glDeleteLists.Addr(), bindlib.MarshallSyscall(list), bindlib.MarshallSyscall(_range))
 }
 
 var __imp_glDeleteTextures bindlib.PreloadProc
 
-func glDeleteTextures(n GLsizei, textures *GLuint) {
+func DeleteTextures(n Sizei, textures *Uint) {
 	bindlib.CCall2(__imp_glDeleteTextures.Addr(), bindlib.MarshallSyscall(n), bindlib.MarshallSyscall(textures))
 }
 
 var __imp_glDepthFunc bindlib.PreloadProc
 
-func glDepthFunc(_func GLenum) {
-	bindlib.CCall1(__imp_glDepthFunc.Addr(), bindlib.MarshallSyscall(_func))
-}
+func DepthFunc(_func Enum) { bindlib.CCall1(__imp_glDepthFunc.Addr(), bindlib.MarshallSyscall(_func)) }
 
 var __imp_glDepthMask bindlib.PreloadProc
 
-func glDepthMask(flag GLboolean) {
-	bindlib.CCall1(__imp_glDepthMask.Addr(), bindlib.MarshallSyscall(flag))
-}
+func DepthMask(flag Boolean) { bindlib.CCall1(__imp_glDepthMask.Addr(), bindlib.MarshallSyscall(flag)) }
 
 var __imp_glDepthRange bindlib.PreloadProc
 
-func glDepthRange(zNear GLclampd, zFar GLclampd) {
+func DepthRange(zNear Clampd, zFar Clampd) {
 	bindlib.CCall2(__imp_glDepthRange.Addr(), bindlib.MarshallSyscall(zNear), bindlib.MarshallSyscall(zFar))
 }
 
 var __imp_glDisable bindlib.PreloadProc
 
-func glDisable(_cap GLenum) { bindlib.CCall1(__imp_glDisable.Addr(), bindlib.MarshallSyscall(_cap)) }
+func Disable(_cap Enum) { bindlib.CCall1(__imp_glDisable.Addr(), bindlib.MarshallSyscall(_cap)) }
 
 var __imp_glDisableClientState bindlib.PreloadProc
 
-func glDisableClientState(array GLenum) {
+func DisableClientState(array Enum) {
 	bindlib.CCall1(__imp_glDisableClientState.Addr(), bindlib.MarshallSyscall(array))
 }
 
 var __imp_glDrawArrays bindlib.PreloadProc
 
-func glDrawArrays(mode GLenum, first GLint, count GLsizei) {
+func DrawArrays(mode Enum, first Int, count Sizei) {
 	bindlib.CCall3(__imp_glDrawArrays.Addr(), bindlib.MarshallSyscall(mode), bindlib.MarshallSyscall(first), bindlib.MarshallSyscall(count))
 }
 
 var __imp_glDrawBuffer bindlib.PreloadProc
 
-func glDrawBuffer(mode GLenum) {
-	bindlib.CCall1(__imp_glDrawBuffer.Addr(), bindlib.MarshallSyscall(mode))
-}
+func DrawBuffer(mode Enum) { bindlib.CCall1(__imp_glDrawBuffer.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glDrawElements bindlib.PreloadProc
 
-func glDrawElements(mode GLenum, count GLsizei, _type GLenum, indices *GLvoid) {
+func DrawElements(mode Enum, count Sizei, _type Enum, indices *Void) {
 	bindlib.CCall4(__imp_glDrawElements.Addr(), bindlib.MarshallSyscall(mode), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(indices))
 }
 
 var __imp_glDrawPixels bindlib.PreloadProc
 
-func glDrawPixels(width GLsizei, height GLsizei, format GLenum, _type GLenum, pixels *GLvoid) {
+func DrawPixels(width Sizei, height Sizei, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall5(__imp_glDrawPixels.Addr(), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glEdgeFlag bindlib.PreloadProc
 
-func glEdgeFlag(flag GLboolean) {
-	bindlib.CCall1(__imp_glEdgeFlag.Addr(), bindlib.MarshallSyscall(flag))
-}
+func EdgeFlag(flag Boolean) { bindlib.CCall1(__imp_glEdgeFlag.Addr(), bindlib.MarshallSyscall(flag)) }
 
 var __imp_glEdgeFlagPointer bindlib.PreloadProc
 
-func glEdgeFlagPointer(stride GLsizei, pointer *GLvoid) {
+func EdgeFlagPointer(stride Sizei, pointer *Void) {
 	bindlib.CCall2(__imp_glEdgeFlagPointer.Addr(), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glEdgeFlagv bindlib.PreloadProc
 
-func glEdgeFlagv(flag *GLboolean) {
+func EdgeFlagv(flag *Boolean) {
 	bindlib.CCall1(__imp_glEdgeFlagv.Addr(), bindlib.MarshallSyscall(flag))
 }
 
 var __imp_glEnable bindlib.PreloadProc
 
-func glEnable(_cap GLenum) { bindlib.CCall1(__imp_glEnable.Addr(), bindlib.MarshallSyscall(_cap)) }
+func Enable(_cap Enum) { bindlib.CCall1(__imp_glEnable.Addr(), bindlib.MarshallSyscall(_cap)) }
 
 var __imp_glEnableClientState bindlib.PreloadProc
 
-func glEnableClientState(array GLenum) {
+func EnableClientState(array Enum) {
 	bindlib.CCall1(__imp_glEnableClientState.Addr(), bindlib.MarshallSyscall(array))
 }
 
 var __imp_glEnd bindlib.PreloadProc
 
-func glEnd() { bindlib.CCall0(__imp_glEnd.Addr()) }
+func End() { bindlib.CCall0(__imp_glEnd.Addr()) }
 
 var __imp_glEndList bindlib.PreloadProc
 
-func glEndList() { bindlib.CCall0(__imp_glEndList.Addr()) }
+func EndList() { bindlib.CCall0(__imp_glEndList.Addr()) }
 
 var __imp_glEvalCoord1d bindlib.PreloadProc
 
-func glEvalCoord1d(u GLdouble) {
-	bindlib.CCall1(__imp_glEvalCoord1d.Addr(), bindlib.MarshallSyscall(u))
-}
+func EvalCoord1d(u Double) { bindlib.CCall1(__imp_glEvalCoord1d.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalCoord1dv bindlib.PreloadProc
 
-func glEvalCoord1dv(u *GLdouble) {
-	bindlib.CCall1(__imp_glEvalCoord1dv.Addr(), bindlib.MarshallSyscall(u))
-}
+func EvalCoord1dv(u *Double) { bindlib.CCall1(__imp_glEvalCoord1dv.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalCoord1f bindlib.PreloadProc
 
-func glEvalCoord1f(u GLfloat) { bindlib.CCall1(__imp_glEvalCoord1f.Addr(), bindlib.MarshallSyscall(u)) }
+func EvalCoord1f(u Float) { bindlib.CCall1(__imp_glEvalCoord1f.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalCoord1fv bindlib.PreloadProc
 
-func glEvalCoord1fv(u *GLfloat) {
-	bindlib.CCall1(__imp_glEvalCoord1fv.Addr(), bindlib.MarshallSyscall(u))
-}
+func EvalCoord1fv(u *Float) { bindlib.CCall1(__imp_glEvalCoord1fv.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalCoord2d bindlib.PreloadProc
 
-func glEvalCoord2d(u GLdouble, v GLdouble) {
+func EvalCoord2d(u Double, v Double) {
 	bindlib.CCall2(__imp_glEvalCoord2d.Addr(), bindlib.MarshallSyscall(u), bindlib.MarshallSyscall(v))
 }
 
 var __imp_glEvalCoord2dv bindlib.PreloadProc
 
-func glEvalCoord2dv(u *GLdouble) {
-	bindlib.CCall1(__imp_glEvalCoord2dv.Addr(), bindlib.MarshallSyscall(u))
-}
+func EvalCoord2dv(u *Double) { bindlib.CCall1(__imp_glEvalCoord2dv.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalCoord2f bindlib.PreloadProc
 
-func glEvalCoord2f(u GLfloat, v GLfloat) {
+func EvalCoord2f(u Float, v Float) {
 	bindlib.CCall2(__imp_glEvalCoord2f.Addr(), bindlib.MarshallSyscall(u), bindlib.MarshallSyscall(v))
 }
 
 var __imp_glEvalCoord2fv bindlib.PreloadProc
 
-func glEvalCoord2fv(u *GLfloat) {
-	bindlib.CCall1(__imp_glEvalCoord2fv.Addr(), bindlib.MarshallSyscall(u))
-}
+func EvalCoord2fv(u *Float) { bindlib.CCall1(__imp_glEvalCoord2fv.Addr(), bindlib.MarshallSyscall(u)) }
 
 var __imp_glEvalMesh1 bindlib.PreloadProc
 
-func glEvalMesh1(mode GLenum, i1 GLint, i2 GLint) {
+func EvalMesh1(mode Enum, i1 Int, i2 Int) {
 	bindlib.CCall3(__imp_glEvalMesh1.Addr(), bindlib.MarshallSyscall(mode), bindlib.MarshallSyscall(i1), bindlib.MarshallSyscall(i2))
 }
 
 var __imp_glEvalMesh2 bindlib.PreloadProc
 
-func glEvalMesh2(mode GLenum, i1 GLint, i2 GLint, j1 GLint, j2 GLint) {
+func EvalMesh2(mode Enum, i1 Int, i2 Int, j1 Int, j2 Int) {
 	bindlib.CCall5(__imp_glEvalMesh2.Addr(), bindlib.MarshallSyscall(mode), bindlib.MarshallSyscall(i1), bindlib.MarshallSyscall(i2), bindlib.MarshallSyscall(j1), bindlib.MarshallSyscall(j2))
 }
 
 var __imp_glEvalPoint1 bindlib.PreloadProc
 
-func glEvalPoint1(i GLint) { bindlib.CCall1(__imp_glEvalPoint1.Addr(), bindlib.MarshallSyscall(i)) }
+func EvalPoint1(i Int) { bindlib.CCall1(__imp_glEvalPoint1.Addr(), bindlib.MarshallSyscall(i)) }
 
 var __imp_glEvalPoint2 bindlib.PreloadProc
 
-func glEvalPoint2(i GLint, j GLint) {
+func EvalPoint2(i Int, j Int) {
 	bindlib.CCall2(__imp_glEvalPoint2.Addr(), bindlib.MarshallSyscall(i), bindlib.MarshallSyscall(j))
 }
 
 var __imp_glFeedbackBuffer bindlib.PreloadProc
 
-func glFeedbackBuffer(size GLsizei, _type GLenum, buffer *GLfloat) {
+func FeedbackBuffer(size Sizei, _type Enum, buffer *Float) {
 	bindlib.CCall3(__imp_glFeedbackBuffer.Addr(), bindlib.MarshallSyscall(size), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(buffer))
 }
 
 var __imp_glFinish bindlib.PreloadProc
 
-func glFinish() { bindlib.CCall0(__imp_glFinish.Addr()) }
+func Finish() { bindlib.CCall0(__imp_glFinish.Addr()) }
 
 var __imp_glFlush bindlib.PreloadProc
 
-func glFlush() { bindlib.CCall0(__imp_glFlush.Addr()) }
+func Flush() { bindlib.CCall0(__imp_glFlush.Addr()) }
 
 var __imp_glFogf bindlib.PreloadProc
 
-func glFogf(pname GLenum, param GLfloat) {
+func Fogf(pname Enum, param Float) {
 	bindlib.CCall2(__imp_glFogf.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glFogfv bindlib.PreloadProc
 
-func glFogfv(pname GLenum, params *GLfloat) {
+func Fogfv(pname Enum, params *Float) {
 	bindlib.CCall2(__imp_glFogfv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glFogi bindlib.PreloadProc
 
-func glFogi(pname GLenum, param GLint) {
+func Fogi(pname Enum, param Int) {
 	bindlib.CCall2(__imp_glFogi.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glFogiv bindlib.PreloadProc
 
-func glFogiv(pname GLenum, params *GLint) {
+func Fogiv(pname Enum, params *Int) {
 	bindlib.CCall2(__imp_glFogiv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glFrontFace bindlib.PreloadProc
 
-func glFrontFace(mode GLenum) {
-	bindlib.CCall1(__imp_glFrontFace.Addr(), bindlib.MarshallSyscall(mode))
-}
+func FrontFace(mode Enum) { bindlib.CCall1(__imp_glFrontFace.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glFrustum bindlib.PreloadProc
 
-func glFrustum(left GLdouble, right GLdouble, bottom GLdouble, top GLdouble, zNear GLdouble, zFar GLdouble) {
+func Frustum(left Double, right Double, bottom Double, top Double, zNear Double, zFar Double) {
 	bindlib.CCall6(__imp_glFrustum.Addr(), bindlib.MarshallSyscall(left), bindlib.MarshallSyscall(right), bindlib.MarshallSyscall(bottom), bindlib.MarshallSyscall(top), bindlib.MarshallSyscall(zNear), bindlib.MarshallSyscall(zFar))
 }
 
 var __imp_glGenLists bindlib.PreloadProc
 
-func glGenLists(_range GLsizei) GLuint {
+func GenLists(_range Sizei) Uint {
 	__res := bindlib.CCall1(__imp_glGenLists.Addr(), bindlib.MarshallSyscall(_range))
-	return bindlib.UnmarshallSyscall[GLuint](__res)
+	return bindlib.UnmarshallSyscall[Uint](__res)
 }
 
 var __imp_glGenTextures bindlib.PreloadProc
 
-func glGenTextures(n GLsizei, textures *GLuint) {
+func GenTextures(n Sizei, textures *Uint) {
 	bindlib.CCall2(__imp_glGenTextures.Addr(), bindlib.MarshallSyscall(n), bindlib.MarshallSyscall(textures))
 }
 
 var __imp_glGetBooleanv bindlib.PreloadProc
 
-func glGetBooleanv(pname GLenum, params *GLboolean) {
+func GetBooleanv(pname Enum, params *Boolean) {
 	bindlib.CCall2(__imp_glGetBooleanv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetClipPlane bindlib.PreloadProc
 
-func glGetClipPlane(plane GLenum, equation *GLdouble) {
+func GetClipPlane(plane Enum, equation *Double) {
 	bindlib.CCall2(__imp_glGetClipPlane.Addr(), bindlib.MarshallSyscall(plane), bindlib.MarshallSyscall(equation))
 }
 
 var __imp_glGetDoublev bindlib.PreloadProc
 
-func glGetDoublev(pname GLenum, params *GLdouble) {
+func GetDoublev(pname Enum, params *Double) {
 	bindlib.CCall2(__imp_glGetDoublev.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetError bindlib.PreloadProc
 
-func glGetError() GLenum {
+func GetError() Enum {
 	__res := bindlib.CCall0(__imp_glGetError.Addr())
-	return bindlib.UnmarshallSyscall[GLenum](__res)
+	return bindlib.UnmarshallSyscall[Enum](__res)
 }
 
 var __imp_glGetFloatv bindlib.PreloadProc
 
-func glGetFloatv(pname GLenum, params *GLfloat) {
+func GetFloatv(pname Enum, params *Float) {
 	bindlib.CCall2(__imp_glGetFloatv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetIntegerv bindlib.PreloadProc
 
-func glGetIntegerv(pname GLenum, params *GLint) {
+func GetIntegerv(pname Enum, params *Int) {
 	bindlib.CCall2(__imp_glGetIntegerv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetLightfv bindlib.PreloadProc
 
-func glGetLightfv(light GLenum, pname GLenum, params *GLfloat) {
+func GetLightfv(light Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glGetLightfv.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetLightiv bindlib.PreloadProc
 
-func glGetLightiv(light GLenum, pname GLenum, params *GLint) {
+func GetLightiv(light Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glGetLightiv.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetMapdv bindlib.PreloadProc
 
-func glGetMapdv(target GLenum, query GLenum, v *GLdouble) {
+func GetMapdv(target Enum, query Enum, v *Double) {
 	bindlib.CCall3(__imp_glGetMapdv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(query), bindlib.MarshallSyscall(v))
 }
 
 var __imp_glGetMapfv bindlib.PreloadProc
 
-func glGetMapfv(target GLenum, query GLenum, v *GLfloat) {
+func GetMapfv(target Enum, query Enum, v *Float) {
 	bindlib.CCall3(__imp_glGetMapfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(query), bindlib.MarshallSyscall(v))
 }
 
 var __imp_glGetMapiv bindlib.PreloadProc
 
-func glGetMapiv(target GLenum, query GLenum, v *GLint) {
+func GetMapiv(target Enum, query Enum, v *Int) {
 	bindlib.CCall3(__imp_glGetMapiv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(query), bindlib.MarshallSyscall(v))
 }
 
 var __imp_glGetMaterialfv bindlib.PreloadProc
 
-func glGetMaterialfv(face GLenum, pname GLenum, params *GLfloat) {
+func GetMaterialfv(face Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glGetMaterialfv.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetMaterialiv bindlib.PreloadProc
 
-func glGetMaterialiv(face GLenum, pname GLenum, params *GLint) {
+func GetMaterialiv(face Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glGetMaterialiv.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetPixelMapfv bindlib.PreloadProc
 
-func glGetPixelMapfv(_map GLenum, values *GLfloat) {
+func GetPixelMapfv(_map Enum, values *Float) {
 	bindlib.CCall2(__imp_glGetPixelMapfv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glGetPixelMapuiv bindlib.PreloadProc
 
-func glGetPixelMapuiv(_map GLenum, values *GLuint) {
+func GetPixelMapuiv(_map Enum, values *Uint) {
 	bindlib.CCall2(__imp_glGetPixelMapuiv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glGetPixelMapusv bindlib.PreloadProc
 
-func glGetPixelMapusv(_map GLenum, values *GLushort) {
+func GetPixelMapusv(_map Enum, values *Ushort) {
 	bindlib.CCall2(__imp_glGetPixelMapusv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glGetPointerv bindlib.PreloadProc
 
-func glGetPointerv(pname GLenum, params **GLvoid) {
+func GetPointerv(pname Enum, params **Void) {
 	bindlib.CCall2(__imp_glGetPointerv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetPolygonStipple bindlib.PreloadProc
 
-func glGetPolygonStipple(mask *GLubyte) {
+func GetPolygonStipple(mask *Ubyte) {
 	bindlib.CCall1(__imp_glGetPolygonStipple.Addr(), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glGetString bindlib.PreloadProc
 
-func glGetString(name GLenum) *GLubyte {
+func GetString(name Enum) *Ubyte {
 	__res := bindlib.CCall1(__imp_glGetString.Addr(), bindlib.MarshallSyscall(name))
-	return bindlib.UnmarshallSyscall[*GLubyte](__res)
+	return bindlib.UnmarshallSyscall[*Ubyte](__res)
 }
 
 var __imp_glGetTexEnvfv bindlib.PreloadProc
 
-func glGetTexEnvfv(target GLenum, pname GLenum, params *GLfloat) {
+func GetTexEnvfv(target Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glGetTexEnvfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexEnviv bindlib.PreloadProc
 
-func glGetTexEnviv(target GLenum, pname GLenum, params *GLint) {
+func GetTexEnviv(target Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glGetTexEnviv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexGendv bindlib.PreloadProc
 
-func glGetTexGendv(coord GLenum, pname GLenum, params *GLdouble) {
+func GetTexGendv(coord Enum, pname Enum, params *Double) {
 	bindlib.CCall3(__imp_glGetTexGendv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexGenfv bindlib.PreloadProc
 
-func glGetTexGenfv(coord GLenum, pname GLenum, params *GLfloat) {
+func GetTexGenfv(coord Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glGetTexGenfv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexGeniv bindlib.PreloadProc
 
-func glGetTexGeniv(coord GLenum, pname GLenum, params *GLint) {
+func GetTexGeniv(coord Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glGetTexGeniv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexImage bindlib.PreloadProc
 
-func glGetTexImage(target GLenum, level GLint, format GLenum, _type GLenum, pixels *GLvoid) {
+func GetTexImage(target Enum, level Int, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall5(__imp_glGetTexImage.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glGetTexLevelParameterfv bindlib.PreloadProc
 
-func glGetTexLevelParameterfv(target GLenum, level GLint, pname GLenum, params *GLfloat) {
+func GetTexLevelParameterfv(target Enum, level Int, pname Enum, params *Float) {
 	bindlib.CCall4(__imp_glGetTexLevelParameterfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexLevelParameteriv bindlib.PreloadProc
 
-func glGetTexLevelParameteriv(target GLenum, level GLint, pname GLenum, params *GLint) {
+func GetTexLevelParameteriv(target Enum, level Int, pname Enum, params *Int) {
 	bindlib.CCall4(__imp_glGetTexLevelParameteriv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexParameterfv bindlib.PreloadProc
 
-func glGetTexParameterfv(target GLenum, pname GLenum, params *GLfloat) {
+func GetTexParameterfv(target Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glGetTexParameterfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glGetTexParameteriv bindlib.PreloadProc
 
-func glGetTexParameteriv(target GLenum, pname GLenum, params *GLint) {
+func GetTexParameteriv(target Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glGetTexParameteriv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glHint bindlib.PreloadProc
 
-func glHint(target GLenum, mode GLenum) {
+func Hint(target Enum, mode Enum) {
 	bindlib.CCall2(__imp_glHint.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(mode))
 }
 
 var __imp_glIndexMask bindlib.PreloadProc
 
-func glIndexMask(mask GLuint) {
-	bindlib.CCall1(__imp_glIndexMask.Addr(), bindlib.MarshallSyscall(mask))
-}
+func IndexMask(mask Uint) { bindlib.CCall1(__imp_glIndexMask.Addr(), bindlib.MarshallSyscall(mask)) }
 
 var __imp_glIndexPointer bindlib.PreloadProc
 
-func glIndexPointer(_type GLenum, stride GLsizei, pointer *GLvoid) {
+func IndexPointer(_type Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall3(__imp_glIndexPointer.Addr(), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glIndexd bindlib.PreloadProc
 
-func glIndexd(c GLdouble) { bindlib.CCall1(__imp_glIndexd.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexd(c Double) { bindlib.CCall1(__imp_glIndexd.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexdv bindlib.PreloadProc
 
-func glIndexdv(c *GLdouble) { bindlib.CCall1(__imp_glIndexdv.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexdv(c *Double) { bindlib.CCall1(__imp_glIndexdv.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexf bindlib.PreloadProc
 
-func glIndexf(c GLfloat) { bindlib.CCall1(__imp_glIndexf.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexf(c Float) { bindlib.CCall1(__imp_glIndexf.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexfv bindlib.PreloadProc
 
-func glIndexfv(c *GLfloat) { bindlib.CCall1(__imp_glIndexfv.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexfv(c *Float) { bindlib.CCall1(__imp_glIndexfv.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexi bindlib.PreloadProc
 
-func glIndexi(c GLint) { bindlib.CCall1(__imp_glIndexi.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexi(c Int) { bindlib.CCall1(__imp_glIndexi.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexiv bindlib.PreloadProc
 
-func glIndexiv(c *GLint) { bindlib.CCall1(__imp_glIndexiv.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexiv(c *Int) { bindlib.CCall1(__imp_glIndexiv.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexs bindlib.PreloadProc
 
-func glIndexs(c GLshort) { bindlib.CCall1(__imp_glIndexs.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexs(c Short) { bindlib.CCall1(__imp_glIndexs.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexsv bindlib.PreloadProc
 
-func glIndexsv(c *GLshort) { bindlib.CCall1(__imp_glIndexsv.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexsv(c *Short) { bindlib.CCall1(__imp_glIndexsv.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexub bindlib.PreloadProc
 
-func glIndexub(c GLubyte) { bindlib.CCall1(__imp_glIndexub.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexub(c Ubyte) { bindlib.CCall1(__imp_glIndexub.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glIndexubv bindlib.PreloadProc
 
-func glIndexubv(c *GLubyte) { bindlib.CCall1(__imp_glIndexubv.Addr(), bindlib.MarshallSyscall(c)) }
+func Indexubv(c *Ubyte) { bindlib.CCall1(__imp_glIndexubv.Addr(), bindlib.MarshallSyscall(c)) }
 
 var __imp_glInitNames bindlib.PreloadProc
 
-func glInitNames() { bindlib.CCall0(__imp_glInitNames.Addr()) }
+func InitNames() { bindlib.CCall0(__imp_glInitNames.Addr()) }
 
 var __imp_glInterleavedArrays bindlib.PreloadProc
 
-func glInterleavedArrays(format GLenum, stride GLsizei, pointer *GLvoid) {
+func InterleavedArrays(format Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall3(__imp_glInterleavedArrays.Addr(), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glIsEnabled bindlib.PreloadProc
 
-func glIsEnabled(_cap GLenum) GLboolean {
+func IsEnabled(_cap Enum) Boolean {
 	__res := bindlib.CCall1(__imp_glIsEnabled.Addr(), bindlib.MarshallSyscall(_cap))
-	return bindlib.UnmarshallSyscall[GLboolean](__res)
+	return bindlib.UnmarshallSyscall[Boolean](__res)
 }
 
 var __imp_glIsList bindlib.PreloadProc
 
-func glIsList(list GLuint) GLboolean {
+func IsList(list Uint) Boolean {
 	__res := bindlib.CCall1(__imp_glIsList.Addr(), bindlib.MarshallSyscall(list))
-	return bindlib.UnmarshallSyscall[GLboolean](__res)
+	return bindlib.UnmarshallSyscall[Boolean](__res)
 }
 
 var __imp_glIsTexture bindlib.PreloadProc
 
-func glIsTexture(texture GLuint) GLboolean {
+func IsTexture(texture Uint) Boolean {
 	__res := bindlib.CCall1(__imp_glIsTexture.Addr(), bindlib.MarshallSyscall(texture))
-	return bindlib.UnmarshallSyscall[GLboolean](__res)
+	return bindlib.UnmarshallSyscall[Boolean](__res)
 }
 
 var __imp_glLightModelf bindlib.PreloadProc
 
-func glLightModelf(pname GLenum, param GLfloat) {
+func LightModelf(pname Enum, param Float) {
 	bindlib.CCall2(__imp_glLightModelf.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glLightModelfv bindlib.PreloadProc
 
-func glLightModelfv(pname GLenum, params *GLfloat) {
+func LightModelfv(pname Enum, params *Float) {
 	bindlib.CCall2(__imp_glLightModelfv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glLightModeli bindlib.PreloadProc
 
-func glLightModeli(pname GLenum, param GLint) {
+func LightModeli(pname Enum, param Int) {
 	bindlib.CCall2(__imp_glLightModeli.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glLightModeliv bindlib.PreloadProc
 
-func glLightModeliv(pname GLenum, params *GLint) {
+func LightModeliv(pname Enum, params *Int) {
 	bindlib.CCall2(__imp_glLightModeliv.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glLightf bindlib.PreloadProc
 
-func glLightf(light GLenum, pname GLenum, param GLfloat) {
+func Lightf(light Enum, pname Enum, param Float) {
 	bindlib.CCall3(__imp_glLightf.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glLightfv bindlib.PreloadProc
 
-func glLightfv(light GLenum, pname GLenum, params *GLfloat) {
+func Lightfv(light Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glLightfv.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glLighti bindlib.PreloadProc
 
-func glLighti(light GLenum, pname GLenum, param GLint) {
+func Lighti(light Enum, pname Enum, param Int) {
 	bindlib.CCall3(__imp_glLighti.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glLightiv bindlib.PreloadProc
 
-func glLightiv(light GLenum, pname GLenum, params *GLint) {
+func Lightiv(light Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glLightiv.Addr(), bindlib.MarshallSyscall(light), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glLineStipple bindlib.PreloadProc
 
-func glLineStipple(factor GLint, pattern GLushort) {
+func LineStipple(factor Int, pattern Ushort) {
 	bindlib.CCall2(__imp_glLineStipple.Addr(), bindlib.MarshallSyscall(factor), bindlib.MarshallSyscall(pattern))
 }
 
 var __imp_glLineWidth bindlib.PreloadProc
 
-func glLineWidth(width GLfloat) {
-	bindlib.CCall1(__imp_glLineWidth.Addr(), bindlib.MarshallSyscall(width))
-}
+func LineWidth(width Float) { bindlib.CCall1(__imp_glLineWidth.Addr(), bindlib.MarshallSyscall(width)) }
 
 var __imp_glListBase bindlib.PreloadProc
 
-func glListBase(base GLuint) { bindlib.CCall1(__imp_glListBase.Addr(), bindlib.MarshallSyscall(base)) }
+func ListBase(base Uint) { bindlib.CCall1(__imp_glListBase.Addr(), bindlib.MarshallSyscall(base)) }
 
 var __imp_glLoadIdentity bindlib.PreloadProc
 
-func glLoadIdentity() { bindlib.CCall0(__imp_glLoadIdentity.Addr()) }
+func LoadIdentity() { bindlib.CCall0(__imp_glLoadIdentity.Addr()) }
 
 var __imp_glLoadMatrixd bindlib.PreloadProc
 
-func glLoadMatrixd(m *GLdouble) {
-	bindlib.CCall1(__imp_glLoadMatrixd.Addr(), bindlib.MarshallSyscall(m))
-}
+func LoadMatrixd(m *Double) { bindlib.CCall1(__imp_glLoadMatrixd.Addr(), bindlib.MarshallSyscall(m)) }
 
 var __imp_glLoadMatrixf bindlib.PreloadProc
 
-func glLoadMatrixf(m *GLfloat) {
-	bindlib.CCall1(__imp_glLoadMatrixf.Addr(), bindlib.MarshallSyscall(m))
-}
+func LoadMatrixf(m *Float) { bindlib.CCall1(__imp_glLoadMatrixf.Addr(), bindlib.MarshallSyscall(m)) }
 
 var __imp_glLoadName bindlib.PreloadProc
 
-func glLoadName(name GLuint) { bindlib.CCall1(__imp_glLoadName.Addr(), bindlib.MarshallSyscall(name)) }
+func LoadName(name Uint) { bindlib.CCall1(__imp_glLoadName.Addr(), bindlib.MarshallSyscall(name)) }
 
 var __imp_glLogicOp bindlib.PreloadProc
 
-func glLogicOp(opcode GLenum) {
-	bindlib.CCall1(__imp_glLogicOp.Addr(), bindlib.MarshallSyscall(opcode))
-}
+func LogicOp(opcode Enum) { bindlib.CCall1(__imp_glLogicOp.Addr(), bindlib.MarshallSyscall(opcode)) }
 
 var __imp_glMap1d bindlib.PreloadProc
 
-func glMap1d(target GLenum, u1 GLdouble, u2 GLdouble, stride GLint, order GLint, points *GLdouble) {
+func Map1d(target Enum, u1 Double, u2 Double, stride Int, order Int, points *Double) {
 	bindlib.CCall6(__imp_glMap1d.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(order), bindlib.MarshallSyscall(points))
 }
 
 var __imp_glMap1f bindlib.PreloadProc
 
-func glMap1f(target GLenum, u1 GLfloat, u2 GLfloat, stride GLint, order GLint, points *GLfloat) {
+func Map1f(target Enum, u1 Float, u2 Float, stride Int, order Int, points *Float) {
 	bindlib.CCall6(__imp_glMap1f.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(order), bindlib.MarshallSyscall(points))
 }
 
 var __imp_glMap2d bindlib.PreloadProc
 
-func glMap2d(target GLenum, u1 GLdouble, u2 GLdouble, ustride GLint, uorder GLint, v1 GLdouble, v2 GLdouble, vstride GLint, vorder GLint, points *GLdouble) {
+func Map2d(target Enum, u1 Double, u2 Double, ustride Int, uorder Int, v1 Double, v2 Double, vstride Int, vorder Int, points *Double) {
 	bindlib.CCall10(__imp_glMap2d.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(ustride), bindlib.MarshallSyscall(uorder), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2), bindlib.MarshallSyscall(vstride), bindlib.MarshallSyscall(vorder), bindlib.MarshallSyscall(points))
 }
 
 var __imp_glMap2f bindlib.PreloadProc
 
-func glMap2f(target GLenum, u1 GLfloat, u2 GLfloat, ustride GLint, uorder GLint, v1 GLfloat, v2 GLfloat, vstride GLint, vorder GLint, points *GLfloat) {
+func Map2f(target Enum, u1 Float, u2 Float, ustride Int, uorder Int, v1 Float, v2 Float, vstride Int, vorder Int, points *Float) {
 	bindlib.CCall10(__imp_glMap2f.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(ustride), bindlib.MarshallSyscall(uorder), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2), bindlib.MarshallSyscall(vstride), bindlib.MarshallSyscall(vorder), bindlib.MarshallSyscall(points))
 }
 
 var __imp_glMapGrid1d bindlib.PreloadProc
 
-func glMapGrid1d(un GLint, u1 GLdouble, u2 GLdouble) {
+func MapGrid1d(un Int, u1 Double, u2 Double) {
 	bindlib.CCall3(__imp_glMapGrid1d.Addr(), bindlib.MarshallSyscall(un), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2))
 }
 
 var __imp_glMapGrid1f bindlib.PreloadProc
 
-func glMapGrid1f(un GLint, u1 GLfloat, u2 GLfloat) {
+func MapGrid1f(un Int, u1 Float, u2 Float) {
 	bindlib.CCall3(__imp_glMapGrid1f.Addr(), bindlib.MarshallSyscall(un), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2))
 }
 
 var __imp_glMapGrid2d bindlib.PreloadProc
 
-func glMapGrid2d(un GLint, u1 GLdouble, u2 GLdouble, vn GLint, v1 GLdouble, v2 GLdouble) {
+func MapGrid2d(un Int, u1 Double, u2 Double, vn Int, v1 Double, v2 Double) {
 	bindlib.CCall6(__imp_glMapGrid2d.Addr(), bindlib.MarshallSyscall(un), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(vn), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glMapGrid2f bindlib.PreloadProc
 
-func glMapGrid2f(un GLint, u1 GLfloat, u2 GLfloat, vn GLint, v1 GLfloat, v2 GLfloat) {
+func MapGrid2f(un Int, u1 Float, u2 Float, vn Int, v1 Float, v2 Float) {
 	bindlib.CCall6(__imp_glMapGrid2f.Addr(), bindlib.MarshallSyscall(un), bindlib.MarshallSyscall(u1), bindlib.MarshallSyscall(u2), bindlib.MarshallSyscall(vn), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glMaterialf bindlib.PreloadProc
 
-func glMaterialf(face GLenum, pname GLenum, param GLfloat) {
+func Materialf(face Enum, pname Enum, param Float) {
 	bindlib.CCall3(__imp_glMaterialf.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glMaterialfv bindlib.PreloadProc
 
-func glMaterialfv(face GLenum, pname GLenum, params *GLfloat) {
+func Materialfv(face Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glMaterialfv.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glMateriali bindlib.PreloadProc
 
-func glMateriali(face GLenum, pname GLenum, param GLint) {
+func Materiali(face Enum, pname Enum, param Int) {
 	bindlib.CCall3(__imp_glMateriali.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glMaterialiv bindlib.PreloadProc
 
-func glMaterialiv(face GLenum, pname GLenum, params *GLint) {
+func Materialiv(face Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glMaterialiv.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glMatrixMode bindlib.PreloadProc
 
-func glMatrixMode(mode GLenum) {
-	bindlib.CCall1(__imp_glMatrixMode.Addr(), bindlib.MarshallSyscall(mode))
-}
+func MatrixMode(mode Enum) { bindlib.CCall1(__imp_glMatrixMode.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glMultMatrixd bindlib.PreloadProc
 
-func glMultMatrixd(m *GLdouble) {
-	bindlib.CCall1(__imp_glMultMatrixd.Addr(), bindlib.MarshallSyscall(m))
-}
+func MultMatrixd(m *Double) { bindlib.CCall1(__imp_glMultMatrixd.Addr(), bindlib.MarshallSyscall(m)) }
 
 var __imp_glMultMatrixf bindlib.PreloadProc
 
-func glMultMatrixf(m *GLfloat) {
-	bindlib.CCall1(__imp_glMultMatrixf.Addr(), bindlib.MarshallSyscall(m))
-}
+func MultMatrixf(m *Float) { bindlib.CCall1(__imp_glMultMatrixf.Addr(), bindlib.MarshallSyscall(m)) }
 
 var __imp_glNewList bindlib.PreloadProc
 
-func glNewList(list GLuint, mode GLenum) {
+func NewList(list Uint, mode Enum) {
 	bindlib.CCall2(__imp_glNewList.Addr(), bindlib.MarshallSyscall(list), bindlib.MarshallSyscall(mode))
 }
 
 var __imp_glNormal3b bindlib.PreloadProc
 
-func glNormal3b(nx GLbyte, ny GLbyte, nz GLbyte) {
+func Normal3b(nx Byte, ny Byte, nz Byte) {
 	bindlib.CCall3(__imp_glNormal3b.Addr(), bindlib.MarshallSyscall(nx), bindlib.MarshallSyscall(ny), bindlib.MarshallSyscall(nz))
 }
 
 var __imp_glNormal3bv bindlib.PreloadProc
 
-func glNormal3bv(v *GLbyte) { bindlib.CCall1(__imp_glNormal3bv.Addr(), bindlib.MarshallSyscall(v)) }
+func Normal3bv(v *Byte) { bindlib.CCall1(__imp_glNormal3bv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glNormal3d bindlib.PreloadProc
 
-func glNormal3d(nx GLdouble, ny GLdouble, nz GLdouble) {
+func Normal3d(nx Double, ny Double, nz Double) {
 	bindlib.CCall3(__imp_glNormal3d.Addr(), bindlib.MarshallSyscall(nx), bindlib.MarshallSyscall(ny), bindlib.MarshallSyscall(nz))
 }
 
 var __imp_glNormal3dv bindlib.PreloadProc
 
-func glNormal3dv(v *GLdouble) { bindlib.CCall1(__imp_glNormal3dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Normal3dv(v *Double) { bindlib.CCall1(__imp_glNormal3dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glNormal3f bindlib.PreloadProc
 
-func glNormal3f(nx GLfloat, ny GLfloat, nz GLfloat) {
+func Normal3f(nx Float, ny Float, nz Float) {
 	bindlib.CCall3(__imp_glNormal3f.Addr(), bindlib.MarshallSyscall(nx), bindlib.MarshallSyscall(ny), bindlib.MarshallSyscall(nz))
 }
 
 var __imp_glNormal3fv bindlib.PreloadProc
 
-func glNormal3fv(v *GLfloat) { bindlib.CCall1(__imp_glNormal3fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Normal3fv(v *Float) { bindlib.CCall1(__imp_glNormal3fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glNormal3i bindlib.PreloadProc
 
-func glNormal3i(nx GLint, ny GLint, nz GLint) {
+func Normal3i(nx Int, ny Int, nz Int) {
 	bindlib.CCall3(__imp_glNormal3i.Addr(), bindlib.MarshallSyscall(nx), bindlib.MarshallSyscall(ny), bindlib.MarshallSyscall(nz))
 }
 
 var __imp_glNormal3iv bindlib.PreloadProc
 
-func glNormal3iv(v *GLint) { bindlib.CCall1(__imp_glNormal3iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Normal3iv(v *Int) { bindlib.CCall1(__imp_glNormal3iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glNormal3s bindlib.PreloadProc
 
-func glNormal3s(nx GLshort, ny GLshort, nz GLshort) {
+func Normal3s(nx Short, ny Short, nz Short) {
 	bindlib.CCall3(__imp_glNormal3s.Addr(), bindlib.MarshallSyscall(nx), bindlib.MarshallSyscall(ny), bindlib.MarshallSyscall(nz))
 }
 
 var __imp_glNormal3sv bindlib.PreloadProc
 
-func glNormal3sv(v *GLshort) { bindlib.CCall1(__imp_glNormal3sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Normal3sv(v *Short) { bindlib.CCall1(__imp_glNormal3sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glNormalPointer bindlib.PreloadProc
 
-func glNormalPointer(_type GLenum, stride GLsizei, pointer *GLvoid) {
+func NormalPointer(_type Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall3(__imp_glNormalPointer.Addr(), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glOrtho bindlib.PreloadProc
 
-func glOrtho(left GLdouble, right GLdouble, bottom GLdouble, top GLdouble, zNear GLdouble, zFar GLdouble) {
+func Ortho(left Double, right Double, bottom Double, top Double, zNear Double, zFar Double) {
 	bindlib.CCall6(__imp_glOrtho.Addr(), bindlib.MarshallSyscall(left), bindlib.MarshallSyscall(right), bindlib.MarshallSyscall(bottom), bindlib.MarshallSyscall(top), bindlib.MarshallSyscall(zNear), bindlib.MarshallSyscall(zFar))
 }
 
 var __imp_glPassThrough bindlib.PreloadProc
 
-func glPassThrough(token GLfloat) {
+func PassThrough(token Float) {
 	bindlib.CCall1(__imp_glPassThrough.Addr(), bindlib.MarshallSyscall(token))
 }
 
 var __imp_glPixelMapfv bindlib.PreloadProc
 
-func glPixelMapfv(_map GLenum, mapsize GLsizei, values *GLfloat) {
+func PixelMapfv(_map Enum, mapsize Sizei, values *Float) {
 	bindlib.CCall3(__imp_glPixelMapfv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(mapsize), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glPixelMapuiv bindlib.PreloadProc
 
-func glPixelMapuiv(_map GLenum, mapsize GLsizei, values *GLuint) {
+func PixelMapuiv(_map Enum, mapsize Sizei, values *Uint) {
 	bindlib.CCall3(__imp_glPixelMapuiv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(mapsize), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glPixelMapusv bindlib.PreloadProc
 
-func glPixelMapusv(_map GLenum, mapsize GLsizei, values *GLushort) {
+func PixelMapusv(_map Enum, mapsize Sizei, values *Ushort) {
 	bindlib.CCall3(__imp_glPixelMapusv.Addr(), bindlib.MarshallSyscall(_map), bindlib.MarshallSyscall(mapsize), bindlib.MarshallSyscall(values))
 }
 
 var __imp_glPixelStoref bindlib.PreloadProc
 
-func glPixelStoref(pname GLenum, param GLfloat) {
+func PixelStoref(pname Enum, param Float) {
 	bindlib.CCall2(__imp_glPixelStoref.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glPixelStorei bindlib.PreloadProc
 
-func glPixelStorei(pname GLenum, param GLint) {
+func PixelStorei(pname Enum, param Int) {
 	bindlib.CCall2(__imp_glPixelStorei.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glPixelTransferf bindlib.PreloadProc
 
-func glPixelTransferf(pname GLenum, param GLfloat) {
+func PixelTransferf(pname Enum, param Float) {
 	bindlib.CCall2(__imp_glPixelTransferf.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glPixelTransferi bindlib.PreloadProc
 
-func glPixelTransferi(pname GLenum, param GLint) {
+func PixelTransferi(pname Enum, param Int) {
 	bindlib.CCall2(__imp_glPixelTransferi.Addr(), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glPixelZoom bindlib.PreloadProc
 
-func glPixelZoom(xfactor GLfloat, yfactor GLfloat) {
+func PixelZoom(xfactor Float, yfactor Float) {
 	bindlib.CCall2(__imp_glPixelZoom.Addr(), bindlib.MarshallSyscall(xfactor), bindlib.MarshallSyscall(yfactor))
 }
 
 var __imp_glPointSize bindlib.PreloadProc
 
-func glPointSize(size GLfloat) {
-	bindlib.CCall1(__imp_glPointSize.Addr(), bindlib.MarshallSyscall(size))
-}
+func PointSize(size Float) { bindlib.CCall1(__imp_glPointSize.Addr(), bindlib.MarshallSyscall(size)) }
 
 var __imp_glPolygonMode bindlib.PreloadProc
 
-func glPolygonMode(face GLenum, mode GLenum) {
+func PolygonMode(face Enum, mode Enum) {
 	bindlib.CCall2(__imp_glPolygonMode.Addr(), bindlib.MarshallSyscall(face), bindlib.MarshallSyscall(mode))
 }
 
 var __imp_glPolygonOffset bindlib.PreloadProc
 
-func glPolygonOffset(factor GLfloat, units GLfloat) {
+func PolygonOffset(factor Float, units Float) {
 	bindlib.CCall2(__imp_glPolygonOffset.Addr(), bindlib.MarshallSyscall(factor), bindlib.MarshallSyscall(units))
 }
 
 var __imp_glPolygonStipple bindlib.PreloadProc
 
-func glPolygonStipple(mask *GLubyte) {
+func PolygonStipple(mask *Ubyte) {
 	bindlib.CCall1(__imp_glPolygonStipple.Addr(), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glPopAttrib bindlib.PreloadProc
 
-func glPopAttrib() { bindlib.CCall0(__imp_glPopAttrib.Addr()) }
+func PopAttrib() { bindlib.CCall0(__imp_glPopAttrib.Addr()) }
 
 var __imp_glPopClientAttrib bindlib.PreloadProc
 
-func glPopClientAttrib() { bindlib.CCall0(__imp_glPopClientAttrib.Addr()) }
+func PopClientAttrib() { bindlib.CCall0(__imp_glPopClientAttrib.Addr()) }
 
 var __imp_glPopMatrix bindlib.PreloadProc
 
-func glPopMatrix() { bindlib.CCall0(__imp_glPopMatrix.Addr()) }
+func PopMatrix() { bindlib.CCall0(__imp_glPopMatrix.Addr()) }
 
 var __imp_glPopName bindlib.PreloadProc
 
-func glPopName() { bindlib.CCall0(__imp_glPopName.Addr()) }
+func PopName() { bindlib.CCall0(__imp_glPopName.Addr()) }
 
 var __imp_glPrioritizeTextures bindlib.PreloadProc
 
-func glPrioritizeTextures(n GLsizei, textures *GLuint, priorities *GLclampf) {
+func PrioritizeTextures(n Sizei, textures *Uint, priorities *Clampf) {
 	bindlib.CCall3(__imp_glPrioritizeTextures.Addr(), bindlib.MarshallSyscall(n), bindlib.MarshallSyscall(textures), bindlib.MarshallSyscall(priorities))
 }
 
 var __imp_glPushAttrib bindlib.PreloadProc
 
-func glPushAttrib(mask GLbitfield) {
+func PushAttrib(mask Bitfield) {
 	bindlib.CCall1(__imp_glPushAttrib.Addr(), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glPushClientAttrib bindlib.PreloadProc
 
-func glPushClientAttrib(mask GLbitfield) {
+func PushClientAttrib(mask Bitfield) {
 	bindlib.CCall1(__imp_glPushClientAttrib.Addr(), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glPushMatrix bindlib.PreloadProc
 
-func glPushMatrix() { bindlib.CCall0(__imp_glPushMatrix.Addr()) }
+func PushMatrix() { bindlib.CCall0(__imp_glPushMatrix.Addr()) }
 
 var __imp_glPushName bindlib.PreloadProc
 
-func glPushName(name GLuint) { bindlib.CCall1(__imp_glPushName.Addr(), bindlib.MarshallSyscall(name)) }
+func PushName(name Uint) { bindlib.CCall1(__imp_glPushName.Addr(), bindlib.MarshallSyscall(name)) }
 
 var __imp_glRasterPos2d bindlib.PreloadProc
 
-func glRasterPos2d(x GLdouble, y GLdouble) {
+func RasterPos2d(x Double, y Double) {
 	bindlib.CCall2(__imp_glRasterPos2d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glRasterPos2dv bindlib.PreloadProc
 
-func glRasterPos2dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glRasterPos2dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos2dv(v *Double) { bindlib.CCall1(__imp_glRasterPos2dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos2f bindlib.PreloadProc
 
-func glRasterPos2f(x GLfloat, y GLfloat) {
+func RasterPos2f(x Float, y Float) {
 	bindlib.CCall2(__imp_glRasterPos2f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glRasterPos2fv bindlib.PreloadProc
 
-func glRasterPos2fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glRasterPos2fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos2fv(v *Float) { bindlib.CCall1(__imp_glRasterPos2fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos2i bindlib.PreloadProc
 
-func glRasterPos2i(x GLint, y GLint) {
+func RasterPos2i(x Int, y Int) {
 	bindlib.CCall2(__imp_glRasterPos2i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glRasterPos2iv bindlib.PreloadProc
 
-func glRasterPos2iv(v *GLint) {
-	bindlib.CCall1(__imp_glRasterPos2iv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos2iv(v *Int) { bindlib.CCall1(__imp_glRasterPos2iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos2s bindlib.PreloadProc
 
-func glRasterPos2s(x GLshort, y GLshort) {
+func RasterPos2s(x Short, y Short) {
 	bindlib.CCall2(__imp_glRasterPos2s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glRasterPos2sv bindlib.PreloadProc
 
-func glRasterPos2sv(v *GLshort) {
-	bindlib.CCall1(__imp_glRasterPos2sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos2sv(v *Short) { bindlib.CCall1(__imp_glRasterPos2sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos3d bindlib.PreloadProc
 
-func glRasterPos3d(x GLdouble, y GLdouble, z GLdouble) {
+func RasterPos3d(x Double, y Double, z Double) {
 	bindlib.CCall3(__imp_glRasterPos3d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glRasterPos3dv bindlib.PreloadProc
 
-func glRasterPos3dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glRasterPos3dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos3dv(v *Double) { bindlib.CCall1(__imp_glRasterPos3dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos3f bindlib.PreloadProc
 
-func glRasterPos3f(x GLfloat, y GLfloat, z GLfloat) {
+func RasterPos3f(x Float, y Float, z Float) {
 	bindlib.CCall3(__imp_glRasterPos3f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glRasterPos3fv bindlib.PreloadProc
 
-func glRasterPos3fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glRasterPos3fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos3fv(v *Float) { bindlib.CCall1(__imp_glRasterPos3fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos3i bindlib.PreloadProc
 
-func glRasterPos3i(x GLint, y GLint, z GLint) {
+func RasterPos3i(x Int, y Int, z Int) {
 	bindlib.CCall3(__imp_glRasterPos3i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glRasterPos3iv bindlib.PreloadProc
 
-func glRasterPos3iv(v *GLint) {
-	bindlib.CCall1(__imp_glRasterPos3iv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos3iv(v *Int) { bindlib.CCall1(__imp_glRasterPos3iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos3s bindlib.PreloadProc
 
-func glRasterPos3s(x GLshort, y GLshort, z GLshort) {
+func RasterPos3s(x Short, y Short, z Short) {
 	bindlib.CCall3(__imp_glRasterPos3s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glRasterPos3sv bindlib.PreloadProc
 
-func glRasterPos3sv(v *GLshort) {
-	bindlib.CCall1(__imp_glRasterPos3sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos3sv(v *Short) { bindlib.CCall1(__imp_glRasterPos3sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos4d bindlib.PreloadProc
 
-func glRasterPos4d(x GLdouble, y GLdouble, z GLdouble, w GLdouble) {
+func RasterPos4d(x Double, y Double, z Double, w Double) {
 	bindlib.CCall4(__imp_glRasterPos4d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glRasterPos4dv bindlib.PreloadProc
 
-func glRasterPos4dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glRasterPos4dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos4dv(v *Double) { bindlib.CCall1(__imp_glRasterPos4dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos4f bindlib.PreloadProc
 
-func glRasterPos4f(x GLfloat, y GLfloat, z GLfloat, w GLfloat) {
+func RasterPos4f(x Float, y Float, z Float, w Float) {
 	bindlib.CCall4(__imp_glRasterPos4f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glRasterPos4fv bindlib.PreloadProc
 
-func glRasterPos4fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glRasterPos4fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos4fv(v *Float) { bindlib.CCall1(__imp_glRasterPos4fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos4i bindlib.PreloadProc
 
-func glRasterPos4i(x GLint, y GLint, z GLint, w GLint) {
+func RasterPos4i(x Int, y Int, z Int, w Int) {
 	bindlib.CCall4(__imp_glRasterPos4i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glRasterPos4iv bindlib.PreloadProc
 
-func glRasterPos4iv(v *GLint) {
-	bindlib.CCall1(__imp_glRasterPos4iv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos4iv(v *Int) { bindlib.CCall1(__imp_glRasterPos4iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glRasterPos4s bindlib.PreloadProc
 
-func glRasterPos4s(x GLshort, y GLshort, z GLshort, w GLshort) {
+func RasterPos4s(x Short, y Short, z Short, w Short) {
 	bindlib.CCall4(__imp_glRasterPos4s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glRasterPos4sv bindlib.PreloadProc
 
-func glRasterPos4sv(v *GLshort) {
-	bindlib.CCall1(__imp_glRasterPos4sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func RasterPos4sv(v *Short) { bindlib.CCall1(__imp_glRasterPos4sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glReadBuffer bindlib.PreloadProc
 
-func glReadBuffer(mode GLenum) {
-	bindlib.CCall1(__imp_glReadBuffer.Addr(), bindlib.MarshallSyscall(mode))
-}
+func ReadBuffer(mode Enum) { bindlib.CCall1(__imp_glReadBuffer.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glReadPixels bindlib.PreloadProc
 
-func glReadPixels(x GLint, y GLint, width GLsizei, height GLsizei, format GLenum, _type GLenum, pixels *GLvoid) {
+func ReadPixels(x Int, y Int, width Sizei, height Sizei, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall7(__imp_glReadPixels.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glRectd bindlib.PreloadProc
 
-func glRectd(x1 GLdouble, y1 GLdouble, x2 GLdouble, y2 GLdouble) {
+func Rectd(x1 Double, y1 Double, x2 Double, y2 Double) {
 	bindlib.CCall4(__imp_glRectd.Addr(), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
 }
 
 var __imp_glRectdv bindlib.PreloadProc
 
-func glRectdv(v1 *GLdouble, v2 *GLdouble) {
+func Rectdv(v1 *Double, v2 *Double) {
 	bindlib.CCall2(__imp_glRectdv.Addr(), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glRectf bindlib.PreloadProc
 
-func glRectf(x1 GLfloat, y1 GLfloat, x2 GLfloat, y2 GLfloat) {
+func Rectf(x1 Float, y1 Float, x2 Float, y2 Float) {
 	bindlib.CCall4(__imp_glRectf.Addr(), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
 }
 
 var __imp_glRectfv bindlib.PreloadProc
 
-func glRectfv(v1 *GLfloat, v2 *GLfloat) {
+func Rectfv(v1 *Float, v2 *Float) {
 	bindlib.CCall2(__imp_glRectfv.Addr(), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glRecti bindlib.PreloadProc
 
-func glRecti(x1 GLint, y1 GLint, x2 GLint, y2 GLint) {
+func Recti(x1 Int, y1 Int, x2 Int, y2 Int) {
 	bindlib.CCall4(__imp_glRecti.Addr(), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
 }
 
 var __imp_glRectiv bindlib.PreloadProc
 
-func glRectiv(v1 *GLint, v2 *GLint) {
+func Rectiv(v1 *Int, v2 *Int) {
 	bindlib.CCall2(__imp_glRectiv.Addr(), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glRects bindlib.PreloadProc
 
-func glRects(x1 GLshort, y1 GLshort, x2 GLshort, y2 GLshort) {
+func Rects(x1 Short, y1 Short, x2 Short, y2 Short) {
 	bindlib.CCall4(__imp_glRects.Addr(), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
 }
 
 var __imp_glRectsv bindlib.PreloadProc
 
-func glRectsv(v1 *GLshort, v2 *GLshort) {
+func Rectsv(v1 *Short, v2 *Short) {
 	bindlib.CCall2(__imp_glRectsv.Addr(), bindlib.MarshallSyscall(v1), bindlib.MarshallSyscall(v2))
 }
 
 var __imp_glRenderMode bindlib.PreloadProc
 
-func glRenderMode(mode GLenum) GLint {
+func RenderMode(mode Enum) Int {
 	__res := bindlib.CCall1(__imp_glRenderMode.Addr(), bindlib.MarshallSyscall(mode))
-	return bindlib.UnmarshallSyscall[GLint](__res)
+	return bindlib.UnmarshallSyscall[Int](__res)
 }
 
 var __imp_glRotated bindlib.PreloadProc
 
-func glRotated(angle GLdouble, x GLdouble, y GLdouble, z GLdouble) {
+func Rotated(angle Double, x Double, y Double, z Double) {
 	bindlib.CCall4(__imp_glRotated.Addr(), bindlib.MarshallSyscall(angle), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glRotatef bindlib.PreloadProc
 
-func glRotatef(angle GLfloat, x GLfloat, y GLfloat, z GLfloat) {
+func Rotatef(angle Float, x Float, y Float, z Float) {
 	bindlib.CCall4(__imp_glRotatef.Addr(), bindlib.MarshallSyscall(angle), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glScaled bindlib.PreloadProc
 
-func glScaled(x GLdouble, y GLdouble, z GLdouble) {
+func Scaled(x Double, y Double, z Double) {
 	bindlib.CCall3(__imp_glScaled.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glScalef bindlib.PreloadProc
 
-func glScalef(x GLfloat, y GLfloat, z GLfloat) {
+func Scalef(x Float, y Float, z Float) {
 	bindlib.CCall3(__imp_glScalef.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glScissor bindlib.PreloadProc
 
-func glScissor(x GLint, y GLint, width GLsizei, height GLsizei) {
+func Scissor(x Int, y Int, width Sizei, height Sizei) {
 	bindlib.CCall4(__imp_glScissor.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height))
 }
 
 var __imp_glSelectBuffer bindlib.PreloadProc
 
-func glSelectBuffer(size GLsizei, buffer *GLuint) {
+func SelectBuffer(size Sizei, buffer *Uint) {
 	bindlib.CCall2(__imp_glSelectBuffer.Addr(), bindlib.MarshallSyscall(size), bindlib.MarshallSyscall(buffer))
 }
 
 var __imp_glShadeModel bindlib.PreloadProc
 
-func glShadeModel(mode GLenum) {
-	bindlib.CCall1(__imp_glShadeModel.Addr(), bindlib.MarshallSyscall(mode))
-}
+func ShadeModel(mode Enum) { bindlib.CCall1(__imp_glShadeModel.Addr(), bindlib.MarshallSyscall(mode)) }
 
 var __imp_glStencilFunc bindlib.PreloadProc
 
-func glStencilFunc(_func GLenum, ref GLint, mask GLuint) {
+func StencilFunc(_func Enum, ref Int, mask Uint) {
 	bindlib.CCall3(__imp_glStencilFunc.Addr(), bindlib.MarshallSyscall(_func), bindlib.MarshallSyscall(ref), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glStencilMask bindlib.PreloadProc
 
-func glStencilMask(mask GLuint) {
+func StencilMask(mask Uint) {
 	bindlib.CCall1(__imp_glStencilMask.Addr(), bindlib.MarshallSyscall(mask))
 }
 
 var __imp_glStencilOp bindlib.PreloadProc
 
-func glStencilOp(fail GLenum, zfail GLenum, zpass GLenum) {
+func StencilOp(fail Enum, zfail Enum, zpass Enum) {
 	bindlib.CCall3(__imp_glStencilOp.Addr(), bindlib.MarshallSyscall(fail), bindlib.MarshallSyscall(zfail), bindlib.MarshallSyscall(zpass))
 }
 
 var __imp_glTexCoord1d bindlib.PreloadProc
 
-func glTexCoord1d(s GLdouble) { bindlib.CCall1(__imp_glTexCoord1d.Addr(), bindlib.MarshallSyscall(s)) }
+func TexCoord1d(s Double) { bindlib.CCall1(__imp_glTexCoord1d.Addr(), bindlib.MarshallSyscall(s)) }
 
 var __imp_glTexCoord1dv bindlib.PreloadProc
 
-func glTexCoord1dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glTexCoord1dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord1dv(v *Double) { bindlib.CCall1(__imp_glTexCoord1dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord1f bindlib.PreloadProc
 
-func glTexCoord1f(s GLfloat) { bindlib.CCall1(__imp_glTexCoord1f.Addr(), bindlib.MarshallSyscall(s)) }
+func TexCoord1f(s Float) { bindlib.CCall1(__imp_glTexCoord1f.Addr(), bindlib.MarshallSyscall(s)) }
 
 var __imp_glTexCoord1fv bindlib.PreloadProc
 
-func glTexCoord1fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glTexCoord1fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord1fv(v *Float) { bindlib.CCall1(__imp_glTexCoord1fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord1i bindlib.PreloadProc
 
-func glTexCoord1i(s GLint) { bindlib.CCall1(__imp_glTexCoord1i.Addr(), bindlib.MarshallSyscall(s)) }
+func TexCoord1i(s Int) { bindlib.CCall1(__imp_glTexCoord1i.Addr(), bindlib.MarshallSyscall(s)) }
 
 var __imp_glTexCoord1iv bindlib.PreloadProc
 
-func glTexCoord1iv(v *GLint) { bindlib.CCall1(__imp_glTexCoord1iv.Addr(), bindlib.MarshallSyscall(v)) }
+func TexCoord1iv(v *Int) { bindlib.CCall1(__imp_glTexCoord1iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord1s bindlib.PreloadProc
 
-func glTexCoord1s(s GLshort) { bindlib.CCall1(__imp_glTexCoord1s.Addr(), bindlib.MarshallSyscall(s)) }
+func TexCoord1s(s Short) { bindlib.CCall1(__imp_glTexCoord1s.Addr(), bindlib.MarshallSyscall(s)) }
 
 var __imp_glTexCoord1sv bindlib.PreloadProc
 
-func glTexCoord1sv(v *GLshort) {
-	bindlib.CCall1(__imp_glTexCoord1sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord1sv(v *Short) { bindlib.CCall1(__imp_glTexCoord1sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord2d bindlib.PreloadProc
 
-func glTexCoord2d(s GLdouble, t GLdouble) {
+func TexCoord2d(s Double, t Double) {
 	bindlib.CCall2(__imp_glTexCoord2d.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t))
 }
 
 var __imp_glTexCoord2dv bindlib.PreloadProc
 
-func glTexCoord2dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glTexCoord2dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord2dv(v *Double) { bindlib.CCall1(__imp_glTexCoord2dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord2f bindlib.PreloadProc
 
-func glTexCoord2f(s GLfloat, t GLfloat) {
+func TexCoord2f(s Float, t Float) {
 	bindlib.CCall2(__imp_glTexCoord2f.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t))
 }
 
 var __imp_glTexCoord2fv bindlib.PreloadProc
 
-func glTexCoord2fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glTexCoord2fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord2fv(v *Float) { bindlib.CCall1(__imp_glTexCoord2fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord2i bindlib.PreloadProc
 
-func glTexCoord2i(s GLint, t GLint) {
+func TexCoord2i(s Int, t Int) {
 	bindlib.CCall2(__imp_glTexCoord2i.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t))
 }
 
 var __imp_glTexCoord2iv bindlib.PreloadProc
 
-func glTexCoord2iv(v *GLint) { bindlib.CCall1(__imp_glTexCoord2iv.Addr(), bindlib.MarshallSyscall(v)) }
+func TexCoord2iv(v *Int) { bindlib.CCall1(__imp_glTexCoord2iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord2s bindlib.PreloadProc
 
-func glTexCoord2s(s GLshort, t GLshort) {
+func TexCoord2s(s Short, t Short) {
 	bindlib.CCall2(__imp_glTexCoord2s.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t))
 }
 
 var __imp_glTexCoord2sv bindlib.PreloadProc
 
-func glTexCoord2sv(v *GLshort) {
-	bindlib.CCall1(__imp_glTexCoord2sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord2sv(v *Short) { bindlib.CCall1(__imp_glTexCoord2sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord3d bindlib.PreloadProc
 
-func glTexCoord3d(s GLdouble, t GLdouble, r GLdouble) {
+func TexCoord3d(s Double, t Double, r Double) {
 	bindlib.CCall3(__imp_glTexCoord3d.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r))
 }
 
 var __imp_glTexCoord3dv bindlib.PreloadProc
 
-func glTexCoord3dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glTexCoord3dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord3dv(v *Double) { bindlib.CCall1(__imp_glTexCoord3dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord3f bindlib.PreloadProc
 
-func glTexCoord3f(s GLfloat, t GLfloat, r GLfloat) {
+func TexCoord3f(s Float, t Float, r Float) {
 	bindlib.CCall3(__imp_glTexCoord3f.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r))
 }
 
 var __imp_glTexCoord3fv bindlib.PreloadProc
 
-func glTexCoord3fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glTexCoord3fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord3fv(v *Float) { bindlib.CCall1(__imp_glTexCoord3fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord3i bindlib.PreloadProc
 
-func glTexCoord3i(s GLint, t GLint, r GLint) {
+func TexCoord3i(s Int, t Int, r Int) {
 	bindlib.CCall3(__imp_glTexCoord3i.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r))
 }
 
 var __imp_glTexCoord3iv bindlib.PreloadProc
 
-func glTexCoord3iv(v *GLint) { bindlib.CCall1(__imp_glTexCoord3iv.Addr(), bindlib.MarshallSyscall(v)) }
+func TexCoord3iv(v *Int) { bindlib.CCall1(__imp_glTexCoord3iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord3s bindlib.PreloadProc
 
-func glTexCoord3s(s GLshort, t GLshort, r GLshort) {
+func TexCoord3s(s Short, t Short, r Short) {
 	bindlib.CCall3(__imp_glTexCoord3s.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r))
 }
 
 var __imp_glTexCoord3sv bindlib.PreloadProc
 
-func glTexCoord3sv(v *GLshort) {
-	bindlib.CCall1(__imp_glTexCoord3sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord3sv(v *Short) { bindlib.CCall1(__imp_glTexCoord3sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord4d bindlib.PreloadProc
 
-func glTexCoord4d(s GLdouble, t GLdouble, r GLdouble, q GLdouble) {
+func TexCoord4d(s Double, t Double, r Double, q Double) {
 	bindlib.CCall4(__imp_glTexCoord4d.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(q))
 }
 
 var __imp_glTexCoord4dv bindlib.PreloadProc
 
-func glTexCoord4dv(v *GLdouble) {
-	bindlib.CCall1(__imp_glTexCoord4dv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord4dv(v *Double) { bindlib.CCall1(__imp_glTexCoord4dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord4f bindlib.PreloadProc
 
-func glTexCoord4f(s GLfloat, t GLfloat, r GLfloat, q GLfloat) {
+func TexCoord4f(s Float, t Float, r Float, q Float) {
 	bindlib.CCall4(__imp_glTexCoord4f.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(q))
 }
 
 var __imp_glTexCoord4fv bindlib.PreloadProc
 
-func glTexCoord4fv(v *GLfloat) {
-	bindlib.CCall1(__imp_glTexCoord4fv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord4fv(v *Float) { bindlib.CCall1(__imp_glTexCoord4fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord4i bindlib.PreloadProc
 
-func glTexCoord4i(s GLint, t GLint, r GLint, q GLint) {
+func TexCoord4i(s Int, t Int, r Int, q Int) {
 	bindlib.CCall4(__imp_glTexCoord4i.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(q))
 }
 
 var __imp_glTexCoord4iv bindlib.PreloadProc
 
-func glTexCoord4iv(v *GLint) { bindlib.CCall1(__imp_glTexCoord4iv.Addr(), bindlib.MarshallSyscall(v)) }
+func TexCoord4iv(v *Int) { bindlib.CCall1(__imp_glTexCoord4iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoord4s bindlib.PreloadProc
 
-func glTexCoord4s(s GLshort, t GLshort, r GLshort, q GLshort) {
+func TexCoord4s(s Short, t Short, r Short, q Short) {
 	bindlib.CCall4(__imp_glTexCoord4s.Addr(), bindlib.MarshallSyscall(s), bindlib.MarshallSyscall(t), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(q))
 }
 
 var __imp_glTexCoord4sv bindlib.PreloadProc
 
-func glTexCoord4sv(v *GLshort) {
-	bindlib.CCall1(__imp_glTexCoord4sv.Addr(), bindlib.MarshallSyscall(v))
-}
+func TexCoord4sv(v *Short) { bindlib.CCall1(__imp_glTexCoord4sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glTexCoordPointer bindlib.PreloadProc
 
-func glTexCoordPointer(size GLint, _type GLenum, stride GLsizei, pointer *GLvoid) {
+func TexCoordPointer(size Int, _type Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall4(__imp_glTexCoordPointer.Addr(), bindlib.MarshallSyscall(size), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glTexEnvf bindlib.PreloadProc
 
-func glTexEnvf(target GLenum, pname GLenum, param GLfloat) {
+func TexEnvf(target Enum, pname Enum, param Float) {
 	bindlib.CCall3(__imp_glTexEnvf.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexEnvfv bindlib.PreloadProc
 
-func glTexEnvfv(target GLenum, pname GLenum, params *GLfloat) {
+func TexEnvfv(target Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glTexEnvfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexEnvi bindlib.PreloadProc
 
-func glTexEnvi(target GLenum, pname GLenum, param GLint) {
+func TexEnvi(target Enum, pname Enum, param Int) {
 	bindlib.CCall3(__imp_glTexEnvi.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexEnviv bindlib.PreloadProc
 
-func glTexEnviv(target GLenum, pname GLenum, params *GLint) {
+func TexEnviv(target Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glTexEnviv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexGend bindlib.PreloadProc
 
-func glTexGend(coord GLenum, pname GLenum, param GLdouble) {
+func TexGend(coord Enum, pname Enum, param Double) {
 	bindlib.CCall3(__imp_glTexGend.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexGendv bindlib.PreloadProc
 
-func glTexGendv(coord GLenum, pname GLenum, params *GLdouble) {
+func TexGendv(coord Enum, pname Enum, params *Double) {
 	bindlib.CCall3(__imp_glTexGendv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexGenf bindlib.PreloadProc
 
-func glTexGenf(coord GLenum, pname GLenum, param GLfloat) {
+func TexGenf(coord Enum, pname Enum, param Float) {
 	bindlib.CCall3(__imp_glTexGenf.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexGenfv bindlib.PreloadProc
 
-func glTexGenfv(coord GLenum, pname GLenum, params *GLfloat) {
+func TexGenfv(coord Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glTexGenfv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexGeni bindlib.PreloadProc
 
-func glTexGeni(coord GLenum, pname GLenum, param GLint) {
+func TexGeni(coord Enum, pname Enum, param Int) {
 	bindlib.CCall3(__imp_glTexGeni.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexGeniv bindlib.PreloadProc
 
-func glTexGeniv(coord GLenum, pname GLenum, params *GLint) {
+func TexGeniv(coord Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glTexGeniv.Addr(), bindlib.MarshallSyscall(coord), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexImage1D bindlib.PreloadProc
 
-func glTexImage1D(target GLenum, level GLint, internalformat GLint, width GLsizei, border GLint, format GLenum, _type GLenum, pixels *GLvoid) {
+func TexImage1D(target Enum, level Int, internalformat Int, width Sizei, border Int, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall8(__imp_glTexImage1D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(internalformat), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(border), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glTexImage2D bindlib.PreloadProc
 
-func glTexImage2D(target GLenum, level GLint, internalformat GLint, width GLsizei, height GLsizei, border GLint, format GLenum, _type GLenum, pixels *GLvoid) {
+func TexImage2D(target Enum, level Int, internalformat Int, width Sizei, height Sizei, border Int, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall9(__imp_glTexImage2D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(internalformat), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(border), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glTexParameterf bindlib.PreloadProc
 
-func glTexParameterf(target GLenum, pname GLenum, param GLfloat) {
+func TexParameterf(target Enum, pname Enum, param Float) {
 	bindlib.CCall3(__imp_glTexParameterf.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexParameterfv bindlib.PreloadProc
 
-func glTexParameterfv(target GLenum, pname GLenum, params *GLfloat) {
+func TexParameterfv(target Enum, pname Enum, params *Float) {
 	bindlib.CCall3(__imp_glTexParameterfv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexParameteri bindlib.PreloadProc
 
-func glTexParameteri(target GLenum, pname GLenum, param GLint) {
+func TexParameteri(target Enum, pname Enum, param Int) {
 	bindlib.CCall3(__imp_glTexParameteri.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(param))
 }
 
 var __imp_glTexParameteriv bindlib.PreloadProc
 
-func glTexParameteriv(target GLenum, pname GLenum, params *GLint) {
+func TexParameteriv(target Enum, pname Enum, params *Int) {
 	bindlib.CCall3(__imp_glTexParameteriv.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(pname), bindlib.MarshallSyscall(params))
 }
 
 var __imp_glTexSubImage1D bindlib.PreloadProc
 
-func glTexSubImage1D(target GLenum, level GLint, xoffset GLint, width GLsizei, format GLenum, _type GLenum, pixels *GLvoid) {
+func TexSubImage1D(target Enum, level Int, xoffset Int, width Sizei, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall7(__imp_glTexSubImage1D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(xoffset), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glTexSubImage2D bindlib.PreloadProc
 
-func glTexSubImage2D(target GLenum, level GLint, xoffset GLint, yoffset GLint, width GLsizei, height GLsizei, format GLenum, _type GLenum, pixels *GLvoid) {
+func TexSubImage2D(target Enum, level Int, xoffset Int, yoffset Int, width Sizei, height Sizei, format Enum, _type Enum, pixels *Void) {
 	bindlib.CCall9(__imp_glTexSubImage2D.Addr(), bindlib.MarshallSyscall(target), bindlib.MarshallSyscall(level), bindlib.MarshallSyscall(xoffset), bindlib.MarshallSyscall(yoffset), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(format), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(pixels))
 }
 
 var __imp_glTranslated bindlib.PreloadProc
 
-func glTranslated(x GLdouble, y GLdouble, z GLdouble) {
+func Translated(x Double, y Double, z Double) {
 	bindlib.CCall3(__imp_glTranslated.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glTranslatef bindlib.PreloadProc
 
-func glTranslatef(x GLfloat, y GLfloat, z GLfloat) {
+func Translatef(x Float, y Float, z Float) {
 	bindlib.CCall3(__imp_glTranslatef.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glVertex2d bindlib.PreloadProc
 
-func glVertex2d(x GLdouble, y GLdouble) {
+func Vertex2d(x Double, y Double) {
 	bindlib.CCall2(__imp_glVertex2d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glVertex2dv bindlib.PreloadProc
 
-func glVertex2dv(v *GLdouble) { bindlib.CCall1(__imp_glVertex2dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex2dv(v *Double) { bindlib.CCall1(__imp_glVertex2dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex2f bindlib.PreloadProc
 
-func glVertex2f(x GLfloat, y GLfloat) {
+func Vertex2f(x Float, y Float) {
 	bindlib.CCall2(__imp_glVertex2f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glVertex2fv bindlib.PreloadProc
 
-func glVertex2fv(v *GLfloat) { bindlib.CCall1(__imp_glVertex2fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex2fv(v *Float) { bindlib.CCall1(__imp_glVertex2fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex2i bindlib.PreloadProc
 
-func glVertex2i(x GLint, y GLint) {
+func Vertex2i(x Int, y Int) {
 	bindlib.CCall2(__imp_glVertex2i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glVertex2iv bindlib.PreloadProc
 
-func glVertex2iv(v *GLint) { bindlib.CCall1(__imp_glVertex2iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex2iv(v *Int) { bindlib.CCall1(__imp_glVertex2iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex2s bindlib.PreloadProc
 
-func glVertex2s(x GLshort, y GLshort) {
+func Vertex2s(x Short, y Short) {
 	bindlib.CCall2(__imp_glVertex2s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_glVertex2sv bindlib.PreloadProc
 
-func glVertex2sv(v *GLshort) { bindlib.CCall1(__imp_glVertex2sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex2sv(v *Short) { bindlib.CCall1(__imp_glVertex2sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex3d bindlib.PreloadProc
 
-func glVertex3d(x GLdouble, y GLdouble, z GLdouble) {
+func Vertex3d(x Double, y Double, z Double) {
 	bindlib.CCall3(__imp_glVertex3d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glVertex3dv bindlib.PreloadProc
 
-func glVertex3dv(v *GLdouble) { bindlib.CCall1(__imp_glVertex3dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex3dv(v *Double) { bindlib.CCall1(__imp_glVertex3dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex3f bindlib.PreloadProc
 
-func glVertex3f(x GLfloat, y GLfloat, z GLfloat) {
+func Vertex3f(x Float, y Float, z Float) {
 	bindlib.CCall3(__imp_glVertex3f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glVertex3fv bindlib.PreloadProc
 
-func glVertex3fv(v *GLfloat) { bindlib.CCall1(__imp_glVertex3fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex3fv(v *Float) { bindlib.CCall1(__imp_glVertex3fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex3i bindlib.PreloadProc
 
-func glVertex3i(x GLint, y GLint, z GLint) {
+func Vertex3i(x Int, y Int, z Int) {
 	bindlib.CCall3(__imp_glVertex3i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glVertex3iv bindlib.PreloadProc
 
-func glVertex3iv(v *GLint) { bindlib.CCall1(__imp_glVertex3iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex3iv(v *Int) { bindlib.CCall1(__imp_glVertex3iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex3s bindlib.PreloadProc
 
-func glVertex3s(x GLshort, y GLshort, z GLshort) {
+func Vertex3s(x Short, y Short, z Short) {
 	bindlib.CCall3(__imp_glVertex3s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z))
 }
 
 var __imp_glVertex3sv bindlib.PreloadProc
 
-func glVertex3sv(v *GLshort) { bindlib.CCall1(__imp_glVertex3sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex3sv(v *Short) { bindlib.CCall1(__imp_glVertex3sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex4d bindlib.PreloadProc
 
-func glVertex4d(x GLdouble, y GLdouble, z GLdouble, w GLdouble) {
+func Vertex4d(x Double, y Double, z Double, w Double) {
 	bindlib.CCall4(__imp_glVertex4d.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glVertex4dv bindlib.PreloadProc
 
-func glVertex4dv(v *GLdouble) { bindlib.CCall1(__imp_glVertex4dv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex4dv(v *Double) { bindlib.CCall1(__imp_glVertex4dv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex4f bindlib.PreloadProc
 
-func glVertex4f(x GLfloat, y GLfloat, z GLfloat, w GLfloat) {
+func Vertex4f(x Float, y Float, z Float, w Float) {
 	bindlib.CCall4(__imp_glVertex4f.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glVertex4fv bindlib.PreloadProc
 
-func glVertex4fv(v *GLfloat) { bindlib.CCall1(__imp_glVertex4fv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex4fv(v *Float) { bindlib.CCall1(__imp_glVertex4fv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex4i bindlib.PreloadProc
 
-func glVertex4i(x GLint, y GLint, z GLint, w GLint) {
+func Vertex4i(x Int, y Int, z Int, w Int) {
 	bindlib.CCall4(__imp_glVertex4i.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glVertex4iv bindlib.PreloadProc
 
-func glVertex4iv(v *GLint) { bindlib.CCall1(__imp_glVertex4iv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex4iv(v *Int) { bindlib.CCall1(__imp_glVertex4iv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertex4s bindlib.PreloadProc
 
-func glVertex4s(x GLshort, y GLshort, z GLshort, w GLshort) {
+func Vertex4s(x Short, y Short, z Short, w Short) {
 	bindlib.CCall4(__imp_glVertex4s.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(z), bindlib.MarshallSyscall(w))
 }
 
 var __imp_glVertex4sv bindlib.PreloadProc
 
-func glVertex4sv(v *GLshort) { bindlib.CCall1(__imp_glVertex4sv.Addr(), bindlib.MarshallSyscall(v)) }
+func Vertex4sv(v *Short) { bindlib.CCall1(__imp_glVertex4sv.Addr(), bindlib.MarshallSyscall(v)) }
 
 var __imp_glVertexPointer bindlib.PreloadProc
 
-func glVertexPointer(size GLint, _type GLenum, stride GLsizei, pointer *GLvoid) {
+func VertexPointer(size Int, _type Enum, stride Sizei, pointer *Void) {
 	bindlib.CCall4(__imp_glVertexPointer.Addr(), bindlib.MarshallSyscall(size), bindlib.MarshallSyscall(_type), bindlib.MarshallSyscall(stride), bindlib.MarshallSyscall(pointer))
 }
 
 var __imp_glViewport bindlib.PreloadProc
 
-func glViewport(x GLint, y GLint, width GLsizei, height GLsizei) {
+func Viewport(x Int, y Int, width Sizei, height Sizei) {
 	bindlib.CCall4(__imp_glViewport.Addr(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height))
 }
 
