@@ -1,25 +1,37 @@
 package main
 
 import (
+	"crypto/sha256"
 	_ "embed"
+	"encoding/base64"
+	"fmt"
+	"os"
+	"path/filepath"
 	"runtime"
 	"unsafe"
 
 	"github.com/ddkwork/golibrary/stream"
+	"golang.org/x/sys/windows"
 
 	"github.com/ddkwork/golibrary/mylog"
 )
 
 //go:embed glfw3.dll
-var dll []byte
+var dllData []byte
 
 func init() {
 	runtime.LockOSThread()
-	path := "C:\\Windows\\glfw3.dll"
-	if !stream.IsFilePath(path) {
-		stream.WriteTruncate(path, dll)
+	dir := mylog.Check2(os.UserCacheDir())
+	dir = filepath.Join(dir, "glfw3", "dll_cache")
+	stream.CreatDirectory(dir)
+	mylog.Check(windows.SetDllDirectory(dir))
+	sha := sha256.Sum256(dllData)
+	dllName := fmt.Sprintf("glfw3-%s.dll", base64.RawURLEncoding.EncodeToString(sha[:]))
+	filePath := filepath.Join(dir, dllName)
+	if !stream.IsFilePath(filePath) {
+		stream.WriteTruncate(filePath, dllData)
 	}
-	mylog.Check2(GengoLibrary.LoadEmbed(dll))
+	mylog.Check2(GengoLibrary.LoadFrom(filePath))
 }
 
 func main() {
