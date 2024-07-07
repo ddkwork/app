@@ -7,7 +7,7 @@ import (
 	"github.com/ddkwork/app/bindgen/bindlib"
 )
 
-const GengoLibraryName = "glfw"
+const GengoLibraryName = "glfw3"
 
 var GengoLibrary = bindlib.NewLibrary(GengoLibraryName)
 
@@ -90,15 +90,15 @@ type Allocator struct {
 	User unsafe.Pointer
 }
 type (
-	_Int128T                             = any
-	_Uint128T                            = any
-	__NSConstantString                   = any
-	SizeT                                = uint64
-	_BuiltinMsVaList                     = *byte
-	_BuiltinVaList                       = *byte
-	UintptrT                             = uint64
-	VaList                               = *byte
-	//SizeT                                = uint64
+	_Int128T           = any
+	_Uint128T          = any
+	__NSConstantString = any
+	SizeT              = uint64
+	_BuiltinMsVaList   = *byte
+	_BuiltinVaList     = *byte
+	UintptrT           = uint64
+	VaList             = *byte
+	// SizeT                                = uint64
 	PtrdiffT                             = int64
 	IntptrT                              = int64
 	_VcrtBool                            = bool
@@ -874,10 +874,15 @@ type Joystickfun = unsafe.Pointer
 // @since Added in version 3.4.
 //type Allocator = Allocator
 
-//var __imp___va_start bindlib.PreloadProc
+// var __imp___va_start bindlib.PreloadProc
 
 // Gengo init function.
 func init() {
+	__imp_glfwInit = GengoLibrary.ImportNow("glfwInit")
+	__imp_glfwGetError = GengoLibrary.ImportNow("glfwGetError")
+	__imp_glfwSwapBuffers = GengoLibrary.ImportNow("glfwSwapBuffers")
+	__imp_glfwSwapInterval = GengoLibrary.ImportNow("glfwSwapInterval")
+	return
 	__imp___va_start = GengoLibrary.ImportNow("__va_start")
 	__imp___va_start = GengoLibrary.ImportNow("__va_start")
 	__imp___security_init_cookie = GengoLibrary.ImportNow("__security_init_cookie")
@@ -1356,12 +1361,11 @@ func init() {
 	bindlib.Validate((*Gamepadstate)(nil), 0x28, 0x4, "Buttons", 0x0, "Axes", 0x10)
 	bindlib.Validate((*Allocator)(nil), 0x20, 0x8, "Allocate", 0x0, "Reallocate", 0x8, "Deallocate", 0x10, "User", 0x18)
 }
-func _VaStart(b**byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(b)) }
+func _VaStart(b **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(b)) }
 
 var __imp___va_start bindlib.PreloadProc
 
-//func _VaStart(*VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
-
+// func _VaStart(*VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
 var __imp___security_init_cookie bindlib.PreloadProc
 
 func _SecurityInitCookie() { bindlib.CCall0(__imp___security_init_cookie.Addr()) }
