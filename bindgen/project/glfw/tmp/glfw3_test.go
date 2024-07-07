@@ -1,21 +1,22 @@
-package glfw
+package glfw3_test
 
 import (
+	glfw3 "github.com/ddkwork/app/bindgen/project/glfw/tmp"
 	"golang.org/x/sys/windows"
 	"testing"
 )
 
 func TestBind(t *testing.T) {
 	windows.SetDllDirectory(".")
-	Init()
-	defer Terminate()
-	w := CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
-	MakeContextCurrent(w)
+	glfw3.Init()
+	defer glfw3.Terminate()
+	w := glfw3.CreateWindow(200, 200, StringToBytePointer("hello word"), nil, nil)
+	glfw3.MakeContextCurrent(w)
 	for {
-		PollEvents()
-		SwapBuffers(w)
-		if WindowShouldClose(w) != 0 {
-			DestroyWindow(w)
+		glfw3.PollEvents()
+		glfw3.SwapBuffers(w)
+		if glfw3.WindowShouldClose(w) != 0 {
+			glfw3.DestroyWindow(w)
 			break
 		}
 	}
