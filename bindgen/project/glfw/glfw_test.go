@@ -9,9 +9,9 @@ import (
 )
 
 func TestGlfw(t *testing.T) {
-	pkg := gengo.NewPackage("libdemo")
+	pkg := gengo.NewPackage("glfw")
 	path := "D:\\fork\\glfw-master\\include\\GLFW\\glfw3.h"
-	mylog.Check(pkg.Transform("libdemo", &clang.Options{
+	mylog.Check(pkg.Transform("glfw", &clang.Options{
 		Sources:          []string{path},
 		AdditionalParams: []string{},
 	}),
