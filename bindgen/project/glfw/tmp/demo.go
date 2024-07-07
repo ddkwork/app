@@ -35,8 +35,6 @@ func init() {
 }
 
 func main() {
-	// path := "D:\\workspace\\workspace\\app\\bindgen\\project\\glfw\\tmp"
-	// mylog.Check(windows.SetDllDirectory(path))
 	Init()
 	mylog.Info("version", BytePointerToString(GetVersionString()))
 	defer Terminate()
