@@ -10,13 +10,13 @@ import (
 
 func TestGlfw(t *testing.T) {
 	t.Skip()
-	pkg := gengo.NewPackage("glfw",
+	pkg := gengo.NewPackage("glfw3",
 		gengo.WithRemovePrefix(
 			"glfw",
 			"gl",
 		))
 	path := "D:\\fork\\glfw-master\\include\\GLFW\\glfw3.h"
-	mylog.Check(pkg.Transform("glfw", &clang.Options{
+	mylog.Check(pkg.Transform("glfw3", &clang.Options{
 		Sources:          []string{path},
 		AdditionalParams: []string{},
 	}),
