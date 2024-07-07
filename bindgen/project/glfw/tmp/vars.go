@@ -139,7 +139,7 @@ var (
 	GlfwKeyRightAlt               = 346
 	GlfwKeyRightSuper             = 347
 	GlfwKeyMenu                   = 348
-	GlfwKeyLast                   = GlfwKeyMen
+	GlfwKeyLast                   = GlfwKeyMenu
 	GlfwModShift                  = 0x0001
 	GlfwModControl                = 0x0002
 	GlfwModAlt                    = 0x0004
