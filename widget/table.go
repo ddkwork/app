@@ -462,7 +462,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 							"apply", "cancel",
 						},
 						func() { //todo bug,need merge strctView here for apply
-							mylog.CheckNil(ctx.UnmarshalRow)
+							mylog.CheckNil(ctx.UnmarshalRow)                   //noce edit must implement UnmarshalRow callback
 							ctx.UnmarshalRow(row, nodeEditor.getFieldValues()) //replace nodeEditor UnmarshalRow
 							nodeEditor.Update(row.Data)
 							table.SyncToModel()
