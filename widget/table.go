@@ -431,8 +431,10 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	switch {
 	case ctx.SetRootRowsCallBack != nil:
 		ctx.SetRootRowsCallBack(table)
+		fallthrough
 	case ctx.SelectionChangedCallback != nil:
 		table.SelectionChangedCallback = func() { ctx.SelectionChangedCallback(table) }
+		fallthrough
 	case table.FileDropCallback == nil:
 		table.FileDropCallback = func(files []string) {
 			if filepath.Ext(files[0]) == ".json" {
@@ -443,6 +445,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 			}
 			mylog.Struct(files)
 		}
+		fallthrough
 	default:
 		table.DoubleClickCallback = func() {
 			rows := table.SelectedRows(false)
