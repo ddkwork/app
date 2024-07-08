@@ -452,17 +452,18 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 			for i, row := range rows {
 				app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
 					content := w.Content()
-					nodeEditor, _ := NewStructView(row.Data, func(data T) (values []CellData) {
+					nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
 						return table.MarshalRow(row)
 					})
 					content.AddChild(nodeEditor)
+					content.AddChild(RowPanel)
 					panel := NewButtonsPanel(
 						[]string{
 							"apply", "cancel", "saveJson", "loadJson",
 						},
 						func() {
 							ctx.UnmarshalRow(row, nodeEditor.getFieldValues())
-							// row.Update(nodeEditor.Data)
+							//row.Update(nodeEditor.Data)
 							stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
 							w.Dispose()
 						},
@@ -476,7 +477,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 							// todo load json
 						},
 					)
-					content.AddChild(panel)
+					RowPanel.AddChild(panel)
 				})
 			}
 		}
