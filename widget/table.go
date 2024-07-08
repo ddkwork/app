@@ -459,10 +459,11 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 					content.AddChild(RowPanel)
 					panel := NewButtonsPanel(
 						[]string{
-							"apply", "cancel", "saveJson", "loadJson",
+							"apply", "cancel",
 						},
 						func() { //todo bug,need merge strctView here for apply
-							//ctx.UnmarshalRow(row, nodeEditor.getFieldValues())
+							mylog.CheckNil(ctx.UnmarshalRow)
+							ctx.UnmarshalRow(row, nodeEditor.getFieldValues()) //replace nodeEditor UnmarshalRow
 							nodeEditor.Update(row.Data)
 							table.SyncToModel()
 							stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
@@ -471,14 +472,9 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 						func() {
 							w.Dispose()
 						},
-						func() {
-							// todo save json
-						},
-						func() {
-							// todo load json
-						},
 					)
 					RowPanel.AddChild(panel)
+					RowPanel.AddChild(NewVSpacer())
 				})
 			}
 		}
