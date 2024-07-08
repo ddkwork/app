@@ -461,9 +461,10 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 						[]string{
 							"apply", "cancel", "saveJson", "loadJson",
 						},
-						func() {
-							ctx.UnmarshalRow(row, nodeEditor.getFieldValues())
-							//row.Update(nodeEditor.Data)
+						func() { //todo bug,need merge strctView here for apply
+							//ctx.UnmarshalRow(row, nodeEditor.getFieldValues())
+							nodeEditor.Update(row.Data)
+							table.SyncToModel()
 							stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
 							w.Dispose()
 						},
