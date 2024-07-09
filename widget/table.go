@@ -438,6 +438,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	case table.FileDropCallback == nil:
 		table.FileDropCallback = func(files []string) {
 			if filepath.Ext(files[0]) == ".json" {
+				mylog.Info("dropped file", files[0])
 				table.ResetChildren()
 				b := stream.NewBuffer(files[0])
 				mylog.Check(json.Unmarshal(b.Bytes(), table)) // todo test need a zero table?
