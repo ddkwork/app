@@ -124,10 +124,6 @@ func mergeSources(sourceDir string, coveredHeaders map[string]bool) []string {
 }
 
 func Merge() {
-	mylog.Check(merge)
-}
-
-func merge() {
 	os.Args = []string{"", "D:\\fork\\zydis\\zydis"}
 	if _, e := os.Stat(OutputDir); e == nil {
 		fmt.Println("Output directory exists. Deleting.")
