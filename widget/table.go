@@ -461,9 +461,9 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 						[]string{
 							"apply", "cancel",
 						},
-						func() { //todo bug,need merge strctView here for apply
-							mylog.CheckNil(ctx.UnmarshalRow)                   //noce edit must implement UnmarshalRow callback
-							ctx.UnmarshalRow(row, nodeEditor.getFieldValues()) //replace nodeEditor UnmarshalRow
+						func() { // todo bug,need merge strctView here for apply
+							mylog.CheckNil(ctx.UnmarshalRow)                   // noce edit must implement UnmarshalRow callback
+							ctx.UnmarshalRow(row, nodeEditor.getFieldValues()) // replace nodeEditor UnmarshalRow
 							nodeEditor.Update(row.Data)
 							table.SyncToModel()
 							stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")

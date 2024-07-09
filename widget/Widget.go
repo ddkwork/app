@@ -240,6 +240,7 @@ func (s *StructView[T]) Unmarshal(fnValues func(values []string)) {
 func (s *StructView[T]) UpdateField(index int, value string) {
 	s.Editors[index].Field.SetText(value)
 }
+
 func (s *StructView[T]) Update(data T) {
 	s.MetaData = data
 }
