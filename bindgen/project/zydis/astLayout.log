@@ -15,8 +15,8 @@
 
 *** Dumping AST Record Layout
          0 | struct ZydisRegisterContext_
-         0 |   ZyanU64[266] values
-           | [sizeof=2128, align=8]
+         0 |   ZyanU64[267] values
+           | [sizeof=2136, align=8]
 
 *** Dumping AST Record Layout
          0 | struct ZydisDecodedOperandReg_
@@ -25,8 +25,9 @@
 
 *** Dumping AST Record Layout
          0 | struct ZydisDecodedOperandMemDisp_
-         0 |   ZyanBool has_displacement
-         8 |   ZyanI64 value
+         0 |   ZyanI64 value
+         8 |   ZyanU8 offset
+         9 |   ZyanU8 size
            | [sizeof=16, align=8]
 
 *** Dumping AST Record Layout
@@ -37,8 +38,9 @@
         12 |   ZydisRegister index
         16 |   ZyanU8 scale
         24 |   struct ZydisDecodedOperandMemDisp_ disp
-        24 |     ZyanBool has_displacement
-        32 |     ZyanI64 value
+        24 |     ZyanI64 value
+        32 |     ZyanU8 offset
+        33 |     ZyanU8 size
            | [sizeof=40, align=8]
 
 *** Dumping AST Record Layout
@@ -60,10 +62,12 @@
          8 |   union ZydisDecodedOperandImmValue_ value
          8 |     ZyanU64 u
          8 |     ZyanI64 s
-           | [sizeof=16, align=8]
+        16 |   ZyanU8 offset
+        17 |   ZyanU8 size
+           | [sizeof=24, align=8]
 
 *** Dumping AST Record Layout
-         0 | union ZydisDecodedOperand_::(unnamed at amalgamated-dist/Zydis.h:5338:5)
+         0 | union ZydisDecodedOperand_::(unnamed at amalgamated-dist/Zydis.h:5360:5)
          0 |   struct ZydisDecodedOperandReg_ reg
          0 |     ZydisRegister value
          0 |   struct ZydisDecodedOperandMem_ mem
@@ -73,8 +77,9 @@
         12 |     ZydisRegister index
         16 |     ZyanU8 scale
         24 |     struct ZydisDecodedOperandMemDisp_ disp
-        24 |       ZyanBool has_displacement
-        32 |       ZyanI64 value
+        24 |       ZyanI64 value
+        32 |       ZyanU8 offset
+        33 |       ZyanU8 size
          0 |   struct ZydisDecodedOperandPtr_ ptr
          0 |     ZyanU16 segment
          4 |     ZyanU32 offset
@@ -84,6 +89,8 @@
          8 |     union ZydisDecodedOperandImmValue_ value
          8 |       ZyanU64 u
          8 |       ZyanI64 s
+        16 |     ZyanU8 offset
+        17 |     ZyanU8 size
            | [sizeof=40, align=8]
 
 *** Dumping AST Record Layout
@@ -98,7 +105,7 @@
         26 |   ZyanU16 element_count
         28 |   ZydisOperandAttributes attributes
         32 |   ZydisOperandType type
-        40 |   union ZydisDecodedOperand_::(anonymous at amalgamated-dist/Zydis.h:5338:5) 
+        40 |   union ZydisDecodedOperand_::(anonymous at amalgamated-dist/Zydis.h:5360:5) 
         40 |     struct ZydisDecodedOperandReg_ reg
         40 |       ZydisRegister value
         40 |     struct ZydisDecodedOperandMem_ mem
@@ -108,8 +115,9 @@
         52 |       ZydisRegister index
         56 |       ZyanU8 scale
         64 |       struct ZydisDecodedOperandMemDisp_ disp
-        64 |         ZyanBool has_displacement
-        72 |         ZyanI64 value
+        64 |         ZyanI64 value
+        72 |         ZyanU8 offset
+        73 |         ZyanU8 size
         40 |     struct ZydisDecodedOperandPtr_ ptr
         40 |       ZyanU16 segment
         44 |       ZyanU32 offset
@@ -119,6 +127,8 @@
         48 |       union ZydisDecodedOperandImmValue_ value
         48 |         ZyanU64 u
         48 |         ZyanI64 s
+        56 |       ZyanU8 offset
+        57 |       ZyanU8 size
            | [sizeof=80, align=8]
 
 *** Dumping AST Record Layout
@@ -167,7 +177,7 @@
            | [sizeof=10, align=1]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisDecodedInstructionRawEvex
+         0 | struct ZydisDecodedInstructionRawEvex_
          0 |   ZyanU8 R
          1 |   ZyanU8 X
          2 |   ZyanU8 B
@@ -264,7 +274,7 @@
            | [sizeof=8, align=4]
 
 *** Dumping AST Record Layout
-         0 | union ZydisDecodedInstructionRaw_::(unnamed at amalgamated-dist/Zydis.h:6217:5)
+         0 | union ZydisDecodedInstructionRaw_::(unnamed at amalgamated-dist/Zydis.h:6239:5)
          0 |   struct ZydisDecodedInstructionRawRex_ rex
          0 |     ZyanU8 W
          1 |     ZyanU8 R
@@ -292,7 +302,7 @@
          7 |     ZyanU8 pp
          8 |     ZyanU8 offset
          9 |     ZyanU8 size
-         0 |   struct ZydisDecodedInstructionRawEvex evex
+         0 |   struct ZydisDecodedInstructionRawEvex_ evex
          0 |     ZyanU8 R
          1 |     ZyanU8 X
          2 |     ZyanU8 B
@@ -369,7 +379,7 @@
          0 |   ZyanU8 prefix_count
          4 |   struct ZydisDecodedInstructionRawPrefixes_[15] prefixes
        124 |   ZydisInstructionEncoding encoding2
-       128 |   union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6217:5) 
+       128 |   union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6239:5) 
        128 |     struct ZydisDecodedInstructionRawRex_ rex
        128 |       ZyanU8 W
        129 |       ZyanU8 R
@@ -397,7 +407,7 @@
        135 |       ZyanU8 pp
        136 |       ZyanU8 offset
        137 |       ZyanU8 size
-       128 |     struct ZydisDecodedInstructionRawEvex evex
+       128 |     struct ZydisDecodedInstructionRawEvex_ evex
        128 |       ZyanU8 R
        129 |       ZyanU8 X
        130 |       ZyanU8 B
@@ -486,7 +496,7 @@
        112 |     ZyanU8 prefix_count
        116 |     struct ZydisDecodedInstructionRawPrefixes_[15] prefixes
        236 |     ZydisInstructionEncoding encoding2
-       240 |     union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6217:5) 
+       240 |     union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6239:5) 
        240 |       struct ZydisDecodedInstructionRawRex_ rex
        240 |         ZyanU8 W
        241 |         ZyanU8 R
@@ -514,7 +524,7 @@
        247 |         ZyanU8 pp
        248 |         ZyanU8 offset
        249 |         ZyanU8 size
-       240 |       struct ZydisDecodedInstructionRawEvex evex
+       240 |       struct ZydisDecodedInstructionRawEvex_ evex
        240 |         ZyanU8 R
        241 |         ZyanU8 X
        242 |         ZyanU8 B
@@ -562,7 +572,7 @@
            | [sizeof=328, align=8]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6451:5)
+         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6473:5)
          0 |   ZyanU8 W
          1 |   ZyanU8 R
          2 |   ZyanU8 X
@@ -576,7 +586,7 @@
            | [sizeof=10, align=1]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6467:5)
+         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6489:5)
          0 |   ZyanBool is_mod_reg
          1 |   ZyanU8 id_reg
          2 |   ZyanU8 id_rm
@@ -586,13 +596,13 @@
            | [sizeof=6, align=1]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6504:5)
+         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6526:5)
          0 |   ZyanU8 tuple_type
          1 |   ZyanU8 element_size
            | [sizeof=2, align=1]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6518:5)
+         0 | struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6540:5)
          0 |   ZyanU8 functionality
            | [sizeof=1, align=1]
 
@@ -601,7 +611,7 @@
          0 |   const void * definition
          8 |   ZyanU8 eosz_index
          9 |   ZyanU8 easz_index
-        10 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6451:5) vector_unified
+        10 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6473:5) vector_unified
         10 |     ZyanU8 W
         11 |     ZyanU8 R
         12 |     ZyanU8 X
@@ -612,17 +622,17 @@
         17 |     ZyanU8 V2
         18 |     ZyanU8 vvvv
         19 |     ZyanU8 mask
-        20 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6467:5) reg_info
+        20 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6489:5) reg_info
         20 |     ZyanBool is_mod_reg
         21 |     ZyanU8 id_reg
         22 |     ZyanU8 id_rm
         23 |     ZyanU8 id_ndsndd
         24 |     ZyanU8 id_base
         25 |     ZyanU8 id_index
-        26 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6504:5) evex
+        26 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6526:5) evex
         26 |     ZyanU8 tuple_type
         27 |     ZyanU8 element_size
-        28 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6518:5) mvex
+        28 |   struct ZydisDecoderContext_::(unnamed at amalgamated-dist/Zydis.h:6540:5) mvex
         28 |     ZyanU8 functionality
         29 |   ZyanU8 cd8_scale
            | [sizeof=32, align=8]
@@ -806,7 +816,7 @@
            | [sizeof=40, align=8]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisFormatter_::(unnamed at amalgamated-dist/Zydis.h:11276:5)
+         0 | struct ZydisFormatter_::(unnamed at amalgamated-dist/Zydis.h:11300:5)
          0 |   const ZyanStringView * string
          8 |   struct ZyanStringView_ string_data
          8 |     struct ZyanString_ string
@@ -850,7 +860,7 @@
         68 |   ZyanI32 case_decorators
         72 |   ZyanBool hex_uppercase
         73 |   ZyanBool hex_force_leading_number
-        80 |   struct (unnamed struct at amalgamated-dist/Zydis.h:11276:5)[2][2] number_format
+        80 |   struct (unnamed struct at amalgamated-dist/Zydis.h:11300:5)[2][2] number_format
        432 |   ZydisFormatterFunc func_pre_instruction
        440 |   ZydisFormatterFunc func_post_instruction
        448 |   ZydisFormatterFunc func_format_instruction
@@ -873,7 +883,7 @@
            | [sizeof=584, align=8]
 
 *** Dumping AST Record Layout
-         0 | struct ZydisInstructionSegments_::(unnamed at amalgamated-dist/Zydis.h:11687:5)
+         0 | struct ZydisInstructionSegments_::(unnamed at amalgamated-dist/Zydis.h:11711:5)
          0 |   ZydisInstructionSegment type
          4 |   ZyanU8 offset
          5 |   ZyanU8 size
@@ -882,7 +892,7 @@
 *** Dumping AST Record Layout
          0 | struct ZydisInstructionSegments_
          0 |   ZyanU8 count
-         4 |   struct (unnamed struct at amalgamated-dist/Zydis.h:11687:5)[9] segments
+         4 |   struct (unnamed struct at amalgamated-dist/Zydis.h:11711:5)[9] segments
            | [sizeof=76, align=4]
 
 *** Dumping AST Record Layout
@@ -929,7 +939,7 @@
        120 |       ZyanU8 prefix_count
        124 |       struct ZydisDecodedInstructionRawPrefixes_[15] prefixes
        244 |       ZydisInstructionEncoding encoding2
-       248 |       union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6217:5) 
+       248 |       union ZydisDecodedInstructionRaw_::(anonymous at amalgamated-dist/Zydis.h:6239:5) 
        248 |         struct ZydisDecodedInstructionRawRex_ rex
        248 |           ZyanU8 W
        249 |           ZyanU8 R
@@ -957,7 +967,7 @@
        255 |           ZyanU8 pp
        256 |           ZyanU8 offset
        257 |           ZyanU8 size
-       248 |         struct ZydisDecodedInstructionRawEvex evex
+       248 |         struct ZydisDecodedInstructionRawEvex_ evex
        248 |           ZyanU8 R
        249 |           ZyanU8 X
        250 |           ZyanU8 B
@@ -1005,3 +1015,106 @@
        336 |   ZydisDecodedOperand[10] operands
       1136 |   char[96] text
            | [sizeof=1232, align=8]
+
+amalgamated-dist/Zydis.h:1679:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 1679 | ZYDIS_EXPORT const char* ZydisCategoryGetString(ZydisInstructionCategory category);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:1688:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 1688 | ZYDIS_EXPORT const char* ZydisISASetGetString(ZydisISASet isa_set);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:1697:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 1697 | ZYDIS_EXPORT const char* ZydisISAExtGetString(ZydisISAExt isa_ext);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:3701:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 3701 | ZYDIS_EXPORT const char* ZydisMnemonicGetString(ZydisMnemonic mnemonic);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:3712:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 3712 | ZYDIS_EXPORT const ZydisShortString* ZydisMnemonicGetStringWrapped(ZydisMnemonic mnemonic);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:3712:36: error: expected ';' after top level declarator
+ 3712 | ZYDIS_EXPORT const ZydisShortString* ZydisMnemonicGetStringWrapped(ZydisMnemonic mnemonic);
+      |                                    ^
+      |                                    ;
+amalgamated-dist/Zydis.h:5049:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5049 | ZYDIS_EXPORT ZydisRegister ZydisRegisterEncode(ZydisRegisterClass register_class, ZyanU8 id);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5049:27: error: expected ';' after top level declarator
+ 5049 | ZYDIS_EXPORT ZydisRegister ZydisRegisterEncode(ZydisRegisterClass register_class, ZyanU8 id);
+      |                           ^
+      |                           ;
+amalgamated-dist/Zydis.h:5058:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5058 | ZYDIS_EXPORT ZyanI8 ZydisRegisterGetId(ZydisRegister reg);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5058:20: error: expected ';' after top level declarator
+ 5058 | ZYDIS_EXPORT ZyanI8 ZydisRegisterGetId(ZydisRegister reg);
+      |                    ^
+      |                    ;
+amalgamated-dist/Zydis.h:5067:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5067 | ZYDIS_EXPORT ZydisRegisterClass ZydisRegisterGetClass(ZydisRegister reg);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5067:32: error: expected ';' after top level declarator
+ 5067 | ZYDIS_EXPORT ZydisRegisterClass ZydisRegisterGetClass(ZydisRegister reg);
+      |                                ^
+      |                                ;
+amalgamated-dist/Zydis.h:5078:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5078 | ZYDIS_EXPORT ZydisRegisterWidth ZydisRegisterGetWidth(ZydisMachineMode mode, ZydisRegister reg);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5078:32: error: expected ';' after top level declarator
+ 5078 | ZYDIS_EXPORT ZydisRegisterWidth ZydisRegisterGetWidth(ZydisMachineMode mode, ZydisRegister reg);
+      |                                ^
+      |                                ;
+amalgamated-dist/Zydis.h:5089:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5089 | ZYDIS_EXPORT ZydisRegister ZydisRegisterGetLargestEnclosing(ZydisMachineMode mode,
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5089:27: error: expected ';' after top level declarator
+ 5089 | ZYDIS_EXPORT ZydisRegister ZydisRegisterGetLargestEnclosing(ZydisMachineMode mode,
+      |                           ^
+      |                           ;
+amalgamated-dist/Zydis.h:5099:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5099 | ZYDIS_EXPORT const char* ZydisRegisterGetString(ZydisRegister reg);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5110:1: error: unknown type name 'ZYAN_DLLIMPORT'
+ 5110 | ZYDIS_EXPORT const ZydisShortString* ZydisRegisterGetStringWrapped(ZydisRegister reg);
+      | ^
+amalgamated-dist/Zydis.h:1148:29: note: expanded from macro 'ZYDIS_EXPORT'
+ 1148 | #       define ZYDIS_EXPORT ZYAN_DLLIMPORT
+      |                             ^
+amalgamated-dist/Zydis.h:5110:36: error: expected ';' after top level declarator
+ 5110 | ZYDIS_EXPORT const ZydisShortString* ZydisRegisterGetStringWrapped(ZydisRegister reg);
+      |                                    ^
+      |                                    ;
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.

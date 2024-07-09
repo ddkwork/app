@@ -22,7 +22,7 @@ func (p *zydisProvider) NameField(name string, recordName string) string {
 }
 
 func TestZydis(t *testing.T) {
-	t.Skip()
+	// t.Skip()
 	prov := &zydisProvider{
 		BaseProvider: gengo.NewBaseProvider(
 			gengo.WithRemovePrefix(

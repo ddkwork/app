@@ -6,7 +6,8 @@ import (
 	"testing"
 	"unsafe"
 
-	"github.com/zyantific/zydis-go"
+	zydis "github.com/ddkwork/app/bindgen/project/zydis/tmp"
+	//"github.com/zyantific/zydis-go"
 )
 
 func TestGetVersion(t *testing.T) {
