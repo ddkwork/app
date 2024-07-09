@@ -1,1 +1,1 @@
-bindgen linguist-vendored
+bindgen/** linguist-vendored
