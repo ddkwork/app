@@ -2,10 +2,8 @@ package main
 
 import (
 	"testing"
-
-	"github.com/ddkwork/golibrary/mylog"
 )
 
-func TestName(t *testing.T) {
-	mylog.Call(main)
+func TestMerge(t *testing.T) {
+	Merge()
 }
