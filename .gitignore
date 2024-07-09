@@ -4,3 +4,4 @@ log.log
 *.txt
 bindgen/astCC/sdk-api-docs.zip
 reset git.cmd
+bindgen/project/zydis/merge/amalgamated-dist
