@@ -239,7 +239,9 @@
 #if defined(ZYAN_MSVC)
 #   define ZYAN_DLLEXPORT __declspec(dllexport)
 #   define ZYAN_DLLIMPORT __declspec(dllimport)
-
+#else
+#   define ZYAN_DLLEXPORT
+#   define ZYAN_DLLIMPORT
 #endif
 
 /* ============================================================================================== */
@@ -271,7 +273,7 @@
  * Symbol is exported in shared library builds.
  */
 #if defined(ZYCORE_STATIC_BUILD)
-#   define ZYCORE_EXPORT ZYAN_DLLEXPORT
+#   define ZYCORE_EXPORT
 #else
 #   if defined(ZYCORE_SHOULD_EXPORT)
 #       define ZYCORE_EXPORT ZYAN_DLLEXPORT
@@ -1140,7 +1142,7 @@ typedef const char* ZyanConstCharPointer;
  * Symbol is exported in shared library builds.
  */
 #if defined(ZYDIS_STATIC_BUILD)
-#   define ZYDIS_EXPORT ZYAN_DLLEXPORT
+#   define ZYDIS_EXPORT
 #else
 #   if defined(ZYDIS_SHOULD_EXPORT)
 #       define ZYDIS_EXPORT ZYAN_DLLEXPORT
