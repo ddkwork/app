@@ -10,4 +10,4 @@ type (
 	}
 )
 
-//clang -E -P temp.h > output_file.txt
+// clang -E -P temp.h > output_file.txt
