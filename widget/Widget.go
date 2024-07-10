@@ -567,7 +567,7 @@ func NewKeyValuePanel() *unison.Panel {
 	kvPanel.SetLayout(&unison.FlexLayout{
 		Columns:  2,
 		HSpacing: unison.StdHSpacing,
-		VSpacing: unison.StdVSpacing,
+		VSpacing: unison.StdVSpacing * 2,
 		HAlign:   0,
 		VAlign:   0,
 	})
