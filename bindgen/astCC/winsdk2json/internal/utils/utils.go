@@ -77,8 +77,8 @@ func ReadLines(path string) (lines []string, err error) {
 
 // Exists reports whether the named file or directory exists.
 func Exists(name string) bool {
-	if _ := mylog.Check2(os.Stat(name)); err != nil {
-		if os.IsNotExist(err) {
+	if _, e := os.Stat(name); e != nil {
+		if os.IsNotExist(e) {
 			return false
 		}
 	}
@@ -290,7 +290,7 @@ func WalkAllFilesInDir(dir string) ([]string, error) {
 		return nil
 	}))
 
-	return fileList, err
+	return fileList, nil
 }
 
 // WriteBytesFile write Bytes to a File.

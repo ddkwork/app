@@ -22,6 +22,7 @@ func translate(source []byte) []entity.W32API {
 	logger := log.NewCustom("info").With(context.TODO())
 
 	config := mylog.Check2(cc.NewConfig(runtime.GOOS, runtime.GOARCH))
+	config.EvalAllMacros = true
 
 	config.HostSysIncludePaths = config.HostSysIncludePaths[:0]
 	config.IncludePaths = config.IncludePaths[:0]
@@ -94,7 +95,7 @@ func translate(source []byte) []entity.W32API {
 		}
 
 		w32api.Name = d.Name
-		w32api.DLL = mylog.Check2(utils.GetDLLName(d.Position.Filename, d.Name, sdkapiPath))
+		// w32api.DLL = mylog.Check2(utils.GetDLLName(d.Position.Filename, d.Name, sdkapiPath))
 
 		funcDecl := ast.Scope.Nodes[d.Name][0].(*cc.Declarator)
 		ft := funcDecl.Type().(*cc.FunctionType)

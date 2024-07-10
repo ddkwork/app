@@ -191,6 +191,13 @@ func NewButton(Text string, ClickCallback func()) *unison.Button {
 	b.EdgeInk = unison.White
 
 	b.MouseEnterCallback = func(where unison.Point, mod unison.Modifiers) bool { // todo bug new version not working
+		if b.Drawable != nil {
+			sizedDrawable, ok := b.Drawable.(*unison.SizedDrawable)
+			if ok {
+				sizedDrawable.Size = sizedDrawable.Size.Add(unison.NewSize(1, 1))
+				b.Drawable = sizedDrawable
+			}
+		}
 		size := b.Font.Size()
 		size++
 		b.Font = b.Font.Face().Font(size)
@@ -200,6 +207,13 @@ func NewButton(Text string, ClickCallback func()) *unison.Button {
 	}
 
 	b.MouseExitCallback = func() bool {
+		if b.Drawable != nil {
+			sizedDrawable, ok := b.Drawable.(*unison.SizedDrawable)
+			if ok {
+				sizedDrawable.Size = sizedDrawable.Size.Sub(unison.NewSize(1, 1))
+				b.Drawable = sizedDrawable
+			}
+		}
 		size := b.Font.Size()
 		size--
 		b.Font = b.Font.Face().Font(size)

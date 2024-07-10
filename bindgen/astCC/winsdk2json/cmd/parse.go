@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"flag"
 	"os"
 	"path/filepath"
 
@@ -51,12 +50,7 @@ var parseCmd = &cobra.Command{
 
 func run() {
 	logger := log.NewCustom("info").With(context.TODO())
-	if _ := mylog.Check2(os.Stat(includePath)); os.IsNotExist(err) {
-		logger.Errorf("The include directory does not exist ..")
-		flag.Usage()
-		os.Exit(0)
-	}
-
+	mylog.Check2(os.Stat(includePath))
 	filePath := filepath.Join("assets", "header.h")
 	code := mylog.Check2(utils.ReadAll(filePath))
 
