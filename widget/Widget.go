@@ -272,27 +272,6 @@ func NewLogView() *unison.Panel {
 	return panel.AsPanel()
 }
 
-func NewLogView_old() *unison.Field {
-	f := unison.NewMultiLineField()
-	f.MinimumTextWidth = 666
-	f.SetText(`
-log ...
-
-
-
-
-
-
-
-
-
-
-
-
-`)
-	return f
-}
-
 type (
 	StructView[T any] struct {
 		unison.Panel
