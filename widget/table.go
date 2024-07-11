@@ -1,6 +1,7 @@
 package widget
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"path/filepath"
@@ -456,7 +457,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 		rows := table.SelectedRows(false)
 		for i, row := range rows {
 			//todo icon edit
-			app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
+			app.RunWithIco("edit row #"+fmt.Sprint(i), rowPngBuffer, func(w *unison.Window) {
 				content := w.Content()
 				nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
 					return table.MarshalRow(row)
@@ -486,6 +487,9 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	fnUpdate()
 	return
 }
+
+//go:embed EditIni.png
+var rowPngBuffer []byte
 
 func newTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *TableHeader[T]) {
 	root := NewContainerNode("root", data)
