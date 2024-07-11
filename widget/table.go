@@ -99,9 +99,10 @@ type CellData struct {
 	Disabled bool
 	Tooltip  string
 
-	SvgBuffer   string
-	ImageBuffer []byte
-	FgColor     unison.Color
+	SvgBuffer     string
+	ImageBuffer   []byte
+	FgColor       unison.Color
+	TokenColorMap map[string]unison.Color
 }
 
 const ContainerKeyPostfix = "_container"
@@ -336,6 +337,16 @@ func (n *Node[T]) ColumnCell(row, col int, foreground, background unison.Ink, se
 func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data CellData) {
 	decoration := &unison.TextDecoration{Font: font}
 	var lines []*unison.Text
+
+	if data.TokenColorMap != nil {
+		//分词并匹配颜色
+		//初始化NewLabel slice
+		//创建父节点
+		//完成着色
+		//
+		//这不适合选中高亮所有行的同类指令，只有富文本编辑器才适合批量匹配？
+	}
+
 	if data.MaxWidth > 0 {
 		lines = unison.NewTextWrappedLines(data.Text, decoration, data.MaxWidth)
 	} else {
