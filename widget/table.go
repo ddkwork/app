@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"github.com/ddkwork/golibrary/stream/languages"
 	"path/filepath"
 	"slices"
 	"sort"
@@ -99,10 +100,10 @@ type CellData struct {
 	Disabled bool
 	Tooltip  string
 
-	SvgBuffer     string
-	ImageBuffer   []byte
-	FgColor       unison.Color
-	TokenColorMap map[string]unison.Color
+	SvgBuffer   string
+	ImageBuffer []byte
+	FgColor     unison.Color
+	IsNasm      bool
 }
 
 const ContainerKeyPostfix = "_container"
@@ -324,6 +325,7 @@ func (n *Node[T]) ColumnCell(row, col int, foreground, background unison.Ink, se
 		SvgBuffer:   cells[col].SvgBuffer,
 		ImageBuffer: cells[col].ImageBuffer,
 		FgColor:     cells[col].FgColor,
+		IsNasm:      cells[col].IsNasm,
 	}
 	addWrappedText(wrapper, foreground, unison.LabelFont, data)
 
@@ -338,13 +340,12 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 	decoration := &unison.TextDecoration{Font: font}
 	var lines []*unison.Text
 
-	if data.TokenColorMap != nil {
-		//分词并匹配颜色
-		//初始化NewLabel slice
-		//创建父节点
-		//完成着色
-		//
-		//这不适合选中高亮所有行的同类指令，只有富文本编辑器才适合批量匹配？
+	if data.IsNasm {
+		tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
+		for _, token := range tokens {
+			mylog.Struct(token)
+		}
+		style = style
 	}
 
 	if data.MaxWidth > 0 {
