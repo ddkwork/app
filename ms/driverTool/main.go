@@ -76,17 +76,14 @@ func (s *StructView) Layout() unison.Paneler {
 
 	popupMenu := widget.CreatePopupMenu(newPanel.AsPanel(), p, 0, "choose a driver", names...)
 
-	top := widget.NewKeyValuePanel()
 	key := widget.NewLabelRightAlign(widget.KeyValueToolTip{
 		Key:     "sys path",
 		Value:   "",
 		Tooltip: "",
 	})
-	top.AddChild(key)
-	top.AddChild(popupMenu)
-	newPanel.AddChild(top)
+	rowPanel.AddChildAtIndex(key, 0)
+	rowPanel.AddChildAtIndex(popupMenu, 1)
 	newPanel.AddChild(structView)
-	structView.AddChild(rowPanel)
 
 	log := unison.NewMultiLineField() // todo log out format is not good
 	log.MinimumTextWidth = 800
