@@ -65,8 +65,15 @@ func NewExplorer(walkDir string) unison.Paneler {
 				}
 			},
 			UnmarshalRow: func(node *Node[DirTree], values []string) {
+				node.Data.Name = values[0]
+				node.Data.Size = int64(datasize.Parse(values[1]))
+				node.Data.Type = values[2]
+				node.Data.ModTime, _ = time.Parse(time.RFC3339, values[3])
+				node.Data.Path = values[4]
 			},
-			SelectionChangedCallback: nil,
+			SelectionChangedCallback: func(root *Node[DirTree]) {
+
+			},
 			SetRootRowsCallBack: func(root *Node[DirTree]) {
 				// todo 新建文本文档,dark title bar
 				if walkDir == "" {

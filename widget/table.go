@@ -413,6 +413,11 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 		mylog.Check("JsonName is empty")
 	}
 	ctx.JsonName = strings.TrimSuffix(ctx.JsonName, ".json")
+
+	mylog.CheckNil(ctx.UnmarshalRow)
+	mylog.CheckNil(ctx.SetRootRowsCallBack)
+	mylog.CheckNil(ctx.SelectionChangedCallback)
+
 	table, header = newTable(data, ctx)
 	fnUpdate := func() {
 		table.SetRootRows(table.Children)
@@ -428,14 +433,11 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 			stream.WriteTruncate("README.md", b.String())
 		}
 	}
-	switch {
-	case ctx.SetRootRowsCallBack != nil:
-		ctx.SetRootRowsCallBack(table)
-		fallthrough
-	case ctx.SelectionChangedCallback != nil:
-		table.SelectionChangedCallback = func() { ctx.SelectionChangedCallback(table) }
-		fallthrough
-	case table.FileDropCallback == nil:
+
+	ctx.SetRootRowsCallBack(table)
+	table.SelectionChangedCallback = func() { ctx.SelectionChangedCallback(table) }
+
+	if table.FileDropCallback == nil {
 		table.FileDropCallback = func(files []string) {
 			if filepath.Ext(files[0]) == ".json" {
 				mylog.Info("dropped file", files[0])
@@ -446,38 +448,36 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 			}
 			mylog.Struct(files)
 		}
-		fallthrough
-	default:
-		table.DoubleClickCallback = func() {
-			rows := table.SelectedRows(false)
-			for i, row := range rows {
-				app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
-					content := w.Content()
-					nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
-						return table.MarshalRow(row)
-					})
-					content.AddChild(nodeEditor)
-					content.AddChild(RowPanel)
-					panel := NewButtonsPanel(
-						[]string{
-							"apply", "cancel",
-						},
-						func() { // todo bug,need merge strctView here for apply
-							mylog.CheckNil(ctx.UnmarshalRow)                   // noce edit must implement UnmarshalRow callback
-							ctx.UnmarshalRow(row, nodeEditor.getFieldValues()) // replace nodeEditor UnmarshalRow
-							nodeEditor.Update(row.Data)
-							table.SyncToModel()
-							stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
-							w.Dispose()
-						},
-						func() {
-							w.Dispose()
-						},
-					)
-					RowPanel.AddChild(panel)
-					RowPanel.AddChild(NewVSpacer())
+	}
+
+	table.DoubleClickCallback = func() {
+		rows := table.SelectedRows(false)
+		for i, row := range rows {
+			app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
+				content := w.Content()
+				nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
+					return table.MarshalRow(row)
 				})
-			}
+				content.AddChild(nodeEditor)
+				content.AddChild(RowPanel)
+				panel := NewButtonsPanel(
+					[]string{
+						"apply", "cancel",
+					},
+					func() {
+						ctx.UnmarshalRow(row, nodeEditor.getFieldValues())
+						nodeEditor.Update(row.Data)
+						table.SyncToModel()
+						stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
+						//w.Dispose()
+					},
+					func() {
+						w.Dispose()
+					},
+				)
+				RowPanel.AddChild(panel)
+				RowPanel.AddChild(NewVSpacer())
+			})
 		}
 	}
 	fnUpdate()
