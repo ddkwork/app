@@ -2,6 +2,7 @@ package widget
 
 import (
 	"fmt"
+	"github.com/ddkwork/golibrary/stream/languages"
 	"log/slog"
 	"reflect"
 	"strings"
@@ -250,7 +251,28 @@ func (s *StructView[T]) Update(data T) {
 	s.MetaData = data
 }
 
-func NewLogView() *unison.Field {
+func NewLogView() *unison.Panel {
+	panel := NewPanel()
+	tokens, style := languages.GetTokens(stream.NewBuffer(mylog.Body()), languages.NasmKind)
+	rowPanel := unison.NewPanel()
+	rowPanel.SetLayout(&unison.FlexLayout{Columns: len(tokens)})
+	panel.AddChild(rowPanel)
+	for _, token := range tokens {
+		colour := style.Get(token.Type).Colour
+		label := unison.NewLabel()
+		label.TextDecoration.OnBackgroundInk = unison.RGB(
+			int(colour.Red()),
+			int(colour.Green()),
+			int(colour.Blue()),
+		)
+		label.SetTitle(token.Value)
+		//label.OnBackgroundInk = ink
+		rowPanel.AddChild(label)
+	}
+	return panel.AsPanel()
+}
+
+func NewLogView_old() *unison.Field {
 	f := unison.NewMultiLineField()
 	f.MinimumTextWidth = 666
 	f.SetText(`
