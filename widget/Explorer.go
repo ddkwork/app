@@ -64,7 +64,9 @@ func NewExplorer(walkDir string) unison.Paneler {
 					{Text: node.Data.Path},
 				}
 			},
-			UnmarshalRow:             nil,
+			UnmarshalRow: func(node *Node[DirTree], values []string) {
+
+			},
 			SelectionChangedCallback: nil,
 			SetRootRowsCallBack: func(root *Node[DirTree]) {
 				// todo 新建文本文档,dark title bar
