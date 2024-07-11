@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
-	//"github.com/ddkwork/golibrary/stream/languages"
+	"github.com/ddkwork/golibrary/stream/languages"
 	"path/filepath"
 	"slices"
 	"sort"
@@ -340,25 +340,46 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 	decoration := &unison.TextDecoration{Font: font}
 	var lines []*unison.Text
 
-	//if data.IsNasm {
-	//	tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
-	//	for _, token := range tokens {
-	//		mylog.Struct(token)
-	//		label := unison.NewLabel()
-	//		label.SetTitle(token.Value)
-	//		label.Font = font
-	//		if style.Has(token.Type) {
-	//			colour := style.Get(token.Type).Background
-	//			label.LabelTheme.OnBackgroundInk = unison.RGB(
-	//				int(colour.Red()),
-	//				int(colour.Green()),
-	//				int(colour.Blue()),
-	//			)
-	//		}
-	//		parent.AddChild(label)
-	//	}
-	//	return
-	//}
+	if data.IsNasm {
+		codePanel := unison.NewPanel()
+		codePanel.SetLayout(&unison.FlexLayout{Columns: 1})
+		parent.AddChild(codePanel)
+
+		rowPanel := unison.NewPanel()
+		rowPanel.DrawCallback = func(gc *unison.Canvas, rect unison.Rect) {
+			gc.DrawRect(rect, ink.Paint(gc, rect, paintstyle.Fill))
+		}
+		codePanel.AddChild(rowPanel)
+
+		decoration := &unison.TextDecoration{
+			Font: unison.DefaultLabelTheme.Font,
+			// BackgroundInk: CodeBackground,
+			OnBackgroundInk: ink,
+			BaselineOffset:  0,
+			Underline:       false,
+			StrikeThrough:   false,
+		}
+		row := unison.NewText("", decoration)
+
+		label := unison.NewLabel()
+		label.OnBackgroundInk = ink
+		label.Text = row
+		rowPanel.AddChild(label)
+
+		tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
+		for _, token := range tokens {
+			if style.Has(token.Type) {
+				colour := style.Get(token.Type).Colour
+				decoration.OnBackgroundInk = unison.RGB(
+					int(colour.Red()),
+					int(colour.Green()),
+					int(colour.Blue()),
+				)
+			}
+			row.AddString(token.Value, decoration)
+		}
+		return
+	}
 
 	if data.MaxWidth > 0 {
 		lines = unison.NewTextWrappedLines(data.Text, decoration, data.MaxWidth)

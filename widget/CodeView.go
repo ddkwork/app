@@ -65,7 +65,7 @@ func (c *CodeView) SetCode_(path string) {
 }
 
 func (c *CodeView) SetLanguage(language languages.LanguagesKind) {
-	c.codePanel.RemoveFromParent()
+	c.codePanel.RemoveFromParent() //??? test
 	tokens, style := languages.GetTokens(c.code, language)
 	c.newCodeView(tokens, style)
 	c.AddChild(c.codePanel)
