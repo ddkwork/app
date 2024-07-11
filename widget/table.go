@@ -340,25 +340,25 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 	decoration := &unison.TextDecoration{Font: font}
 	var lines []*unison.Text
 
-	if data.IsNasm {
-		tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
-		for _, token := range tokens {
-			mylog.Struct(token)
-			label := unison.NewLabel()
-			label.SetTitle(token.Value)
-			label.Font = font
-			if style.Has(token.Type) {
-				colour := style.Get(token.Type).Background
-				label.LabelTheme.OnBackgroundInk = unison.RGB(
-					int(colour.Red()),
-					int(colour.Green()),
-					int(colour.Blue()),
-				)
-			}
-			parent.AddChild(label)
-		}
-		return
-	}
+	//if data.IsNasm {
+	//	tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
+	//	for _, token := range tokens {
+	//		mylog.Struct(token)
+	//		label := unison.NewLabel()
+	//		label.SetTitle(token.Value)
+	//		label.Font = font
+	//		if style.Has(token.Type) {
+	//			colour := style.Get(token.Type).Background
+	//			label.LabelTheme.OnBackgroundInk = unison.RGB(
+	//				int(colour.Red()),
+	//				int(colour.Green()),
+	//				int(colour.Blue()),
+	//			)
+	//		}
+	//		parent.AddChild(label)
+	//	}
+	//	return
+	//}
 
 	if data.MaxWidth > 0 {
 		lines = unison.NewTextWrappedLines(data.Text, decoration, data.MaxWidth)
