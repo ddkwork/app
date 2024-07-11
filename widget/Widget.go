@@ -266,7 +266,6 @@ func NewLogView() *unison.Panel {
 			int(colour.Blue()),
 		)
 		label.SetTitle(token.Value)
-		//label.OnBackgroundInk = ink
 		rowPanel.AddChild(label)
 	}
 	return panel.AsPanel()
