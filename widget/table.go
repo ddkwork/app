@@ -415,7 +415,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	ctx.JsonName = strings.TrimSuffix(ctx.JsonName, ".json")
 
 	mylog.CheckNil(ctx.UnmarshalRow)
-	mylog.CheckNil(ctx.SetRootRowsCallBack)
+	//mylog.CheckNil(ctx.SetRootRowsCallBack)//mitmproxy
 	mylog.CheckNil(ctx.SelectionChangedCallback)
 
 	table, header = newTable(data, ctx)
@@ -434,7 +434,9 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 		}
 	}
 
-	ctx.SetRootRowsCallBack(table)
+	if ctx.SetRootRowsCallBack != nil { //mitmproxy
+		ctx.SetRootRowsCallBack(table)
+	}
 	table.SelectionChangedCallback = func() { ctx.SelectionChangedCallback(table) }
 
 	if table.FileDropCallback == nil {
