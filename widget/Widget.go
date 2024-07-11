@@ -135,6 +135,7 @@ func NewToolBar(buttons ...*unison.Button) unison.Paneler {
 		HSpacing: unison.StdHSpacing,
 		VSpacing: unison.StdVSpacing,
 	})
+
 	field := unison.NewField()
 	field.Tooltip = unison.NewTooltipWithText("global filter...")
 	field.MinimumTextWidth = 100
@@ -148,16 +149,6 @@ func NewToolBar(buttons ...*unison.Button) unison.Paneler {
 		panel.AddChild(button)
 	}
 	return panel
-}
-
-func createImageButton(img *unison.Image, actionText string, panel *unison.Panel) *unison.Button {
-	btn := unison.NewButton()
-	btn.Drawable = img
-	btn.ClickCallback = func() { slog.Info(actionText) }
-	btn.Tooltip = unison.NewTooltipWithText(fmt.Sprintf("Tooltip for: %s", actionText))
-	btn.SetLayoutData(align.Middle)
-	panel.AddChild(btn)
-	return btn
 }
 
 func NewSeparator() *unison.Separator {

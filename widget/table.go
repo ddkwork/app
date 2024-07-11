@@ -455,6 +455,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	table.DoubleClickCallback = func() {
 		rows := table.SelectedRows(false)
 		for i, row := range rows {
+			//todo icon edit
 			app.Run("edit row #"+fmt.Sprint(i), func(w *unison.Window) {
 				content := w.Content()
 				nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
