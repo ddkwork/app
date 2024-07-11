@@ -65,7 +65,6 @@ func NewExplorer(walkDir string) unison.Paneler {
 				}
 			},
 			UnmarshalRow: func(node *Node[DirTree], values []string) {
-
 			},
 			SelectionChangedCallback: nil,
 			SetRootRowsCallBack: func(root *Node[DirTree]) {

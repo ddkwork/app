@@ -39,6 +39,8 @@ func New() widget.API {
 }
 
 func (s *StructView) Layout() unison.Paneler {
+	newPanel := widget.NewPanel()
+
 	view := DriverLoad{
 		ReloadPath: "",
 		Link:       "",
@@ -72,17 +74,19 @@ func (s *StructView) Layout() unison.Paneler {
 		names = WalkAllDriverPath(root)
 	}
 
-	popupMenu := widget.CreatePopupMenu(rowPanel, p, 0, "choose a driver", names...)
+	popupMenu := widget.CreatePopupMenu(newPanel.AsPanel(), p, 0, "choose a driver", names...)
 
-	kv := widget.NewKeyValuePanel()
+	top := widget.NewKeyValuePanel()
 	key := widget.NewLabelRightAlign(widget.KeyValueToolTip{
 		Key:     "sys path",
 		Value:   "",
 		Tooltip: "",
 	})
-	kv.AddChild(key)
-	kv.AddChild(popupMenu)
-	structView.AddChildAtIndex(kv, 0) // todo bug need rowPanel AddChildAtIndex
+	top.AddChild(key)
+	top.AddChild(popupMenu)
+	newPanel.AddChild(top)
+	newPanel.AddChild(structView)
+	structView.AddChild(rowPanel)
 
 	log := unison.NewMultiLineField() // todo log out format is not good
 	log.MinimumTextWidth = 800
@@ -106,10 +110,10 @@ func (s *StructView) Layout() unison.Paneler {
 			log.SetText(mylog.Body())
 		},
 	)
-	structView.AddChild(widget.NewVSpacer())
-	structView.AddChild(panel)
-	structView.AddChild(log)
-	return structView
+	rowPanel.AddChild(widget.NewVSpacer())
+	rowPanel.AddChild(panel)
+	newPanel.AddChild(log)
+	return newPanel
 }
 
 func WalkAllDriverPath(root string) (drivers []string) {
