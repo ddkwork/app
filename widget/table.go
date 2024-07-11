@@ -307,11 +307,11 @@ func (n *Node[T]) CellDataForSort(col int) string {
 
 func (n *Node[T]) ColumnCell(row, col int, foreground, background unison.Ink, selected, indirectlySelected, focused bool) unison.Paneler {
 	wrapper := unison.NewPanel()
-	cells := n.MarshalRow(n)
 	wrapper.SetLayout(&unison.FlexLayout{Columns: 1})
+	cells := n.MarshalRow(n)
 	width := n.CellWidth(row, col)
 
-	maxWidth := float32(30)
+	maxWidth := float32(30) //todo need add \n to label for wrap work
 	if width > maxWidth {
 		width = maxWidth
 	} else {
@@ -337,50 +337,28 @@ func (n *Node[T]) ColumnCell(row, col int, foreground, background unison.Ink, se
 }
 
 func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data CellData) {
-	decoration := &unison.TextDecoration{Font: font}
-	var lines []*unison.Text
-
 	if data.IsNasm {
-		codePanel := unison.NewPanel()
-		codePanel.SetLayout(&unison.FlexLayout{Columns: 1})
-		parent.AddChild(codePanel)
-
-		rowPanel := unison.NewPanel()
-		rowPanel.DrawCallback = func(gc *unison.Canvas, rect unison.Rect) {
-			gc.DrawRect(rect, ink.Paint(gc, rect, paintstyle.Fill))
-		}
-		codePanel.AddChild(rowPanel)
-
-		decoration := &unison.TextDecoration{
-			Font: unison.DefaultLabelTheme.Font,
-			// BackgroundInk: CodeBackground,
-			OnBackgroundInk: ink,
-			BaselineOffset:  0,
-			Underline:       false,
-			StrikeThrough:   false,
-		}
-		row := unison.NewText("", decoration)
-
-		label := unison.NewLabel()
-		label.OnBackgroundInk = ink
-		label.Text = row
-		rowPanel.AddChild(label)
-
 		tokens, style := languages.GetTokens(stream.NewBuffer(data.Text), languages.NasmKind)
+		rowPanel := unison.NewPanel()
+		rowPanel.SetLayout(&unison.FlexLayout{Columns: len(tokens)})
+		parent.AddChild(rowPanel)
 		for _, token := range tokens {
-			if style.Has(token.Type) {
-				colour := style.Get(token.Type).Colour
-				decoration.OnBackgroundInk = unison.RGB(
-					int(colour.Red()),
-					int(colour.Green()),
-					int(colour.Blue()),
-				)
-			}
-			row.AddString(token.Value, decoration)
+			colour := style.Get(token.Type).Colour
+			label := unison.NewLabel()
+			label.TextDecoration.OnBackgroundInk = unison.RGB(
+				int(colour.Red()),
+				int(colour.Green()),
+				int(colour.Blue()),
+			)
+			label.SetTitle(token.Value)
+			label.OnBackgroundInk = ink
+			rowPanel.AddChild(label)
 		}
 		return
 	}
 
+	decoration := &unison.TextDecoration{Font: font}
+	var lines []*unison.Text
 	if data.MaxWidth > 0 {
 		lines = unison.NewTextWrappedLines(data.Text, decoration, data.MaxWidth)
 	} else {
