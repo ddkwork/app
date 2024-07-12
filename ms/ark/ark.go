@@ -51,35 +51,35 @@ func Layout() *unison.Panel {
 		InvalidArks       string
 	}
 
-	table, header := widget.NewTable(CryptTable{}, widget.TableContext[CryptTable]{
+	table, header := widget.NewTable(ark{}, widget.TableContext[ark]{
 		ContextMenuItems: nil,
-		MarshalRow: func(node *widget.Node[CryptTable]) (cells []widget.CellData) {
+		MarshalRow: func(node *widget.Node[ark]) (cells []widget.CellData) {
 			name := node.Data.Name.String()
 			if node.Container() {
 				name = node.Sum(name)
 			}
 			return []widget.CellData{{Text: name}}
 		},
-		UnmarshalRow: func(node *widget.Node[CryptTable], values []string) {
+		UnmarshalRow: func(node *widget.Node[ark], values []string) {
 			mylog.Todo("unmarshal row")
 		},
-		SelectionChangedCallback: func(root *widget.Node[CryptTable]) {
+		SelectionChangedCallback: func(root *widget.Node[ark]) {
 			mylog.Todo("selection changed callback")
 		},
-		SetRootRowsCallBack: func(root *widget.Node[CryptTable]) {
+		SetRootRowsCallBack: func(root *widget.Node[ark]) {
 			for _, kind := range InvalidCryptKind.Kinds() {
 				switch kind {
 				case SymmetryKind:
-					container := widget.NewContainerNode(SymmetryKind.String(), CryptTable{})
+					container := widget.NewContainerNode(SymmetryKind.String(), ark{})
 					root.AddChild(container)
-					container.AddChildByData(CryptTable{Name: AesKind})
-					container.AddChildByData(CryptTable{Name: DesKind})
-					container.AddChildByData(CryptTable{Name: Des3Kind})
-					container.AddChildByData(CryptTable{Name: TeaKind})
-					container.AddChildByData(CryptTable{Name: BlowfishKind})
-					container.AddChildByData(CryptTable{Name: TwoFishKind})
-					container.AddChildByData(CryptTable{Name: Rc4Kind})
-					container.AddChildByData(CryptTable{Name: Rc2Kind})
+					container.AddChildByData(ark{Name: AesKind})
+					container.AddChildByData(ark{Name: DesKind})
+					container.AddChildByData(ark{Name: Des3Kind})
+					container.AddChildByData(ark{Name: TeaKind})
+					container.AddChildByData(ark{Name: BlowfishKind})
+					container.AddChildByData(ark{Name: TwoFishKind})
+					container.AddChildByData(ark{Name: Rc4Kind})
+					container.AddChildByData(ark{Name: Rc2Kind})
 
 				default:
 				}
