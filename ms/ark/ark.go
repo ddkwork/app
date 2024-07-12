@@ -36,6 +36,21 @@ func arkTodo() {
 }
 
 func Layout() *unison.Panel {
+	type ark struct {
+		KernelTables      string
+		Explorer          string
+		TaskManager       string
+		DriverTool        string
+		RegistryEditor    string
+		HardwareMonitor   string
+		HardwareHook      string
+		RandomHook        string
+		EnvironmentEditor string
+		Vstart            string
+		Crypt             string
+		InvalidArks       string
+	}
+
 	table, header := widget.NewTable(CryptTable{}, widget.TableContext[CryptTable]{
 		ContextMenuItems: nil,
 		MarshalRow: func(node *widget.Node[CryptTable]) (cells []widget.CellData) {
