@@ -34,25 +34,25 @@ func arkTodo() {
 }
 
 func Layout() *unison.Panel {
-	//type ark struct {Name ArksKind}
-	table, header := widget.NewTable(ArksKind(0), widget.TableContext[ArksKind]{
+	type ark struct{ Name ArksKind }
+	table, header := widget.NewTable(ark{}, widget.TableContext[ark]{
 		ContextMenuItems: nil,
-		MarshalRow: func(node *widget.Node[ArksKind]) (cells []widget.CellData) {
-			name := node.Data.String()
+		MarshalRow: func(node *widget.Node[ark]) (cells []widget.CellData) {
+			name := node.Data.Name.String()
 			if node.Container() {
 				name = node.Sum(name)
 			}
 			return []widget.CellData{{Text: name}}
 		},
-		UnmarshalRow: func(node *widget.Node[ArksKind], values []string) {
+		UnmarshalRow: func(node *widget.Node[ark], values []string) {
 			mylog.Todo("unmarshal row")
 		},
-		SelectionChangedCallback: func(root *widget.Node[ArksKind]) {
+		SelectionChangedCallback: func(root *widget.Node[ark]) {
 			mylog.Todo("selection changed callback")
 		},
-		SetRootRowsCallBack: func(root *widget.Node[ArksKind]) {
+		SetRootRowsCallBack: func(root *widget.Node[ark]) {
 			for _, kind := range InvalidArksKind.Kinds() {
-				root.AddChildByData(kind)
+				root.AddChildByData(ark{kind})
 			}
 		},
 		JsonName:   "ark",
@@ -79,7 +79,7 @@ func Layout() *unison.Panel {
 			if i > 1 {
 				break
 			}
-			switch n.Data {
+			switch n.Data.Name {
 			case KernelTablesKind:
 				right.RemoveAllChildren()
 				paneler := mylog.Check2Bool(layouts.Get(KernelTablesKind))()
