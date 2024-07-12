@@ -8,11 +8,7 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 )
 
-func DumpPe() {
-	checkPacker("D:\\clone\\demo\\unlicense\\unlicense-py3.11-x86\\SuperRecovery.exe")
-}
-
-func checkPacker(filename string) {
+func CheckPacker(filename string) {
 	file := xed.ParserPe(filename)
 	for _, section := range file.Sections {
 		s := section.String()

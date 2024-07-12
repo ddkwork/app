@@ -8,7 +8,7 @@ import (
 // D:\clone\VMProtect-devirtualization-main
 // D:\workspace\hv\unlicense\unlicense-py3.11-x86
 func TestDumpPe(t *testing.T) {
-	DumpPe()
+	CheckPacker("D:\\clone\\demo\\unlicense\\unlicense-py3.11-x86\\SuperRecovery.exe")
 }
 
 func TestDecodeSysCall(t *testing.T) {

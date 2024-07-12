@@ -2,6 +2,7 @@ package ark
 
 import (
 	"fmt"
+	"github.com/ddkwork/app/ms/packer"
 
 	"github.com/ddkwork/HyperDbg/sdk"
 	"github.com/ddkwork/app"
@@ -138,6 +139,7 @@ func Layout() *unison.Panel {
 				// 拖放文件进调试器之后自动识别vmp tmd wl等壳并更新壳名称到调试器的主窗口标题
 				// binee python 那个
 				// more
+				packer.CheckPacker("c:\\windows\\system32\\kernelbase.dll")
 			default:
 			}
 		}
