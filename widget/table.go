@@ -446,8 +446,8 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	fnUpdate := func() {
 		table.SetRootRows(table.Children)
 		table.SizeColumnsToFit(true)
-		stream.MarshalJsonToFile(table, ctx.JsonName+".json")
-		stream.WriteTruncate(ctx.JsonName+".txt", table.Document())
+		stream.MarshalJsonToFile(table, filepath.Join("cache", ctx.JsonName+".json"))
+		stream.WriteTruncate(filepath.Join("cache", ctx.JsonName+".txt"), table.Document())
 		if ctx.IsDocument {
 			b := stream.NewBuffer("")
 			b.WriteStringLn("# " + ctx.JsonName + " document table")
