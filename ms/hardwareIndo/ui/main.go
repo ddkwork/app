@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	"github.com/ddkwork/app/ms/hardwareIndo"
+
 	"github.com/ddkwork/app"
 	"github.com/ddkwork/app/widget"
 	"github.com/richardwilkes/unison"
@@ -17,25 +19,32 @@ func main() {
 func LayoutCpuInfo() unison.Paneler {
 	type (
 		Data0 struct {
-			Arg int
-			EAX int
-			EBX int
-			ECX int
-			EDX int
+			Arg uint32
+			EAX uint32
+			EBX uint32
+			ECX uint32
+			EDX uint32
 		}
 		Data1 struct {
-			Arg int
-			EAX int
-			EBX int
-			ECX int
-			EDX int
+			Arg uint32
+			EAX uint32
+			EBX uint32
+			ECX uint32
+			EDX uint32
 		}
 	)
 
 	panel := unison.NewPanel()
 	panel.SetLayout(&unison.FlexLayout{Columns: 2})
 
-	view0, kvPanel0 := widget.NewStructView(Data0{}, func(data Data0) (values []widget.CellData) {
+	eax, ebx, ecx, edx := hardwareIndo.CpuidLow(0, 0)
+	view0, kvPanel0 := widget.NewStructView(Data0{
+		Arg: 0,
+		EAX: eax,
+		EBX: ebx,
+		ECX: ecx,
+		EDX: edx,
+	}, func(data Data0) (values []widget.CellData) {
 		return []widget.CellData{
 			{Text: fmt.Sprintf("%016X", data.Arg)},
 			{Text: fmt.Sprintf("%016X", data.EAX)},
@@ -44,7 +53,15 @@ func LayoutCpuInfo() unison.Paneler {
 			{Text: fmt.Sprintf("%016X", data.EDX)},
 		}
 	})
-	view1, kvPanel1 := widget.NewStructView(Data0{}, func(data Data0) (values []widget.CellData) {
+
+	eax, ebx, ecx, edx = hardwareIndo.CpuidLow(0, 1)
+	view1, kvPanel1 := widget.NewStructView(Data0{
+		Arg: 1,
+		EAX: eax,
+		EBX: ebx,
+		ECX: ecx,
+		EDX: edx,
+	}, func(data Data0) (values []widget.CellData) {
 		return []widget.CellData{
 			{Text: fmt.Sprintf("%016X", data.Arg)},
 			{Text: fmt.Sprintf("%016X", data.EAX)},
@@ -54,8 +71,10 @@ func LayoutCpuInfo() unison.Paneler {
 		}
 	})
 	panel.AddChild(view0)
-	panel.AddChild(kvPanel0)
+	// panel.AddChild(kvPanel0)
 	panel.AddChild(view1)
-	panel.AddChild(kvPanel1)
+	// panel.AddChild(kvPanel1)
+	kvPanel0 = kvPanel0
+	kvPanel1 = kvPanel1
 	return panel
 }

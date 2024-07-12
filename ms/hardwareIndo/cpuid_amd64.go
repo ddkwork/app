@@ -15,6 +15,10 @@ import (
 func cpuid_low(arg1, arg2 uint32) (eax, ebx, ecx, edx uint32) // implemented in cpuidlow_amd64.s
 func xgetbv_low(arg1 uint32) (eax, edx uint32)                // implemented in cpuidlow_amd64.s
 
+func CpuidLow(arg1, arg2 uint32) (eax, ebx, ecx, edx uint32) {
+	return cpuid_low(arg1, arg2)
+}
+
 type (
 	Reg struct {
 		Eax, Ebx, Ecx, Edx uint32
@@ -46,7 +50,7 @@ func (c *cpuInfo) FormatCpu1() []string {
 }
 
 func (c *cpuInfo) Get() (ok bool) {
-	eax, ebx, ecx, edx := cpuid_low(0, 0)
+	eax, ebx, ecx, edx := CpuidLow(0, 0)
 	c.Cpu0 = Reg{
 		Eax: eax,
 		Ebx: ebx,
@@ -60,7 +64,7 @@ func (c *cpuInfo) Get() (ok bool) {
 	c.Vendor = b.String()
 	// mylog.Info("cpu vendor", b.String())
 
-	eax, ebx, ecx, edx = cpuid_low(1, 0)
+	eax, ebx, ecx, edx = CpuidLow(1, 0)
 	c.Cpu1 = Reg{
 		Eax: eax,
 		Ebx: ebx,
