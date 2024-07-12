@@ -46,11 +46,11 @@ func LayoutCpuInfo() unison.Paneler {
 		EDX: edx,
 	}, func(data Data0) (values []widget.CellData) {
 		return []widget.CellData{
-			{Text: fmt.Sprintf("%016X", data.Arg)},
-			{Text: fmt.Sprintf("%016X", data.EAX)},
-			{Text: fmt.Sprintf("%016X", data.EBX)},
-			{Text: fmt.Sprintf("%016X", data.ECX)},
-			{Text: fmt.Sprintf("%016X", data.EDX)},
+			{Text: fmt.Sprintf("%08X", data.Arg)},
+			{Text: fmt.Sprintf("%08X", data.EAX)},
+			{Text: fmt.Sprintf("%08X", data.EBX)},
+			{Text: fmt.Sprintf("%08X", data.ECX)},
+			{Text: fmt.Sprintf("%08X", data.EDX)},
 		}
 	})
 
@@ -63,11 +63,11 @@ func LayoutCpuInfo() unison.Paneler {
 		EDX: edx,
 	}, func(data Data0) (values []widget.CellData) {
 		return []widget.CellData{
-			{Text: fmt.Sprintf("%016X", data.Arg)},
-			{Text: fmt.Sprintf("%016X", data.EAX)},
-			{Text: fmt.Sprintf("%016X", data.EBX)},
-			{Text: fmt.Sprintf("%016X", data.ECX)},
-			{Text: fmt.Sprintf("%016X", data.EDX)},
+			{Text: fmt.Sprintf("%08X", data.Arg)},
+			{Text: fmt.Sprintf("%08X", data.EAX)},
+			{Text: fmt.Sprintf("%08X", data.EBX)},
+			{Text: fmt.Sprintf("%08X", data.ECX)},
+			{Text: fmt.Sprintf("%08X", data.EDX)},
 		}
 	})
 	panel.AddChild(view0)

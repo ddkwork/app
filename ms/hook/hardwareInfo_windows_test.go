@@ -9,11 +9,11 @@ import (
 )
 
 func Test_hardware(t *testing.T) {
-	t.Skip()
+	// t.Skip()
 	h := hardwareIndo.New()
-	if !h.SsdInfo.Get() { // todo bug cpu pkg init
-		return
-	}
+	//if !h.SsdInfo.Get() { // todo bug cpu pkg init
+	//	return
+	//}
 	if !h.CpuInfo.Get() {
 		return
 	}
