@@ -2,11 +2,12 @@ package widget
 
 import (
 	"fmt"
-	"github.com/ddkwork/golibrary/stream/languages"
 	"log/slog"
 	"reflect"
 	"strings"
 	"unicode"
+
+	"github.com/ddkwork/golibrary/stream/languages"
 
 	"github.com/richardwilkes/toolbox/i18n"
 

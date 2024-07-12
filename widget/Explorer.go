@@ -72,7 +72,6 @@ func NewExplorer(walkDir string) unison.Paneler {
 				node.Data.Path = values[4]
 			},
 			SelectionChangedCallback: func(root *Node[DirTree]) {
-
 			},
 			SetRootRowsCallBack: func(root *Node[DirTree]) {
 				// todo 新建文本文档,dark title bar

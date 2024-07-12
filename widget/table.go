@@ -4,13 +4,14 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
-	"github.com/ddkwork/golibrary/stream/languages"
 	"path/filepath"
 	"slices"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/ddkwork/golibrary/stream/languages"
 
 	"github.com/ddkwork/app"
 
@@ -311,7 +312,7 @@ func (n *Node[T]) ColumnCell(row, col int, foreground, background unison.Ink, se
 	cells := n.MarshalRow(n)
 	width := n.CellWidth(row, col)
 
-	maxWidth := float32(30) //todo need add \n to label for wrap work
+	maxWidth := float32(30) // todo need add \n to label for wrap work
 	if width > maxWidth {
 		width = maxWidth
 	} else {
@@ -439,7 +440,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	ctx.JsonName = strings.TrimSuffix(ctx.JsonName, ".json")
 
 	mylog.CheckNil(ctx.UnmarshalRow)
-	//mylog.CheckNil(ctx.SetRootRowsCallBack)//mitmproxy
+	// mylog.CheckNil(ctx.SetRootRowsCallBack)//mitmproxy
 	mylog.CheckNil(ctx.SelectionChangedCallback)
 
 	table, header = newTable(data, ctx)
@@ -458,7 +459,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 		}
 	}
 
-	if ctx.SetRootRowsCallBack != nil { //mitmproxy
+	if ctx.SetRootRowsCallBack != nil { // mitmproxy
 		ctx.SetRootRowsCallBack(table)
 	}
 	table.SelectionChangedCallback = func() { ctx.SelectionChangedCallback(table) }
@@ -479,7 +480,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 	table.DoubleClickCallback = func() {
 		rows := table.SelectedRows(false)
 		for i, row := range rows {
-			//todo icon edit
+			// todo icon edit
 			app.RunWithIco("edit row #"+fmt.Sprint(i), rowPngBuffer, func(w *unison.Window) {
 				content := w.Content()
 				nodeEditor, RowPanel := NewStructView(row.Data, func(data T) (values []CellData) {
@@ -496,7 +497,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 						nodeEditor.Update(row.Data)
 						table.SyncToModel()
 						stream.MarshalJsonToFile(table.Children, ctx.JsonName+".json")
-						//w.Dispose()
+						// w.Dispose()
 					},
 					func() {
 						w.Dispose()
