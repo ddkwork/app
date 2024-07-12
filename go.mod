@@ -1,6 +1,6 @@
 module github.com/ddkwork/app
 
-go 1.22.4
+go 1.22.5
 
 require (
 	github.com/alecthomas/chroma/v2 v2.14.0
