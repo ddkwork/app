@@ -252,9 +252,9 @@ func (s *StructView[T]) Update(data T) {
 	s.MetaData = data
 }
 
-func NewLogView() *unison.Panel {
+func NewLogView(data string) *unison.Panel {
 	panel := NewPanel()
-	tokens, style := languages.GetTokens(stream.NewBuffer(mylog.Body()), languages.NasmKind)
+	tokens, style := languages.GetTokens(stream.NewBuffer(data), languages.NasmKind)
 	rowPanel := unison.NewPanel()
 	rowPanel.SetLayout(&unison.FlexLayout{Columns: len(tokens)})
 	panel.AddChild(rowPanel)
