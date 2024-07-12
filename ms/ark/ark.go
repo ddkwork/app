@@ -129,6 +129,13 @@ func Layout() *unison.Panel {
 				right.AddChild(paneler)
 				splitPanel.AddChild(right)
 
+				//pe包似乎有个检测壳的，看看全不全
+				//https://git.homegu.com/inc0d3/malware/blob/master/tools%2Funpacker%2Fthemida-2.x%2FThemida%20-%20Winlicense%20Ultra%20Unpacker%201.4.txt
+				//实现themida，vmprotect脱壳插件
+				//todo dump overlay data
+				//拖放文件进调试器之后自动识别vmp tmd wl等壳并更新壳名称到调试器的主窗口标题
+				//binee python 那个
+
 			default:
 			}
 		}

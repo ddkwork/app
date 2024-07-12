@@ -7,7 +7,6 @@ import (
 )
 
 func TestName(t *testing.T) {
-	t.Skip()
 	g := stream.NewGeneratedFile()
 	g.Enum("arks", []string{
 		"kernelTables",
@@ -21,5 +20,6 @@ func TestName(t *testing.T) {
 		"environmentEditor",
 		"vstart",
 		"crypt",
+		"packer",
 	}, nil)
 }
