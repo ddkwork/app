@@ -11,3 +11,4 @@ type (
 )
 
 // clang -E -P temp.h > output_file.txt
+//https://git.homegu.com/KhronosGroup/OpenGL-Registry/tree/main/api/GLES3
