@@ -22,6 +22,7 @@ const (
 	EnvironmentEditorKind
 	VstartKind
 	CryptKind
+	PackerKind
 	InvalidArksKind
 )
 
@@ -62,6 +63,8 @@ func (k ArksKind) String() string {
 		return "Vstart"
 	case CryptKind:
 		return "Crypt"
+	case PackerKind:
+		return "Packer"
 	default:
 		return "InvalidArksKind"
 	}
@@ -80,6 +83,7 @@ func (k ArksKind) Keys() []string {
 		"EnvironmentEditor",
 		"Vstart",
 		"Crypt",
+		"Packer",
 	}
 }
 
@@ -96,6 +100,7 @@ func (k ArksKind) Kinds() []ArksKind {
 		EnvironmentEditorKind,
 		VstartKind,
 		CryptKind,
+		PackerKind,
 	}
 }
 
@@ -123,6 +128,8 @@ func (k ArksKind) PngFileName() string {
 		return "Vstart"
 	case CryptKind:
 		return "Crypt"
+	case PackerKind:
+		return "Packer"
 	default:
 		return "InvalidArksKind"
 	}
