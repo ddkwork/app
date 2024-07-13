@@ -1,11 +1,11 @@
 package clang
 
 import (
+	"errors"
 	"fmt"
+	"github.com/ddkwork/golibrary/mylog"
 	"strconv"
 	"strings"
-
-	"github.com/ddkwork/golibrary/mylog"
 )
 
 type layout struct {
@@ -19,14 +19,12 @@ type layout struct {
 func (n layout) UnmarshalString(data string) error {
 	return nil
 }
-
 func (n *layout) tostring(wr *strings.Builder, pad string) {
 	fmt.Fprintf(wr, "%s %s %s @ +0x%x\n", pad, n.Type, n.Name, n.Offset)
 	for _, field := range n.Fields {
 		field.tostring(wr, "  "+pad)
 	}
 }
-
 func (n *layout) String() string {
 	wr := &strings.Builder{}
 	n.tostring(wr, "-")
@@ -63,21 +61,9 @@ type RecordLayout struct {
 }
 
 func (r *RecordLayout) UnmarshalString(data string) error {
-	// mylog.Check(errors.New("improperly terminated layout"))
-
-	switch {
-	case strings.Contains(data, "__NSConstantString_tag"):
-		// mylog.Warning("skip unmarshal RecordLayout", data)
-		// return nil
-	}
-
+	err := errors.New("improperly terminated layout")
 	first := true
-	offset := 0
-
 	for _, line := range strings.Split(data, "\n") {
-		if line == "" {
-			continue
-		}
 		before, after, found := strings.Cut(line, "|")
 		if !found {
 			continue
@@ -87,12 +73,17 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		before = strings.TrimSpace(before)
 		if before == "" {
 			after = strings.TrimSpace(after)
-			// mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d]", &r.Size, &r.Align))
-			mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
+			_, err = fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align)
+			if err != nil {
+				err = fmt.Errorf("invalid size and align: %w", err)
+			}
 			break
 		}
 
+		//println(data)
+
 		// Parse offset
+		offset := 0
 		if strings.Contains(before, ":") && strings.Contains(before, "-") {
 			split := strings.Split(before, ":")
 			offset = mylog.Check2(strconv.Atoi(split[0]))
@@ -107,13 +98,8 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		after = strings.TrimSpace(after)
 
 		// Parse name and type
-		name := "" // todo test
-
+		name := ""
 		typen := after
-		// save strut type todo test
-		if strings.HasPrefix(typen, "struct ") {
-			// typen = "struct "
-		}
 		if lastSpace := strings.LastIndex(after, " "); lastSpace != -1 {
 			// If the last space is followed by a closing parenthesis, then it is part of the type.
 			if !strings.Contains(after[lastSpace+1:], ")") {
@@ -123,10 +109,6 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 					name = after[lastSpace+1:]
 				}
 			}
-		}
-
-		if name == "" {
-			// continue
 		}
 
 		// Create node
@@ -145,7 +127,10 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 			})
 		}
 	}
-	// mylog.Json("layout", r.layout.Fields)
+	if err != nil {
+		return err
+	}
+
 	// Group fields
 	r.regroup()
 	return nil
@@ -168,7 +153,9 @@ func (l *LayoutMap) UnmarshalString(data string) error {
 
 	for _, part := range layout {
 		record := &RecordLayout{}
-		mylog.Check(record.UnmarshalString(part))
+		if err := record.UnmarshalString(part); err != nil {
+			return err
+		}
 		l.Records = append(l.Records, record)
 		l.Map[record.Type] = record
 	}

@@ -1,7 +1,11 @@
 package clang
 
 import (
+	"bytes"
+	"fmt"
+	"golang.org/x/sync/errgroup"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/ddkwork/golibrary/stream"
@@ -27,6 +31,17 @@ func (o *Options) ClangPath() string {
 }
 
 func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
+	cmd := exec.Command(o.ClangPath(), opt...)
+	cmd.Args = append(cmd.Args, o.AdditionalParams...)
+	cmd.Args = append(cmd.Args, o.Sources...)
+	buf := &bytes.Buffer{}
+	cmd.Stdout = buf
+	err := cmd.Run()
+	if err != nil {
+		return nil, fmt.Errorf("failed to run clang: %w", err)
+	}
+	return buf.Bytes(), nil
+
 	c := make([]string, 0)
 	c = append(c, o.ClangPath())
 	c = append(c, opt...)
@@ -57,6 +72,30 @@ func CreateLayoutMap(opt *Options) ([]byte, error) {
 }
 
 func Parse(opt *Options) (ast Node, layout *LayoutMap, err error) {
+	errg := &errgroup.Group{}
+	errg.Go(func() error {
+		res, e := CreateAST(opt)
+		if e != nil {
+			return e
+		}
+		ast, e = ParseAST(res)
+		return e
+	})
+	errg.Go(func() error {
+		res, e := CreateLayoutMap(opt)
+		if e != nil {
+			return e
+		}
+		layout, e = ParseLayoutMap(res)
+		return e
+	})
+	if err := errg.Wait(); err != nil {
+		return nil, nil, err
+	}
+	return ast, layout, nil
+}
+
+func Parse_(opt *Options) (ast Node, layout *LayoutMap, err error) {
 	// stream.RunCommand("clang -E -dM " + opt.Sources[0] + " > macros.log")
 	res := mylog.Check2(CreateLayoutMap(opt))
 	stream.WriteTruncate("astLayout.log", res)
