@@ -5,6 +5,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/magiconair/properties/assert"
+
 	"github.com/ddkwork/golibrary/mylog"
 )
 
@@ -13,6 +15,8 @@ func TestRecordLayout_UnmarshalString(t *testing.T) {
 	Size := 0
 	Align := 0
 	mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d]", &Size, &Align))
+	assert.Equal(t, Size, 32)
+	assert.Equal(t, Align, 8)
 }
 
 /*
@@ -40,8 +44,8 @@ type BitField struct {
 	Type         string
 	Start        int
 	End          int
-	Size         int //End-Start
-	IndexForBits int //Size-End
+	Size         int // End-Start
+	IndexForBits int // Size-End
 	sizeof       int
 	align        int
 }
@@ -49,7 +53,7 @@ type BitField struct {
 func parseBitFields(text string) ([]BitField, error) {
 	lines := strings.Split(text, "\n")
 	var bitFields []BitField
-	var err error
+
 	parentEnd := 0
 
 	for _, line := range lines {
@@ -76,10 +80,8 @@ func parseBitFields(text string) ([]BitField, error) {
 			}
 		}
 		if strings.HasPrefix(rightPart, "[sizeof=") {
-			_, err = fmt.Sscanf(rightPart, "[sizeof=%d, align=%d", &field.sizeof, &field.align)
-			if err != nil {
-				return nil, err
-			}
+			_ = mylog.Check2(fmt.Sscanf(rightPart, "[sizeof=%d, align=%d", &field.sizeof, &field.align))
+
 			continue
 		}
 		TypeAndName := strings.Split(rightPart, " ")
@@ -123,14 +125,14 @@ func TestParseBitFieldsWithBitRange(t *testing.T) {
     7:7-7 |   UINT64 PcidInvalidate        
           | [sizeof=8, align=8]            
 `
-	bitFields, err := parseBitFields(text)
-	if err != nil {
-		t.Errorf("Error parsing bit fields: %v", err)
-	}
+	bitFields := mylog.Check2(parseBitFields(text))
+	sum := 0
 	for _, bf := range bitFields {
+		sum += bf.Size
 		fmt.Printf("StructName: %-10s Name: %-20s Type: %-10s Start: %-5d End: %-5d Size: %-5d IndexForBits: %-5d sizeof: %-5d align: %-5d\n",
 			bf.StructName, bf.Name, bf.Type, bf.Start, bf.End, bf.Size, bf.IndexForBits, bf.sizeof, bf.align)
 	}
+	assert.Equal(t, sum, 64)
 }
 
 func TestParseBitFieldsWithoutBitRange(t *testing.T) {
@@ -144,10 +146,7 @@ func TestParseBitFieldsWithoutBitRange(t *testing.T) {
           | [sizeof=8, align=8]           //
 `
 
-	bitFields, err := parseBitFields(text)
-	if err != nil {
-		t.Errorf("Error parsing bit fields: %v", err)
-	}
+	bitFields := mylog.Check2(parseBitFields(text))
 
 	totalBits := 0
 	for _, bf := range bitFields {
