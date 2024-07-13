@@ -95,9 +95,7 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		// Parse offset
 		if strings.Contains(before, ":") && strings.Contains(before, "-") {
 			split := strings.Split(before, ":")
-			bitRange := strings.Split(split[1], "-")
-			start, end := mylog.Check2(strconv.Atoi(bitRange[0])), mylog.Check2(strconv.Atoi(bitRange[1]))
-			offset += end - start + 1
+			offset = mylog.Check2(strconv.Atoi(split[0]))
 		} else {
 			offset = mylog.Check2Ignore(strconv.Atoi(strings.TrimSpace(before)))
 		}
