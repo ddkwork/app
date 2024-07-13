@@ -15,6 +15,11 @@ func TestRecordLayout_UnmarshalString(t *testing.T) {
 	mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d]", &Size, &Align))
 }
 
+//handle https://github.com/HyperDbg/gui/issues/110
+//handle https://github.com/HyperDbg/gui/issues/111
+//handle https://github.com/HyperDbg/gui/issues/113
+//handle https://github.com/HyperDbg/gui/issues/173
+
 /*
 	0 | struct _CR3_TYPE::(unnamed at ./merged_headers.h:196:9)
 
