@@ -53,7 +53,7 @@ func TestZydis(t *testing.T) {
 	mylog.Check(pkg.Transform("zydis", &clang.Options{
 		// Sources: []string{"codegen/Zydis.h"},
 		// Sources: []string{"./Zydis.h"},
-		Sources: []string{"amalgamated-dist/Zydis.h"},
+		Sources: []string{"Zydis.h"},
 		AdditionalParams: []string{
 			"-DZYAN_NO_LIBC",
 			//"-DZYAN_STATIC_ASSERT",
