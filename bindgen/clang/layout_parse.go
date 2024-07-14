@@ -75,8 +75,7 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		before = strings.TrimSpace(before)
 		if before == "" {
 			after = strings.TrimSpace(after)
-			_ = mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
-
+			mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
 			break
 		}
 		// println(data)
@@ -85,10 +84,10 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		if strings.Contains(before, ":") {
 			split := strings.Split(before, ":")
 			offset = mylog.Check2(strconv.Atoi(strings.TrimSpace(split[0])))
-
 		} else {
 			offset = mylog.Check2(strconv.Atoi(strings.TrimSpace(before)))
 		}
+
 		// Determine indentation level
 		indent := len(after)
 		after = strings.TrimLeft(after, " \t")
