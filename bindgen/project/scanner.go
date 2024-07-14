@@ -15,12 +15,13 @@ func ScanComments(path string) (ok bool) {
 	s.Init(file, b.Bytes(), nil /* no error handler */, scanner.ScanComments)
 
 	for {
-		_, tok, _ := s.Scan()
+		_, tok, lit := s.Scan()
 		if tok == token.EOF {
 			break
 		}
 		switch {
 		case tok == token.COMMENT:
+			println(lit)
 		default:
 		}
 	}
