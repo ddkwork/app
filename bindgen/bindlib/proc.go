@@ -19,7 +19,6 @@ func (lp *Proc) addrSlow() uintptr {
 	proc := lp.cache.Load()
 	if proc == 0 {
 		lib := mylog.Check2(lp.library.Get())
-
 		proc = lib.Lookup(lp.name)
 		if proc == 0 {
 			proc = INVALID_PROC
