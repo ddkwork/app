@@ -64,7 +64,8 @@ type RecordLayout struct {
 }
 
 func (r *RecordLayout) UnmarshalString(data string) error {
-	mylog.Check(errors.New("improperly terminated layout"))
+	//println(data)
+	err := errors.New("improperly terminated layout")
 	first := true
 	for _, line := range strings.Split(data, "\n") {
 		before, after, found := strings.Cut(line, "|")
@@ -76,20 +77,28 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		before = strings.TrimSpace(before)
 		if before == "" {
 			after = strings.TrimSpace(after)
-			_ = mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
-
+			_, err = fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align)
+			if err != nil {
+				err = fmt.Errorf("invalid size and align: %w", err)
+			}
 			break
 		}
 
-		// println(data)
-
 		// Parse offset
 		offset := 0
-		if strings.Contains(before, ":") && strings.Contains(before, "-") {
+		if strings.Contains(before, ":") {
 			split := strings.Split(before, ":")
-			offset = mylog.Check2(strconv.Atoi(split[0]))
+			offset, err = strconv.Atoi(strings.TrimSpace(split[0]))
+			if err != nil {
+				println(data)
+				return err
+			}
 		} else {
-			offset = mylog.Check2Ignore(strconv.Atoi(strings.TrimSpace(before)))
+			offset, err = strconv.Atoi(strings.TrimSpace(before))
+			if err != nil {
+				println(data)
+				return err
+			}
 		}
 
 		// Determine indentation level
@@ -128,6 +137,9 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 			})
 		}
 	}
+	if err != nil {
+		return err
+	}
 
 	// Group fields
 	r.regroup()
@@ -151,9 +163,7 @@ func (l *LayoutMap) UnmarshalString(data string) error {
 
 	for _, part := range layout {
 		record := &RecordLayout{}
-		if mylog.Check(record.UnmarshalString(part)); err != nil {
-			return err
-		}
+		mylog.Check(record.UnmarshalString(part))
 		l.Records = append(l.Records, record)
 		l.Map[record.Type] = record
 	}

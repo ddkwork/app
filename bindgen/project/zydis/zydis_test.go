@@ -13,7 +13,7 @@ type zydisProvider struct {
 }
 
 func (p *zydisProvider) NameField(name string, recordName string) string {
-	if recordName == "ZydisDecodedInstructionRawEvex_" {
+	if recordName == "ZydisDecodedInstructionRawEvex_" || recordName == "ZydisDecodedInstructionRawEvex" {
 		if name == "b" {
 			return "Br"
 		}
