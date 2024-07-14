@@ -65,6 +65,8 @@ type RecordLayout struct {
 func (r *RecordLayout) UnmarshalString(data string) error {
 	//mylog.Check(errors.New("improperly terminated layout"))
 	first := true
+	isBit := false
+
 	for _, line := range strings.Split(data, "\n") {
 		before, after, found := strings.Cut(line, "|")
 		if !found {
@@ -76,14 +78,20 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 		if before == "" {
 			after = strings.TrimSpace(after)
 			mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
+			if isBit {
+				println(data)
+				r.Align = 1 //test
+				r.Size = len(r.Fields)
+			}
 			break
 		}
-		// println(data)
+
 		// Parse offset
 		offset := 0
 		if strings.Contains(before, ":") {
 			split := strings.Split(before, ":")
 			offset = mylog.Check2(strconv.Atoi(strings.TrimSpace(split[0])))
+			isBit = true
 		} else {
 			offset = mylog.Check2(strconv.Atoi(strings.TrimSpace(before)))
 		}
