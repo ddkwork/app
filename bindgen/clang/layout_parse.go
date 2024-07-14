@@ -64,7 +64,6 @@ type RecordLayout struct {
 }
 
 func (r *RecordLayout) UnmarshalString(data string) error {
-	//println(data)
 	err := errors.New("improperly terminated layout")
 	first := true
 	for _, line := range strings.Split(data, "\n") {
@@ -83,7 +82,7 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 			}
 			break
 		}
-
+		//println(data)
 		// Parse offset
 		offset := 0
 		if strings.Contains(before, ":") {
@@ -100,7 +99,6 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 				return err
 			}
 		}
-
 		// Determine indentation level
 		indent := len(after)
 		after = strings.TrimLeft(after, " \t")

@@ -16,7 +16,10 @@ type windll struct {
 }
 
 func (w windll) Lookup(name string) uintptr {
-	proc := mylog.Check2(w.dll.FindProc(name))
+	proc, e := w.dll.FindProc(name)
+	if e != nil {
+		return 0
+	}
 	return proc.Addr()
 }
 
