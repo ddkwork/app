@@ -3,10 +3,11 @@ package clang
 import (
 	"bytes"
 	"fmt"
-	"golang.org/x/sync/errgroup"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"golang.org/x/sync/errgroup"
 
 	"github.com/ddkwork/golibrary/stream"
 
@@ -36,10 +37,8 @@ func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
 	cmd.Args = append(cmd.Args, o.Sources...)
 	buf := &bytes.Buffer{}
 	cmd.Stdout = buf
-	err := cmd.Run()
-	if err != nil {
-		return nil, fmt.Errorf("failed to run clang: %w", err)
-	}
+	mylog.Check(cmd.Run())
+
 	return buf.Bytes(), nil
 
 	c := make([]string, 0)
@@ -89,7 +88,7 @@ func Parse(opt *Options) (ast Node, layout *LayoutMap, err error) {
 		layout, e = ParseLayoutMap(res)
 		return e
 	})
-	if err := errg.Wait(); err != nil {
+	if mylog.Check(errg.Wait()); err != nil {
 		return nil, nil, err
 	}
 	return ast, layout, nil

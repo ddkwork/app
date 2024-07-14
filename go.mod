@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.0-20240711003357-8308b5c1c040
+	github.com/ddkwork/golibrary v0.0.0-20240712101659-3e8e94c302a5
 	github.com/ebitengine/purego v0.7.1
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
