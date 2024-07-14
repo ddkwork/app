@@ -80,8 +80,8 @@ func (r *RecordLayout) UnmarshalString(data string) error {
 			mylog.Check2(fmt.Sscanf(after, "[sizeof=%d, align=%d", &r.Size, &r.Align))
 			if isBit {
 				println(data)
-				r.Align = 1 //test
-				r.Size = len(r.Fields)
+				//r.Align = 1 //test
+				//r.Size = len(r.Fields)
 			}
 			break
 		}
