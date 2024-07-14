@@ -2,7 +2,6 @@ package clang
 
 import (
 	"bytes"
-
 	"os"
 	"os/exec"
 	"path/filepath"

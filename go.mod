@@ -18,7 +18,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/oreans/virtualizersdk v0.0.0-20230130114934-0d2f064839d3
 	github.com/qiniu/x v1.13.10
-	github.com/richardwilkes/toolbox v1.114.1
+	github.com/richardwilkes/toolbox v1.114.2
 	github.com/richardwilkes/unison v0.72.1
 	github.com/saferwall/pe v1.5.4
 	github.com/spyre-project/spyre v1.2.5
@@ -27,7 +27,7 @@ require (
 	github.com/zyantific/zydis-go v1.2.1
 	github.com/zzl/go-win32api/v2 v2.2.0
 	golang.org/x/arch v0.8.0
-	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8
+	golang.org/x/exp v0.0.0-20240707233637-46b078467d37
 	golang.org/x/sys v0.22.0
 )
 
@@ -62,13 +62,13 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/yuin/goldmark v1.7.2 // indirect
+	github.com/yuin/goldmark v1.7.4 // indirect
 	golang.org/x/image v0.18.0 // indirect
-	golang.org/x/mod v0.18.0 // indirect
+	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/term v0.21.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.22.0 // indirect
+	golang.org/x/tools v0.23.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/gofumpt v0.6.0 // indirect
