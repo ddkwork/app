@@ -19,7 +19,7 @@ require (
 	github.com/oreans/virtualizersdk v0.0.0-20230130114934-0d2f064839d3
 	github.com/qiniu/x v1.13.10
 	github.com/richardwilkes/toolbox v1.114.1
-	github.com/richardwilkes/unison v0.71.0
+	github.com/richardwilkes/unison v0.72.1
 	github.com/saferwall/pe v1.5.4
 	github.com/spyre-project/spyre v1.2.5
 	github.com/stretchr/testify v1.9.0
