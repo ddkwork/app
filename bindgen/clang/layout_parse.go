@@ -1,7 +1,6 @@
 package clang
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -64,7 +63,7 @@ type RecordLayout struct {
 }
 
 func (r *RecordLayout) UnmarshalString(data string) error {
-	mylog.Check(errors.New("improperly terminated layout"))
+	//mylog.Check(errors.New("improperly terminated layout"))
 	first := true
 	for _, line := range strings.Split(data, "\n") {
 		before, after, found := strings.Cut(line, "|")
