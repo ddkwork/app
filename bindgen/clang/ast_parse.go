@@ -221,16 +221,15 @@ func (n *NodeDecl) UnmarshalValue(rt *refTracker, data *fastjson.Value) (err err
 		n.Type = &Type{}
 		mylog.Check(n.Type.UnmarshalValue(v))
 	}
+
 	rt.refs[n.ID] = append(rt.refs[n.ID], n)
-	if n.Name == "CHECK_VMX_OPERATION" {
-		print()
+	if n.Name == "ZydisDecodedInstructionRawEvex" {
+		println(n.Name)
 	}
-	mylog.Trace(n.Kind, n.Name)
+
+	//mylog.Trace(n.Kind, n.Name)
 	return
 }
-
-//
-//
 
 type TranslationUnitDecl struct {
 	baseNode

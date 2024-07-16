@@ -135,7 +135,7 @@ func (mod Module) TryEmitNaturalStruct(n *clang.RecordDecl, layout *clang.Record
 				},
 				&dst.BasicLit{
 					Kind:  token.INT,
-					Value: fmt.Sprintf("0x%x", c.Offset),
+					Value: fmt.Sprintf("%d", c.Offset),
 				},
 			)
 		}
@@ -495,6 +495,10 @@ func (mod Module) EmitFunction(n *clang.FunctionDecl) {
 	paramNodes := clang.All[*clang.ParmVarDecl](n)
 	for _, p := range paramNodes {
 		arg := mod.Parent.NameArg(p.Name, p.Type.QualType, n.Name)
+		if arg == "" {
+			arg = "arg"
+			mylog.Warning("unnamed argument in function", n.Name)
+		}
 		typ.Params.List = append(typ.Params.List, &dst.Field{
 			Names: []*dst.Ident{dst.NewIdent(arg)},
 			Type:  mod.Parent.ConvertQualType(p.Type.QualType),
@@ -646,7 +650,8 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 
 	// Define typedefs.
 	clang.Visit(ast, func(td *clang.TypedefDecl) bool {
-		// mylog.Warning(td.Name, td.Type.QualType)
+		mylog.Warning(td.Name, td.Type.QualType)
+		//ZydisDecodedInstructionRawEvex │ struct ZydisDecodedInstructionRawEvex
 		mod.EmitTypedef(td)
 		return true
 	})
@@ -677,13 +682,15 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 			},
 			// 0x1234
 			&dst.BasicLit{
-				Kind:  token.INT,
-				Value: fmt.Sprintf("0x%x", v.size),
+				Kind: token.INT,
+				//Value: fmt.Sprintf("0x%x", v.size),
+				Value: fmt.Sprintf("%d", v.size),
 			},
 			// 0x1234
 			&dst.BasicLit{
 				Kind:  token.INT,
-				Value: fmt.Sprintf("0x%x", v.align),
+				Value: fmt.Sprintf("%d", v.align),
+				//Value: fmt.Sprintf("0x%x", v.align),
 			},
 		}
 		args = append(args, v.fields...)
