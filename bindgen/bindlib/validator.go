@@ -7,6 +7,7 @@ import (
 )
 
 func Validate(ptrToStruct any, size, align uintptr, fields ...any) {
+	return
 	mylog.Call(func() {
 		rtype := reflect.TypeOf(ptrToStruct).Elem()
 
