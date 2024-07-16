@@ -650,8 +650,15 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 
 	// Define typedefs.
 	clang.Visit(ast, func(td *clang.TypedefDecl) bool {
-		mylog.Warning(td.Name, td.Type.QualType)
+		qualType := td.Type.QualType
+		qualType = strings.TrimSpace(qualType)
+		qualType = strings.TrimPrefix(qualType, "struct")
+		qualType = strings.TrimSpace(qualType)
 		//ZydisDecodedInstructionRawEvex │ struct ZydisDecodedInstructionRawEvex
+		if qualType == td.Name {
+			mylog.Warning(td.Name, qualType)
+			return true
+		}
 		mod.EmitTypedef(td)
 		return true
 	})
