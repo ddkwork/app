@@ -5,3 +5,4 @@ log.log
 bindgen/astCC/sdk-api-docs.zip
 reset git.cmd
 bindgen/project/zydis/merge/amalgamated-dist
+cmake-build-debug
