@@ -45,7 +45,7 @@ func Layout() *unison.Panel {
 		MarshalRow: func(node *widget.Node[ark]) (cells []widget.CellData) {
 			name := node.Data.Name.String()
 			if node.Container() {
-				name = node.Sum(name)
+				name = node.Sum()
 			}
 			return []widget.CellData{{Text: name}}
 		},
@@ -75,7 +75,7 @@ func Layout() *unison.Panel {
 			MarshalRow: func(node *widget.Node[ms.NtApi]) (cells []widget.CellData) {
 				KernelBase := fmt.Sprintf("%016X", node.Data.KernelBase)
 				if node.Container() {
-					KernelBase = node.Sum(KernelBase)
+					KernelBase = node.Sum()
 				}
 				return []widget.CellData{
 					{Text: KernelBase},

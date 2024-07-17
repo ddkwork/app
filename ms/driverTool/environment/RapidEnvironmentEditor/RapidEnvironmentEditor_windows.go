@@ -33,7 +33,7 @@ func Layout() unison.Paneler {
 			ContextMenuItems: nil,
 			MarshalRow: func(node *widget.Node[EnvironmentEditor]) (cells []widget.CellData) {
 				if node.Container() {
-					node.Data.Key = node.Sum(node.Data.Key)
+					node.Data.Key = node.Sum()
 					node.Data.Value = ""
 				}
 				node.Data.IsValid = isValidPath(node.Data.Value)
@@ -49,8 +49,12 @@ func Layout() unison.Paneler {
 					{Text: node.Data.Type.String(), Disabled: enable},
 				}
 			},
-			UnmarshalRow:             nil,
-			SelectionChangedCallback: nil,
+			UnmarshalRow: func(node *widget.Node[EnvironmentEditor], values []string) {
+				mylog.Todo("unmarshal row")
+			},
+			SelectionChangedCallback: func(root *widget.Node[EnvironmentEditor]) {
+				mylog.Todo("selection changed callback")
+			},
 			SetRootRowsCallBack: func(root *widget.Node[EnvironmentEditor]) {
 				const EnvPath = `SYSTEM\CurrentControlSet\Control\Session Manager\Environment`
 				key := mylog.Check2(registry.OpenKey(registry.LOCAL_MACHINE, EnvPath, registry.ALL_ACCESS))

@@ -54,8 +54,12 @@ func (d *Godoc) Layout() unison.Paneler {
 					{Text: node.Data.Comment},
 				}
 			},
-			UnmarshalRow:             nil,
-			SelectionChangedCallback: nil,
+			UnmarshalRow: func(node *Node[Godoc], values []string) {
+				mylog.Todo("unmarshal row")
+			},
+			SelectionChangedCallback: func(root *Node[Godoc]) {
+				mylog.Todo("selection changed callback")
+			},
 			SetRootRowsCallBack: func(root *Node[Godoc]) {
 				mylog.Check(os.Chdir(d.libDir))
 				mylog.Check(filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
