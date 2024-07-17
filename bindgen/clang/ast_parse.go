@@ -222,7 +222,7 @@ func (n *NodeDecl) UnmarshalValue(rt *refTracker, data *fastjson.Value) (err err
 		mylog.Check(n.Type.UnmarshalValue(v))
 	}
 	rt.refs[n.ID] = append(rt.refs[n.ID], n)
-	//mylog.Trace(n.Kind, n.Name)
+	// mylog.Trace(n.Kind, n.Name)
 	return
 }
 

@@ -47,6 +47,7 @@ require (
 	github.com/google/cabbie v1.0.5 // indirect
 	github.com/google/glazier v0.0.0-20240520165816-35e21f94768f // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/gorpher/gowin32 v0.0.11 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect

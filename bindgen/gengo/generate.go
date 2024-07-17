@@ -496,7 +496,7 @@ func (mod Module) EmitFunction(n *clang.FunctionDecl) {
 	for _, p := range paramNodes {
 		arg := mod.Parent.NameArg(p.Name, p.Type.QualType, n.Name)
 		if arg == "" {
-			//arg = "arg"
+			// arg = "arg"
 			mylog.Warning("unnamed argument in function", n.Name)
 		}
 		typ.Params.List = append(typ.Params.List, &dst.Field{
@@ -654,7 +654,7 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 		qualType = strings.TrimSpace(qualType)
 		qualType = strings.TrimPrefix(qualType, "struct")
 		qualType = strings.TrimSpace(qualType)
-		//ZydisDecodedInstructionRawEvex │ struct ZydisDecodedInstructionRawEvex
+		// ZydisDecodedInstructionRawEvex │ struct ZydisDecodedInstructionRawEvex
 		if qualType == td.Name {
 			mylog.Warning(td.Name, qualType)
 			return true
@@ -690,14 +690,14 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 			// 0x1234
 			&dst.BasicLit{
 				Kind: token.INT,
-				//Value: fmt.Sprintf("0x%x", v.size),
+				// Value: fmt.Sprintf("0x%x", v.size),
 				Value: fmt.Sprintf("%d", v.size),
 			},
 			// 0x1234
 			&dst.BasicLit{
 				Kind:  token.INT,
 				Value: fmt.Sprintf("%d", v.align),
-				//Value: fmt.Sprintf("0x%x", v.align),
+				// Value: fmt.Sprintf("0x%x", v.align),
 			},
 		}
 		args = append(args, v.fields...)

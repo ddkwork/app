@@ -2,8 +2,9 @@ package bindlib
 
 import (
 	"fmt"
-	"github.com/ddkwork/golibrary/mylog"
 	"reflect"
+
+	"github.com/ddkwork/golibrary/mylog"
 )
 
 func Validate(ptrToStruct any, size, align uintptr, fields ...any) {
