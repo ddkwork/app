@@ -8,7 +8,10 @@ import (
 )
 
 func ExtractIcon2Png(filename string) []byte {
-	img := mylog.Check2(gowin32.ExtractPrivateExtractIcons(filename, 128, 128))
+	img, e := gowin32.ExtractPrivateExtractIcons(filename, 128, 128)
+	if e != nil {
+		return nil
+	}
 	b := new(bytes.Buffer)
 	mylog.Check(png.Encode(b, img))
 	return b.Bytes()
