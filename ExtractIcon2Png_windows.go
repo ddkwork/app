@@ -2,9 +2,10 @@ package app
 
 import (
 	"bytes"
+	"image/png"
+
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/gorpher/gowin32"
-	"image/png"
 )
 
 func ExtractIcon2Png(filename string) []byte {
