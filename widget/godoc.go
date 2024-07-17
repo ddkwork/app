@@ -45,7 +45,7 @@ func (d *Godoc) Layout() unison.Paneler {
 			ContextMenuItems: nil,
 			MarshalRow: func(node *Node[Godoc]) (cells []CellData) {
 				if node.Container() {
-					node.Data.Path = node.Sum(node.Data.Path)
+					node.Data.Path = node.Sum()
 				}
 				return []CellData{
 					{Text: node.Data.Path},
