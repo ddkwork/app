@@ -14,7 +14,7 @@ import (
 	"github.com/richardwilkes/unison"
 )
 
-//go:generate go build .
+//go:generate go build -x .
 //go:generate go install .
 
 // https://faststone-photo-resizer.en.lo4d.com/windows

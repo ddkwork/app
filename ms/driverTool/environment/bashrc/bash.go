@@ -21,7 +21,7 @@ type (
 
 func New() Interface { return &object{} }
 
-//go:generate  go build .
+//go:generate  go build -x .
 
 func main() {
 	e := New()
