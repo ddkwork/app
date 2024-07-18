@@ -11,7 +11,7 @@ import (
 )
 
 func TestRemoveComment(t *testing.T) {
-	filepath.Walk("C:\\Users\\Admin\\Desktop\\New", func(path string, info fs.FileInfo, err error) error {
+	filepath.Walk("D:\\fork\\HyperDbg", func(path string, info fs.FileInfo, err error) error {
 		ext := filepath.Ext(path)
 		switch ext {
 		case ".c", ".cpp", ".h":
@@ -26,5 +26,8 @@ func removeCommentsFromFile(filename string) {
 	b := stream.NewBuffer(filename)
 	re := regexp.MustCompile(`/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/|//.*`) // seems has a little bug
 	cppBody := re.ReplaceAllString(b.String(), "")
-	stream.WriteTruncate(filename, strings.ReplaceAll(cppBody, "\n{", "{"))
+	// re = regexp.MustCompile(`\n+`)
+	// cppBody = re.ReplaceAllString(cppBody, "")
+	stream.WriteTruncate(filename, strings.ReplaceAll(cppBody, `
+{`, "{"))
 }
