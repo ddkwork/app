@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-// 定义回调函数类型
+// define callback function pointer
 typedef void (*FileDropCallbackFunc)(char** files, int fileCount);
 
-// 全局变量存储回调函数
+// export callback function pointer
 FileDropCallbackFunc dragHandler = NULL;
 
-// 设置回调函数
+// export function to set callback function
 void SetFileDropCallback(FileDropCallbackFunc fn) {
     dragHandler = fn;
 }
 
-// 调用回调函数
+// set log buffer in cmd function
 void TriggerCallback(char** files, int fileCount) {
     if (dragHandler != NULL) {
         dragHandler(files, fileCount);
