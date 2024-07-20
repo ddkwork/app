@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.0-20240719101804-bb9b0b79db5f
+	github.com/ddkwork/golibrary v0.0.0-20240720061207-4fbe64ed818c
 	github.com/ebitengine/purego v0.7.1
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
@@ -27,7 +27,7 @@ require (
 	github.com/zyantific/zydis-go v1.2.1
 	github.com/zzl/go-win32api/v2 v2.2.0
 	golang.org/x/arch v0.8.0
-	golang.org/x/exp v0.0.0-20240707233637-46b078467d37
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
 	golang.org/x/sys v0.22.0
 )
 
@@ -37,7 +37,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dc0d/caseconv v0.5.0 // indirect
-	github.com/dlclark/regexp2 v1.11.0 // indirect
+	github.com/dlclark/regexp2 v1.11.2 // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/go-enry/go-oniguruma v1.2.1 // indirect
