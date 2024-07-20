@@ -12,6 +12,11 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 )
 
+const (
+	COMMUNICATION_BUFFER_SIZE     = 256
+	TCP_END_OF_BUFFER_CHARS_COUNT = 4
+)
+
 func TestDemoDll(t *testing.T) {
 	pkg := gengo.NewPackage("callback")
 	path := "src/callback.h"
@@ -26,7 +31,7 @@ func TestDemoDll(t *testing.T) {
 		if msg == nil {
 			println("msg is nil,callback not be called")
 		}
-		goData := (*[260]byte)(unsafe.Pointer(&msg))
+		goData := (*[COMMUNICATION_BUFFER_SIZE + TCP_END_OF_BUFFER_CHARS_COUNT]byte)(unsafe.Pointer(msg))
 		fmt.Println("Received data:", string(goData[:]))
 		//assert.Equal(t, "TempMessage log callback buf test", string(goData[:]))
 	}

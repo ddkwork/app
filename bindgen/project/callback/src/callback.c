@@ -19,7 +19,7 @@ __declspec(dllexport) VOID SetTextMessageCallback(PVOID Handler) {
 __declspec(dllexport) VOID ShowMessages(const char *Fmt, ...) {
     char TempMessage[COMMUNICATION_BUFFER_SIZE + TCP_END_OF_BUFFER_CHARS_COUNT] = {0};
     memset(TempMessage, 0, COMMUNICATION_BUFFER_SIZE + TCP_END_OF_BUFFER_CHARS_COUNT);
-    memcpy(TempMessage, "log callback buf test", strlen("log callback buf test"));
+    strcpy(TempMessage, "log callback buf test");
     printf("TempMessage %s\n", TempMessage);
     ((SendMessageWithParamCallback) g_MessageHandler)(TempMessage);
 }
