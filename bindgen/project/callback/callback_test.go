@@ -2,6 +2,7 @@ package callback
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 	"unsafe"
@@ -29,6 +30,7 @@ func TestDemoDll(t *testing.T) {
 		}
 		goData := (*[260]byte)(unsafe.Pointer(&msg))
 		fmt.Println("Received data:", string(goData[:]))
+		assert.Equal(t, "TempMessage log callback buf test", string(goData[:]))
 	}
 	SetTextMessageCallback(unsafe.Pointer(reflect.ValueOf(pfn).Pointer()))
 	ShowMessages(nil)
