@@ -7,7 +7,6 @@
 
 typedef int (*SendMessageWithParamCallback)(const char *Text);
 
-
 PVOID g_MessageHandler = NULL;
 
 __declspec(dllexport) VOID SetTextMessageCallback(PVOID Handler) {
