@@ -21,7 +21,6 @@ func TestDemoDll(t *testing.T) {
 	}),
 	)
 	mylog.Check(pkg.WriteToDir("."))
-	//Hello()
 
 	pfn := func(msg *byte) {
 		if msg == nil {
