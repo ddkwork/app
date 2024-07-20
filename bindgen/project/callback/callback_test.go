@@ -24,7 +24,6 @@ func TestDemoDll(t *testing.T) {
 
 	pfn := func(msg *byte) {
 		fmt.Println("Received data:", BytePointerToString(msg))
-		//assert.Equal(t, "log callback buf test", BytePointerToString(msg))
 	}
 	SetTextMessageCallback(unsafe.Pointer(reflect.ValueOf(pfn).Pointer()))
 	ShowMessages(nil)
