@@ -18,7 +18,6 @@ type solib struct {
 
 func (w solib) Lookup(name string) uintptr {
 	addr := mylog.Check2(purego.Dlsym(w.Handle, name))
-
 	return addr
 }
 

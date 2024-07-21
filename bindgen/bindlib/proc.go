@@ -37,7 +37,7 @@ func (lp *Proc) Addr() uintptr {
 
 func CCall0(proc uintptr) uintptr {
 	r1, _, _ := syscall.SyscallN(proc)
-	return uintptr(r1)
+	return r1
 }
 
 func CCall1(proc uintptr, a uintptr) uintptr {
