@@ -2,8 +2,8 @@ package bindlib
 
 import (
 	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ebitengine/purego"
 	"sync/atomic"
-	"syscall"
 )
 
 const INVALID_PROC = ^uintptr(0)
@@ -36,67 +36,67 @@ func (lp *Proc) Addr() uintptr {
 }
 
 func CCall0(proc uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc)
+	r1, _, _ := purego.SyscallN(proc)
 	return r1
 }
 
 func CCall1(proc uintptr, a uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a)
+	r1, _, _ := purego.SyscallN(proc, a)
 	return r1
 }
 
 func CCall2(proc uintptr, a, b uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b)
+	r1, _, _ := purego.SyscallN(proc, a, b)
 	return r1
 }
 
 func CCall3(proc uintptr, a, b, c uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c)
+	r1, _, _ := purego.SyscallN(proc, a, b, c)
 	return r1
 }
 
 func CCall4(proc uintptr, a, b, c, d uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c)
+	r1, _, _ := purego.SyscallN(proc, a, b, c)
 	return r1
 }
 
 func CCall5(proc uintptr, a, b, c, d, e uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e)
 	return r1
 }
 
 func CCall6(proc uintptr, a, b, c, d, e, f uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e)
 	return r1
 }
 
 func CCall7(proc uintptr, a, b, c, d, e, f, g uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g)
 	return r1
 }
 
 func CCall8(proc uintptr, a, b, c, d, e, f, g, h uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g, h)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g, h)
 	return r1
 }
 
 func CCall9(proc uintptr, a, b, c, d, e, f, g, h, i uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g, h, i)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g, h, i)
 	return r1
 }
 
 func CCall10(proc uintptr, a, b, c, d, e, f, g, h, i, j uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g, h, i)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g, h, i)
 	return r1
 }
 
 func CCall11(proc uintptr, a, b, c, d, e, f, g, h, i, j, k uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g, h, i)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g, h, i)
 	return r1
 }
 
 func CCall12(proc uintptr, a, b, c, d, e, f, g, h, i, j, k, l uintptr) uintptr {
-	r1, _, _ := syscall.SyscallN(proc, a, b, c, d, e, f, g, h, i, j, k, l)
+	r1, _, _ := purego.SyscallN(proc, a, b, c, d, e, f, g, h, i, j, k, l)
 	return r1
 }
 
