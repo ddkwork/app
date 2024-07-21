@@ -2,6 +2,7 @@ package bindlib
 
 import (
 	"sync/atomic"
+	"syscall"
 
 	"github.com/ddkwork/golibrary/mylog"
 )
@@ -41,9 +42,13 @@ func (lp *Proc) Addr() uintptr {
 //go:nosplit
 func CCall0(proc uintptr) uintptr
 
-//go:uintptrescapes
-//go:nosplit
-func CCall1(proc uintptr, a uintptr) uintptr
+////go:uintptrescapes
+////go:nosplit
+
+func CCall1(proc uintptr, a uintptr) uintptr {
+	r1, _, _ := syscall.SyscallN(proc, a)
+	return r1
+}
 
 //go:uintptrescapes
 //go:nosplit

@@ -20,11 +20,13 @@
 TEXT ·CCall0(SB),CDECL,$0
    INVOKE_BEG(0)
    INVOKE_FIN(0)
+
 // func CCall1(proc uintptr, a uintptr) uintptr
-TEXT ·CCall1(SB),CDECL,$0
+TEXT ·CCall11111111111111(SB),CDECL,$0
    INVOKE_BEG(1)
    MOVQ 1*8(AX), CX
    INVOKE_FIN(1)
+
 // func CCall2(proc uintptr, a, b uintptr) uintptr
 TEXT ·CCall2(SB),CDECL,$0
    INVOKE_BEG(2)
