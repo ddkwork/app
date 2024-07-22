@@ -6,12 +6,13 @@ require (
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.0-20240720085141-1b713cf9e19e
+	github.com/ddkwork/golibrary v0.0.0-20240720085616-a8fa39506c43
 	github.com/ebitengine/purego v0.8.0-alpha.3.0.20240717153933-b9dbbd0c9d2c
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
 	github.com/goplus/gogen v1.15.2
 	github.com/goplus/mod v0.13.10
+	github.com/gorpher/gowin32 v0.0.11
 	github.com/hashicorp/go-version v1.7.0
 	github.com/iamacarpet/go-win64api v0.0.0-20240507095429-873e84e85847
 	github.com/intel-go/cpuid v0.0.0-20220614022739-219e067757cb
@@ -25,9 +26,9 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/valyala/fastjson v1.6.4
 	github.com/zyantific/zydis-go v1.2.1
-	github.com/zzl/go-win32api/v2 v2.2.0
 	golang.org/x/arch v0.8.0
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
+	golang.org/x/sync v0.7.0
 	golang.org/x/sys v0.22.0
 )
 
@@ -41,13 +42,10 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/go-enry/go-oniguruma v1.2.1 // indirect
-	github.com/go-gl/gl v0.0.0-20231021071112-07e5d0ea2e71 // indirect
-	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20240506104042-037f3cc74f2a // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/google/cabbie v1.0.5 // indirect
 	github.com/google/glazier v0.0.0-20240520165816-35e21f94768f // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/gorpher/gowin32 v0.0.11 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
@@ -56,7 +54,7 @@ require (
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/richardwilkes/json v0.2.0 // indirect
+	github.com/richardwilkes/json v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/scjalliance/comshim v0.0.0-20231116235529-bbacf79a4691 // indirect
 	github.com/secDre4mer/pkcs7 v0.0.0-20240322103146-665324a4461d // indirect
@@ -66,8 +64,7 @@ require (
 	github.com/yuin/goldmark v1.7.4 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mod v0.19.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/term v0.21.0 // indirect
+	golang.org/x/term v0.22.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/tools v0.23.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
