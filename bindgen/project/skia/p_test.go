@@ -11,18 +11,26 @@ import (
 )
 
 func TestMergeHeader(t *testing.T) {
-	b := stream.NewBuffer("c/sk_types.h")
+	b := stream.NewBuffer("//c/sk_types.h")
+	b.NewLine()
+	b.WriteStringLn(stream.NewBuffer("c/sk_types.h").String())
+
 	filepath.Walk("c", func(path string, info fs.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
 		if filepath.Base(path) != "sk_types.h" {
+			b.WriteStringLn("//" + path)
 			b.WriteStringLn(stream.NewBuffer(path).String())
 		}
 		return nil
 	})
+	b.ReplaceAll(`#include "include/c/sk_types.h"`, ``)
 	stream.WriteTruncate("skia.h", b.Bytes())
 }
 
 func TestBindSkia(t *testing.T) {
-	//TestMergeHeader(t)
+	TestMergeHeader(t)
 	pkg := gengo.NewPackage("skia")
 	path := "skia.h"
 	mylog.Check(pkg.Transform("skia", &clang.Options{

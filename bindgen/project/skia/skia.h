@@ -1,3 +1,4 @@
+//c/sk_types.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -10,8 +11,8 @@
 #ifndef sk_types_DEFINED
 #define sk_types_DEFINED
 
-//#include <stdint.h>
-//#include <stddef.h>
+#include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
     #define SK_C_PLUS_PLUS_BEGIN_GUARD    extern "C" {
@@ -1117,7 +1118,8 @@ typedef struct skresources_resource_provider_t skresources_resource_provider_t;
 SK_C_PLUS_PLUS_END_GUARD
 
 #endif
-c
+
+//c\gr_context.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1130,7 +1132,7 @@ c
 #ifndef gr_context_DEFINED
 #define gr_context_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1228,6 +1230,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_bitmap.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1240,7 +1243,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_bitmap_DEFINED
 #define sk_bitmap_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1279,6 +1282,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_blender.h
 /*
  * Copyright 2024 Microsoft Corporation. All rights reserved.
  *
@@ -1289,7 +1293,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_blender_DEFINED
 #define sk_blender_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1302,6 +1306,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_canvas.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1314,7 +1319,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_canvas_DEFINED
 #define sk_canvas_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1392,6 +1397,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_codec.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1404,7 +1410,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_codec_DEFINED
 #define sk_codec_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1436,6 +1442,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_colorfilter.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1448,7 +1455,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_colorfilter_DEFINED
 #define sk_colorfilter_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1466,6 +1473,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_colorspace.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1478,7 +1486,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_colorspace_DEFINED
 #define sk_colorspace_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1544,6 +1552,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_data.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1556,7 +1565,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_data_DEFINED
 #define sk_data_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1577,6 +1586,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_document.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1589,7 +1599,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_document_DEFINED
 #define sk_document_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1609,6 +1619,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_drawable.h
 /*
  * Copyright 2015 Xamarin Inc.
  * Copyright 2017 Microsoft Corporation. All rights reserved.
@@ -1620,7 +1631,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_drawable_DEFINED
 #define sk_drawable_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1638,6 +1649,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_font.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1650,7 +1662,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_font_DEFINED
 #define sk_font_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1707,6 +1719,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_general.h
 /*
  * Copyright 2019 Microsoft Corporation. All rights reserved.
  *
@@ -1717,7 +1730,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_general_DEFINED
 #define sk_general_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1747,6 +1760,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_graphics.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1759,7 +1773,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_graphics_DEFINED
 #define sk_graphics_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1793,6 +1807,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_image.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1805,7 +1820,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_image_DEFINED
 #define sk_image_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1849,6 +1864,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_imagefilter.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1861,7 +1877,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_imagefilter_DEFINED
 #define sk_imagefilter_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1904,6 +1920,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_linker.h
 /*
  * Copyright 2024 Microsoft Corporation. All rights reserved.
  *
@@ -1914,7 +1931,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_linker_DEFINED
 #define sk_linker_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1924,6 +1941,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_maskfilter.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1936,7 +1954,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_maskfilter_DEFINED
 #define sk_maskfilter_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1953,6 +1971,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_matrix.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1965,7 +1984,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_matrix_DEFINED
 #define sk_matrix_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -1984,6 +2003,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_paint.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -1996,7 +2016,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_paint_DEFINED
 #define sk_paint_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2042,6 +2062,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_path.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2054,7 +2075,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_path_DEFINED
 #define sk_path_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2157,6 +2178,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_patheffect.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2169,7 +2191,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_patheffect_DEFINED
 #define sk_patheffect_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2188,6 +2210,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_picture.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2200,7 +2223,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_picture_DEFINED
 #define sk_picture_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2239,6 +2262,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_pixmap.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2251,7 +2275,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_pixmap_DEFINED
 #define sk_pixmap_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2300,6 +2324,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_region.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2313,7 +2338,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_region_DEFINED
 #define sk_region_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2370,6 +2395,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_rrect.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2016 Xamarin Inc.
@@ -2382,7 +2408,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_rrect_DEFINED
 #define sk_rrect_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2411,6 +2437,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_runtimeeffect.h
 /*
  * Copyright 2020 Microsoft Corporation. All rights reserved.
  *
@@ -2421,7 +2448,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_runtimeeffect_DEFINED
 #define sk_runtimeeffect_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2448,6 +2475,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_shader.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2460,7 +2488,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_shader_DEFINED
 #define sk_shader_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2499,6 +2527,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_stream.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2511,7 +2540,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_stream_DEFINED
 #define sk_stream_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2594,6 +2623,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_string.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2606,7 +2636,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_string_DEFINED
 #define sk_string_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2620,6 +2650,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_surface.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2632,7 +2663,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_surface_DEFINED
 #define sk_surface_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2672,6 +2703,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_svg.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2684,7 +2716,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_svg_DEFINED
 #define sk_svg_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2694,6 +2726,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_textblob.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2706,7 +2739,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_textblob_DEFINED
 #define sk_textblob_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2736,6 +2769,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_typeface.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2748,7 +2782,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_typeface_DEFINED
 #define sk_typeface_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2817,6 +2851,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sk_vertices.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2829,7 +2864,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sk_vertices_DEFINED
 #define sk_vertices_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2841,6 +2876,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\skottie_animation.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2853,7 +2889,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef skottie_DEFINED
 #define skottie_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2908,6 +2944,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\skresources_resource_provider.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2920,7 +2957,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef skresources_resource_provider_DEFINED
 #define skresources_resource_provider_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 
@@ -2941,6 +2978,7 @@ SK_C_PLUS_PLUS_END_GUARD
 
 #endif
 
+//c\sksg_invalidation_controller.h
 /*
  * Copyright 2014 Google Inc.
  * Copyright 2015 Xamarin Inc.
@@ -2953,7 +2991,7 @@ SK_C_PLUS_PLUS_END_GUARD
 #ifndef sksg_invalidationcontroller_DEFINED
 #define sksg_invalidationcontroller_DEFINED
 
-#include "include/c/sk_types.h"
+
 
 SK_C_PLUS_PLUS_BEGIN_GUARD
 

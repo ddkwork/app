@@ -565,29 +565,43 @@ const (
 	PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 2
 )
 
+type _CrtLocaleDataPublic struct {
+	_LocalePctype     *uint16
+	_LocaleMbCurMax   int32
+	_LocaleLcCodepage uint32
+}
+type _CrtLocalePointers struct {
+	Locinfo unsafe.Pointer
+	Mbcinfo unsafe.Pointer
+}
+type _Mbstatet struct {
+	_Wchar uint64
+	_Byte  uint16
+	_State uint16
+}
 type SkColor4fT struct {
 	fR float32
 	fG float32
 	fB float32
 	fA float32
 }
-type Anon149_9 struct {
+type Anon150_9 struct {
 	X float32
 	Y float32
 }
-type Anon156_9 struct {
+type Anon157_9 struct {
 	Left   int32
 	Top    int32
 	Right  int32
 	Bottom int32
 }
-type Anon163_9 struct {
+type Anon164_9 struct {
 	Left   float32
 	Top    float32
 	Right  float32
 	Bottom float32
 }
-type Anon170_9 struct {
+type Anon171_9 struct {
 	scaleX float32
 	skewX  float32
 	transX float32
@@ -598,7 +612,7 @@ type Anon170_9 struct {
 	Persp1 float32
 	Persp2 float32
 }
-type Anon177_9 struct {
+type Anon178_9 struct {
 	M00 float32
 	M01 float32
 	M02 float32
@@ -616,25 +630,25 @@ type Anon177_9 struct {
 	M32 float32
 	M33 float32
 }
-type Anon310_9 struct {
+type Anon311_9 struct {
 	X float32
 	Y float32
 	Z float32
 }
-type Anon316_9 struct {
+type Anon317_9 struct {
 	X int32
 	Y int32
 }
-type Anon321_9 struct {
+type Anon322_9 struct {
 	W float32
 	H float32
 }
-type Anon326_9 struct {
+type Anon327_9 struct {
 	W int32
 	H int32
 }
-type Anon331_9 struct {
-	fFlags              int32
+type Anon332_9 struct {
+	fFlags              uint32
 	fTop                float32
 	fAscent             float32
 	fDescent            float32
@@ -651,13 +665,13 @@ type Anon331_9 struct {
 	fStrikeoutThickness float32
 	fStrikeoutPosition  float32
 }
-type Anon509_9 struct {
+type Anon510_9 struct {
 	fZeroInitialized SkCodecZeroInitializedT
-	fSubset          *SkIrectT
+	fSubset          unsafe.Pointer
 	fFrameIndex      int32
 	fPriorFrame      int32
 }
-type Anon622_9 struct {
+type Anon623_9 struct {
 	fAvoidStencilBuffers           bool
 	fRuntimeProgramCacheSize       int32
 	fGlyphCacheTextureMaximumBytes uint
@@ -665,29 +679,29 @@ type Anon622_9 struct {
 	fDoManualMipmapping            bool
 	fBufferMapThreshold            int32
 }
-type Anon654_9 struct {
+type Anon655_9 struct {
 	fTarget    uint32
 	fID        uint32
 	fFormat    uint32
 	fProtected bool
 }
-type Anon661_9 struct {
+type Anon662_9 struct {
 	fFBOID     uint32
 	fFormat    uint32
 	fProtected bool
 }
-type Anon681_9 struct {
+type Anon682_9 struct {
 	fInstance              unsafe.Pointer
 	fPhysicalDevice        unsafe.Pointer
 	fDevice                unsafe.Pointer
 	fQueue                 unsafe.Pointer
-	fGraphicsQueueIndex    int32
-	fMinAPIVersion         int32
-	fInstanceVersion       int32
-	fMaxAPIVersion         int32
-	fExtensions            int32
+	fGraphicsQueueIndex    uint32
+	fMinAPIVersion         uint32
+	fInstanceVersion       uint32
+	fMaxAPIVersion         uint32
+	fExtensions            uint32
 	fVkExtensions          unsafe.Pointer
-	fFeatures              int32
+	fFeatures              uint32
 	fDeviceFeatures        unsafe.Pointer
 	fDeviceFeatures2       unsafe.Pointer
 	fMemoryAllocator       unsafe.Pointer
@@ -696,82 +710,82 @@ type Anon681_9 struct {
 	fOwnsInstanceAndDevice bool
 	fProtectedContext      bool
 }
-type Anon704_9 struct {
-	fMemory                  int32
-	fOffset                  int32
-	fSize                    int32
-	fFlags                   int32
+type Anon705_9 struct {
+	fMemory                  uint64
+	fOffset                  uint64
+	fSize                    uint64
+	fFlags                   uint32
 	fBackendMemory           GrVkBackendmemoryT
 	_private_fUsesSystemHeap bool
 }
-type Anon713_9 struct {
-	fFormat                      int32
-	fExternalFormat              int32
-	fYcbcrModel                  int32
-	fYcbcrRange                  int32
-	fXChromaOffset               int32
-	fYChromaOffset               int32
-	fChromaFilter                int32
-	fForceExplicitReconstruction int32
-	fFormatFeatures              int32
+type Anon714_9 struct {
+	fFormat                      uint32
+	fExternalFormat              uint64
+	fYcbcrModel                  uint32
+	fYcbcrRange                  uint32
+	fXChromaOffset               uint32
+	fYChromaOffset               uint32
+	fChromaFilter                uint32
+	fForceExplicitReconstruction uint32
+	fFormatFeatures              uint32
 }
-type Anon725_9 struct {
-	fImage               int32
-	fAlloc               Anon704_9
-	fImageTiling         int32
-	fImageLayout         int32
-	fFormat              int32
-	fImageUsageFlags     int32
-	fSampleCount         int32
-	fLevelCount          int32
-	fCurrentQueueFamily  int32
+type Anon726_9 struct {
+	fImage               uint64
+	fAlloc               any
+	fImageTiling         uint32
+	fImageLayout         uint32
+	fFormat              uint32
+	fImageUsageFlags     uint32
+	fSampleCount         uint32
+	fLevelCount          uint32
+	fCurrentQueueFamily  uint32
 	fProtected           bool
-	fYcbcrConversionInfo Anon713_9
-	fSharingMode         int32
+	fYcbcrConversionInfo any
+	fSharingMode         uint32
 }
-type Anon747_9 struct {
+type Anon748_9 struct {
 	fTexture unsafe.Pointer
 }
-type Anon767_9 struct {
+type Anon768_9 struct {
 	fXDivs     *int32
 	fYDivs     *int32
 	fRectTypes *SkLatticeRecttypeT
 	fXCount    int32
 	fYCount    int32
-	fBounds    *SkIrectT
+	fBounds    unsafe.Pointer
 	fColors    *SkColorT
 }
-type Anon806_9 struct {
-	fTimeZoneMinutes int32
-	fYear            int32
-	fMonth           int32
-	fDayOfWeek       int32
-	fDay             int32
-	fHour            int32
-	fMinute          int32
-	fSecond          int32
+type Anon807_9 struct {
+	fTimeZoneMinutes int16
+	fYear            uint16
+	fMonth           uint8
+	fDayOfWeek       uint8
+	fDay             uint8
+	fHour            uint8
+	fMinute          uint8
+	fSecond          uint8
 }
-type Anon817_9 struct {
+type Anon818_9 struct {
 	fTitle           unsafe.Pointer
 	fAuthor          unsafe.Pointer
 	fSubject         unsafe.Pointer
 	fKeywords        unsafe.Pointer
 	fCreator         unsafe.Pointer
 	fProducer        unsafe.Pointer
-	fCreation        *SkTimeDatetimeT
-	fModified        *SkTimeDatetimeT
+	fCreation        unsafe.Pointer
+	fModified        unsafe.Pointer
 	fRasterDPI       float32
 	fPDFA            bool
 	fEncodingQuality int32
 }
-type Anon831_9 struct {
+type Anon832_9 struct {
 	Colorspace unsafe.Pointer
 	Width      int32
 	Height     int32
 	colorType  SkColortypeT
 	alphaType  SkAlphatypeT
 }
-type Anon850_9 struct {
+type Anon851_9 struct {
 	fRequiredFrame        int32
 	fDuration             int32
 	fFullyReceived        bool
@@ -779,7 +793,7 @@ type Anon850_9 struct {
 	fHasAlphaWithinBounds bool
 	fDisposalMethod       SkCodecanimationDisposalmethodT
 	fBlend                SkCodecanimationBlendT
-	fFrameRect            Anon156_9
+	fFrameRect            any
 }
 type SkColorspaceTransferFnT struct {
 	fG float32
@@ -811,19 +825,19 @@ type SkColorspaceXyzT struct {
 	fM21 float32
 	fM22 float32
 }
-type Anon912_9 struct {
+type Anon913_9 struct {
 	fGrayscale   bool
 	fInvertStyle SkHighcontrastconfigInvertstyleT
 	fContrast    float32
 }
-type Anon932_9 struct {
+type Anon933_9 struct {
 	fFilterFlags           SkPngencoderFilterflagsT
 	fZLibLevel             int32
 	fComments              unsafe.Pointer
 	fICCProfile            unsafe.Pointer
 	fICCProfileDescription *byte
 }
-type Anon951_9 struct {
+type Anon952_9 struct {
 	fQuality               int32
 	fDownsample            SkJpegencoderDownsampleT
 	fAlphaOption           SkJpegencoderAlphaoptionT
@@ -831,25 +845,25 @@ type Anon951_9 struct {
 	fICCProfile            unsafe.Pointer
 	fICCProfileDescription *byte
 }
-type Anon965_9 struct {
+type Anon966_9 struct {
 	fCompression           SkWebpencoderCompressionT
 	fQuality               float32
 	fICCProfile            unsafe.Pointer
 	fICCProfileDescription *byte
 }
-type Anon993_9 struct {
+type Anon994_9 struct {
 	Glyphs   unsafe.Pointer
 	Pos      unsafe.Pointer
 	Utf8text unsafe.Pointer
 	Clusters unsafe.Pointer
 }
-type Anon1000_9 struct {
+type Anon1001_9 struct {
 	fSCos float32
 	fSSin float32
 	fTX   float32
 	fTY   float32
 }
-type Anon1040_9 struct {
+type Anon1041_9 struct {
 	fName       *byte
 	fNameLength uint
 	fOffset     uint
@@ -857,24 +871,24 @@ type Anon1040_9 struct {
 	fCount      int32
 	fFlags      SkRuntimeeffectUniformFlagsT
 }
-type Anon1049_9 struct {
+type Anon1050_9 struct {
 	fName       *byte
 	fNameLength uint
 	fType       SkRuntimeeffectChildTypeT
 	fIndex      int32
 }
-type Anon1067_9 struct {
+type Anon1068_9 struct {
 	fB float32
 	fC float32
 }
-type Anon1072_9 struct {
+type Anon1073_9 struct {
 	fMaxAniso int32
 	fUseCubic bool
 	fCubic    any
 	fFilter   SkFilterModeT
 	fMipmap   SkMipmapModeT
 }
-type Anon1103_9 struct {
+type Anon1104_9 struct {
 	fTotalLoadTimeMS  float32
 	fJsonParseTimeMS  float32
 	fSceneParseTimeMS float32
@@ -887,19 +901,57 @@ type __NSConstantString = any
 type SizeT = uint64
 type _BuiltinMsVaList = *byte
 type _BuiltinVaList = *byte
-type SkColorT = int32
-type SkPmcolorT = int32
+type UintptrT = uint64
+type VaList = *byte
+type SizeT = uint64
+type PtrdiffT = int64
+type IntptrT = int64
+type _VcrtBool = bool
+type WcharT = uint16
+type Int8T = int8
+type Int16T = int16
+type Int32T = int32
+type Int64T = int64
+type Uint8T = uint8
+type Uint16T = uint16
+type Uint32T = uint32
+type Uint64T = uint64
+type IntLeast8T = int8
+type IntLeast16T = int16
+type IntLeast32T = int32
+type IntLeast64T = int64
+type UintLeast8T = uint8
+type UintLeast16T = uint16
+type UintLeast32T = uint32
+type UintLeast64T = uint64
+type IntFast8T = int8
+type IntFast16T = int32
+type IntFast32T = int32
+type IntFast64T = int64
+type UintFast8T = uint8
+type UintFast16T = uint32
+type UintFast32T = uint32
+type UintFast64T = uint64
+type IntmaxT = int64
+type UintmaxT = uint64
+type _CrtBool = bool
+type ErrnoT = int32
+type WintT = uint16
+type WctypeT = uint16
+type _Time32T = int64
+type TimeT = int64
+type _LocaleT = unsafe.Pointer
+type MbstateT = any
+type RsizeT = uint
+type SkColorT = uint32
+type SkPmcolorT = uint32
 type SkColortypeT = any
 type SkAlphatypeT = any
 type SkPixelgeometryT = any
 type SkSurfacepropsFlagsT = any
 type SkVectorT = any
-type SkIrectT = Anon156_9
 type SkBlendmodeT = any
-type SkIpointT = Anon316_9
-type SkIsizeT = Anon326_9
-type SkFontmetricsT = Anon331_9
-type SkFontTableTagT = int32
+type SkFontTableTagT = uint32
 type SkPointModeT = any
 type SkTextAlignT = any
 type SkTextEncodingT = any
@@ -932,18 +984,14 @@ type SkPaintStyleT = any
 type SkFontHintingT = any
 type SkFontEdgingT = any
 type GrSurfaceoriginT = any
-type GrBackendobjectT = int32
+type GrBackendobjectT = int
 type GrBackendT = any
-type GrBackendcontextT = int32
+type GrBackendcontextT = int
 type GrGlFuncPtr = unsafe.Pointer
 type GrGlGetProc = unsafe.Pointer
 type GrVkFuncPtr = unsafe.Pointer
 type GrVkGetProc = unsafe.Pointer
-type GrVkBackendcontextT = Anon681_9
-type GrVkBackendmemoryT = int32
-type GrVkAllocT = Anon704_9
-type GrVkYcbcrconversioninfoT = Anon713_9
-type GrVkImageinfoT = Anon725_9
+type GrVkBackendmemoryT = int
 type SkPathopT = any
 type SkLatticeRecttypeT = any
 type SkPathmeasureMatrixflagsT = any
@@ -955,11 +1003,8 @@ type SkSurfaceRasterReleaseProc = unsafe.Pointer
 type SkGlyphPathProc = unsafe.Pointer
 type SkImageCachingHintT = any
 type SkBitmapAllocflagsT = any
-type SkTimeDatetimeT = Anon806_9
-type SkImageinfoT = Anon831_9
 type SkCodecanimationDisposalmethodT = any
 type SkCodecanimationBlendT = any
-type SkCodecFrameinfoT = Anon850_9
 type SkVerticesVertexModeT = any
 type SkHighcontrastconfigInvertstyleT = any
 type SkPngencoderFilterflagsT = any
@@ -976,10 +1021,23 @@ type SkMipmapModeT = any
 type SkottieAnimationRenderflagsT = any
 type SkottieAnimationBuilderFlagsT = any
 
-var __imp_gr_recording_context_unref bindlib.PreloadProc
+var __imp___va_start bindlib.PreloadProc
 
 //  Gengo init function.
 func init() {
+	__imp___va_start = GengoLibrary.ImportNow("__va_start")
+	__imp___va_start = GengoLibrary.ImportNow("__va_start")
+	__imp___security_init_cookie = GengoLibrary.ImportNow("__security_init_cookie")
+	__imp___security_check_cookie = GengoLibrary.ImportNow("__security_check_cookie")
+	__imp___report_gsfailure = GengoLibrary.ImportNow("__report_gsfailure")
+	__imp__invalid_parameter_noinfo = GengoLibrary.ImportNow("_invalid_parameter_noinfo")
+	__imp__invalid_parameter_noinfo_noreturn = GengoLibrary.ImportNow("_invalid_parameter_noinfo_noreturn")
+	__imp__invoke_watson = GengoLibrary.ImportNow("_invoke_watson")
+	__imp__errno = GengoLibrary.ImportNow("_errno")
+	__imp__set_errno = GengoLibrary.ImportNow("_set_errno")
+	__imp__get_errno = GengoLibrary.ImportNow("_get_errno")
+	__imp___threadid = GengoLibrary.ImportNow("__threadid")
+	__imp___threadhandle = GengoLibrary.ImportNow("__threadhandle")
 	__imp_gr_recording_context_unref = GengoLibrary.ImportNow("gr_recording_context_unref")
 	__imp_gr_recording_context_get_max_surface_sample_count_for_color_type = GengoLibrary.ImportNow("gr_recording_context_get_max_surface_sample_count_for_color_type")
 	__imp_gr_recording_context_get_backend = GengoLibrary.ImportNow("gr_recording_context_get_backend")
@@ -1864,49 +1922,126 @@ func init() {
 	__imp_sksg_invalidation_controller_begin = GengoLibrary.ImportNow("sksg_invalidation_controller_begin")
 	__imp_sksg_invalidation_controller_end = GengoLibrary.ImportNow("sksg_invalidation_controller_end")
 	__imp_sksg_invalidation_controller_reset = GengoLibrary.ImportNow("sksg_invalidation_controller_reset")
+	bindlib.Validate((*_CrtLocaleDataPublic)(nil), 16, 8, "_LocalePctype", 0, "_LocaleMbCurMax", 8, "_LocaleLcCodepage", 12)
+	bindlib.Validate((*_CrtLocalePointers)(nil), 16, 8, "Locinfo", 0, "Mbcinfo", 8)
+	bindlib.Validate((*_Mbstatet)(nil), 8, 4, "_Wchar", 0, "_Byte", 4, "_State", 6)
 	bindlib.Validate((*SkColor4fT)(nil), 16, 4, "fR", 0, "fG", 4, "fB", 8, "fA", 12)
-	bindlib.Validate((*Anon149_9)(nil), 8, 4, "X", 0, "Y", 4)
-	bindlib.Validate((*Anon156_9)(nil), 16, 4, "Left", 0, "Top", 4, "Right", 8, "Bottom", 12)
-	bindlib.Validate((*Anon163_9)(nil), 16, 4, "Left", 0, "Top", 4, "Right", 8, "Bottom", 12)
-	bindlib.Validate((*Anon170_9)(nil), 36, 4, "scaleX", 0, "skewX", 4, "transX", 8, "skewY", 12, "scaleY", 16, "transY", 20, "Persp0", 24, "Persp1", 28, "Persp2", 32)
-	bindlib.Validate((*Anon177_9)(nil), 64, 4, "M00", 0, "M01", 4, "M02", 8, "M03", 12, "M10", 16, "M11", 20, "M12", 24, "M13", 28, "M20", 32, "M21", 36, "M22", 40, "M23", 44, "M30", 48, "M31", 52, "M32", 56, "M33", 60)
-	bindlib.Validate((*Anon310_9)(nil), 12, 4, "X", 0, "Y", 4, "Z", 8)
-	bindlib.Validate((*Anon316_9)(nil), 8, 4, "X", 0, "Y", 4)
-	bindlib.Validate((*Anon321_9)(nil), 8, 4, "W", 0, "H", 4)
-	bindlib.Validate((*Anon326_9)(nil), 8, 4, "W", 0, "H", 4)
-	bindlib.Validate((*Anon331_9)(nil), 64, 4, "fFlags", 0, "fTop", 4, "fAscent", 8, "fDescent", 12, "fBottom", 16, "fLeading", 20, "fAvgCharWidth", 24, "fMaxCharWidth", 28, "fXMin", 32, "fXMax", 36, "fXHeight", 40, "fCapHeight", 44, "fUnderlineThickness", 48, "fUnderlinePosition", 52, "fStrikeoutThickness", 56, "fStrikeoutPosition", 60)
-	bindlib.Validate((*Anon509_9)(nil), 24, 8, "fZeroInitialized", 0, "fSubset", 8, "fFrameIndex", 16, "fPriorFrame", 20)
-	bindlib.Validate((*Anon622_9)(nil), 24, 8, "fAvoidStencilBuffers", 0, "fRuntimeProgramCacheSize", 4, "fGlyphCacheTextureMaximumBytes", 8, "fAllowPathMaskCaching", 16, "fDoManualMipmapping", 17, "fBufferMapThreshold", 20)
-	bindlib.Validate((*Anon654_9)(nil), 16, 4, "fTarget", 0, "fID", 4, "fFormat", 8, "fProtected", 12)
-	bindlib.Validate((*Anon661_9)(nil), 12, 4, "fFBOID", 0, "fFormat", 4, "fProtected", 8)
-	bindlib.Validate((*Anon681_9)(nil), 120, 8, "fInstance", 0, "fPhysicalDevice", 8, "fDevice", 16, "fQueue", 24, "fGraphicsQueueIndex", 32, "fMinAPIVersion", 36, "fInstanceVersion", 40, "fMaxAPIVersion", 44, "fExtensions", 48, "fVkExtensions", 56, "fFeatures", 64, "fDeviceFeatures", 72, "fDeviceFeatures2", 80, "fMemoryAllocator", 88, "fGetProc", 96, "fGetProcUserData", 104, "fOwnsInstanceAndDevice", 112, "fProtectedContext", 113)
-	bindlib.Validate((*Anon704_9)(nil), 24, 4, "fMemory", 0, "fOffset", 4, "fSize", 8, "fFlags", 12, "fBackendMemory", 16, "_private_fUsesSystemHeap", 20)
-	bindlib.Validate((*Anon713_9)(nil), 36, 4, "fFormat", 0, "fExternalFormat", 4, "fYcbcrModel", 8, "fYcbcrRange", 12, "fXChromaOffset", 16, "fYChromaOffset", 20, "fChromaFilter", 24, "fForceExplicitReconstruction", 28, "fFormatFeatures", 32)
-	bindlib.Validate((*Anon725_9)(nil), 44, 4, "fImage", 0, "fAlloc", 4, "fImageTiling", 8, "fImageLayout", 12, "fFormat", 16, "fImageUsageFlags", 20, "fSampleCount", 24, "fLevelCount", 28, "fCurrentQueueFamily", 32, "fProtected", 36, "fYcbcrConversionInfo", 37, "fSharingMode", 40)
-	bindlib.Validate((*Anon747_9)(nil), 8, 8, "fTexture", 0)
-	bindlib.Validate((*Anon767_9)(nil), 48, 8, "fXDivs", 0, "fYDivs", 8, "fRectTypes", 16, "fXCount", 24, "fYCount", 28, "fBounds", 32, "fColors", 40)
-	bindlib.Validate((*Anon806_9)(nil), 32, 4, "fTimeZoneMinutes", 0, "fYear", 4, "fMonth", 8, "fDayOfWeek", 12, "fDay", 16, "fHour", 20, "fMinute", 24, "fSecond", 28)
-	bindlib.Validate((*Anon817_9)(nil), 80, 8, "fTitle", 0, "fAuthor", 8, "fSubject", 16, "fKeywords", 24, "fCreator", 32, "fProducer", 40, "fCreation", 48, "fModified", 56, "fRasterDPI", 64, "fPDFA", 68, "fEncodingQuality", 72)
-	bindlib.Validate((*Anon831_9)(nil), 24, 8, "Colorspace", 0, "Width", 8, "Height", 12, "colorType", 16, "alphaType", 20)
-	bindlib.Validate((*Anon850_9)(nil), 32, 4, "fRequiredFrame", 0, "fDuration", 4, "fFullyReceived", 8, "fAlphaType", 12, "fHasAlphaWithinBounds", 16, "fDisposalMethod", 20, "fBlend", 24, "fFrameRect", 28)
+	bindlib.Validate((*Anon150_9)(nil), 8, 4, "X", 0, "Y", 4)
+	bindlib.Validate((*Anon157_9)(nil), 16, 4, "Left", 0, "Top", 4, "Right", 8, "Bottom", 12)
+	bindlib.Validate((*Anon164_9)(nil), 16, 4, "Left", 0, "Top", 4, "Right", 8, "Bottom", 12)
+	bindlib.Validate((*Anon171_9)(nil), 36, 4, "scaleX", 0, "skewX", 4, "transX", 8, "skewY", 12, "scaleY", 16, "transY", 20, "Persp0", 24, "Persp1", 28, "Persp2", 32)
+	bindlib.Validate((*Anon178_9)(nil), 64, 4, "M00", 0, "M01", 4, "M02", 8, "M03", 12, "M10", 16, "M11", 20, "M12", 24, "M13", 28, "M20", 32, "M21", 36, "M22", 40, "M23", 44, "M30", 48, "M31", 52, "M32", 56, "M33", 60)
+	bindlib.Validate((*Anon311_9)(nil), 12, 4, "X", 0, "Y", 4, "Z", 8)
+	bindlib.Validate((*Anon317_9)(nil), 8, 4, "X", 0, "Y", 4)
+	bindlib.Validate((*Anon322_9)(nil), 8, 4, "W", 0, "H", 4)
+	bindlib.Validate((*Anon327_9)(nil), 8, 4, "W", 0, "H", 4)
+	bindlib.Validate((*Anon332_9)(nil), 64, 4, "fFlags", 0, "fTop", 4, "fAscent", 8, "fDescent", 12, "fBottom", 16, "fLeading", 20, "fAvgCharWidth", 24, "fMaxCharWidth", 28, "fXMin", 32, "fXMax", 36, "fXHeight", 40, "fCapHeight", 44, "fUnderlineThickness", 48, "fUnderlinePosition", 52, "fStrikeoutThickness", 56, "fStrikeoutPosition", 60)
+	bindlib.Validate((*Anon510_9)(nil), 24, 8, "fZeroInitialized", 0, "fSubset", 8, "fFrameIndex", 16, "fPriorFrame", 20)
+	bindlib.Validate((*Anon623_9)(nil), 24, 8, "fAvoidStencilBuffers", 0, "fRuntimeProgramCacheSize", 4, "fGlyphCacheTextureMaximumBytes", 8, "fAllowPathMaskCaching", 16, "fDoManualMipmapping", 17, "fBufferMapThreshold", 20)
+	bindlib.Validate((*Anon655_9)(nil), 16, 4, "fTarget", 0, "fID", 4, "fFormat", 8, "fProtected", 12)
+	bindlib.Validate((*Anon662_9)(nil), 12, 4, "fFBOID", 0, "fFormat", 4, "fProtected", 8)
+	bindlib.Validate((*Anon682_9)(nil), 120, 8, "fInstance", 0, "fPhysicalDevice", 8, "fDevice", 16, "fQueue", 24, "fGraphicsQueueIndex", 32, "fMinAPIVersion", 36, "fInstanceVersion", 40, "fMaxAPIVersion", 44, "fExtensions", 48, "fVkExtensions", 56, "fFeatures", 64, "fDeviceFeatures", 72, "fDeviceFeatures2", 80, "fMemoryAllocator", 88, "fGetProc", 96, "fGetProcUserData", 104, "fOwnsInstanceAndDevice", 112, "fProtectedContext", 113)
+	bindlib.Validate((*Anon705_9)(nil), 48, 8, "fMemory", 0, "fOffset", 8, "fSize", 16, "fFlags", 24, "fBackendMemory", 32, "_private_fUsesSystemHeap", 40)
+	bindlib.Validate((*Anon714_9)(nil), 48, 8, "fFormat", 0, "fExternalFormat", 8, "fYcbcrModel", 16, "fYcbcrRange", 20, "fXChromaOffset", 24, "fYChromaOffset", 28, "fChromaFilter", 32, "fForceExplicitReconstruction", 36, "fFormatFeatures", 40)
+	bindlib.Validate((*Anon726_9)(nil), 144, 8, "fImage", 0, "fAlloc", 8, "fImageTiling", 56, "fImageLayout", 60, "fFormat", 64, "fImageUsageFlags", 68, "fSampleCount", 72, "fLevelCount", 76, "fCurrentQueueFamily", 80, "fProtected", 84, "fYcbcrConversionInfo", 88, "fSharingMode", 136)
+	bindlib.Validate((*Anon748_9)(nil), 8, 8, "fTexture", 0)
+	bindlib.Validate((*Anon768_9)(nil), 48, 8, "fXDivs", 0, "fYDivs", 8, "fRectTypes", 16, "fXCount", 24, "fYCount", 28, "fBounds", 32, "fColors", 40)
+	bindlib.Validate((*Anon807_9)(nil), 10, 2, "fTimeZoneMinutes", 0, "fYear", 2, "fMonth", 4, "fDayOfWeek", 5, "fDay", 6, "fHour", 7, "fMinute", 8, "fSecond", 9)
+	bindlib.Validate((*Anon818_9)(nil), 80, 8, "fTitle", 0, "fAuthor", 8, "fSubject", 16, "fKeywords", 24, "fCreator", 32, "fProducer", 40, "fCreation", 48, "fModified", 56, "fRasterDPI", 64, "fPDFA", 68, "fEncodingQuality", 72)
+	bindlib.Validate((*Anon832_9)(nil), 24, 8, "Colorspace", 0, "Width", 8, "Height", 12, "colorType", 16, "alphaType", 20)
+	bindlib.Validate((*Anon851_9)(nil), 44, 4, "fRequiredFrame", 0, "fDuration", 4, "fFullyReceived", 8, "fAlphaType", 12, "fHasAlphaWithinBounds", 16, "fDisposalMethod", 20, "fBlend", 24, "fFrameRect", 28)
 	bindlib.Validate((*SkColorspaceTransferFnT)(nil), 28, 4, "fG", 0, "fA", 4, "fB", 8, "fC", 12, "fD", 16, "fE", 20, "fF", 24)
 	bindlib.Validate((*SkColorspacePrimariesT)(nil), 32, 4, "fRX", 0, "fRY", 4, "fGX", 8, "fGY", 12, "fBX", 16, "fBY", 20, "fWX", 24, "fWY", 28)
 	bindlib.Validate((*SkColorspaceXyzT)(nil), 36, 4, "fM00", 0, "fM01", 4, "fM02", 8, "fM10", 12, "fM11", 16, "fM12", 20, "fM20", 24, "fM21", 28, "fM22", 32)
-	bindlib.Validate((*Anon912_9)(nil), 12, 4, "fGrayscale", 0, "fInvertStyle", 4, "fContrast", 8)
-	bindlib.Validate((*Anon932_9)(nil), 32, 8, "fFilterFlags", 0, "fZLibLevel", 4, "fComments", 8, "fICCProfile", 16, "fICCProfileDescription", 24)
-	bindlib.Validate((*Anon951_9)(nil), 40, 8, "fQuality", 0, "fDownsample", 4, "fAlphaOption", 8, "xmpMetadata", 16, "fICCProfile", 24, "fICCProfileDescription", 32)
-	bindlib.Validate((*Anon965_9)(nil), 24, 8, "fCompression", 0, "fQuality", 4, "fICCProfile", 8, "fICCProfileDescription", 16)
-	bindlib.Validate((*Anon993_9)(nil), 32, 8, "Glyphs", 0, "Pos", 8, "Utf8text", 16, "Clusters", 24)
-	bindlib.Validate((*Anon1000_9)(nil), 16, 4, "fSCos", 0, "fSSin", 4, "fTX", 8, "fTY", 12)
-	bindlib.Validate((*Anon1040_9)(nil), 40, 8, "fName", 0, "fNameLength", 8, "fOffset", 16, "fType", 24, "fCount", 28, "fFlags", 32)
-	bindlib.Validate((*Anon1049_9)(nil), 24, 8, "fName", 0, "fNameLength", 8, "fType", 16, "fIndex", 20)
-	bindlib.Validate((*Anon1067_9)(nil), 8, 4, "fB", 0, "fC", 4)
-	bindlib.Validate((*Anon1072_9)(nil), 24, 4, "fMaxAniso", 0, "fUseCubic", 4, "fCubic", 8, "fFilter", 16, "fMipmap", 20)
-	bindlib.Validate((*Anon1103_9)(nil), 32, 8, "fTotalLoadTimeMS", 0, "fJsonParseTimeMS", 4, "fSceneParseTimeMS", 8, "fJsonSize", 16, "fAnimatorCount", 24)
+	bindlib.Validate((*Anon913_9)(nil), 12, 4, "fGrayscale", 0, "fInvertStyle", 4, "fContrast", 8)
+	bindlib.Validate((*Anon933_9)(nil), 32, 8, "fFilterFlags", 0, "fZLibLevel", 4, "fComments", 8, "fICCProfile", 16, "fICCProfileDescription", 24)
+	bindlib.Validate((*Anon952_9)(nil), 40, 8, "fQuality", 0, "fDownsample", 4, "fAlphaOption", 8, "xmpMetadata", 16, "fICCProfile", 24, "fICCProfileDescription", 32)
+	bindlib.Validate((*Anon966_9)(nil), 24, 8, "fCompression", 0, "fQuality", 4, "fICCProfile", 8, "fICCProfileDescription", 16)
+	bindlib.Validate((*Anon994_9)(nil), 32, 8, "Glyphs", 0, "Pos", 8, "Utf8text", 16, "Clusters", 24)
+	bindlib.Validate((*Anon1001_9)(nil), 16, 4, "fSCos", 0, "fSSin", 4, "fTX", 8, "fTY", 12)
+	bindlib.Validate((*Anon1041_9)(nil), 40, 8, "fName", 0, "fNameLength", 8, "fOffset", 16, "fType", 24, "fCount", 28, "fFlags", 32)
+	bindlib.Validate((*Anon1050_9)(nil), 24, 8, "fName", 0, "fNameLength", 8, "fType", 16, "fIndex", 20)
+	bindlib.Validate((*Anon1068_9)(nil), 8, 4, "fB", 0, "fC", 4)
+	bindlib.Validate((*Anon1073_9)(nil), 24, 4, "fMaxAniso", 0, "fUseCubic", 4, "fCubic", 8, "fFilter", 16, "fMipmap", 20)
+	bindlib.Validate((*Anon1104_9)(nil), 32, 8, "fTotalLoadTimeMS", 0, "fJsonParseTimeMS", 4, "fSceneParseTimeMS", 8, "fJsonSize", 16, "fAnimatorCount", 24)
 }
-func GrRecordingContextUnref(context unsafe.Pointer) int32 {
-	__res := bindlib.CCall1(__imp_gr_recording_context_unref.Addr(), bindlib.MarshallSyscall(context))
-	return bindlib.UnmarshallSyscall[int32](__res)
+func _VaStart( **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
+
+var __imp___va_start bindlib.PreloadProc
+
+func _VaStart( *VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
+
+var __imp___security_init_cookie bindlib.PreloadProc
+
+func _SecurityInitCookie() { bindlib.CCall0(__imp___security_init_cookie.Addr()) }
+
+var __imp___security_check_cookie bindlib.PreloadProc
+
+func _SecurityCheckCookie(_StackCookie uintptr) {
+	bindlib.CCall1(__imp___security_check_cookie.Addr(), bindlib.MarshallSyscall(_StackCookie))
+}
+
+var __imp___report_gsfailure bindlib.PreloadProc
+
+func _ReportGsfailure(_StackCookie uintptr) {
+	bindlib.CCall1(__imp___report_gsfailure.Addr(), bindlib.MarshallSyscall(_StackCookie))
+}
+
+var __imp__invalid_parameter_noinfo bindlib.PreloadProc
+
+func _InvalidParameterNoinfo() { bindlib.CCall0(__imp__invalid_parameter_noinfo.Addr()) }
+
+var __imp__invalid_parameter_noinfo_noreturn bindlib.PreloadProc
+
+func _InvalidParameterNoinfoNoreturn() {
+	bindlib.CCall0(__imp__invalid_parameter_noinfo_noreturn.Addr())
+}
+
+var __imp__invoke_watson bindlib.PreloadProc
+
+func _InvokeWatson(_Expression *WcharT, _FunctionName *WcharT, _FileName *WcharT, _LineNo uint32, _Reserved uintptr) {
+	bindlib.CCall5(__imp__invoke_watson.Addr(), bindlib.MarshallSyscall(_Expression), bindlib.MarshallSyscall(_FunctionName), bindlib.MarshallSyscall(_FileName), bindlib.MarshallSyscall(_LineNo), bindlib.MarshallSyscall(_Reserved))
+}
+
+var __imp__errno bindlib.PreloadProc
+
+func _Errno() *int32 {
+	__res := bindlib.CCall0(__imp__errno.Addr())
+	return bindlib.UnmarshallSyscall[*int32](__res)
+}
+
+var __imp__set_errno bindlib.PreloadProc
+
+func _SetErrno(_Value int32) ErrnoT {
+	__res := bindlib.CCall1(__imp__set_errno.Addr(), bindlib.MarshallSyscall(_Value))
+	return bindlib.UnmarshallSyscall[ErrnoT](__res)
+}
+
+var __imp__get_errno bindlib.PreloadProc
+
+func _GetErrno(_Value *int32) ErrnoT {
+	__res := bindlib.CCall1(__imp__get_errno.Addr(), bindlib.MarshallSyscall(_Value))
+	return bindlib.UnmarshallSyscall[ErrnoT](__res)
+}
+
+var __imp___threadid bindlib.PreloadProc
+
+func _Threadid() uint64 {
+	__res := bindlib.CCall0(__imp___threadid.Addr())
+	return bindlib.UnmarshallSyscall[uint64](__res)
+}
+
+var __imp___threadhandle bindlib.PreloadProc
+
+func _Threadhandle() uintptr {
+	__res := bindlib.CCall0(__imp___threadhandle.Addr())
+	return bindlib.UnmarshallSyscall[uintptr](__res)
+}
+
+var __imp_gr_recording_context_unref bindlib.PreloadProc
+
+func GrRecordingContextUnref(context unsafe.Pointer) {
+	bindlib.CCall1(__imp_gr_recording_context_unref.Addr(), bindlib.MarshallSyscall(context))
 }
 
 var __imp_gr_recording_context_get_max_surface_sample_count_for_color_type bindlib.PreloadProc
@@ -1960,14 +2095,14 @@ func GrDirectContextMakeGlWithOptions(glInterface unsafe.Pointer, options unsafe
 
 var __imp_gr_direct_context_make_vulkan bindlib.PreloadProc
 
-func GrDirectContextMakeVulkan(vkBackendContext GrVkBackendcontextT) unsafe.Pointer {
+func GrDirectContextMakeVulkan(vkBackendContext any) unsafe.Pointer {
 	__res := bindlib.CCall1(__imp_gr_direct_context_make_vulkan.Addr(), bindlib.MarshallSyscall(vkBackendContext))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_gr_direct_context_make_vulkan_with_options bindlib.PreloadProc
 
-func GrDirectContextMakeVulkanWithOptions(vkBackendContext GrVkBackendcontextT, options unsafe.Pointer) unsafe.Pointer {
+func GrDirectContextMakeVulkanWithOptions(vkBackendContext any, options unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_gr_direct_context_make_vulkan_with_options.Addr(), bindlib.MarshallSyscall(vkBackendContext), bindlib.MarshallSyscall(options))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -2057,7 +2192,7 @@ func GrDirectContextFlushSurface(context unsafe.Pointer, surface unsafe.Pointer)
 
 var __imp_gr_direct_context_reset_context bindlib.PreloadProc
 
-func GrDirectContextResetContext(context unsafe.Pointer, state int32) {
+func GrDirectContextResetContext(context unsafe.Pointer, state uint32) {
 	bindlib.CCall2(__imp_gr_direct_context_reset_context.Addr(), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(state))
 }
 
@@ -2161,13 +2296,13 @@ func GrVkExtensionsDelete(extensions unsafe.Pointer) {
 
 var __imp_gr_vk_extensions_init bindlib.PreloadProc
 
-func GrVkExtensionsInit(extensions unsafe.Pointer, getProc GrVkGetProc, userData unsafe.Pointer, instance unsafe.Pointer, physDev unsafe.Pointer, instanceExtensionCount int32, instanceExtensions **byte, deviceExtensionCount int32, deviceExtensions **byte) {
+func GrVkExtensionsInit(extensions unsafe.Pointer, getProc GrVkGetProc, userData unsafe.Pointer, instance unsafe.Pointer, physDev unsafe.Pointer, instanceExtensionCount uint32, instanceExtensions **byte, deviceExtensionCount uint32, deviceExtensions **byte) {
 	bindlib.CCall9(__imp_gr_vk_extensions_init.Addr(), bindlib.MarshallSyscall(extensions), bindlib.MarshallSyscall(getProc), bindlib.MarshallSyscall(userData), bindlib.MarshallSyscall(instance), bindlib.MarshallSyscall(physDev), bindlib.MarshallSyscall(instanceExtensionCount), bindlib.MarshallSyscall(instanceExtensions), bindlib.MarshallSyscall(deviceExtensionCount), bindlib.MarshallSyscall(deviceExtensions))
 }
 
 var __imp_gr_vk_extensions_has_extension bindlib.PreloadProc
 
-func GrVkExtensionsHasExtension(extensions unsafe.Pointer, ext *byte, minVersion int32) bool {
+func GrVkExtensionsHasExtension(extensions unsafe.Pointer, ext *byte, minVersion uint32) bool {
 	__res := bindlib.CCall3(__imp_gr_vk_extensions_has_extension.Addr(), bindlib.MarshallSyscall(extensions), bindlib.MarshallSyscall(ext), bindlib.MarshallSyscall(minVersion))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -2181,7 +2316,7 @@ func GrBackendtextureNewGl(width int32, height int32, mipmapped bool, glInfo uns
 
 var __imp_gr_backendtexture_new_vulkan bindlib.PreloadProc
 
-func GrBackendtextureNewVulkan(width int32, height int32, vkInfo *GrVkImageinfoT) unsafe.Pointer {
+func GrBackendtextureNewVulkan(width int32, height int32, vkInfo unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_gr_backendtexture_new_vulkan.Addr(), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(vkInfo))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -2250,7 +2385,7 @@ func GrBackendrendertargetNewGl(width int32, height int32, samples int32, stenci
 
 var __imp_gr_backendrendertarget_new_vulkan bindlib.PreloadProc
 
-func GrBackendrendertargetNewVulkan(width int32, height int32, samples int32, vkImageInfo *GrVkImageinfoT) unsafe.Pointer {
+func GrBackendrendertargetNewVulkan(width int32, height int32, samples int32, vkImageInfo unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall4(__imp_gr_backendrendertarget_new_vulkan.Addr(), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(samples), bindlib.MarshallSyscall(vkImageInfo))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -2332,7 +2467,7 @@ func SkBitmapNew() unsafe.Pointer {
 
 var __imp_sk_bitmap_get_info bindlib.PreloadProc
 
-func SkBitmapGetInfo(cbitmap unsafe.Pointer, info *SkImageinfoT) {
+func SkBitmapGetInfo(cbitmap unsafe.Pointer, info unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_bitmap_get_info.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(info))
 }
 
@@ -2391,29 +2526,29 @@ func SkBitmapErase(cbitmap unsafe.Pointer, color SkColorT) {
 
 var __imp_sk_bitmap_erase_rect bindlib.PreloadProc
 
-func SkBitmapEraseRect(cbitmap unsafe.Pointer, color SkColorT, rect *SkIrectT) {
+func SkBitmapEraseRect(cbitmap unsafe.Pointer, color SkColorT, rect unsafe.Pointer) {
 	bindlib.CCall3(__imp_sk_bitmap_erase_rect.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(color), bindlib.MarshallSyscall(rect))
 }
 
 var __imp_sk_bitmap_get_addr_8 bindlib.PreloadProc
 
-func SkBitmapGetAddr8(cbitmap unsafe.Pointer, x int32, y int32) *int32 {
+func SkBitmapGetAddr8(cbitmap unsafe.Pointer, x int32, y int32) *uint8 {
 	__res := bindlib.CCall3(__imp_sk_bitmap_get_addr_8.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
-	return bindlib.UnmarshallSyscall[*int32](__res)
+	return bindlib.UnmarshallSyscall[*uint8](__res)
 }
 
 var __imp_sk_bitmap_get_addr_16 bindlib.PreloadProc
 
-func SkBitmapGetAddr16(cbitmap unsafe.Pointer, x int32, y int32) *int32 {
+func SkBitmapGetAddr16(cbitmap unsafe.Pointer, x int32, y int32) *uint16 {
 	__res := bindlib.CCall3(__imp_sk_bitmap_get_addr_16.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
-	return bindlib.UnmarshallSyscall[*int32](__res)
+	return bindlib.UnmarshallSyscall[*uint16](__res)
 }
 
 var __imp_sk_bitmap_get_addr_32 bindlib.PreloadProc
 
-func SkBitmapGetAddr32(cbitmap unsafe.Pointer, x int32, y int32) *int32 {
+func SkBitmapGetAddr32(cbitmap unsafe.Pointer, x int32, y int32) *uint32 {
 	__res := bindlib.CCall3(__imp_sk_bitmap_get_addr_32.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
-	return bindlib.UnmarshallSyscall[*int32](__res)
+	return bindlib.UnmarshallSyscall[*uint32](__res)
 }
 
 var __imp_sk_bitmap_get_addr bindlib.PreloadProc
@@ -2445,7 +2580,7 @@ func SkBitmapGetPixelColors(cbitmap unsafe.Pointer, colors *SkColorT) {
 
 var __imp_sk_bitmap_install_pixels bindlib.PreloadProc
 
-func SkBitmapInstallPixels(cbitmap unsafe.Pointer, cinfo *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint, releaseProc SkBitmapReleaseProc, context unsafe.Pointer) bool {
+func SkBitmapInstallPixels(cbitmap unsafe.Pointer, cinfo unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, releaseProc SkBitmapReleaseProc, context unsafe.Pointer) bool {
 	__res := bindlib.CCall6(__imp_sk_bitmap_install_pixels.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(releaseProc), bindlib.MarshallSyscall(context))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -2459,14 +2594,14 @@ func SkBitmapInstallPixelsWithPixmap(cbitmap unsafe.Pointer, cpixmap unsafe.Poin
 
 var __imp_sk_bitmap_try_alloc_pixels bindlib.PreloadProc
 
-func SkBitmapTryAllocPixels(cbitmap unsafe.Pointer, requestedInfo *SkImageinfoT, rowBytes uint) bool {
+func SkBitmapTryAllocPixels(cbitmap unsafe.Pointer, requestedInfo unsafe.Pointer, rowBytes uint) bool {
 	__res := bindlib.CCall3(__imp_sk_bitmap_try_alloc_pixels.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(requestedInfo), bindlib.MarshallSyscall(rowBytes))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_bitmap_try_alloc_pixels_with_flags bindlib.PreloadProc
 
-func SkBitmapTryAllocPixelsWithFlags(cbitmap unsafe.Pointer, requestedInfo *SkImageinfoT, flags int32) bool {
+func SkBitmapTryAllocPixelsWithFlags(cbitmap unsafe.Pointer, requestedInfo unsafe.Pointer, flags uint32) bool {
 	__res := bindlib.CCall3(__imp_sk_bitmap_try_alloc_pixels_with_flags.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(requestedInfo), bindlib.MarshallSyscall(flags))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -2486,14 +2621,14 @@ func SkBitmapPeekPixels(cbitmap unsafe.Pointer, cpixmap unsafe.Pointer) bool {
 
 var __imp_sk_bitmap_extract_subset bindlib.PreloadProc
 
-func SkBitmapExtractSubset(cbitmap unsafe.Pointer, dst unsafe.Pointer, subset *SkIrectT) bool {
+func SkBitmapExtractSubset(cbitmap unsafe.Pointer, dst unsafe.Pointer, subset unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_bitmap_extract_subset.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(dst), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_bitmap_extract_alpha bindlib.PreloadProc
 
-func SkBitmapExtractAlpha(cbitmap unsafe.Pointer, dst unsafe.Pointer, paint unsafe.Pointer, offset *SkIpointT) bool {
+func SkBitmapExtractAlpha(cbitmap unsafe.Pointer, dst unsafe.Pointer, paint unsafe.Pointer, offset unsafe.Pointer) bool {
 	__res := bindlib.CCall4(__imp_sk_bitmap_extract_alpha.Addr(), bindlib.MarshallSyscall(cbitmap), bindlib.MarshallSyscall(dst), bindlib.MarshallSyscall(paint), bindlib.MarshallSyscall(offset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -2673,7 +2808,7 @@ func SkCanvasGetLocalClipBounds(ccanvas unsafe.Pointer, cbounds unsafe.Pointer) 
 
 var __imp_sk_canvas_get_device_clip_bounds bindlib.PreloadProc
 
-func SkCanvasGetDeviceClipBounds(ccanvas unsafe.Pointer, cbounds *SkIrectT) bool {
+func SkCanvasGetDeviceClipBounds(ccanvas unsafe.Pointer, cbounds unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_canvas_get_device_clip_bounds.Addr(), bindlib.MarshallSyscall(ccanvas), bindlib.MarshallSyscall(cbounds))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -2828,7 +2963,7 @@ func SkCanvasNewFromBitmap(bitmap unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_canvas_new_from_raster bindlib.PreloadProc
 
-func SkCanvasNewFromRaster(cinfo *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint, props unsafe.Pointer) unsafe.Pointer {
+func SkCanvasNewFromRaster(cinfo unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, props unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall4(__imp_sk_canvas_new_from_raster.Addr(), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(props))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -2865,7 +3000,7 @@ func SkCanvasDrawImageLattice(ccanvas unsafe.Pointer, image unsafe.Pointer, latt
 
 var __imp_sk_canvas_draw_image_nine bindlib.PreloadProc
 
-func SkCanvasDrawImageNine(ccanvas unsafe.Pointer, image unsafe.Pointer, center *SkIrectT, dst unsafe.Pointer, mode SkFilterModeT, paint unsafe.Pointer) {
+func SkCanvasDrawImageNine(ccanvas unsafe.Pointer, image unsafe.Pointer, center unsafe.Pointer, dst unsafe.Pointer, mode SkFilterModeT, paint unsafe.Pointer) {
 	bindlib.CCall6(__imp_sk_canvas_draw_image_nine.Addr(), bindlib.MarshallSyscall(ccanvas), bindlib.MarshallSyscall(image), bindlib.MarshallSyscall(center), bindlib.MarshallSyscall(dst), bindlib.MarshallSyscall(mode), bindlib.MarshallSyscall(paint))
 }
 
@@ -2999,7 +3134,7 @@ func SkCodecDestroy(codec unsafe.Pointer) {
 
 var __imp_sk_codec_get_info bindlib.PreloadProc
 
-func SkCodecGetInfo(codec unsafe.Pointer, info *SkImageinfoT) {
+func SkCodecGetInfo(codec unsafe.Pointer, info unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_codec_get_info.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(info))
 }
 
@@ -3012,13 +3147,13 @@ func SkCodecGetOrigin(codec unsafe.Pointer) SkEncodedoriginT {
 
 var __imp_sk_codec_get_scaled_dimensions bindlib.PreloadProc
 
-func SkCodecGetScaledDimensions(codec unsafe.Pointer, desiredScale float32, dimensions *SkIsizeT) {
+func SkCodecGetScaledDimensions(codec unsafe.Pointer, desiredScale float32, dimensions unsafe.Pointer) {
 	bindlib.CCall3(__imp_sk_codec_get_scaled_dimensions.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(desiredScale), bindlib.MarshallSyscall(dimensions))
 }
 
 var __imp_sk_codec_get_valid_subset bindlib.PreloadProc
 
-func SkCodecGetValidSubset(codec unsafe.Pointer, desiredSubset *SkIrectT) bool {
+func SkCodecGetValidSubset(codec unsafe.Pointer, desiredSubset unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_codec_get_valid_subset.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(desiredSubset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -3032,14 +3167,14 @@ func SkCodecGetEncodedFormat(codec unsafe.Pointer) SkEncodedImageFormatT {
 
 var __imp_sk_codec_get_pixels bindlib.PreloadProc
 
-func SkCodecGetPixels(codec unsafe.Pointer, info *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint, options unsafe.Pointer) SkCodecResultT {
+func SkCodecGetPixels(codec unsafe.Pointer, info unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, options unsafe.Pointer) SkCodecResultT {
 	__res := bindlib.CCall5(__imp_sk_codec_get_pixels.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(info), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(options))
 	return bindlib.UnmarshallSyscall[SkCodecResultT](__res)
 }
 
 var __imp_sk_codec_start_incremental_decode bindlib.PreloadProc
 
-func SkCodecStartIncrementalDecode(codec unsafe.Pointer, info *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint, options unsafe.Pointer) SkCodecResultT {
+func SkCodecStartIncrementalDecode(codec unsafe.Pointer, info unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, options unsafe.Pointer) SkCodecResultT {
 	__res := bindlib.CCall5(__imp_sk_codec_start_incremental_decode.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(info), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(options))
 	return bindlib.UnmarshallSyscall[SkCodecResultT](__res)
 }
@@ -3053,7 +3188,7 @@ func SkCodecIncrementalDecode(codec unsafe.Pointer, rowsDecoded *int32) SkCodecR
 
 var __imp_sk_codec_start_scanline_decode bindlib.PreloadProc
 
-func SkCodecStartScanlineDecode(codec unsafe.Pointer, info *SkImageinfoT, options unsafe.Pointer) SkCodecResultT {
+func SkCodecStartScanlineDecode(codec unsafe.Pointer, info unsafe.Pointer, options unsafe.Pointer) SkCodecResultT {
 	__res := bindlib.CCall3(__imp_sk_codec_start_scanline_decode.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(info), bindlib.MarshallSyscall(options))
 	return bindlib.UnmarshallSyscall[SkCodecResultT](__res)
 }
@@ -3102,13 +3237,13 @@ func SkCodecGetFrameCount(codec unsafe.Pointer) int32 {
 
 var __imp_sk_codec_get_frame_info bindlib.PreloadProc
 
-func SkCodecGetFrameInfo(codec unsafe.Pointer, frameInfo *SkCodecFrameinfoT) {
+func SkCodecGetFrameInfo(codec unsafe.Pointer, frameInfo unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_codec_get_frame_info.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(frameInfo))
 }
 
 var __imp_sk_codec_get_frame_info_for_index bindlib.PreloadProc
 
-func SkCodecGetFrameInfoForIndex(codec unsafe.Pointer, index int32, frameInfo *SkCodecFrameinfoT) bool {
+func SkCodecGetFrameInfoForIndex(codec unsafe.Pointer, index int32, frameInfo unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_codec_get_frame_info_for_index.Addr(), bindlib.MarshallSyscall(codec), bindlib.MarshallSyscall(index), bindlib.MarshallSyscall(frameInfo))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -3170,14 +3305,14 @@ func SkColorfilterNewHighContrast(config unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_colorfilter_new_table bindlib.PreloadProc
 
-func SkColorfilterNewTable(table *int32) unsafe.Pointer {
+func SkColorfilterNewTable(table *uint8) unsafe.Pointer {
 	__res := bindlib.CCall1(__imp_sk_colorfilter_new_table.Addr(), bindlib.MarshallSyscall(table))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_colorfilter_new_table_argb bindlib.PreloadProc
 
-func SkColorfilterNewTableArgb(tableA *int32, tableR *int32, tableG *int32, tableB *int32) unsafe.Pointer {
+func SkColorfilterNewTableArgb(tableA *uint8, tableR *uint8, tableG *uint8, tableB *uint8) unsafe.Pointer {
 	__res := bindlib.CCall4(__imp_sk_colorfilter_new_table_argb.Addr(), bindlib.MarshallSyscall(tableA), bindlib.MarshallSyscall(tableR), bindlib.MarshallSyscall(tableG), bindlib.MarshallSyscall(tableB))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -3406,9 +3541,9 @@ func SkColorspaceIccProfileParse(buffer unsafe.Pointer, length uint, profile uns
 
 var __imp_sk_colorspace_icc_profile_get_buffer bindlib.PreloadProc
 
-func SkColorspaceIccProfileGetBuffer(profile unsafe.Pointer, size *int32) *int32 {
+func SkColorspaceIccProfileGetBuffer(profile unsafe.Pointer, size *uint32) *uint8 {
 	__res := bindlib.CCall2(__imp_sk_colorspace_icc_profile_get_buffer.Addr(), bindlib.MarshallSyscall(profile), bindlib.MarshallSyscall(size))
-	return bindlib.UnmarshallSyscall[*int32](__res)
+	return bindlib.UnmarshallSyscall[*uint8](__res)
 }
 
 var __imp_sk_colorspace_icc_profile_get_to_xyzd50 bindlib.PreloadProc
@@ -3492,9 +3627,9 @@ func SkDataNewFromStream(stream unsafe.Pointer, length uint) unsafe.Pointer {
 
 var __imp_sk_data_get_bytes bindlib.PreloadProc
 
-func SkDataGetBytes( unsafe.Pointer) *int32 {
+func SkDataGetBytes( unsafe.Pointer) *uint8 {
 	__res := bindlib.CCall1(__imp_sk_data_get_bytes.Addr(), bindlib.MarshallSyscall())
-	return bindlib.UnmarshallSyscall[*int32](__res)
+	return bindlib.UnmarshallSyscall[*uint8](__res)
 }
 
 var __imp_sk_data_new_with_proc bindlib.PreloadProc
@@ -3571,9 +3706,9 @@ func SkDrawableUnref( unsafe.Pointer) {
 
 var __imp_sk_drawable_get_generation_id bindlib.PreloadProc
 
-func SkDrawableGetGenerationId( unsafe.Pointer) int32 {
+func SkDrawableGetGenerationId( unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_drawable_get_generation_id.Addr(), bindlib.MarshallSyscall())
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_drawable_get_bounds bindlib.PreloadProc
@@ -3786,21 +3921,21 @@ func SkFontSetSkewX(font unsafe.Pointer, value float32) {
 
 var __imp_sk_font_text_to_glyphs bindlib.PreloadProc
 
-func SkFontTextToGlyphs(font unsafe.Pointer, text unsafe.Pointer, byteLength uint, encoding SkTextEncodingT, glyphs *int32, maxGlyphCount int32) int32 {
+func SkFontTextToGlyphs(font unsafe.Pointer, text unsafe.Pointer, byteLength uint, encoding SkTextEncodingT, glyphs *uint16, maxGlyphCount int32) int32 {
 	__res := bindlib.CCall6(__imp_sk_font_text_to_glyphs.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(text), bindlib.MarshallSyscall(byteLength), bindlib.MarshallSyscall(encoding), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(maxGlyphCount))
 	return bindlib.UnmarshallSyscall[int32](__res)
 }
 
 var __imp_sk_font_unichar_to_glyph bindlib.PreloadProc
 
-func SkFontUnicharToGlyph(font unsafe.Pointer, uni int32) int32 {
+func SkFontUnicharToGlyph(font unsafe.Pointer, uni int32) uint16 {
 	__res := bindlib.CCall2(__imp_sk_font_unichar_to_glyph.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(uni))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint16](__res)
 }
 
 var __imp_sk_font_unichars_to_glyphs bindlib.PreloadProc
 
-func SkFontUnicharsToGlyphs(font unsafe.Pointer, uni *int32, count int32, glyphs *int32) {
+func SkFontUnicharsToGlyphs(font unsafe.Pointer, uni *int32, count int32, glyphs *uint16) {
 	bindlib.CCall4(__imp_sk_font_unichars_to_glyphs.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(uni), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(glyphs))
 }
 
@@ -3826,38 +3961,38 @@ func SkFontBreakText(font unsafe.Pointer, text unsafe.Pointer, byteLength uint, 
 
 var __imp_sk_font_get_widths_bounds bindlib.PreloadProc
 
-func SkFontGetWidthsBounds(font unsafe.Pointer, glyphs *int32, count int32, widths *float32, bounds unsafe.Pointer, paint unsafe.Pointer) {
+func SkFontGetWidthsBounds(font unsafe.Pointer, glyphs *uint16, count int32, widths *float32, bounds unsafe.Pointer, paint unsafe.Pointer) {
 	bindlib.CCall6(__imp_sk_font_get_widths_bounds.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(widths), bindlib.MarshallSyscall(bounds), bindlib.MarshallSyscall(paint))
 }
 
 var __imp_sk_font_get_pos bindlib.PreloadProc
 
-func SkFontGetPos(font unsafe.Pointer, glyphs *int32, count int32, pos unsafe.Pointer, origin unsafe.Pointer) {
+func SkFontGetPos(font unsafe.Pointer, glyphs *uint16, count int32, pos unsafe.Pointer, origin unsafe.Pointer) {
 	bindlib.CCall5(__imp_sk_font_get_pos.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(pos), bindlib.MarshallSyscall(origin))
 }
 
 var __imp_sk_font_get_xpos bindlib.PreloadProc
 
-func SkFontGetXpos(font unsafe.Pointer, glyphs *int32, count int32, xpos *float32, origin float32) {
+func SkFontGetXpos(font unsafe.Pointer, glyphs *uint16, count int32, xpos *float32, origin float32) {
 	bindlib.CCall5(__imp_sk_font_get_xpos.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(xpos), bindlib.MarshallSyscall(origin))
 }
 
 var __imp_sk_font_get_path bindlib.PreloadProc
 
-func SkFontGetPath(font unsafe.Pointer, glyph int32, path unsafe.Pointer) bool {
+func SkFontGetPath(font unsafe.Pointer, glyph uint16, path unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_font_get_path.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(glyph), bindlib.MarshallSyscall(path))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_font_get_paths bindlib.PreloadProc
 
-func SkFontGetPaths(font unsafe.Pointer, glyphs *int32, count int32, glyphPathProc SkGlyphPathProc, context unsafe.Pointer) {
+func SkFontGetPaths(font unsafe.Pointer, glyphs *uint16, count int32, glyphPathProc SkGlyphPathProc, context unsafe.Pointer) {
 	bindlib.CCall5(__imp_sk_font_get_paths.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(glyphPathProc), bindlib.MarshallSyscall(context))
 }
 
 var __imp_sk_font_get_metrics bindlib.PreloadProc
 
-func SkFontGetMetrics(font unsafe.Pointer, metrics *SkFontmetricsT) float32 {
+func SkFontGetMetrics(font unsafe.Pointer, metrics unsafe.Pointer) float32 {
 	__res := bindlib.CCall2(__imp_sk_font_get_metrics.Addr(), bindlib.MarshallSyscall(font), bindlib.MarshallSyscall(metrics))
 	return bindlib.UnmarshallSyscall[float32](__res)
 }
@@ -4067,7 +4202,7 @@ func SkImageUnref(cimage unsafe.Pointer) {
 
 var __imp_sk_image_new_raster_copy bindlib.PreloadProc
 
-func SkImageNewRasterCopy(cinfo *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint) unsafe.Pointer {
+func SkImageNewRasterCopy(cinfo unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_image_new_raster_copy.Addr(), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4081,7 +4216,7 @@ func SkImageNewRasterCopyWithPixmap(pixmap unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_image_new_raster_data bindlib.PreloadProc
 
-func SkImageNewRasterData(cinfo *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint) unsafe.Pointer {
+func SkImageNewRasterData(cinfo unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_image_new_raster_data.Addr(), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4123,7 +4258,7 @@ func SkImageNewFromAdoptedTexture(context unsafe.Pointer, texture unsafe.Pointer
 
 var __imp_sk_image_new_from_picture bindlib.PreloadProc
 
-func SkImageNewFromPicture(picture unsafe.Pointer, dimensions *SkIsizeT, cmatrix unsafe.Pointer, paint unsafe.Pointer, useFloatingPointBitDepth bool, colorSpace unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
+func SkImageNewFromPicture(picture unsafe.Pointer, dimensions unsafe.Pointer, cmatrix unsafe.Pointer, paint unsafe.Pointer, useFloatingPointBitDepth bool, colorSpace unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall7(__imp_sk_image_new_from_picture.Addr(), bindlib.MarshallSyscall(picture), bindlib.MarshallSyscall(dimensions), bindlib.MarshallSyscall(cmatrix), bindlib.MarshallSyscall(paint), bindlib.MarshallSyscall(useFloatingPointBitDepth), bindlib.MarshallSyscall(colorSpace), bindlib.MarshallSyscall(props))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4144,9 +4279,9 @@ func SkImageGetHeight(cimage unsafe.Pointer) int32 {
 
 var __imp_sk_image_get_unique_id bindlib.PreloadProc
 
-func SkImageGetUniqueId(cimage unsafe.Pointer) int32 {
+func SkImageGetUniqueId(cimage unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_image_get_unique_id.Addr(), bindlib.MarshallSyscall(cimage))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_image_get_alpha_type bindlib.PreloadProc
@@ -4221,7 +4356,7 @@ func SkImageIsValid(image unsafe.Pointer, context unsafe.Pointer) bool {
 
 var __imp_sk_image_read_pixels bindlib.PreloadProc
 
-func SkImageReadPixels(image unsafe.Pointer, dstInfo *SkImageinfoT, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32, cachingHint SkImageCachingHintT) bool {
+func SkImageReadPixels(image unsafe.Pointer, dstInfo unsafe.Pointer, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32, cachingHint SkImageCachingHintT) bool {
 	__res := bindlib.CCall7(__imp_sk_image_read_pixels.Addr(), bindlib.MarshallSyscall(image), bindlib.MarshallSyscall(dstInfo), bindlib.MarshallSyscall(dstPixels), bindlib.MarshallSyscall(dstRowBytes), bindlib.MarshallSyscall(srcX), bindlib.MarshallSyscall(srcY), bindlib.MarshallSyscall(cachingHint))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -4249,14 +4384,14 @@ func SkImageRefEncoded(cimage unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_image_make_subset_raster bindlib.PreloadProc
 
-func SkImageMakeSubsetRaster(cimage unsafe.Pointer, subset *SkIrectT) unsafe.Pointer {
+func SkImageMakeSubsetRaster(cimage unsafe.Pointer, subset unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_sk_image_make_subset_raster.Addr(), bindlib.MarshallSyscall(cimage), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_image_make_subset bindlib.PreloadProc
 
-func SkImageMakeSubset(cimage unsafe.Pointer, context unsafe.Pointer, subset *SkIrectT) unsafe.Pointer {
+func SkImageMakeSubset(cimage unsafe.Pointer, context unsafe.Pointer, subset unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_image_make_subset.Addr(), bindlib.MarshallSyscall(cimage), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4284,14 +4419,14 @@ func SkImageMakeRasterImage(cimage unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_image_make_with_filter_raster bindlib.PreloadProc
 
-func SkImageMakeWithFilterRaster(cimage unsafe.Pointer, filter unsafe.Pointer, subset *SkIrectT, clipBounds *SkIrectT, outSubset *SkIrectT, outOffset *SkIpointT) unsafe.Pointer {
+func SkImageMakeWithFilterRaster(cimage unsafe.Pointer, filter unsafe.Pointer, subset unsafe.Pointer, clipBounds unsafe.Pointer, outSubset unsafe.Pointer, outOffset unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall6(__imp_sk_image_make_with_filter_raster.Addr(), bindlib.MarshallSyscall(cimage), bindlib.MarshallSyscall(filter), bindlib.MarshallSyscall(subset), bindlib.MarshallSyscall(clipBounds), bindlib.MarshallSyscall(outSubset), bindlib.MarshallSyscall(outOffset))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_image_make_with_filter bindlib.PreloadProc
 
-func SkImageMakeWithFilter(cimage unsafe.Pointer, context unsafe.Pointer, filter unsafe.Pointer, subset *SkIrectT, clipBounds *SkIrectT, outSubset *SkIrectT, outOffset *SkIpointT) unsafe.Pointer {
+func SkImageMakeWithFilter(cimage unsafe.Pointer, context unsafe.Pointer, filter unsafe.Pointer, subset unsafe.Pointer, clipBounds unsafe.Pointer, outSubset unsafe.Pointer, outOffset unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall7(__imp_sk_image_make_with_filter.Addr(), bindlib.MarshallSyscall(cimage), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(filter), bindlib.MarshallSyscall(subset), bindlib.MarshallSyscall(clipBounds), bindlib.MarshallSyscall(outSubset), bindlib.MarshallSyscall(outOffset))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4388,7 +4523,7 @@ func SkImagefilterNewMagnifier(lensBounds unsafe.Pointer, zoomAmount float32, in
 
 var __imp_sk_imagefilter_new_matrix_convolution bindlib.PreloadProc
 
-func SkImagefilterNewMatrixConvolution(kernelSize *SkIsizeT, kernel *float32, gain float32, bias float32, kernelOffset *SkIpointT, ctileMode SkShaderTilemodeT, convolveAlpha bool, input unsafe.Pointer, cropRect unsafe.Pointer) unsafe.Pointer {
+func SkImagefilterNewMatrixConvolution(kernelSize unsafe.Pointer, kernel *float32, gain float32, bias float32, kernelOffset unsafe.Pointer, ctileMode SkShaderTilemodeT, convolveAlpha bool, input unsafe.Pointer, cropRect unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall9(__imp_sk_imagefilter_new_matrix_convolution.Addr(), bindlib.MarshallSyscall(kernelSize), bindlib.MarshallSyscall(kernel), bindlib.MarshallSyscall(gain), bindlib.MarshallSyscall(bias), bindlib.MarshallSyscall(kernelOffset), bindlib.MarshallSyscall(ctileMode), bindlib.MarshallSyscall(convolveAlpha), bindlib.MarshallSyscall(input), bindlib.MarshallSyscall(cropRect))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4537,7 +4672,7 @@ func SkMaskfilterNewBlurWithFlags( SkBlurstyleT, sigma float32, respectCTM bool)
 
 var __imp_sk_maskfilter_new_table bindlib.PreloadProc
 
-func SkMaskfilterNewTable(table *int32) unsafe.Pointer {
+func SkMaskfilterNewTable(table *uint8) unsafe.Pointer {
 	__res := bindlib.CCall1(__imp_sk_maskfilter_new_table.Addr(), bindlib.MarshallSyscall(table))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4551,7 +4686,7 @@ func SkMaskfilterNewGamma(gamma float32) unsafe.Pointer {
 
 var __imp_sk_maskfilter_new_clip bindlib.PreloadProc
 
-func SkMaskfilterNewClip(min int32, max int32) unsafe.Pointer {
+func SkMaskfilterNewClip(min uint8, max uint8) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_sk_maskfilter_new_clip.Addr(), bindlib.MarshallSyscall(min), bindlib.MarshallSyscall(max))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -4952,8 +5087,8 @@ func SkPathAddRrect( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT) {
 
 var __imp_sk_path_add_rrect_start bindlib.PreloadProc
 
-func SkPathAddRrectStart( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT, uint32_t int32) {
-	bindlib.CCall4(__imp_sk_path_add_rrect_start.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(uint32_t))
+func SkPathAddRrectStart( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT,  uint32) {
+	bindlib.CCall4(__imp_sk_path_add_rrect_start.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
 }
 
 var __imp_sk_path_add_rounded_rect bindlib.PreloadProc
@@ -5018,7 +5153,7 @@ func SkPathRcubicTo( unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 
 
 var __imp_sk_path_add_rect_start bindlib.PreloadProc
 
-func SkPathAddRectStart(cpath unsafe.Pointer, crect unsafe.Pointer, cdir SkPathDirectionT, startIndex int32) {
+func SkPathAddRectStart(cpath unsafe.Pointer, crect unsafe.Pointer, cdir SkPathDirectionT, startIndex uint32) {
 	bindlib.CCall4(__imp_sk_path_add_rect_start.Addr(), bindlib.MarshallSyscall(cpath), bindlib.MarshallSyscall(crect), bindlib.MarshallSyscall(cdir), bindlib.MarshallSyscall(startIndex))
 }
 
@@ -5165,9 +5300,9 @@ func SkPathAddPoly(cpath unsafe.Pointer, points unsafe.Pointer, count int32, _cl
 
 var __imp_sk_path_get_segment_masks bindlib.PreloadProc
 
-func SkPathGetSegmentMasks(cpath unsafe.Pointer) int32 {
+func SkPathGetSegmentMasks(cpath unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_path_get_segment_masks.Addr(), bindlib.MarshallSyscall(cpath))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_path_is_oval bindlib.PreloadProc
@@ -5424,7 +5559,7 @@ func SkPathEffectCreateSum(first unsafe.Pointer, second unsafe.Pointer) unsafe.P
 
 var __imp_sk_path_effect_create_discrete bindlib.PreloadProc
 
-func SkPathEffectCreateDiscrete(segLength float32, deviation float32, seedAssist int32) unsafe.Pointer {
+func SkPathEffectCreateDiscrete(segLength float32, deviation float32, seedAssist uint32) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_path_effect_create_discrete.Addr(), bindlib.MarshallSyscall(segLength), bindlib.MarshallSyscall(deviation), bindlib.MarshallSyscall(seedAssist))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -5533,9 +5668,9 @@ func SkPictureUnref( unsafe.Pointer) {
 
 var __imp_sk_picture_get_unique_id bindlib.PreloadProc
 
-func SkPictureGetUniqueId( unsafe.Pointer) int32 {
+func SkPictureGetUniqueId( unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_picture_get_unique_id.Addr(), bindlib.MarshallSyscall())
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_picture_get_cull_rect bindlib.PreloadProc
@@ -5633,7 +5768,7 @@ func SkPixmapNew() unsafe.Pointer {
 
 var __imp_sk_pixmap_new_with_params bindlib.PreloadProc
 
-func SkPixmapNewWithParams(cinfo *SkImageinfoT, addr unsafe.Pointer, rowBytes uint) unsafe.Pointer {
+func SkPixmapNewWithParams(cinfo unsafe.Pointer, addr unsafe.Pointer, rowBytes uint) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_pixmap_new_with_params.Addr(), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(addr), bindlib.MarshallSyscall(rowBytes))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -5646,7 +5781,7 @@ func SkPixmapReset(cpixmap unsafe.Pointer) {
 
 var __imp_sk_pixmap_reset_with_params bindlib.PreloadProc
 
-func SkPixmapResetWithParams(cpixmap unsafe.Pointer, cinfo *SkImageinfoT, addr unsafe.Pointer, rowBytes uint) {
+func SkPixmapResetWithParams(cpixmap unsafe.Pointer, cinfo unsafe.Pointer, addr unsafe.Pointer, rowBytes uint) {
 	bindlib.CCall4(__imp_sk_pixmap_reset_with_params.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(addr), bindlib.MarshallSyscall(rowBytes))
 }
 
@@ -5658,14 +5793,14 @@ func SkPixmapSetColorspace(cpixmap unsafe.Pointer, colorspace unsafe.Pointer) {
 
 var __imp_sk_pixmap_extract_subset bindlib.PreloadProc
 
-func SkPixmapExtractSubset(cpixmap unsafe.Pointer, result unsafe.Pointer, subset *SkIrectT) bool {
+func SkPixmapExtractSubset(cpixmap unsafe.Pointer, result unsafe.Pointer, subset unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_pixmap_extract_subset.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(result), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_pixmap_get_info bindlib.PreloadProc
 
-func SkPixmapGetInfo(cpixmap unsafe.Pointer, cinfo *SkImageinfoT) {
+func SkPixmapGetInfo(cpixmap unsafe.Pointer, cinfo unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_pixmap_get_info.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(cinfo))
 }
 
@@ -5726,7 +5861,7 @@ func SkPixmapGetWriteableAddrWithXy(cpixmap unsafe.Pointer, x int32, y int32) un
 
 var __imp_sk_pixmap_read_pixels bindlib.PreloadProc
 
-func SkPixmapReadPixels(cpixmap unsafe.Pointer, dstInfo *SkImageinfoT, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32) bool {
+func SkPixmapReadPixels(cpixmap unsafe.Pointer, dstInfo unsafe.Pointer, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32) bool {
 	__res := bindlib.CCall6(__imp_sk_pixmap_read_pixels.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(dstInfo), bindlib.MarshallSyscall(dstPixels), bindlib.MarshallSyscall(dstRowBytes), bindlib.MarshallSyscall(srcX), bindlib.MarshallSyscall(srcY))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5740,14 +5875,14 @@ func SkPixmapScalePixels(cpixmap unsafe.Pointer, dst unsafe.Pointer, sampling un
 
 var __imp_sk_pixmap_erase_color bindlib.PreloadProc
 
-func SkPixmapEraseColor(cpixmap unsafe.Pointer, color SkColorT, subset *SkIrectT) bool {
+func SkPixmapEraseColor(cpixmap unsafe.Pointer, color SkColorT, subset unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_pixmap_erase_color.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(color), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_pixmap_erase_color4f bindlib.PreloadProc
 
-func SkPixmapEraseColor4f(cpixmap unsafe.Pointer, color unsafe.Pointer, subset *SkIrectT) bool {
+func SkPixmapEraseColor4f(cpixmap unsafe.Pointer, color unsafe.Pointer, subset unsafe.Pointer) bool {
 	__res := bindlib.CCall3(__imp_sk_pixmap_erase_color4f.Addr(), bindlib.MarshallSyscall(cpixmap), bindlib.MarshallSyscall(color), bindlib.MarshallSyscall(subset))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5775,7 +5910,7 @@ func SkPngencoderEncode(dst unsafe.Pointer, src unsafe.Pointer, options unsafe.P
 
 var __imp_sk_swizzle_swap_rb bindlib.PreloadProc
 
-func SkSwizzleSwapRb(dest *int32, src *int32, count int32) {
+func SkSwizzleSwapRb(dest *uint32, src *uint32, count int32) {
 	bindlib.CCall3(__imp_sk_swizzle_swap_rb.Addr(), bindlib.MarshallSyscall(dest), bindlib.MarshallSyscall(src), bindlib.MarshallSyscall(count))
 }
 
@@ -5847,7 +5982,7 @@ func SkRegionIsComplex(r unsafe.Pointer) bool {
 
 var __imp_sk_region_get_bounds bindlib.PreloadProc
 
-func SkRegionGetBounds(r unsafe.Pointer, rect *SkIrectT) {
+func SkRegionGetBounds(r unsafe.Pointer, rect unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_region_get_bounds.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 }
 
@@ -5867,14 +6002,14 @@ func SkRegionSetEmpty(r unsafe.Pointer) bool {
 
 var __imp_sk_region_set_rect bindlib.PreloadProc
 
-func SkRegionSetRect(r unsafe.Pointer, rect *SkIrectT) bool {
+func SkRegionSetRect(r unsafe.Pointer, rect unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_region_set_rect.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_region_set_rects bindlib.PreloadProc
 
-func SkRegionSetRects(r unsafe.Pointer, rects *SkIrectT, count int32) bool {
+func SkRegionSetRects(r unsafe.Pointer, rects unsafe.Pointer, count int32) bool {
 	__res := bindlib.CCall3(__imp_sk_region_set_rects.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rects), bindlib.MarshallSyscall(count))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5895,7 +6030,7 @@ func SkRegionSetPath(r unsafe.Pointer, t unsafe.Pointer, clip unsafe.Pointer) bo
 
 var __imp_sk_region_intersects_rect bindlib.PreloadProc
 
-func SkRegionIntersectsRect(r unsafe.Pointer, rect *SkIrectT) bool {
+func SkRegionIntersectsRect(r unsafe.Pointer, rect unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_region_intersects_rect.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5916,7 +6051,7 @@ func SkRegionContainsPoint(r unsafe.Pointer, x int32, y int32) bool {
 
 var __imp_sk_region_contains_rect bindlib.PreloadProc
 
-func SkRegionContainsRect(r unsafe.Pointer, rect *SkIrectT) bool {
+func SkRegionContainsRect(r unsafe.Pointer, rect unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_region_contains_rect.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5930,14 +6065,14 @@ func SkRegionContains(r unsafe.Pointer, region unsafe.Pointer) bool {
 
 var __imp_sk_region_quick_contains bindlib.PreloadProc
 
-func SkRegionQuickContains(r unsafe.Pointer, rect *SkIrectT) bool {
+func SkRegionQuickContains(r unsafe.Pointer, rect unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_region_quick_contains.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_region_quick_reject_rect bindlib.PreloadProc
 
-func SkRegionQuickRejectRect(r unsafe.Pointer, rect *SkIrectT) bool {
+func SkRegionQuickRejectRect(r unsafe.Pointer, rect unsafe.Pointer) bool {
 	__res := bindlib.CCall2(__imp_sk_region_quick_reject_rect.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -5957,7 +6092,7 @@ func SkRegionTranslate(r unsafe.Pointer, x int32, y int32) {
 
 var __imp_sk_region_op_rect bindlib.PreloadProc
 
-func SkRegionOpRect(r unsafe.Pointer, rect *SkIrectT, op SkRegionOpT) bool {
+func SkRegionOpRect(r unsafe.Pointer, rect unsafe.Pointer, op SkRegionOpT) bool {
 	__res := bindlib.CCall3(__imp_sk_region_op_rect.Addr(), bindlib.MarshallSyscall(r), bindlib.MarshallSyscall(rect), bindlib.MarshallSyscall(op))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6004,13 +6139,13 @@ func SkRegionIteratorNext(iter unsafe.Pointer) {
 
 var __imp_sk_region_iterator_rect bindlib.PreloadProc
 
-func SkRegionIteratorRect(iter unsafe.Pointer, rect *SkIrectT) {
+func SkRegionIteratorRect(iter unsafe.Pointer, rect unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_region_iterator_rect.Addr(), bindlib.MarshallSyscall(iter), bindlib.MarshallSyscall(rect))
 }
 
 var __imp_sk_region_cliperator_new bindlib.PreloadProc
 
-func SkRegionCliperatorNew(region unsafe.Pointer, clip *SkIrectT) unsafe.Pointer {
+func SkRegionCliperatorNew(region unsafe.Pointer, clip unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_sk_region_cliperator_new.Addr(), bindlib.MarshallSyscall(region), bindlib.MarshallSyscall(clip))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -6036,7 +6171,7 @@ func SkRegionCliperatorNext(iter unsafe.Pointer) {
 
 var __imp_sk_region_cliperator_rect bindlib.PreloadProc
 
-func SkRegionCliperatorRect(iter unsafe.Pointer, rect *SkIrectT) {
+func SkRegionCliperatorRect(iter unsafe.Pointer, rect unsafe.Pointer) {
 	bindlib.CCall2(__imp_sk_region_cliperator_rect.Addr(), bindlib.MarshallSyscall(iter), bindlib.MarshallSyscall(rect))
 }
 
@@ -6412,14 +6547,14 @@ func SkShaderNewTwoPointConicalGradientColor4f(start unsafe.Pointer, startRadius
 
 var __imp_sk_shader_new_perlin_noise_fractal_noise bindlib.PreloadProc
 
-func SkShaderNewPerlinNoiseFractalNoise(baseFrequencyX float32, baseFrequencyY float32, numOctaves int32, seed float32, tileSize *SkIsizeT) unsafe.Pointer {
+func SkShaderNewPerlinNoiseFractalNoise(baseFrequencyX float32, baseFrequencyY float32, numOctaves int32, seed float32, tileSize unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall5(__imp_sk_shader_new_perlin_noise_fractal_noise.Addr(), bindlib.MarshallSyscall(baseFrequencyX), bindlib.MarshallSyscall(baseFrequencyY), bindlib.MarshallSyscall(numOctaves), bindlib.MarshallSyscall(seed), bindlib.MarshallSyscall(tileSize))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_shader_new_perlin_noise_turbulence bindlib.PreloadProc
 
-func SkShaderNewPerlinNoiseTurbulence(baseFrequencyX float32, baseFrequencyY float32, numOctaves int32, seed float32, tileSize *SkIsizeT) unsafe.Pointer {
+func SkShaderNewPerlinNoiseTurbulence(baseFrequencyX float32, baseFrequencyY float32, numOctaves int32, seed float32, tileSize unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall5(__imp_sk_shader_new_perlin_noise_turbulence.Addr(), bindlib.MarshallSyscall(baseFrequencyX), bindlib.MarshallSyscall(baseFrequencyY), bindlib.MarshallSyscall(numOctaves), bindlib.MarshallSyscall(seed), bindlib.MarshallSyscall(tileSize))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -6523,14 +6658,14 @@ func SkStreamIsAtEnd(cstream unsafe.Pointer) bool {
 
 var __imp_sk_stream_read_s8 bindlib.PreloadProc
 
-func SkStreamReadS8(cstream unsafe.Pointer, buffer *int32) bool {
+func SkStreamReadS8(cstream unsafe.Pointer, buffer *int8) bool {
 	__res := bindlib.CCall2(__imp_sk_stream_read_s8.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(buffer))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_stream_read_s16 bindlib.PreloadProc
 
-func SkStreamReadS16(cstream unsafe.Pointer, buffer *int32) bool {
+func SkStreamReadS16(cstream unsafe.Pointer, buffer *int16) bool {
 	__res := bindlib.CCall2(__imp_sk_stream_read_s16.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(buffer))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6544,21 +6679,21 @@ func SkStreamReadS32(cstream unsafe.Pointer, buffer *int32) bool {
 
 var __imp_sk_stream_read_u8 bindlib.PreloadProc
 
-func SkStreamReadU8(cstream unsafe.Pointer, buffer *int32) bool {
+func SkStreamReadU8(cstream unsafe.Pointer, buffer *uint8) bool {
 	__res := bindlib.CCall2(__imp_sk_stream_read_u8.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(buffer))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_stream_read_u16 bindlib.PreloadProc
 
-func SkStreamReadU16(cstream unsafe.Pointer, buffer *int32) bool {
+func SkStreamReadU16(cstream unsafe.Pointer, buffer *uint16) bool {
 	__res := bindlib.CCall2(__imp_sk_stream_read_u16.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(buffer))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_stream_read_u32 bindlib.PreloadProc
 
-func SkStreamReadU32(cstream unsafe.Pointer, buffer *int32) bool {
+func SkStreamReadU32(cstream unsafe.Pointer, buffer *uint32) bool {
 	__res := bindlib.CCall2(__imp_sk_stream_read_u32.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(buffer))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6737,21 +6872,21 @@ func SkWstreamBytesWritten(cstream unsafe.Pointer) uint {
 
 var __imp_sk_wstream_write_8 bindlib.PreloadProc
 
-func SkWstreamWrite8(cstream unsafe.Pointer, value int32) bool {
+func SkWstreamWrite8(cstream unsafe.Pointer, value uint8) bool {
 	__res := bindlib.CCall2(__imp_sk_wstream_write_8.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(value))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_wstream_write_16 bindlib.PreloadProc
 
-func SkWstreamWrite16(cstream unsafe.Pointer, value int32) bool {
+func SkWstreamWrite16(cstream unsafe.Pointer, value uint16) bool {
 	__res := bindlib.CCall2(__imp_sk_wstream_write_16.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(value))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_wstream_write_32 bindlib.PreloadProc
 
-func SkWstreamWrite32(cstream unsafe.Pointer, value int32) bool {
+func SkWstreamWrite32(cstream unsafe.Pointer, value uint32) bool {
 	__res := bindlib.CCall2(__imp_sk_wstream_write_32.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(value))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6772,14 +6907,14 @@ func SkWstreamWriteDecAsText(cstream unsafe.Pointer, value int32) bool {
 
 var __imp_sk_wstream_write_bigdec_as_text bindlib.PreloadProc
 
-func SkWstreamWriteBigdecAsText(cstream unsafe.Pointer, value int32, minDigits int32) bool {
+func SkWstreamWriteBigdecAsText(cstream unsafe.Pointer, value int64, minDigits int32) bool {
 	__res := bindlib.CCall3(__imp_sk_wstream_write_bigdec_as_text.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(value), bindlib.MarshallSyscall(minDigits))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_wstream_write_hex_as_text bindlib.PreloadProc
 
-func SkWstreamWriteHexAsText(cstream unsafe.Pointer, value int32, minDigits int32) bool {
+func SkWstreamWriteHexAsText(cstream unsafe.Pointer, value uint32, minDigits int32) bool {
 	__res := bindlib.CCall3(__imp_sk_wstream_write_hex_as_text.Addr(), bindlib.MarshallSyscall(cstream), bindlib.MarshallSyscall(value), bindlib.MarshallSyscall(minDigits))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6869,14 +7004,14 @@ func SkSurfaceNewNull(width int32, height int32) unsafe.Pointer {
 
 var __imp_sk_surface_new_raster bindlib.PreloadProc
 
-func SkSurfaceNewRaster( *SkImageinfoT, rowBytes uint,  unsafe.Pointer) unsafe.Pointer {
+func SkSurfaceNewRaster( unsafe.Pointer, rowBytes uint,  unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall3(__imp_sk_surface_new_raster.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall())
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_surface_new_raster_direct bindlib.PreloadProc
 
-func SkSurfaceNewRasterDirect( *SkImageinfoT, pixels unsafe.Pointer, rowBytes uint, releaseProc SkSurfaceRasterReleaseProc, context unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
+func SkSurfaceNewRasterDirect( unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, releaseProc SkSurfaceRasterReleaseProc, context unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall6(__imp_sk_surface_new_raster_direct.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(releaseProc), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(props))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -6897,7 +7032,7 @@ func SkSurfaceNewBackendRenderTarget(context unsafe.Pointer, target unsafe.Point
 
 var __imp_sk_surface_new_render_target bindlib.PreloadProc
 
-func SkSurfaceNewRenderTarget(context unsafe.Pointer, budgeted bool, cinfo *SkImageinfoT, sampleCount int32, origin GrSurfaceoriginT, props unsafe.Pointer, shouldCreateWithMips bool) unsafe.Pointer {
+func SkSurfaceNewRenderTarget(context unsafe.Pointer, budgeted bool, cinfo unsafe.Pointer, sampleCount int32, origin GrSurfaceoriginT, props unsafe.Pointer, shouldCreateWithMips bool) unsafe.Pointer {
 	__res := bindlib.CCall7(__imp_sk_surface_new_render_target.Addr(), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(budgeted), bindlib.MarshallSyscall(cinfo), bindlib.MarshallSyscall(sampleCount), bindlib.MarshallSyscall(origin), bindlib.MarshallSyscall(props), bindlib.MarshallSyscall(shouldCreateWithMips))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -6938,7 +7073,7 @@ func SkSurfaceNewImageSnapshot( unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_surface_new_image_snapshot_with_crop bindlib.PreloadProc
 
-func SkSurfaceNewImageSnapshotWithCrop(surface unsafe.Pointer, bounds *SkIrectT) unsafe.Pointer {
+func SkSurfaceNewImageSnapshotWithCrop(surface unsafe.Pointer, bounds unsafe.Pointer) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_sk_surface_new_image_snapshot_with_crop.Addr(), bindlib.MarshallSyscall(surface), bindlib.MarshallSyscall(bounds))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -6958,7 +7093,7 @@ func SkSurfacePeekPixels(surface unsafe.Pointer, pixmap unsafe.Pointer) bool {
 
 var __imp_sk_surface_read_pixels bindlib.PreloadProc
 
-func SkSurfaceReadPixels(surface unsafe.Pointer, dstInfo *SkImageinfoT, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32) bool {
+func SkSurfaceReadPixels(surface unsafe.Pointer, dstInfo unsafe.Pointer, dstPixels unsafe.Pointer, dstRowBytes uint, srcX int32, srcY int32) bool {
 	__res := bindlib.CCall6(__imp_sk_surface_read_pixels.Addr(), bindlib.MarshallSyscall(surface), bindlib.MarshallSyscall(dstInfo), bindlib.MarshallSyscall(dstPixels), bindlib.MarshallSyscall(dstRowBytes), bindlib.MarshallSyscall(srcX), bindlib.MarshallSyscall(srcY))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -6991,7 +7126,7 @@ func SkSurfaceGetRecordingContext(surface unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_surfaceprops_new bindlib.PreloadProc
 
-func SkSurfacepropsNew(flags int32, geometry SkPixelgeometryT) unsafe.Pointer {
+func SkSurfacepropsNew(flags uint32, geometry SkPixelgeometryT) unsafe.Pointer {
 	__res := bindlib.CCall2(__imp_sk_surfaceprops_new.Addr(), bindlib.MarshallSyscall(flags), bindlib.MarshallSyscall(geometry))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
@@ -7004,9 +7139,9 @@ func SkSurfacepropsDelete(props unsafe.Pointer) {
 
 var __imp_sk_surfaceprops_get_flags bindlib.PreloadProc
 
-func SkSurfacepropsGetFlags(props unsafe.Pointer) int32 {
+func SkSurfacepropsGetFlags(props unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_surfaceprops_get_flags.Addr(), bindlib.MarshallSyscall(props))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_surfaceprops_get_pixel_geometry bindlib.PreloadProc
@@ -7037,9 +7172,9 @@ func SkTextblobUnref(blob unsafe.Pointer) {
 
 var __imp_sk_textblob_get_unique_id bindlib.PreloadProc
 
-func SkTextblobGetUniqueId(blob unsafe.Pointer) int32 {
+func SkTextblobGetUniqueId(blob unsafe.Pointer) uint32 {
 	__res := bindlib.CCall1(__imp_sk_textblob_get_unique_id.Addr(), bindlib.MarshallSyscall(blob))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_textblob_get_bounds bindlib.PreloadProc
@@ -7208,15 +7343,15 @@ func SkTypefaceCreateFromData(data unsafe.Pointer, index int32) unsafe.Pointer {
 
 var __imp_sk_typeface_unichars_to_glyphs bindlib.PreloadProc
 
-func SkTypefaceUnicharsToGlyphs(typeface unsafe.Pointer, unichars *int32, count int32, glyphs *int32) {
+func SkTypefaceUnicharsToGlyphs(typeface unsafe.Pointer, unichars *int32, count int32, glyphs *uint16) {
 	bindlib.CCall4(__imp_sk_typeface_unichars_to_glyphs.Addr(), bindlib.MarshallSyscall(typeface), bindlib.MarshallSyscall(unichars), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(glyphs))
 }
 
 var __imp_sk_typeface_unichar_to_glyph bindlib.PreloadProc
 
-func SkTypefaceUnicharToGlyph(typeface unsafe.Pointer, unichar int32) int32 {
+func SkTypefaceUnicharToGlyph(typeface unsafe.Pointer, unichar int32) uint16 {
 	__res := bindlib.CCall2(__imp_sk_typeface_unichar_to_glyph.Addr(), bindlib.MarshallSyscall(typeface), bindlib.MarshallSyscall(unichar))
-	return bindlib.UnmarshallSyscall[int32](__res)
+	return bindlib.UnmarshallSyscall[uint16](__res)
 }
 
 var __imp_sk_typeface_count_glyphs bindlib.PreloadProc
@@ -7270,7 +7405,7 @@ func SkTypefaceGetUnitsPerEm(typeface unsafe.Pointer) int32 {
 
 var __imp_sk_typeface_get_kerning_pair_adjustments bindlib.PreloadProc
 
-func SkTypefaceGetKerningPairAdjustments(typeface unsafe.Pointer, glyphs *int32, count int32, adjustments *int32) bool {
+func SkTypefaceGetKerningPairAdjustments(typeface unsafe.Pointer, glyphs *uint16, count int32, adjustments *int32) bool {
 	__res := bindlib.CCall4(__imp_sk_typeface_get_kerning_pair_adjustments.Addr(), bindlib.MarshallSyscall(typeface), bindlib.MarshallSyscall(glyphs), bindlib.MarshallSyscall(count), bindlib.MarshallSyscall(adjustments))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
@@ -7459,7 +7594,7 @@ func SkVerticesRef(cvertices unsafe.Pointer) {
 
 var __imp_sk_vertices_make_copy bindlib.PreloadProc
 
-func SkVerticesMakeCopy(vmode SkVerticesVertexModeT, vertexCount int32, positions unsafe.Pointer, texs unsafe.Pointer, colors *SkColorT, indexCount int32, indices *int32) unsafe.Pointer {
+func SkVerticesMakeCopy(vmode SkVerticesVertexModeT, vertexCount int32, positions unsafe.Pointer, texs unsafe.Pointer, colors *SkColorT, indexCount int32, indices *uint16) unsafe.Pointer {
 	__res := bindlib.CCall7(__imp_sk_vertices_make_copy.Addr(), bindlib.MarshallSyscall(vmode), bindlib.MarshallSyscall(vertexCount), bindlib.MarshallSyscall(positions), bindlib.MarshallSyscall(texs), bindlib.MarshallSyscall(colors), bindlib.MarshallSyscall(indexCount), bindlib.MarshallSyscall(indices))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
