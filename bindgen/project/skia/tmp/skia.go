@@ -10,559 +10,559 @@ const GengoLibraryName = "skia"
 
 var GengoLibrary = bindlib.NewLibrary(GengoLibraryName)
 
-type  int32
+type SkColortypeT int32
 
 const (
-	UNKNOWN_SK_COLORTYPE            = 0
-	ALPHA_8_SK_COLORTYPE            = 1
-	RGB_565_SK_COLORTYPE            = 2
-	ARGB_4444_SK_COLORTYPE          = 3
-	RGBA_8888_SK_COLORTYPE          = 4
-	RGB_888X_SK_COLORTYPE           = 5
-	BGRA_8888_SK_COLORTYPE          = 6
-	RGBA_1010102_SK_COLORTYPE       = 7
-	BGRA_1010102_SK_COLORTYPE       = 8
-	RGB_101010X_SK_COLORTYPE        = 9
-	BGR_101010X_SK_COLORTYPE        = 10
-	BGR_101010X_XR_SK_COLORTYPE     = 11
-	GRAY_8_SK_COLORTYPE             = 12
-	RGBA_F16_NORM_SK_COLORTYPE      = 13
-	RGBA_F16_SK_COLORTYPE           = 14
-	RGBA_F32_SK_COLORTYPE           = 15
-	R8G8_UNORM_SK_COLORTYPE         = 16
-	A16_FLOAT_SK_COLORTYPE          = 17
-	R16G16_FLOAT_SK_COLORTYPE       = 18
-	A16_UNORM_SK_COLORTYPE          = 19
-	R16G16_UNORM_SK_COLORTYPE       = 20
-	R16G16B16A16_UNORM_SK_COLORTYPE = 21
-	SRGBA_8888_SK_COLORTYPE         = 22
-	R8_UNORM_SK_COLORTYPE           = 23
+	UNKNOWN_SK_COLORTYPE            SkColortypeT = 0
+	ALPHA_8_SK_COLORTYPE            SkColortypeT = 1
+	RGB_565_SK_COLORTYPE            SkColortypeT = 2
+	ARGB_4444_SK_COLORTYPE          SkColortypeT = 3
+	RGBA_8888_SK_COLORTYPE          SkColortypeT = 4
+	RGB_888X_SK_COLORTYPE           SkColortypeT = 5
+	BGRA_8888_SK_COLORTYPE          SkColortypeT = 6
+	RGBA_1010102_SK_COLORTYPE       SkColortypeT = 7
+	BGRA_1010102_SK_COLORTYPE       SkColortypeT = 8
+	RGB_101010X_SK_COLORTYPE        SkColortypeT = 9
+	BGR_101010X_SK_COLORTYPE        SkColortypeT = 10
+	BGR_101010X_XR_SK_COLORTYPE     SkColortypeT = 11
+	GRAY_8_SK_COLORTYPE             SkColortypeT = 12
+	RGBA_F16_NORM_SK_COLORTYPE      SkColortypeT = 13
+	RGBA_F16_SK_COLORTYPE           SkColortypeT = 14
+	RGBA_F32_SK_COLORTYPE           SkColortypeT = 15
+	R8G8_UNORM_SK_COLORTYPE         SkColortypeT = 16
+	A16_FLOAT_SK_COLORTYPE          SkColortypeT = 17
+	R16G16_FLOAT_SK_COLORTYPE       SkColortypeT = 18
+	A16_UNORM_SK_COLORTYPE          SkColortypeT = 19
+	R16G16_UNORM_SK_COLORTYPE       SkColortypeT = 20
+	R16G16B16A16_UNORM_SK_COLORTYPE SkColortypeT = 21
+	SRGBA_8888_SK_COLORTYPE         SkColortypeT = 22
+	R8_UNORM_SK_COLORTYPE           SkColortypeT = 23
 )
 
-type  int32
+type SkAlphatypeT int32
 
 const (
-	UNKNOWN_SK_ALPHATYPE  = 0
-	OPAQUE_SK_ALPHATYPE   = 1
-	PREMUL_SK_ALPHATYPE   = 2
-	UNPREMUL_SK_ALPHATYPE = 3
+	UNKNOWN_SK_ALPHATYPE  SkAlphatypeT = 0
+	OPAQUE_SK_ALPHATYPE   SkAlphatypeT = 1
+	PREMUL_SK_ALPHATYPE   SkAlphatypeT = 2
+	UNPREMUL_SK_ALPHATYPE SkAlphatypeT = 3
 )
 
-type  int32
+type SkPixelgeometryT int32
 
 const (
-	UNKNOWN_SK_PIXELGEOMETRY = 0
-	RGB_H_SK_PIXELGEOMETRY   = 1
-	BGR_H_SK_PIXELGEOMETRY   = 2
-	RGB_V_SK_PIXELGEOMETRY   = 3
-	BGR_V_SK_PIXELGEOMETRY   = 4
+	UNKNOWN_SK_PIXELGEOMETRY SkPixelgeometryT = 0
+	RGB_H_SK_PIXELGEOMETRY   SkPixelgeometryT = 1
+	BGR_H_SK_PIXELGEOMETRY   SkPixelgeometryT = 2
+	RGB_V_SK_PIXELGEOMETRY   SkPixelgeometryT = 3
+	BGR_V_SK_PIXELGEOMETRY   SkPixelgeometryT = 4
 )
 
-type  int32
+type SkSurfacepropsFlagsT int32
 
 const (
-	NONE_SK_SURFACE_PROPS_FLAGS                         = 0
-	USE_DEVICE_INDEPENDENT_FONTS_SK_SURFACE_PROPS_FLAGS = 1
+	NONE_SK_SURFACE_PROPS_FLAGS                         SkSurfacepropsFlagsT = 0
+	USE_DEVICE_INDEPENDENT_FONTS_SK_SURFACE_PROPS_FLAGS SkSurfacepropsFlagsT = 1
 )
 
-type  int32
+type SkBlendmodeT int32
 
 const (
-	CLEAR_SK_BLENDMODE      = 0
-	SRC_SK_BLENDMODE        = 1
-	DST_SK_BLENDMODE        = 2
-	SRCOVER_SK_BLENDMODE    = 3
-	DSTOVER_SK_BLENDMODE    = 4
-	SRCIN_SK_BLENDMODE      = 5
-	DSTIN_SK_BLENDMODE      = 6
-	SRCOUT_SK_BLENDMODE     = 7
-	DSTOUT_SK_BLENDMODE     = 8
-	SRCATOP_SK_BLENDMODE    = 9
-	DSTATOP_SK_BLENDMODE    = 10
-	XOR_SK_BLENDMODE        = 11
-	PLUS_SK_BLENDMODE       = 12
-	MODULATE_SK_BLENDMODE   = 13
-	SCREEN_SK_BLENDMODE     = 14
-	OVERLAY_SK_BLENDMODE    = 15
-	DARKEN_SK_BLENDMODE     = 16
-	LIGHTEN_SK_BLENDMODE    = 17
-	COLORDODGE_SK_BLENDMODE = 18
-	COLORBURN_SK_BLENDMODE  = 19
-	HARDLIGHT_SK_BLENDMODE  = 20
-	SOFTLIGHT_SK_BLENDMODE  = 21
-	DIFFERENCE_SK_BLENDMODE = 22
-	EXCLUSION_SK_BLENDMODE  = 23
-	MULTIPLY_SK_BLENDMODE   = 24
-	HUE_SK_BLENDMODE        = 25
-	SATURATION_SK_BLENDMODE = 26
-	COLOR_SK_BLENDMODE      = 27
-	LUMINOSITY_SK_BLENDMODE = 28
+	CLEAR_SK_BLENDMODE      SkBlendmodeT = 0
+	SRC_SK_BLENDMODE        SkBlendmodeT = 1
+	DST_SK_BLENDMODE        SkBlendmodeT = 2
+	SRCOVER_SK_BLENDMODE    SkBlendmodeT = 3
+	DSTOVER_SK_BLENDMODE    SkBlendmodeT = 4
+	SRCIN_SK_BLENDMODE      SkBlendmodeT = 5
+	DSTIN_SK_BLENDMODE      SkBlendmodeT = 6
+	SRCOUT_SK_BLENDMODE     SkBlendmodeT = 7
+	DSTOUT_SK_BLENDMODE     SkBlendmodeT = 8
+	SRCATOP_SK_BLENDMODE    SkBlendmodeT = 9
+	DSTATOP_SK_BLENDMODE    SkBlendmodeT = 10
+	XOR_SK_BLENDMODE        SkBlendmodeT = 11
+	PLUS_SK_BLENDMODE       SkBlendmodeT = 12
+	MODULATE_SK_BLENDMODE   SkBlendmodeT = 13
+	SCREEN_SK_BLENDMODE     SkBlendmodeT = 14
+	OVERLAY_SK_BLENDMODE    SkBlendmodeT = 15
+	DARKEN_SK_BLENDMODE     SkBlendmodeT = 16
+	LIGHTEN_SK_BLENDMODE    SkBlendmodeT = 17
+	COLORDODGE_SK_BLENDMODE SkBlendmodeT = 18
+	COLORBURN_SK_BLENDMODE  SkBlendmodeT = 19
+	HARDLIGHT_SK_BLENDMODE  SkBlendmodeT = 20
+	SOFTLIGHT_SK_BLENDMODE  SkBlendmodeT = 21
+	DIFFERENCE_SK_BLENDMODE SkBlendmodeT = 22
+	EXCLUSION_SK_BLENDMODE  SkBlendmodeT = 23
+	MULTIPLY_SK_BLENDMODE   SkBlendmodeT = 24
+	HUE_SK_BLENDMODE        SkBlendmodeT = 25
+	SATURATION_SK_BLENDMODE SkBlendmodeT = 26
+	COLOR_SK_BLENDMODE      SkBlendmodeT = 27
+	LUMINOSITY_SK_BLENDMODE SkBlendmodeT = 28
 )
 
-type  int32
+type SkPointModeT int32
 
 const (
-	POINTS_SK_POINT_MODE  = 0
-	LINES_SK_POINT_MODE   = 1
-	POLYGON_SK_POINT_MODE = 2
+	POINTS_SK_POINT_MODE  SkPointModeT = 0
+	LINES_SK_POINT_MODE   SkPointModeT = 1
+	POLYGON_SK_POINT_MODE SkPointModeT = 2
 )
 
-type  int32
+type SkTextAlignT int32
 
 const (
-	LEFT_SK_TEXT_ALIGN   = 0
-	CENTER_SK_TEXT_ALIGN = 1
-	RIGHT_SK_TEXT_ALIGN  = 2
+	LEFT_SK_TEXT_ALIGN   SkTextAlignT = 0
+	CENTER_SK_TEXT_ALIGN SkTextAlignT = 1
+	RIGHT_SK_TEXT_ALIGN  SkTextAlignT = 2
 )
 
-type  int32
+type SkTextEncodingT int32
 
 const (
-	UTF8_SK_TEXT_ENCODING     = 0
-	UTF16_SK_TEXT_ENCODING    = 1
-	UTF32_SK_TEXT_ENCODING    = 2
-	GLYPH_ID_SK_TEXT_ENCODING = 3
+	UTF8_SK_TEXT_ENCODING     SkTextEncodingT = 0
+	UTF16_SK_TEXT_ENCODING    SkTextEncodingT = 1
+	UTF32_SK_TEXT_ENCODING    SkTextEncodingT = 2
+	GLYPH_ID_SK_TEXT_ENCODING SkTextEncodingT = 3
 )
 
-type  int32
+type SkPathFilltypeT int32
 
 const (
-	WINDING_SK_PATH_FILLTYPE         = 0
-	EVENODD_SK_PATH_FILLTYPE         = 1
-	INVERSE_WINDING_SK_PATH_FILLTYPE = 2
-	INVERSE_EVENODD_SK_PATH_FILLTYPE = 3
+	WINDING_SK_PATH_FILLTYPE         SkPathFilltypeT = 0
+	EVENODD_SK_PATH_FILLTYPE         SkPathFilltypeT = 1
+	INVERSE_WINDING_SK_PATH_FILLTYPE SkPathFilltypeT = 2
+	INVERSE_EVENODD_SK_PATH_FILLTYPE SkPathFilltypeT = 3
 )
 
-type  int32
+type SkFontStyleSlantT int32
 
 const (
-	UPRIGHT_SK_FONT_STYLE_SLANT = 0
-	ITALIC_SK_FONT_STYLE_SLANT  = 1
-	OBLIQUE_SK_FONT_STYLE_SLANT = 2
+	UPRIGHT_SK_FONT_STYLE_SLANT SkFontStyleSlantT = 0
+	ITALIC_SK_FONT_STYLE_SLANT  SkFontStyleSlantT = 1
+	OBLIQUE_SK_FONT_STYLE_SLANT SkFontStyleSlantT = 2
 )
 
-type  int32
+type SkColorChannelT int32
 
 const (
-	R_SK_COLOR_CHANNEL = 0
-	G_SK_COLOR_CHANNEL = 1
-	B_SK_COLOR_CHANNEL = 2
-	A_SK_COLOR_CHANNEL = 3
+	R_SK_COLOR_CHANNEL SkColorChannelT = 0
+	G_SK_COLOR_CHANNEL SkColorChannelT = 1
+	B_SK_COLOR_CHANNEL SkColorChannelT = 2
+	A_SK_COLOR_CHANNEL SkColorChannelT = 3
 )
 
 // The logical operations that can be performed when combining two regions.
-type  int32
+type SkRegionOpT int32
 
 const (
 	// subtract the op region from the first region
-	DIFFERENCE_SK_REGION_OP = 0
+	DIFFERENCE_SK_REGION_OP SkRegionOpT = 0
 	// intersect the two regions
-	INTERSECT_SK_REGION_OP = 1
+	INTERSECT_SK_REGION_OP SkRegionOpT = 1
 	// union (inclusive-or) the two regions
-	UNION_SK_REGION_OP = 2
+	UNION_SK_REGION_OP SkRegionOpT = 2
 	// exclusive-or the two regions
-	XOR_SK_REGION_OP = 3
+	XOR_SK_REGION_OP SkRegionOpT = 3
 	// subtract the first region from the op region
-	REVERSE_DIFFERENCE_SK_REGION_OP = 4
+	REVERSE_DIFFERENCE_SK_REGION_OP SkRegionOpT = 4
 	// replace the dst region with the op region
-	REPLACE_SK_REGION_OP = 5
+	REPLACE_SK_REGION_OP SkRegionOpT = 5
 )
 
-type  int32
+type SkClipopT int32
 
 const (
-	DIFFERENCE_SK_CLIPOP = 0
-	INTERSECT_SK_CLIPOP  = 1
+	DIFFERENCE_SK_CLIPOP SkClipopT = 0
+	INTERSECT_SK_CLIPOP  SkClipopT = 1
 )
 
 // Enum describing format of encoded data.
-type  int32
+type SkEncodedImageFormatT int32
 
 const (
-	BMP_SK_ENCODED_FORMAT    = 0
-	GIF_SK_ENCODED_FORMAT    = 1
-	ICO_SK_ENCODED_FORMAT    = 2
-	JPEG_SK_ENCODED_FORMAT   = 3
-	PNG_SK_ENCODED_FORMAT    = 4
-	WBMP_SK_ENCODED_FORMAT   = 5
-	WEBP_SK_ENCODED_FORMAT   = 6
-	PKM_SK_ENCODED_FORMAT    = 7
-	KTX_SK_ENCODED_FORMAT    = 8
-	ASTC_SK_ENCODED_FORMAT   = 9
-	DNG_SK_ENCODED_FORMAT    = 10
-	HEIF_SK_ENCODED_FORMAT   = 11
-	AVIF_SK_ENCODED_FORMAT   = 12
-	JPEGXL_SK_ENCODED_FORMAT = 13
+	BMP_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 0
+	GIF_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 1
+	ICO_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 2
+	JPEG_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 3
+	PNG_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 4
+	WBMP_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 5
+	WEBP_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 6
+	PKM_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 7
+	KTX_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 8
+	ASTC_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 9
+	DNG_SK_ENCODED_FORMAT    SkEncodedImageFormatT = 10
+	HEIF_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 11
+	AVIF_SK_ENCODED_FORMAT   SkEncodedImageFormatT = 12
+	JPEGXL_SK_ENCODED_FORMAT SkEncodedImageFormatT = 13
 )
 
-type  int32
+type SkEncodedoriginT int32
 
 const (
-	TOP_LEFT_SK_ENCODED_ORIGIN     = 1
-	TOP_RIGHT_SK_ENCODED_ORIGIN    = 2
-	BOTTOM_RIGHT_SK_ENCODED_ORIGIN = 3
-	BOTTOM_LEFT_SK_ENCODED_ORIGIN  = 4
-	LEFT_TOP_SK_ENCODED_ORIGIN     = 5
-	RIGHT_TOP_SK_ENCODED_ORIGIN    = 6
-	RIGHT_BOTTOM_SK_ENCODED_ORIGIN = 7
-	LEFT_BOTTOM_SK_ENCODED_ORIGIN  = 8
-	DEFAULT_SK_ENCODED_ORIGIN      = 1
+	TOP_LEFT_SK_ENCODED_ORIGIN     SkEncodedoriginT = 1
+	TOP_RIGHT_SK_ENCODED_ORIGIN    SkEncodedoriginT = 2
+	BOTTOM_RIGHT_SK_ENCODED_ORIGIN SkEncodedoriginT = 3
+	BOTTOM_LEFT_SK_ENCODED_ORIGIN  SkEncodedoriginT = 4
+	LEFT_TOP_SK_ENCODED_ORIGIN     SkEncodedoriginT = 5
+	RIGHT_TOP_SK_ENCODED_ORIGIN    SkEncodedoriginT = 6
+	RIGHT_BOTTOM_SK_ENCODED_ORIGIN SkEncodedoriginT = 7
+	LEFT_BOTTOM_SK_ENCODED_ORIGIN  SkEncodedoriginT = 8
+	DEFAULT_SK_ENCODED_ORIGIN      SkEncodedoriginT = 1
 )
 
-type  int32
+type SkCodecResultT int32
 
 const (
-	SUCCESS_SK_CODEC_RESULT            = 0
-	INCOMPLETE_INPUT_SK_CODEC_RESULT   = 1
-	ERROR_IN_INPUT_SK_CODEC_RESULT     = 2
-	INVALID_CONVERSION_SK_CODEC_RESULT = 3
-	INVALID_SCALE_SK_CODEC_RESULT      = 4
-	INVALID_PARAMETERS_SK_CODEC_RESULT = 5
-	INVALID_INPUT_SK_CODEC_RESULT      = 6
-	COULD_NOT_REWIND_SK_CODEC_RESULT   = 7
-	INTERNAL_ERROR_SK_CODEC_RESULT     = 8
-	UNIMPLEMENTED_SK_CODEC_RESULT      = 9
+	SUCCESS_SK_CODEC_RESULT            SkCodecResultT = 0
+	INCOMPLETE_INPUT_SK_CODEC_RESULT   SkCodecResultT = 1
+	ERROR_IN_INPUT_SK_CODEC_RESULT     SkCodecResultT = 2
+	INVALID_CONVERSION_SK_CODEC_RESULT SkCodecResultT = 3
+	INVALID_SCALE_SK_CODEC_RESULT      SkCodecResultT = 4
+	INVALID_PARAMETERS_SK_CODEC_RESULT SkCodecResultT = 5
+	INVALID_INPUT_SK_CODEC_RESULT      SkCodecResultT = 6
+	COULD_NOT_REWIND_SK_CODEC_RESULT   SkCodecResultT = 7
+	INTERNAL_ERROR_SK_CODEC_RESULT     SkCodecResultT = 8
+	UNIMPLEMENTED_SK_CODEC_RESULT      SkCodecResultT = 9
 )
 
-type  int32
+type SkCodecZeroInitializedT int32
 
 const (
-	YES_SK_CODEC_ZERO_INITIALIZED = 0
-	NO_SK_CODEC_ZERO_INITIALIZED  = 1
+	YES_SK_CODEC_ZERO_INITIALIZED SkCodecZeroInitializedT = 0
+	NO_SK_CODEC_ZERO_INITIALIZED  SkCodecZeroInitializedT = 1
 )
 
-type  int32
+type SkCodecScanlineOrderT int32
 
 const (
-	TOP_DOWN_SK_CODEC_SCANLINE_ORDER  = 0
-	BOTTOM_UP_SK_CODEC_SCANLINE_ORDER = 1
+	TOP_DOWN_SK_CODEC_SCANLINE_ORDER  SkCodecScanlineOrderT = 0
+	BOTTOM_UP_SK_CODEC_SCANLINE_ORDER SkCodecScanlineOrderT = 1
 )
 
-type  int32
+type SkPathVerbT int32
 
 const (
-	MOVE_SK_PATH_VERB  = 0
-	LINE_SK_PATH_VERB  = 1
-	QUAD_SK_PATH_VERB  = 2
-	CONIC_SK_PATH_VERB = 3
-	CUBIC_SK_PATH_VERB = 4
-	CLOSE_SK_PATH_VERB = 5
-	DONE_SK_PATH_VERB  = 6
+	MOVE_SK_PATH_VERB  SkPathVerbT = 0
+	LINE_SK_PATH_VERB  SkPathVerbT = 1
+	QUAD_SK_PATH_VERB  SkPathVerbT = 2
+	CONIC_SK_PATH_VERB SkPathVerbT = 3
+	CUBIC_SK_PATH_VERB SkPathVerbT = 4
+	CLOSE_SK_PATH_VERB SkPathVerbT = 5
+	DONE_SK_PATH_VERB  SkPathVerbT = 6
 )
 
-type  int32
+type SkPathAddModeT int32
 
 const (
-	APPEND_SK_PATH_ADD_MODE = 0
-	EXTEND_SK_PATH_ADD_MODE = 1
+	APPEND_SK_PATH_ADD_MODE SkPathAddModeT = 0
+	EXTEND_SK_PATH_ADD_MODE SkPathAddModeT = 1
 )
 
-type  int32
+type SkPathSegmentMaskT int32
 
 const (
-	LINE_SK_PATH_SEGMENT_MASK  = 1
-	QUAD_SK_PATH_SEGMENT_MASK  = 2
-	CONIC_SK_PATH_SEGMENT_MASK = 4
-	CUBIC_SK_PATH_SEGMENT_MASK = 8
+	LINE_SK_PATH_SEGMENT_MASK  SkPathSegmentMaskT = 1
+	QUAD_SK_PATH_SEGMENT_MASK  SkPathSegmentMaskT = 2
+	CONIC_SK_PATH_SEGMENT_MASK SkPathSegmentMaskT = 4
+	CUBIC_SK_PATH_SEGMENT_MASK SkPathSegmentMaskT = 8
 )
 
-type  int32
+type SkPathEffect1dStyleT int32
 
 const (
-	TRANSLATE_SK_PATH_EFFECT_1D_STYLE = 0
-	ROTATE_SK_PATH_EFFECT_1D_STYLE    = 1
-	MORPH_SK_PATH_EFFECT_1D_STYLE     = 2
+	TRANSLATE_SK_PATH_EFFECT_1D_STYLE SkPathEffect1dStyleT = 0
+	ROTATE_SK_PATH_EFFECT_1D_STYLE    SkPathEffect1dStyleT = 1
+	MORPH_SK_PATH_EFFECT_1D_STYLE     SkPathEffect1dStyleT = 2
 )
 
-type  int32
+type SkPathEffectTrimModeT int32
 
 const (
-	NORMAL_SK_PATH_EFFECT_TRIM_MODE   = 0
-	INVERTED_SK_PATH_EFFECT_TRIM_MODE = 1
+	NORMAL_SK_PATH_EFFECT_TRIM_MODE   SkPathEffectTrimModeT = 0
+	INVERTED_SK_PATH_EFFECT_TRIM_MODE SkPathEffectTrimModeT = 1
 )
 
-type  int32
+type SkStrokeCapT int32
 
 const (
-	BUTT_SK_STROKE_CAP   = 0
-	ROUND_SK_STROKE_CAP  = 1
-	SQUARE_SK_STROKE_CAP = 2
+	BUTT_SK_STROKE_CAP   SkStrokeCapT = 0
+	ROUND_SK_STROKE_CAP  SkStrokeCapT = 1
+	SQUARE_SK_STROKE_CAP SkStrokeCapT = 2
 )
 
-type  int32
+type SkStrokeJoinT int32
 
 const (
-	MITER_SK_STROKE_JOIN = 0
-	ROUND_SK_STROKE_JOIN = 1
-	BEVEL_SK_STROKE_JOIN = 2
+	MITER_SK_STROKE_JOIN SkStrokeJoinT = 0
+	ROUND_SK_STROKE_JOIN SkStrokeJoinT = 1
+	BEVEL_SK_STROKE_JOIN SkStrokeJoinT = 2
 )
 
-type  int32
+type SkShaderTilemodeT int32
 
 const (
-	CLAMP_SK_SHADER_TILEMODE  = 0
-	REPEAT_SK_SHADER_TILEMODE = 1
-	MIRROR_SK_SHADER_TILEMODE = 2
-	DECAL_SK_SHADER_TILEMODE  = 3
+	CLAMP_SK_SHADER_TILEMODE  SkShaderTilemodeT = 0
+	REPEAT_SK_SHADER_TILEMODE SkShaderTilemodeT = 1
+	MIRROR_SK_SHADER_TILEMODE SkShaderTilemodeT = 2
+	DECAL_SK_SHADER_TILEMODE  SkShaderTilemodeT = 3
 )
 
-type  int32
+type SkBlurstyleT int32
 
 const (
 	// fuzzy inside and outside
-	NORMAL_SK_BLUR_STYLE = 0
+	NORMAL_SK_BLUR_STYLE SkBlurstyleT = 0
 	// solid inside, fuzzy outside
-	SOLID_SK_BLUR_STYLE = 1
+	SOLID_SK_BLUR_STYLE SkBlurstyleT = 1
 	// nothing inside, fuzzy outside
-	OUTER_SK_BLUR_STYLE = 2
+	OUTER_SK_BLUR_STYLE SkBlurstyleT = 2
 	// fuzzy inside, nothing outside
-	INNER_SK_BLUR_STYLE = 3
+	INNER_SK_BLUR_STYLE SkBlurstyleT = 3
 )
 
-type  int32
+type SkPathDirectionT int32
 
 const (
-	CW_SK_PATH_DIRECTION  = 0
-	CCW_SK_PATH_DIRECTION = 1
+	CW_SK_PATH_DIRECTION  SkPathDirectionT = 0
+	CCW_SK_PATH_DIRECTION SkPathDirectionT = 1
 )
 
-type  int32
+type SkPathArcSizeT int32
 
 const (
-	SMALL_SK_PATH_ARC_SIZE = 0
-	LARGE_SK_PATH_ARC_SIZE = 1
+	SMALL_SK_PATH_ARC_SIZE SkPathArcSizeT = 0
+	LARGE_SK_PATH_ARC_SIZE SkPathArcSizeT = 1
 )
 
-type  int32
+type SkPaintStyleT int32
 
 const (
-	FILL_SK_PAINT_STYLE            = 0
-	STROKE_SK_PAINT_STYLE          = 1
-	STROKE_AND_FILL_SK_PAINT_STYLE = 2
+	FILL_SK_PAINT_STYLE            SkPaintStyleT = 0
+	STROKE_SK_PAINT_STYLE          SkPaintStyleT = 1
+	STROKE_AND_FILL_SK_PAINT_STYLE SkPaintStyleT = 2
 )
 
-type  int32
+type SkFontHintingT int32
 
 const (
-	NONE_SK_FONT_HINTING   = 0
-	SLIGHT_SK_FONT_HINTING = 1
-	NORMAL_SK_FONT_HINTING = 2
-	FULL_SK_FONT_HINTING   = 3
+	NONE_SK_FONT_HINTING   SkFontHintingT = 0
+	SLIGHT_SK_FONT_HINTING SkFontHintingT = 1
+	NORMAL_SK_FONT_HINTING SkFontHintingT = 2
+	FULL_SK_FONT_HINTING   SkFontHintingT = 3
 )
 
-type  int32
+type SkFontEdgingT int32
 
 const (
-	ALIAS_SK_FONT_EDGING              = 0
-	ANTIALIAS_SK_FONT_EDGING          = 1
-	SUBPIXEL_ANTIALIAS_SK_FONT_EDGING = 2
+	ALIAS_SK_FONT_EDGING              SkFontEdgingT = 0
+	ANTIALIAS_SK_FONT_EDGING          SkFontEdgingT = 1
+	SUBPIXEL_ANTIALIAS_SK_FONT_EDGING SkFontEdgingT = 2
 )
 
-type  int32
+type GrSurfaceoriginT int32
 
 const (
-	TOP_LEFT_GR_SURFACE_ORIGIN    = 0
-	BOTTOM_LEFT_GR_SURFACE_ORIGIN = 1
+	TOP_LEFT_GR_SURFACE_ORIGIN    GrSurfaceoriginT = 0
+	BOTTOM_LEFT_GR_SURFACE_ORIGIN GrSurfaceoriginT = 1
 )
 
-type  int32
+type GrBackendT int32
 
 const (
-	OPENGL_GR_BACKEND   = 0
-	VULKAN_GR_BACKEND   = 1
-	METAL_GR_BACKEND    = 2
-	DIRECT3D_GR_BACKEND = 3
-	DAWN_GR_BACKEND     = 4
+	OPENGL_GR_BACKEND   GrBackendT = 0
+	VULKAN_GR_BACKEND   GrBackendT = 1
+	METAL_GR_BACKEND    GrBackendT = 2
+	DIRECT3D_GR_BACKEND GrBackendT = 3
+	DAWN_GR_BACKEND     GrBackendT = 4
 )
 
-type  int32
+type SkPathopT int32
 
 const (
-	DIFFERENCE_SK_PATHOP         = 0
-	INTERSECT_SK_PATHOP          = 1
-	UNION_SK_PATHOP              = 2
-	XOR_SK_PATHOP                = 3
-	REVERSE_DIFFERENCE_SK_PATHOP = 4
+	DIFFERENCE_SK_PATHOP         SkPathopT = 0
+	INTERSECT_SK_PATHOP          SkPathopT = 1
+	UNION_SK_PATHOP              SkPathopT = 2
+	XOR_SK_PATHOP                SkPathopT = 3
+	REVERSE_DIFFERENCE_SK_PATHOP SkPathopT = 4
 )
 
-type  int32
+type SkLatticeRecttypeT int32
 
 const (
-	DEFAULT_SK_LATTICE_RECT_TYPE     = 0
-	TRANSPARENT_SK_LATTICE_RECT_TYPE = 1
-	FIXED_COLOR_SK_LATTICE_RECT_TYPE = 2
+	DEFAULT_SK_LATTICE_RECT_TYPE     SkLatticeRecttypeT = 0
+	TRANSPARENT_SK_LATTICE_RECT_TYPE SkLatticeRecttypeT = 1
+	FIXED_COLOR_SK_LATTICE_RECT_TYPE SkLatticeRecttypeT = 2
 )
 
-type  int32
+type SkPathmeasureMatrixflagsT int32
 
 const (
-	GET_POSITION_SK_PATHMEASURE_MATRIXFLAGS    = 1
-	GET_TANGENT_SK_PATHMEASURE_MATRIXFLAGS     = 2
-	GET_POS_AND_TAN_SK_PATHMEASURE_MATRIXFLAGS = 3
+	GET_POSITION_SK_PATHMEASURE_MATRIXFLAGS    SkPathmeasureMatrixflagsT = 1
+	GET_TANGENT_SK_PATHMEASURE_MATRIXFLAGS     SkPathmeasureMatrixflagsT = 2
+	GET_POS_AND_TAN_SK_PATHMEASURE_MATRIXFLAGS SkPathmeasureMatrixflagsT = 3
 )
 
-type  int32
+type SkImageCachingHintT int32
 
 const (
-	ALLOW_SK_IMAGE_CACHING_HINT    = 0
-	DISALLOW_SK_IMAGE_CACHING_HINT = 1
+	ALLOW_SK_IMAGE_CACHING_HINT    SkImageCachingHintT = 0
+	DISALLOW_SK_IMAGE_CACHING_HINT SkImageCachingHintT = 1
 )
 
-type  int32
+type SkBitmapAllocflagsT int32
 
 const (
-	NONE_SK_BITMAP_ALLOC_FLAGS        = 0
-	ZERO_PIXELS_SK_BITMAP_ALLOC_FLAGS = 1
+	NONE_SK_BITMAP_ALLOC_FLAGS        SkBitmapAllocflagsT = 0
+	ZERO_PIXELS_SK_BITMAP_ALLOC_FLAGS SkBitmapAllocflagsT = 1
 )
 
-type  int32
+type SkCodecanimationDisposalmethodT int32
 
 const (
-	KEEP_SK_CODEC_ANIMATION_DISPOSAL_METHOD             = 1
-	RESTORE_BG_COLOR_SK_CODEC_ANIMATION_DISPOSAL_METHOD = 2
-	RESTORE_PREVIOUS_SK_CODEC_ANIMATION_DISPOSAL_METHOD = 3
+	KEEP_SK_CODEC_ANIMATION_DISPOSAL_METHOD             SkCodecanimationDisposalmethodT = 1
+	RESTORE_BG_COLOR_SK_CODEC_ANIMATION_DISPOSAL_METHOD SkCodecanimationDisposalmethodT = 2
+	RESTORE_PREVIOUS_SK_CODEC_ANIMATION_DISPOSAL_METHOD SkCodecanimationDisposalmethodT = 3
 )
 
-type  int32
+type SkCodecanimationBlendT int32
 
 const (
-	SRC_OVER_SK_CODEC_ANIMATION_BLEND = 0
-	SRC_SK_CODEC_ANIMATION_BLEND      = 1
+	SRC_OVER_SK_CODEC_ANIMATION_BLEND SkCodecanimationBlendT = 0
+	SRC_SK_CODEC_ANIMATION_BLEND      SkCodecanimationBlendT = 1
 )
 
-type  int32
+type SkVerticesVertexModeT int32
 
 const (
-	TRIANGLES_SK_VERTICES_VERTEX_MODE      = 0
-	TRIANGLE_STRIP_SK_VERTICES_VERTEX_MODE = 1
-	TRIANGLE_FAN_SK_VERTICES_VERTEX_MODE   = 2
+	TRIANGLES_SK_VERTICES_VERTEX_MODE      SkVerticesVertexModeT = 0
+	TRIANGLE_STRIP_SK_VERTICES_VERTEX_MODE SkVerticesVertexModeT = 1
+	TRIANGLE_FAN_SK_VERTICES_VERTEX_MODE   SkVerticesVertexModeT = 2
 )
 
-type  int32
+type SkHighcontrastconfigInvertstyleT int32
 
 const (
-	NO_INVERT_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE         = 0
-	INVERT_BRIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE = 1
-	INVERT_LIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE  = 2
+	NO_INVERT_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE         SkHighcontrastconfigInvertstyleT = 0
+	INVERT_BRIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE SkHighcontrastconfigInvertstyleT = 1
+	INVERT_LIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE  SkHighcontrastconfigInvertstyleT = 2
 )
 
-type  int32
+type SkPngencoderFilterflagsT int32
 
 const (
-	ZERO_SK_PNGENCODER_FILTER_FLAGS  = 0
-	NONE_SK_PNGENCODER_FILTER_FLAGS  = 8
-	SUB_SK_PNGENCODER_FILTER_FLAGS   = 16
-	UP_SK_PNGENCODER_FILTER_FLAGS    = 32
-	AVG_SK_PNGENCODER_FILTER_FLAGS   = 64
-	PAETH_SK_PNGENCODER_FILTER_FLAGS = 128
-	ALL_SK_PNGENCODER_FILTER_FLAGS   = 248
+	ZERO_SK_PNGENCODER_FILTER_FLAGS  SkPngencoderFilterflagsT = 0
+	NONE_SK_PNGENCODER_FILTER_FLAGS  SkPngencoderFilterflagsT = 8
+	SUB_SK_PNGENCODER_FILTER_FLAGS   SkPngencoderFilterflagsT = 16
+	UP_SK_PNGENCODER_FILTER_FLAGS    SkPngencoderFilterflagsT = 32
+	AVG_SK_PNGENCODER_FILTER_FLAGS   SkPngencoderFilterflagsT = 64
+	PAETH_SK_PNGENCODER_FILTER_FLAGS SkPngencoderFilterflagsT = 128
+	ALL_SK_PNGENCODER_FILTER_FLAGS   SkPngencoderFilterflagsT = 248
 )
 
-type  int32
+type SkJpegencoderDownsampleT int32
 
 const (
-	DOWNSAMPLE_420_SK_JPEGENCODER_DOWNSAMPLE = 0
-	DOWNSAMPLE_422_SK_JPEGENCODER_DOWNSAMPLE = 1
-	DOWNSAMPLE_444_SK_JPEGENCODER_DOWNSAMPLE = 2
+	DOWNSAMPLE_420_SK_JPEGENCODER_DOWNSAMPLE SkJpegencoderDownsampleT = 0
+	DOWNSAMPLE_422_SK_JPEGENCODER_DOWNSAMPLE SkJpegencoderDownsampleT = 1
+	DOWNSAMPLE_444_SK_JPEGENCODER_DOWNSAMPLE SkJpegencoderDownsampleT = 2
 )
 
-type  int32
+type SkJpegencoderAlphaoptionT int32
 
 const (
-	IGNORE_SK_JPEGENCODER_ALPHA_OPTION         = 0
-	BLEND_ON_BLACK_SK_JPEGENCODER_ALPHA_OPTION = 1
+	IGNORE_SK_JPEGENCODER_ALPHA_OPTION         SkJpegencoderAlphaoptionT = 0
+	BLEND_ON_BLACK_SK_JPEGENCODER_ALPHA_OPTION SkJpegencoderAlphaoptionT = 1
 )
 
-type  int32
+type SkWebpencoderCompressionT int32
 
 const (
-	LOSSY_SK_WEBPENCODER_COMPTRESSION    = 0
-	LOSSLESS_SK_WEBPENCODER_COMPTRESSION = 1
+	LOSSY_SK_WEBPENCODER_COMPTRESSION    SkWebpencoderCompressionT = 0
+	LOSSLESS_SK_WEBPENCODER_COMPTRESSION SkWebpencoderCompressionT = 1
 )
 
-type  int32
+type SkRrectTypeT int32
 
 const (
-	EMPTY_SK_RRECT_TYPE      = 0
-	RECT_SK_RRECT_TYPE       = 1
-	OVAL_SK_RRECT_TYPE       = 2
-	SIMPLE_SK_RRECT_TYPE     = 3
-	NINE_PATCH_SK_RRECT_TYPE = 4
-	COMPLEX_SK_RRECT_TYPE    = 5
+	EMPTY_SK_RRECT_TYPE      SkRrectTypeT = 0
+	RECT_SK_RRECT_TYPE       SkRrectTypeT = 1
+	OVAL_SK_RRECT_TYPE       SkRrectTypeT = 2
+	SIMPLE_SK_RRECT_TYPE     SkRrectTypeT = 3
+	NINE_PATCH_SK_RRECT_TYPE SkRrectTypeT = 4
+	COMPLEX_SK_RRECT_TYPE    SkRrectTypeT = 5
 )
 
-type  int32
+type SkRrectCornerT int32
 
 const (
-	UPPER_LEFT_SK_RRECT_CORNER  = 0
-	UPPER_RIGHT_SK_RRECT_CORNER = 1
-	LOWER_RIGHT_SK_RRECT_CORNER = 2
-	LOWER_LEFT_SK_RRECT_CORNER  = 3
+	UPPER_LEFT_SK_RRECT_CORNER  SkRrectCornerT = 0
+	UPPER_RIGHT_SK_RRECT_CORNER SkRrectCornerT = 1
+	LOWER_RIGHT_SK_RRECT_CORNER SkRrectCornerT = 2
+	LOWER_LEFT_SK_RRECT_CORNER  SkRrectCornerT = 3
 )
 
-type  int32
+type SkRuntimeeffectUniformTypeT int32
 
 const (
-	FLOAT_SK_RUNTIMEEFFECT_UNIFORM_TYPE    = 0
-	FLOAT2_SK_RUNTIMEEFFECT_UNIFORM_TYPE   = 1
-	FLOAT3_SK_RUNTIMEEFFECT_UNIFORM_TYPE   = 2
-	FLOAT4_SK_RUNTIMEEFFECT_UNIFORM_TYPE   = 3
-	FLOAT2X2_SK_RUNTIMEEFFECT_UNIFORM_TYPE = 4
-	FLOAT3X3_SK_RUNTIMEEFFECT_UNIFORM_TYPE = 5
-	FLOAT4X4_SK_RUNTIMEEFFECT_UNIFORM_TYPE = 6
-	INT_SK_RUNTIMEEFFECT_UNIFORM_TYPE      = 7
-	INT2_SK_RUNTIMEEFFECT_UNIFORM_TYPE     = 8
-	INT3_SK_RUNTIMEEFFECT_UNIFORM_TYPE     = 9
-	INT4_SK_RUNTIMEEFFECT_UNIFORM_TYPE     = 10
+	FLOAT_SK_RUNTIMEEFFECT_UNIFORM_TYPE    SkRuntimeeffectUniformTypeT = 0
+	FLOAT2_SK_RUNTIMEEFFECT_UNIFORM_TYPE   SkRuntimeeffectUniformTypeT = 1
+	FLOAT3_SK_RUNTIMEEFFECT_UNIFORM_TYPE   SkRuntimeeffectUniformTypeT = 2
+	FLOAT4_SK_RUNTIMEEFFECT_UNIFORM_TYPE   SkRuntimeeffectUniformTypeT = 3
+	FLOAT2X2_SK_RUNTIMEEFFECT_UNIFORM_TYPE SkRuntimeeffectUniformTypeT = 4
+	FLOAT3X3_SK_RUNTIMEEFFECT_UNIFORM_TYPE SkRuntimeeffectUniformTypeT = 5
+	FLOAT4X4_SK_RUNTIMEEFFECT_UNIFORM_TYPE SkRuntimeeffectUniformTypeT = 6
+	INT_SK_RUNTIMEEFFECT_UNIFORM_TYPE      SkRuntimeeffectUniformTypeT = 7
+	INT2_SK_RUNTIMEEFFECT_UNIFORM_TYPE     SkRuntimeeffectUniformTypeT = 8
+	INT3_SK_RUNTIMEEFFECT_UNIFORM_TYPE     SkRuntimeeffectUniformTypeT = 9
+	INT4_SK_RUNTIMEEFFECT_UNIFORM_TYPE     SkRuntimeeffectUniformTypeT = 10
 )
 
-type  int32
+type SkRuntimeeffectChildTypeT int32
 
 const (
-	SHADER_SK_RUNTIMEEFFECT_CHILD_TYPE       = 0
-	COLOR_FILTER_SK_RUNTIMEEFFECT_CHILD_TYPE = 1
-	BLENDER_SK_RUNTIMEEFFECT_CHILD_TYPE      = 2
+	SHADER_SK_RUNTIMEEFFECT_CHILD_TYPE       SkRuntimeeffectChildTypeT = 0
+	COLOR_FILTER_SK_RUNTIMEEFFECT_CHILD_TYPE SkRuntimeeffectChildTypeT = 1
+	BLENDER_SK_RUNTIMEEFFECT_CHILD_TYPE      SkRuntimeeffectChildTypeT = 2
 )
 
-type  int32
+type SkRuntimeeffectUniformFlagsT int32
 
 const (
-	NONE_SK_RUNTIMEEFFECT_UNIFORM_FLAGS           = 0
-	ARRAY_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          = 1
-	COLOR_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          = 2
-	VERTEX_SK_RUNTIMEEFFECT_UNIFORM_FLAGS         = 4
-	FRAGMENT_SK_RUNTIMEEFFECT_UNIFORM_FLAGS       = 8
-	HALF_PRECISION_SK_RUNTIMEEFFECT_UNIFORM_FLAGS = 16
+	NONE_SK_RUNTIMEEFFECT_UNIFORM_FLAGS           SkRuntimeeffectUniformFlagsT = 0
+	ARRAY_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          SkRuntimeeffectUniformFlagsT = 1
+	COLOR_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          SkRuntimeeffectUniformFlagsT = 2
+	VERTEX_SK_RUNTIMEEFFECT_UNIFORM_FLAGS         SkRuntimeeffectUniformFlagsT = 4
+	FRAGMENT_SK_RUNTIMEEFFECT_UNIFORM_FLAGS       SkRuntimeeffectUniformFlagsT = 8
+	HALF_PRECISION_SK_RUNTIMEEFFECT_UNIFORM_FLAGS SkRuntimeeffectUniformFlagsT = 16
 )
 
-type  int32
+type SkFilterModeT int32
 
 const (
-	NEAREST_SK_FILTER_MODE = 0
-	LINEAR_SK_FILTER_MODE  = 1
+	NEAREST_SK_FILTER_MODE SkFilterModeT = 0
+	LINEAR_SK_FILTER_MODE  SkFilterModeT = 1
 )
 
-type  int32
+type SkMipmapModeT int32
 
 const (
-	NONE_SK_MIPMAP_MODE    = 0
-	NEAREST_SK_MIPMAP_MODE = 1
-	LINEAR_SK_MIPMAP_MODE  = 2
+	NONE_SK_MIPMAP_MODE    SkMipmapModeT = 0
+	NEAREST_SK_MIPMAP_MODE SkMipmapModeT = 1
+	LINEAR_SK_MIPMAP_MODE  SkMipmapModeT = 2
 )
 
-type  int32
+type SkottieAnimationRenderflagsT int32
 
 const (
-	SKIP_TOP_LEVEL_ISOLATION   = 1
-	DISABLE_TOP_LEVEL_CLIPPING = 2
+	SKIP_TOP_LEVEL_ISOLATION   SkottieAnimationRenderflagsT = 1
+	DISABLE_TOP_LEVEL_CLIPPING SkottieAnimationRenderflagsT = 2
 )
 
-type  int32
+type SkottieAnimationBuilderFlagsT int32
 
 const (
-	NONE_SKOTTIE_ANIMATION_BUILDER_FLAGS                  = 0
-	DEFER_IMAGE_LOADING_SKOTTIE_ANIMATION_BUILDER_FLAGS   = 1
-	PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 2
+	NONE_SKOTTIE_ANIMATION_BUILDER_FLAGS                  SkottieAnimationBuilderFlagsT = 0
+	DEFER_IMAGE_LOADING_SKOTTIE_ANIMATION_BUILDER_FLAGS   SkottieAnimationBuilderFlagsT = 1
+	PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS SkottieAnimationBuilderFlagsT = 2
 )
 
 type _CrtLocaleDataPublic struct {
@@ -945,81 +945,81 @@ type MbstateT = any
 type RsizeT = uint
 type SkColorT = uint32
 type SkPmcolorT = uint32
-type SkColortypeT = any
-type SkAlphatypeT = any
-type SkPixelgeometryT = any
-type SkSurfacepropsFlagsT = any
+type SkColortypeT = SkColortypeT
+type SkAlphatypeT = SkAlphatypeT
+type SkPixelgeometryT = SkPixelgeometryT
+type SkSurfacepropsFlagsT = SkSurfacepropsFlagsT
 type SkVectorT = any
-type SkBlendmodeT = any
+type SkBlendmodeT = SkBlendmodeT
 type SkFontTableTagT = uint32
-type SkPointModeT = any
-type SkTextAlignT = any
-type SkTextEncodingT = any
-type SkPathFilltypeT = any
-type SkFontStyleSlantT = any
-type SkColorChannelT = any
+type SkPointModeT = SkPointModeT
+type SkTextAlignT = SkTextAlignT
+type SkTextEncodingT = SkTextEncodingT
+type SkPathFilltypeT = SkPathFilltypeT
+type SkFontStyleSlantT = SkFontStyleSlantT
+type SkColorChannelT = SkColorChannelT
 
 // The logical operations that can be performed when combining two regions.
-type SkRegionOpT = any
-type SkClipopT = any
+type SkRegionOpT = SkRegionOpT
+type SkClipopT = SkClipopT
 
 // Enum describing format of encoded data.
-type SkEncodedImageFormatT = any
-type SkEncodedoriginT = any
-type SkCodecResultT = any
-type SkCodecZeroInitializedT = any
-type SkCodecScanlineOrderT = any
-type SkPathVerbT = any
-type SkPathAddModeT = any
-type SkPathSegmentMaskT = any
-type SkPathEffect1dStyleT = any
-type SkPathEffectTrimModeT = any
-type SkStrokeCapT = any
-type SkStrokeJoinT = any
-type SkShaderTilemodeT = any
-type SkBlurstyleT = any
-type SkPathDirectionT = any
-type SkPathArcSizeT = any
-type SkPaintStyleT = any
-type SkFontHintingT = any
-type SkFontEdgingT = any
-type GrSurfaceoriginT = any
+type SkEncodedImageFormatT = SkEncodedImageFormatT
+type SkEncodedoriginT = SkEncodedoriginT
+type SkCodecResultT = SkCodecResultT
+type SkCodecZeroInitializedT = SkCodecZeroInitializedT
+type SkCodecScanlineOrderT = SkCodecScanlineOrderT
+type SkPathVerbT = SkPathVerbT
+type SkPathAddModeT = SkPathAddModeT
+type SkPathSegmentMaskT = SkPathSegmentMaskT
+type SkPathEffect1dStyleT = SkPathEffect1dStyleT
+type SkPathEffectTrimModeT = SkPathEffectTrimModeT
+type SkStrokeCapT = SkStrokeCapT
+type SkStrokeJoinT = SkStrokeJoinT
+type SkShaderTilemodeT = SkShaderTilemodeT
+type SkBlurstyleT = SkBlurstyleT
+type SkPathDirectionT = SkPathDirectionT
+type SkPathArcSizeT = SkPathArcSizeT
+type SkPaintStyleT = SkPaintStyleT
+type SkFontHintingT = SkFontHintingT
+type SkFontEdgingT = SkFontEdgingT
+type GrSurfaceoriginT = GrSurfaceoriginT
 type GrBackendobjectT = int
-type GrBackendT = any
+type GrBackendT = GrBackendT
 type GrBackendcontextT = int
 type GrGlFuncPtr = unsafe.Pointer
 type GrGlGetProc = unsafe.Pointer
 type GrVkFuncPtr = unsafe.Pointer
 type GrVkGetProc = unsafe.Pointer
 type GrVkBackendmemoryT = int
-type SkPathopT = any
-type SkLatticeRecttypeT = any
-type SkPathmeasureMatrixflagsT = any
+type SkPathopT = SkPathopT
+type SkLatticeRecttypeT = SkLatticeRecttypeT
+type SkPathmeasureMatrixflagsT = SkPathmeasureMatrixflagsT
 type SkBitmapReleaseProc = unsafe.Pointer
 type SkDataReleaseProc = unsafe.Pointer
 type SkImageRasterReleaseProc = unsafe.Pointer
 type SkImageTextureReleaseProc = unsafe.Pointer
 type SkSurfaceRasterReleaseProc = unsafe.Pointer
 type SkGlyphPathProc = unsafe.Pointer
-type SkImageCachingHintT = any
-type SkBitmapAllocflagsT = any
-type SkCodecanimationDisposalmethodT = any
-type SkCodecanimationBlendT = any
-type SkVerticesVertexModeT = any
-type SkHighcontrastconfigInvertstyleT = any
-type SkPngencoderFilterflagsT = any
-type SkJpegencoderDownsampleT = any
-type SkJpegencoderAlphaoptionT = any
-type SkWebpencoderCompressionT = any
-type SkRrectTypeT = any
-type SkRrectCornerT = any
-type SkRuntimeeffectUniformTypeT = any
-type SkRuntimeeffectChildTypeT = any
-type SkRuntimeeffectUniformFlagsT = any
-type SkFilterModeT = any
-type SkMipmapModeT = any
-type SkottieAnimationRenderflagsT = any
-type SkottieAnimationBuilderFlagsT = any
+type SkImageCachingHintT = SkImageCachingHintT
+type SkBitmapAllocflagsT = SkBitmapAllocflagsT
+type SkCodecanimationDisposalmethodT = SkCodecanimationDisposalmethodT
+type SkCodecanimationBlendT = SkCodecanimationBlendT
+type SkVerticesVertexModeT = SkVerticesVertexModeT
+type SkHighcontrastconfigInvertstyleT = SkHighcontrastconfigInvertstyleT
+type SkPngencoderFilterflagsT = SkPngencoderFilterflagsT
+type SkJpegencoderDownsampleT = SkJpegencoderDownsampleT
+type SkJpegencoderAlphaoptionT = SkJpegencoderAlphaoptionT
+type SkWebpencoderCompressionT = SkWebpencoderCompressionT
+type SkRrectTypeT = SkRrectTypeT
+type SkRrectCornerT = SkRrectCornerT
+type SkRuntimeeffectUniformTypeT = SkRuntimeeffectUniformTypeT
+type SkRuntimeeffectChildTypeT = SkRuntimeeffectChildTypeT
+type SkRuntimeeffectUniformFlagsT = SkRuntimeeffectUniformFlagsT
+type SkFilterModeT = SkFilterModeT
+type SkMipmapModeT = SkMipmapModeT
+type SkottieAnimationRenderflagsT = SkottieAnimationRenderflagsT
+type SkottieAnimationBuilderFlagsT = SkottieAnimationBuilderFlagsT
 
 var __imp___va_start bindlib.PreloadProc
 

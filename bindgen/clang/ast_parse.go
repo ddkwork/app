@@ -222,7 +222,9 @@ func (n *NodeDecl) UnmarshalValue(rt *refTracker, data *fastjson.Value) (err err
 		mylog.Check(n.Type.UnmarshalValue(v))
 	}
 	rt.refs[n.ID] = append(rt.refs[n.ID], n)
-	// mylog.Trace(n.Kind, n.Name)
+	if n.Name == "" {
+		mylog.Trace(n.Kind, n.Name) //name是空的，需要cc现代解析器，生成的枚举没有名称，语法错误，调整原始头文件的名称位置麻烦且不通用
+	}
 	return
 }
 

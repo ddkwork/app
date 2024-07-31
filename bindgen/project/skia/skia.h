@@ -96,7 +96,7 @@ typedef struct sk_color4f_t {
     float fA;
 } sk_color4f_t;
 
-typedef enum {
+typedef enum sk_colortype_t {
     UNKNOWN_SK_COLORTYPE = 0,
     ALPHA_8_SK_COLORTYPE,
     RGB_565_SK_COLORTYPE,
@@ -125,14 +125,14 @@ typedef enum {
     R8_UNORM_SK_COLORTYPE,
 } sk_colortype_t;
 
-typedef enum {
+typedef enum sk_alphatype_t {
     UNKNOWN_SK_ALPHATYPE,
     OPAQUE_SK_ALPHATYPE,
     PREMUL_SK_ALPHATYPE,
     UNPREMUL_SK_ALPHATYPE,
 } sk_alphatype_t;
 
-typedef enum {
+typedef enum sk_pixelgeometry_t {
     UNKNOWN_SK_PIXELGEOMETRY,
     RGB_H_SK_PIXELGEOMETRY,
     BGR_H_SK_PIXELGEOMETRY,
@@ -140,7 +140,7 @@ typedef enum {
     BGR_V_SK_PIXELGEOMETRY,
 } sk_pixelgeometry_t;
 
-typedef enum {
+typedef enum sk_surfaceprops_flags_t {
     NONE_SK_SURFACE_PROPS_FLAGS = 0,
     USE_DEVICE_INDEPENDENT_FONTS_SK_SURFACE_PROPS_FLAGS = 1 << 0,
 } sk_surfaceprops_flags_t;
@@ -274,7 +274,7 @@ typedef struct sk_region_iterator_t sk_region_iterator_t;
 typedef struct sk_region_cliperator_t sk_region_cliperator_t;
 typedef struct sk_region_spanerator_t sk_region_spanerator_t;
 
-typedef enum {
+typedef enum sk_blendmode_t {
     CLEAR_SK_BLENDMODE,
     SRC_SK_BLENDMODE,
     DST_SK_BLENDMODE,
@@ -401,39 +401,39 @@ typedef struct sk_wstream_dynamicmemorystream_t sk_wstream_dynamicmemorystream_t
 */
 typedef struct sk_document_t sk_document_t;
 
-typedef enum {
+typedef enum sk_point_mode_t {
     POINTS_SK_POINT_MODE,
     LINES_SK_POINT_MODE,
     POLYGON_SK_POINT_MODE
 } sk_point_mode_t;
 
-typedef enum {
+typedef enum sk_text_align_t {
     LEFT_SK_TEXT_ALIGN,
     CENTER_SK_TEXT_ALIGN,
     RIGHT_SK_TEXT_ALIGN
 } sk_text_align_t;
 
-typedef enum {
+typedef enum sk_text_encoding_t {
     UTF8_SK_TEXT_ENCODING,
     UTF16_SK_TEXT_ENCODING,
     UTF32_SK_TEXT_ENCODING,
     GLYPH_ID_SK_TEXT_ENCODING
 } sk_text_encoding_t;
 
-typedef enum {
+typedef enum sk_path_filltype_t {
     WINDING_SK_PATH_FILLTYPE,
     EVENODD_SK_PATH_FILLTYPE,
     INVERSE_WINDING_SK_PATH_FILLTYPE,
     INVERSE_EVENODD_SK_PATH_FILLTYPE,
 } sk_path_filltype_t;
 
-typedef enum {
+typedef enum sk_font_style_slant_t {
     UPRIGHT_SK_FONT_STYLE_SLANT = 0,
     ITALIC_SK_FONT_STYLE_SLANT  = 1,
     OBLIQUE_SK_FONT_STYLE_SLANT = 2,
 } sk_font_style_slant_t;
 
-typedef enum {
+typedef enum sk_color_channel_t {
     R_SK_COLOR_CHANNEL,
     G_SK_COLOR_CHANNEL,
     B_SK_COLOR_CHANNEL,
@@ -443,7 +443,7 @@ typedef enum {
 /**
     The logical operations that can be performed when combining two regions.
 */
-typedef enum {
+typedef enum sk_region_op_t {
     DIFFERENCE_SK_REGION_OP,          //!< subtract the op region from the first region
     INTERSECT_SK_REGION_OP,           //!< intersect the two regions
     UNION_SK_REGION_OP,               //!< union (inclusive-or) the two regions
@@ -452,7 +452,7 @@ typedef enum {
     REPLACE_SK_REGION_OP,             //!< replace the dst region with the op region
 } sk_region_op_t;
 
-typedef enum {
+typedef enum sk_clipop_t {
     DIFFERENCE_SK_CLIPOP,
     INTERSECT_SK_CLIPOP,
 } sk_clipop_t;
@@ -460,7 +460,7 @@ typedef enum {
 /**
  *  Enum describing format of encoded data.
  */
-typedef enum {
+typedef enum sk_encoded_image_format_t {
     BMP_SK_ENCODED_FORMAT,
     GIF_SK_ENCODED_FORMAT,
     ICO_SK_ENCODED_FORMAT,
@@ -477,7 +477,7 @@ typedef enum {
     JPEGXL_SK_ENCODED_FORMAT,
 } sk_encoded_image_format_t;
 
-typedef enum {
+typedef enum sk_encodedorigin_t {
     TOP_LEFT_SK_ENCODED_ORIGIN     = 1, // Default
     TOP_RIGHT_SK_ENCODED_ORIGIN    = 2, // Reflected across y-axis
     BOTTOM_RIGHT_SK_ENCODED_ORIGIN = 3, // Rotated 180
@@ -489,7 +489,7 @@ typedef enum {
     DEFAULT_SK_ENCODED_ORIGIN      = TOP_LEFT_SK_ENCODED_ORIGIN,
 } sk_encodedorigin_t;
 
-typedef enum {
+typedef enum sk_codec_result_t {
     SUCCESS_SK_CODEC_RESULT,
     INCOMPLETE_INPUT_SK_CODEC_RESULT,
     ERROR_IN_INPUT_SK_CODEC_RESULT,
@@ -502,7 +502,7 @@ typedef enum {
     UNIMPLEMENTED_SK_CODEC_RESULT,
 } sk_codec_result_t;
 
-typedef enum {
+typedef enum sk_codec_zero_initialized_t {
     YES_SK_CODEC_ZERO_INITIALIZED,
     NO_SK_CODEC_ZERO_INITIALIZED,
 } sk_codec_zero_initialized_t;
@@ -514,13 +514,13 @@ typedef struct {
     int fPriorFrame;
 } sk_codec_options_t;
 
-typedef enum {
+typedef enum sk_codec_scanline_order_t {
     TOP_DOWN_SK_CODEC_SCANLINE_ORDER,
     BOTTOM_UP_SK_CODEC_SCANLINE_ORDER,
 } sk_codec_scanline_order_t;
 
 // The verbs that can be foudn on a path
-typedef enum {
+typedef enum sk_path_verb_t {
     MOVE_SK_PATH_VERB,
     LINE_SK_PATH_VERB,
     QUAD_SK_PATH_VERB,
@@ -533,81 +533,81 @@ typedef enum {
 typedef struct sk_path_iterator_t sk_path_iterator_t;
 typedef struct sk_path_rawiterator_t sk_path_rawiterator_t;
 
-typedef enum {
+typedef enum sk_path_add_mode_t {
     APPEND_SK_PATH_ADD_MODE,
     EXTEND_SK_PATH_ADD_MODE,
 } sk_path_add_mode_t;
 
-typedef enum {
+typedef enum sk_path_segment_mask_t {
     LINE_SK_PATH_SEGMENT_MASK  = 1 << 0,
     QUAD_SK_PATH_SEGMENT_MASK  = 1 << 1,
     CONIC_SK_PATH_SEGMENT_MASK = 1 << 2,
     CUBIC_SK_PATH_SEGMENT_MASK = 1 << 3,
 } sk_path_segment_mask_t;
 
-typedef enum {
+typedef enum sk_path_effect_1d_style_t {
     TRANSLATE_SK_PATH_EFFECT_1D_STYLE,
     ROTATE_SK_PATH_EFFECT_1D_STYLE,
     MORPH_SK_PATH_EFFECT_1D_STYLE,
 } sk_path_effect_1d_style_t;
 
-typedef enum {
+typedef enum sk_path_effect_trim_mode_t {
     NORMAL_SK_PATH_EFFECT_TRIM_MODE,
     INVERTED_SK_PATH_EFFECT_TRIM_MODE,
 } sk_path_effect_trim_mode_t;
 
 typedef struct sk_path_effect_t sk_path_effect_t;
 
-typedef enum {
+typedef enum sk_stroke_cap_t {
     BUTT_SK_STROKE_CAP,
     ROUND_SK_STROKE_CAP,
     SQUARE_SK_STROKE_CAP
 } sk_stroke_cap_t;
 
-typedef enum {
+typedef enum sk_stroke_join_t {
     MITER_SK_STROKE_JOIN,
     ROUND_SK_STROKE_JOIN,
     BEVEL_SK_STROKE_JOIN
 } sk_stroke_join_t;
 
-typedef enum {
+typedef enum sk_shader_tilemode_t {
     CLAMP_SK_SHADER_TILEMODE,
     REPEAT_SK_SHADER_TILEMODE,
     MIRROR_SK_SHADER_TILEMODE,
     DECAL_SK_SHADER_TILEMODE,
 } sk_shader_tilemode_t;
 
-typedef enum {
+typedef enum sk_blurstyle_t {
     NORMAL_SK_BLUR_STYLE,   //!< fuzzy inside and outside
     SOLID_SK_BLUR_STYLE,    //!< solid inside, fuzzy outside
     OUTER_SK_BLUR_STYLE,    //!< nothing inside, fuzzy outside
     INNER_SK_BLUR_STYLE,    //!< fuzzy inside, nothing outside
 } sk_blurstyle_t;
 
-typedef enum {
+typedef enum sk_path_direction_t {
     CW_SK_PATH_DIRECTION,
     CCW_SK_PATH_DIRECTION,
 } sk_path_direction_t;
 
-typedef enum {
+typedef enum sk_path_arc_size_t {
     SMALL_SK_PATH_ARC_SIZE,
     LARGE_SK_PATH_ARC_SIZE,
 } sk_path_arc_size_t;
 
-typedef enum {
+typedef enum sk_paint_style_t {
     FILL_SK_PAINT_STYLE,
     STROKE_SK_PAINT_STYLE,
     STROKE_AND_FILL_SK_PAINT_STYLE,
 } sk_paint_style_t;
 
-typedef enum {
+typedef enum sk_font_hinting_t {
     NONE_SK_FONT_HINTING,
     SLIGHT_SK_FONT_HINTING,
     NORMAL_SK_FONT_HINTING,
     FULL_SK_FONT_HINTING,
 } sk_font_hinting_t;
 
-typedef enum {
+typedef enum sk_font_edging_t {
     ALIAS_SK_FONT_EDGING,
     ANTIALIAS_SK_FONT_EDGING,
     SUBPIXEL_ANTIALIAS_SK_FONT_EDGING,
@@ -615,7 +615,7 @@ typedef enum {
 
 typedef struct sk_pixelref_factory_t sk_pixelref_factory_t;
 
-typedef enum {
+typedef enum gr_surfaceorigin_t {
     TOP_LEFT_GR_SURFACE_ORIGIN,
     BOTTOM_LEFT_GR_SURFACE_ORIGIN,
 } gr_surfaceorigin_t;
@@ -637,7 +637,7 @@ typedef struct gr_backendtexture_t gr_backendtexture_t;
 typedef struct gr_direct_context_t gr_direct_context_t;
 typedef struct gr_recording_context_t gr_recording_context_t;
 
-typedef enum {
+typedef enum gr_backend_t {
     OPENGL_GR_BACKEND,
     VULKAN_GR_BACKEND,
     METAL_GR_BACKEND,
@@ -749,7 +749,7 @@ typedef struct {
     const void* fTexture;
 } gr_mtl_textureinfo_t;
 
-typedef enum {
+typedef enum sk_pathop_t {
     DIFFERENCE_SK_PATHOP,
     INTERSECT_SK_PATHOP,
     UNION_SK_PATHOP,
@@ -759,7 +759,7 @@ typedef enum {
 
 typedef struct sk_opbuilder_t sk_opbuilder_t;
 
-typedef enum {
+typedef enum sk_lattice_recttype_t {
     DEFAULT_SK_LATTICE_RECT_TYPE,
     TRANSPARENT_SK_LATTICE_RECT_TYPE,
     FIXED_COLOR_SK_LATTICE_RECT_TYPE,
@@ -777,7 +777,7 @@ typedef struct {
 
 typedef struct sk_pathmeasure_t sk_pathmeasure_t;
 
-typedef enum {
+typedef enum sk_pathmeasure_matrixflags_t {
     GET_POSITION_SK_PATHMEASURE_MATRIXFLAGS = 0x01,
     GET_TANGENT_SK_PATHMEASURE_MATRIXFLAGS = 0x02,
     GET_POS_AND_TAN_SK_PATHMEASURE_MATRIXFLAGS = GET_POSITION_SK_PATHMEASURE_MATRIXFLAGS | GET_TANGENT_SK_PATHMEASURE_MATRIXFLAGS,
@@ -794,12 +794,12 @@ typedef void (*sk_surface_raster_release_proc)(void* addr, void* context);
 
 typedef void (*sk_glyph_path_proc)(const sk_path_t* pathOrNull, const sk_matrix_t* matrix, void* context);
 
-typedef enum {
+typedef enum sk_image_caching_hint_t {
     ALLOW_SK_IMAGE_CACHING_HINT,
     DISALLOW_SK_IMAGE_CACHING_HINT,
 } sk_image_caching_hint_t;
 
-typedef enum {
+typedef enum sk_bitmap_allocflags_t {
     NONE_SK_BITMAP_ALLOC_FLAGS = 0,
     ZERO_PIXELS_SK_BITMAP_ALLOC_FLAGS = 1 << 0,
 } sk_bitmap_allocflags_t;
@@ -837,13 +837,13 @@ typedef struct {
     sk_alphatype_t   alphaType;
 } sk_imageinfo_t;
 
-typedef enum {
+typedef enum sk_codecanimation_disposalmethod_t {
     KEEP_SK_CODEC_ANIMATION_DISPOSAL_METHOD               = 1,
     RESTORE_BG_COLOR_SK_CODEC_ANIMATION_DISPOSAL_METHOD   = 2,
     RESTORE_PREVIOUS_SK_CODEC_ANIMATION_DISPOSAL_METHOD   = 3,
 } sk_codecanimation_disposalmethod_t;
 
-typedef enum {
+typedef enum sk_codecanimation_blend_t {
     SRC_OVER_SK_CODEC_ANIMATION_BLEND   = 0,
     SRC_SK_CODEC_ANIMATION_BLEND        = 1,
 } sk_codecanimation_blend_t;
@@ -861,7 +861,7 @@ typedef struct {
 
 typedef struct sk_svgcanvas_t sk_svgcanvas_t;
 
-typedef enum {
+typedef enum sk_vertices_vertex_mode_t {
     TRIANGLES_SK_VERTICES_VERTEX_MODE,
     TRIANGLE_STRIP_SK_VERTICES_VERTEX_MODE,
     TRIANGLE_FAN_SK_VERTICES_VERTEX_MODE,
@@ -904,7 +904,7 @@ typedef struct sk_colorspace_xyz_t {
 
 typedef struct sk_colorspace_icc_profile_t sk_colorspace_icc_profile_t;
 
-typedef enum {
+typedef enum sk_highcontrastconfig_invertstyle_t {
     NO_INVERT_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE,
     INVERT_BRIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE,
     INVERT_LIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE,
@@ -916,7 +916,7 @@ typedef struct {
     float fContrast;
 } sk_highcontrastconfig_t;
 
-typedef enum {
+typedef enum sk_pngencoder_filterflags_t {
     ZERO_SK_PNGENCODER_FILTER_FLAGS  = 0x00,
     NONE_SK_PNGENCODER_FILTER_FLAGS  = 0x08,
     SUB_SK_PNGENCODER_FILTER_FLAGS   = 0x10,
@@ -938,13 +938,13 @@ typedef struct {
     const char* fICCProfileDescription;
 } sk_pngencoder_options_t;
 
-typedef enum {
+typedef enum sk_jpegencoder_downsample_t {
     DOWNSAMPLE_420_SK_JPEGENCODER_DOWNSAMPLE,
     DOWNSAMPLE_422_SK_JPEGENCODER_DOWNSAMPLE,
     DOWNSAMPLE_444_SK_JPEGENCODER_DOWNSAMPLE,
 } sk_jpegencoder_downsample_t;
 
-typedef enum {
+typedef enum sk_jpegencoder_alphaoption_t {
     IGNORE_SK_JPEGENCODER_ALPHA_OPTION,
     BLEND_ON_BLACK_SK_JPEGENCODER_ALPHA_OPTION,
 } sk_jpegencoder_alphaoption_t;
@@ -958,7 +958,7 @@ typedef struct {
     const char* fICCProfileDescription;
 } sk_jpegencoder_options_t;
 
-typedef enum {
+typedef enum sk_webpencoder_compression_t {
     LOSSY_SK_WEBPENCODER_COMPTRESSION,
     LOSSLESS_SK_WEBPENCODER_COMPTRESSION,
 } sk_webpencoder_compression_t;
@@ -972,7 +972,7 @@ typedef struct {
 
 typedef struct sk_rrect_t sk_rrect_t;
 
-typedef enum {
+typedef enum sk_rrect_type_t {
     EMPTY_SK_RRECT_TYPE,
     RECT_SK_RRECT_TYPE,
     OVAL_SK_RRECT_TYPE,
@@ -981,7 +981,7 @@ typedef enum {
     COMPLEX_SK_RRECT_TYPE,
 } sk_rrect_type_t;
 
-typedef enum {
+typedef enum sk_rrect_corner_t {
     UPPER_LEFT_SK_RRECT_CORNER,
     UPPER_RIGHT_SK_RRECT_CORNER,
     LOWER_RIGHT_SK_RRECT_CORNER,
@@ -1009,7 +1009,7 @@ typedef struct sk_tracememorydump_t sk_tracememorydump_t;
 
 typedef struct sk_runtimeeffect_t sk_runtimeeffect_t;
 
-typedef enum {
+typedef enum sk_runtimeeffect_uniform_type_t {
     FLOAT_SK_RUNTIMEEFFECT_UNIFORM_TYPE,
     FLOAT2_SK_RUNTIMEEFFECT_UNIFORM_TYPE,
     FLOAT3_SK_RUNTIMEEFFECT_UNIFORM_TYPE,
@@ -1023,13 +1023,13 @@ typedef enum {
     INT4_SK_RUNTIMEEFFECT_UNIFORM_TYPE,
 } sk_runtimeeffect_uniform_type_t;
 
-typedef enum {
+typedef enum sk_runtimeeffect_child_type_t {
     SHADER_SK_RUNTIMEEFFECT_CHILD_TYPE,
     COLOR_FILTER_SK_RUNTIMEEFFECT_CHILD_TYPE,
     BLENDER_SK_RUNTIMEEFFECT_CHILD_TYPE,
 } sk_runtimeeffect_child_type_t;
 
-typedef enum {
+typedef enum sk_runtimeeffect_uniform_flags_t {
     NONE_SK_RUNTIMEEFFECT_UNIFORM_FLAGS           = 0x00,
     ARRAY_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          = 0x01,
     COLOR_SK_RUNTIMEEFFECT_UNIFORM_FLAGS          = 0x02,
@@ -1054,12 +1054,12 @@ typedef struct {
     int fIndex;
 } sk_runtimeeffect_child_t;
 
-typedef enum {
+typedef enum sk_filter_mode_t {
     NEAREST_SK_FILTER_MODE,
     LINEAR_SK_FILTER_MODE,
 } sk_filter_mode_t;
 
-typedef enum {
+typedef enum sk_mipmap_mode_t {
     NONE_SK_MIPMAP_MODE,
     NEAREST_SK_MIPMAP_MODE,
     LINEAR_SK_MIPMAP_MODE,
@@ -1090,12 +1090,12 @@ typedef struct skottie_marker_observer_t skottie_marker_observer_t;
 
 typedef struct sksg_invalidation_controller_t sksg_invalidation_controller_t;
 
-typedef enum {
+typedef enum skottie_animation_renderflags_t {
     SKIP_TOP_LEVEL_ISOLATION = 0x01,
     DISABLE_TOP_LEVEL_CLIPPING = 0x02,
 } skottie_animation_renderflags_t;
 
-typedef enum {
+typedef enum skottie_animation_builder_flags_t {
     NONE_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0,
     DEFER_IMAGE_LOADING_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x01,
     PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x02,

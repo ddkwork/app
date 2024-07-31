@@ -636,6 +636,9 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 
 	// Define enums.
 	clang.Visit(ast, func(ed *clang.EnumDecl) bool {
+		if ed.Name == "" {
+			mylog.Check("enum的名称需要非匿名才能被clang识别，需要调整枚举名称位置")
+		}
 		mod.EmitEnum(ed)
 		return true
 	})

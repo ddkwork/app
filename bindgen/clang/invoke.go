@@ -91,6 +91,8 @@ func Parse(opt *Options) (ast Node, layout *LayoutMap, err error) {
 		if e != nil {
 			return e
 		}
+		//debug
+		println(string(res))
 		layout, e = ParseLayoutMap(res)
 		return e
 	})
