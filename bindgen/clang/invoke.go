@@ -2,6 +2,8 @@ package clang
 
 import (
 	"bytes"
+	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -35,9 +37,14 @@ func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
 	cmd.Args = append(cmd.Args, o.AdditionalParams...)
 	cmd.Args = append(cmd.Args, o.Sources...)
 	buf := &bytes.Buffer{}
+	e := &bytes.Buffer{}
 	cmd.Stdout = buf
-	mylog.Check(cmd.Run())
-
+	cmd.Stderr = e
+	err := cmd.Run()
+	if err != nil {
+		log.Panicln(e.String())
+		return nil, fmt.Errorf("failed to run clang: %w", err)
+	}
 	return buf.Bytes(), nil
 
 	c := make([]string, 0)
