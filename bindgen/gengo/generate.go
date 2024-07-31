@@ -493,10 +493,10 @@ func (mod Module) EmitFunction(n *clang.FunctionDecl) {
 
 	// Add the parameters.
 	paramNodes := clang.All[*clang.ParmVarDecl](n)
-	for _, p := range paramNodes {
+	for i, p := range paramNodes {
 		arg := mod.Parent.NameArg(p.Name, p.Type.QualType, n.Name)
 		if arg == "" {
-			// arg = "arg"
+			arg = "arg" + fmt.Sprint(i)
 			mylog.Warning("unnamed argument in function", n.Name)
 		}
 		typ.Params.List = append(typ.Params.List, &dst.Field{

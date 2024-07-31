@@ -3,6 +3,7 @@ package skia
 
 import (
 	"unsafe"
+
 	"github.com/ddkwork/app/bindgen/bindlib"
 )
 
@@ -895,135 +896,77 @@ type Anon1104_9 struct {
 	fJsonSize         uint
 	fAnimatorCount    uint
 }
-type _Int128T = any
-type _Uint128T = any
-type __NSConstantString = any
-type SizeT = uint64
-type _BuiltinMsVaList = *byte
-type _BuiltinVaList = *byte
-type UintptrT = uint64
-type VaList = *byte
-type SizeT = uint64
-type PtrdiffT = int64
-type IntptrT = int64
-type _VcrtBool = bool
-type WcharT = uint16
-type Int8T = int8
-type Int16T = int16
-type Int32T = int32
-type Int64T = int64
-type Uint8T = uint8
-type Uint16T = uint16
-type Uint32T = uint32
-type Uint64T = uint64
-type IntLeast8T = int8
-type IntLeast16T = int16
-type IntLeast32T = int32
-type IntLeast64T = int64
-type UintLeast8T = uint8
-type UintLeast16T = uint16
-type UintLeast32T = uint32
-type UintLeast64T = uint64
-type IntFast8T = int8
-type IntFast16T = int32
-type IntFast32T = int32
-type IntFast64T = int64
-type UintFast8T = uint8
-type UintFast16T = uint32
-type UintFast32T = uint32
-type UintFast64T = uint64
-type IntmaxT = int64
-type UintmaxT = uint64
-type _CrtBool = bool
-type ErrnoT = int32
-type WintT = uint16
-type WctypeT = uint16
-type _Time32T = int64
-type TimeT = int64
-type _LocaleT = unsafe.Pointer
-type MbstateT = any
-type RsizeT = uint
-type SkColorT = uint32
-type SkPmcolorT = uint32
-type SkColortypeT = SkColortypeT
-type SkAlphatypeT = SkAlphatypeT
-type SkPixelgeometryT = SkPixelgeometryT
-type SkSurfacepropsFlagsT = SkSurfacepropsFlagsT
-type SkVectorT = any
-type SkBlendmodeT = SkBlendmodeT
-type SkFontTableTagT = uint32
-type SkPointModeT = SkPointModeT
-type SkTextAlignT = SkTextAlignT
-type SkTextEncodingT = SkTextEncodingT
-type SkPathFilltypeT = SkPathFilltypeT
-type SkFontStyleSlantT = SkFontStyleSlantT
-type SkColorChannelT = SkColorChannelT
-
-// The logical operations that can be performed when combining two regions.
-type SkRegionOpT = SkRegionOpT
-type SkClipopT = SkClipopT
-
-// Enum describing format of encoded data.
-type SkEncodedImageFormatT = SkEncodedImageFormatT
-type SkEncodedoriginT = SkEncodedoriginT
-type SkCodecResultT = SkCodecResultT
-type SkCodecZeroInitializedT = SkCodecZeroInitializedT
-type SkCodecScanlineOrderT = SkCodecScanlineOrderT
-type SkPathVerbT = SkPathVerbT
-type SkPathAddModeT = SkPathAddModeT
-type SkPathSegmentMaskT = SkPathSegmentMaskT
-type SkPathEffect1dStyleT = SkPathEffect1dStyleT
-type SkPathEffectTrimModeT = SkPathEffectTrimModeT
-type SkStrokeCapT = SkStrokeCapT
-type SkStrokeJoinT = SkStrokeJoinT
-type SkShaderTilemodeT = SkShaderTilemodeT
-type SkBlurstyleT = SkBlurstyleT
-type SkPathDirectionT = SkPathDirectionT
-type SkPathArcSizeT = SkPathArcSizeT
-type SkPaintStyleT = SkPaintStyleT
-type SkFontHintingT = SkFontHintingT
-type SkFontEdgingT = SkFontEdgingT
-type GrSurfaceoriginT = GrSurfaceoriginT
-type GrBackendobjectT = int
-type GrBackendT = GrBackendT
-type GrBackendcontextT = int
-type GrGlFuncPtr = unsafe.Pointer
-type GrGlGetProc = unsafe.Pointer
-type GrVkFuncPtr = unsafe.Pointer
-type GrVkGetProc = unsafe.Pointer
-type GrVkBackendmemoryT = int
-type SkPathopT = SkPathopT
-type SkLatticeRecttypeT = SkLatticeRecttypeT
-type SkPathmeasureMatrixflagsT = SkPathmeasureMatrixflagsT
-type SkBitmapReleaseProc = unsafe.Pointer
-type SkDataReleaseProc = unsafe.Pointer
-type SkImageRasterReleaseProc = unsafe.Pointer
-type SkImageTextureReleaseProc = unsafe.Pointer
-type SkSurfaceRasterReleaseProc = unsafe.Pointer
-type SkGlyphPathProc = unsafe.Pointer
-type SkImageCachingHintT = SkImageCachingHintT
-type SkBitmapAllocflagsT = SkBitmapAllocflagsT
-type SkCodecanimationDisposalmethodT = SkCodecanimationDisposalmethodT
-type SkCodecanimationBlendT = SkCodecanimationBlendT
-type SkVerticesVertexModeT = SkVerticesVertexModeT
-type SkHighcontrastconfigInvertstyleT = SkHighcontrastconfigInvertstyleT
-type SkPngencoderFilterflagsT = SkPngencoderFilterflagsT
-type SkJpegencoderDownsampleT = SkJpegencoderDownsampleT
-type SkJpegencoderAlphaoptionT = SkJpegencoderAlphaoptionT
-type SkWebpencoderCompressionT = SkWebpencoderCompressionT
-type SkRrectTypeT = SkRrectTypeT
-type SkRrectCornerT = SkRrectCornerT
-type SkRuntimeeffectUniformTypeT = SkRuntimeeffectUniformTypeT
-type SkRuntimeeffectChildTypeT = SkRuntimeeffectChildTypeT
-type SkRuntimeeffectUniformFlagsT = SkRuntimeeffectUniformFlagsT
-type SkFilterModeT = SkFilterModeT
-type SkMipmapModeT = SkMipmapModeT
-type SkottieAnimationRenderflagsT = SkottieAnimationRenderflagsT
-type SkottieAnimationBuilderFlagsT = SkottieAnimationBuilderFlagsT
+type (
+	_Int128T                   = any
+	_Uint128T                  = any
+	__NSConstantString         = any
+	SizeT                      = uint64
+	_BuiltinMsVaList           = *byte
+	_BuiltinVaList             = *byte
+	UintptrT                   = uint64
+	VaList                     = *byte
+	SizeT                      = uint64
+	PtrdiffT                   = int64
+	IntptrT                    = int64
+	_VcrtBool                  = bool
+	WcharT                     = uint16
+	Int8T                      = int8
+	Int16T                     = int16
+	Int32T                     = int32
+	Int64T                     = int64
+	Uint8T                     = uint8
+	Uint16T                    = uint16
+	Uint32T                    = uint32
+	Uint64T                    = uint64
+	IntLeast8T                 = int8
+	IntLeast16T                = int16
+	IntLeast32T                = int32
+	IntLeast64T                = int64
+	UintLeast8T                = uint8
+	UintLeast16T               = uint16
+	UintLeast32T               = uint32
+	UintLeast64T               = uint64
+	IntFast8T                  = int8
+	IntFast16T                 = int32
+	IntFast32T                 = int32
+	IntFast64T                 = int64
+	UintFast8T                 = uint8
+	UintFast16T                = uint32
+	UintFast32T                = uint32
+	UintFast64T                = uint64
+	IntmaxT                    = int64
+	UintmaxT                   = uint64
+	_CrtBool                   = bool
+	ErrnoT                     = int32
+	WintT                      = uint16
+	WctypeT                    = uint16
+	_Time32T                   = int64
+	TimeT                      = int64
+	_LocaleT                   = unsafe.Pointer
+	MbstateT                   = any
+	RsizeT                     = uint
+	SkColorT                   = uint32
+	SkPmcolorT                 = uint32
+	SkVectorT                  = any
+	SkFontTableTagT            = uint32
+	GrBackendobjectT           = int
+	GrBackendcontextT          = int
+	GrGlFuncPtr                = unsafe.Pointer
+	GrGlGetProc                = unsafe.Pointer
+	GrVkFuncPtr                = unsafe.Pointer
+	GrVkGetProc                = unsafe.Pointer
+	GrVkBackendmemoryT         = int
+	SkBitmapReleaseProc        = unsafe.Pointer
+	SkDataReleaseProc          = unsafe.Pointer
+	SkImageRasterReleaseProc   = unsafe.Pointer
+	SkImageTextureReleaseProc  = unsafe.Pointer
+	SkSurfaceRasterReleaseProc = unsafe.Pointer
+	SkGlyphPathProc            = unsafe.Pointer
+)
 
 var __imp___va_start bindlib.PreloadProc
 
-//  Gengo init function.
+// Gengo init function.
 func init() {
 	__imp___va_start = GengoLibrary.ImportNow("__va_start")
 	__imp___va_start = GengoLibrary.ImportNow("__va_start")
@@ -1965,11 +1908,11 @@ func init() {
 	bindlib.Validate((*Anon1073_9)(nil), 24, 4, "fMaxAniso", 0, "fUseCubic", 4, "fCubic", 8, "fFilter", 16, "fMipmap", 20)
 	bindlib.Validate((*Anon1104_9)(nil), 32, 8, "fTotalLoadTimeMS", 0, "fJsonParseTimeMS", 4, "fSceneParseTimeMS", 8, "fJsonSize", 16, "fAnimatorCount", 24)
 }
-func _VaStart( **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
+func _VaStart(arg0 **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
 
 var __imp___va_start bindlib.PreloadProc
 
-func _VaStart( *VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall()) }
+func _VaStart(arg0 *VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
 
 var __imp___security_init_cookie bindlib.PreloadProc
 
@@ -3589,25 +3532,27 @@ func SkDataNewSubset(src unsafe.Pointer, offset uint, length uint) unsafe.Pointe
 
 var __imp_sk_data_ref bindlib.PreloadProc
 
-func SkDataRef( unsafe.Pointer) { bindlib.CCall1(__imp_sk_data_ref.Addr(), bindlib.MarshallSyscall()) }
+func SkDataRef(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_data_ref.Addr(), bindlib.MarshallSyscall(arg0))
+}
 
 var __imp_sk_data_unref bindlib.PreloadProc
 
-func SkDataUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_data_unref.Addr(), bindlib.MarshallSyscall())
+func SkDataUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_data_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_data_get_size bindlib.PreloadProc
 
-func SkDataGetSize( unsafe.Pointer) uint {
-	__res := bindlib.CCall1(__imp_sk_data_get_size.Addr(), bindlib.MarshallSyscall())
+func SkDataGetSize(arg0 unsafe.Pointer) uint {
+	__res := bindlib.CCall1(__imp_sk_data_get_size.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[uint](__res)
 }
 
 var __imp_sk_data_get_data bindlib.PreloadProc
 
-func SkDataGetData( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_data_get_data.Addr(), bindlib.MarshallSyscall())
+func SkDataGetData(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_data_get_data.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
@@ -3627,8 +3572,8 @@ func SkDataNewFromStream(stream unsafe.Pointer, length uint) unsafe.Pointer {
 
 var __imp_sk_data_get_bytes bindlib.PreloadProc
 
-func SkDataGetBytes( unsafe.Pointer) *uint8 {
-	__res := bindlib.CCall1(__imp_sk_data_get_bytes.Addr(), bindlib.MarshallSyscall())
+func SkDataGetBytes(arg0 unsafe.Pointer) *uint8 {
+	__res := bindlib.CCall1(__imp_sk_data_get_bytes.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[*uint8](__res)
 }
 
@@ -3700,46 +3645,46 @@ func SkDocumentAbort(document unsafe.Pointer) {
 
 var __imp_sk_drawable_unref bindlib.PreloadProc
 
-func SkDrawableUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_drawable_unref.Addr(), bindlib.MarshallSyscall())
+func SkDrawableUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_drawable_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_drawable_get_generation_id bindlib.PreloadProc
 
-func SkDrawableGetGenerationId( unsafe.Pointer) uint32 {
-	__res := bindlib.CCall1(__imp_sk_drawable_get_generation_id.Addr(), bindlib.MarshallSyscall())
+func SkDrawableGetGenerationId(arg0 unsafe.Pointer) uint32 {
+	__res := bindlib.CCall1(__imp_sk_drawable_get_generation_id.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_drawable_get_bounds bindlib.PreloadProc
 
-func SkDrawableGetBounds( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_drawable_get_bounds.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkDrawableGetBounds(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_drawable_get_bounds.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_drawable_draw bindlib.PreloadProc
 
-func SkDrawableDraw( unsafe.Pointer,  unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall3(__imp_sk_drawable_draw.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkDrawableDraw(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
+	bindlib.CCall3(__imp_sk_drawable_draw.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2))
 }
 
 var __imp_sk_drawable_new_picture_snapshot bindlib.PreloadProc
 
-func SkDrawableNewPictureSnapshot( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_drawable_new_picture_snapshot.Addr(), bindlib.MarshallSyscall())
+func SkDrawableNewPictureSnapshot(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_drawable_new_picture_snapshot.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_drawable_notify_drawing_changed bindlib.PreloadProc
 
-func SkDrawableNotifyDrawingChanged( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_drawable_notify_drawing_changed.Addr(), bindlib.MarshallSyscall())
+func SkDrawableNotifyDrawingChanged(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_drawable_notify_drawing_changed.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_drawable_approximate_bytes_used bindlib.PreloadProc
 
-func SkDrawableApproximateBytesUsed( unsafe.Pointer) uint {
-	__res := bindlib.CCall1(__imp_sk_drawable_approximate_bytes_used.Addr(), bindlib.MarshallSyscall())
+func SkDrawableApproximateBytesUsed(arg0 unsafe.Pointer) uint {
+	__res := bindlib.CCall1(__imp_sk_drawable_approximate_bytes_used.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[uint](__res)
 }
 
@@ -4646,27 +4591,27 @@ func SkLinkerKeepAlive() { bindlib.CCall0(__imp_sk_linker_keep_alive.Addr()) }
 
 var __imp_sk_maskfilter_ref bindlib.PreloadProc
 
-func SkMaskfilterRef( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_maskfilter_ref.Addr(), bindlib.MarshallSyscall())
+func SkMaskfilterRef(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_maskfilter_ref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_maskfilter_unref bindlib.PreloadProc
 
-func SkMaskfilterUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_maskfilter_unref.Addr(), bindlib.MarshallSyscall())
+func SkMaskfilterUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_maskfilter_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_maskfilter_new_blur bindlib.PreloadProc
 
-func SkMaskfilterNewBlur( SkBlurstyleT, sigma float32) unsafe.Pointer {
-	__res := bindlib.CCall2(__imp_sk_maskfilter_new_blur.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(sigma))
+func SkMaskfilterNewBlur(arg0 SkBlurstyleT, sigma float32) unsafe.Pointer {
+	__res := bindlib.CCall2(__imp_sk_maskfilter_new_blur.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(sigma))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_maskfilter_new_blur_with_flags bindlib.PreloadProc
 
-func SkMaskfilterNewBlurWithFlags( SkBlurstyleT, sigma float32, respectCTM bool) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_maskfilter_new_blur_with_flags.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(sigma), bindlib.MarshallSyscall(respectCTM))
+func SkMaskfilterNewBlurWithFlags(arg0 SkBlurstyleT, sigma float32, respectCTM bool) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_maskfilter_new_blur_with_flags.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(sigma), bindlib.MarshallSyscall(respectCTM))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
@@ -4769,40 +4714,40 @@ func SkPaintNew() unsafe.Pointer {
 
 var __imp_sk_paint_clone bindlib.PreloadProc
 
-func SkPaintClone( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_paint_clone.Addr(), bindlib.MarshallSyscall())
+func SkPaintClone(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_paint_clone.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_paint_delete bindlib.PreloadProc
 
-func SkPaintDelete( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_paint_delete.Addr(), bindlib.MarshallSyscall())
+func SkPaintDelete(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_paint_delete.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_paint_reset bindlib.PreloadProc
 
-func SkPaintReset( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_paint_reset.Addr(), bindlib.MarshallSyscall())
+func SkPaintReset(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_paint_reset.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_paint_is_antialias bindlib.PreloadProc
 
-func SkPaintIsAntialias( unsafe.Pointer) bool {
-	__res := bindlib.CCall1(__imp_sk_paint_is_antialias.Addr(), bindlib.MarshallSyscall())
+func SkPaintIsAntialias(arg0 unsafe.Pointer) bool {
+	__res := bindlib.CCall1(__imp_sk_paint_is_antialias.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_paint_set_antialias bindlib.PreloadProc
 
-func SkPaintSetAntialias( unsafe.Pointer,  bool) {
-	bindlib.CCall2(__imp_sk_paint_set_antialias.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetAntialias(arg0 unsafe.Pointer, arg1 bool) {
+	bindlib.CCall2(__imp_sk_paint_set_antialias.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_color bindlib.PreloadProc
 
-func SkPaintGetColor( unsafe.Pointer) SkColorT {
-	__res := bindlib.CCall1(__imp_sk_paint_get_color.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetColor(arg0 unsafe.Pointer) SkColorT {
+	__res := bindlib.CCall1(__imp_sk_paint_get_color.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkColorT](__res)
 }
 
@@ -4814,8 +4759,8 @@ func SkPaintGetColor4f(paint unsafe.Pointer, color unsafe.Pointer) {
 
 var __imp_sk_paint_set_color bindlib.PreloadProc
 
-func SkPaintSetColor( unsafe.Pointer,  SkColorT) {
-	bindlib.CCall2(__imp_sk_paint_set_color.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetColor(arg0 unsafe.Pointer, arg1 SkColorT) {
+	bindlib.CCall2(__imp_sk_paint_set_color.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_set_color4f bindlib.PreloadProc
@@ -4826,85 +4771,85 @@ func SkPaintSetColor4f(paint unsafe.Pointer, color unsafe.Pointer, colorspace un
 
 var __imp_sk_paint_get_style bindlib.PreloadProc
 
-func SkPaintGetStyle( unsafe.Pointer) SkPaintStyleT {
-	__res := bindlib.CCall1(__imp_sk_paint_get_style.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetStyle(arg0 unsafe.Pointer) SkPaintStyleT {
+	__res := bindlib.CCall1(__imp_sk_paint_get_style.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkPaintStyleT](__res)
 }
 
 var __imp_sk_paint_set_style bindlib.PreloadProc
 
-func SkPaintSetStyle( unsafe.Pointer,  SkPaintStyleT) {
-	bindlib.CCall2(__imp_sk_paint_set_style.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetStyle(arg0 unsafe.Pointer, arg1 SkPaintStyleT) {
+	bindlib.CCall2(__imp_sk_paint_set_style.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_stroke_width bindlib.PreloadProc
 
-func SkPaintGetStrokeWidth( unsafe.Pointer) float32 {
-	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_width.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetStrokeWidth(arg0 unsafe.Pointer) float32 {
+	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_width.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[float32](__res)
 }
 
 var __imp_sk_paint_set_stroke_width bindlib.PreloadProc
 
-func SkPaintSetStrokeWidth( unsafe.Pointer, width float32) {
-	bindlib.CCall2(__imp_sk_paint_set_stroke_width.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(width))
+func SkPaintSetStrokeWidth(arg0 unsafe.Pointer, width float32) {
+	bindlib.CCall2(__imp_sk_paint_set_stroke_width.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(width))
 }
 
 var __imp_sk_paint_get_stroke_miter bindlib.PreloadProc
 
-func SkPaintGetStrokeMiter( unsafe.Pointer) float32 {
-	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_miter.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetStrokeMiter(arg0 unsafe.Pointer) float32 {
+	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_miter.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[float32](__res)
 }
 
 var __imp_sk_paint_set_stroke_miter bindlib.PreloadProc
 
-func SkPaintSetStrokeMiter( unsafe.Pointer, miter float32) {
-	bindlib.CCall2(__imp_sk_paint_set_stroke_miter.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(miter))
+func SkPaintSetStrokeMiter(arg0 unsafe.Pointer, miter float32) {
+	bindlib.CCall2(__imp_sk_paint_set_stroke_miter.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(miter))
 }
 
 var __imp_sk_paint_get_stroke_cap bindlib.PreloadProc
 
-func SkPaintGetStrokeCap( unsafe.Pointer) SkStrokeCapT {
-	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_cap.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetStrokeCap(arg0 unsafe.Pointer) SkStrokeCapT {
+	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_cap.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkStrokeCapT](__res)
 }
 
 var __imp_sk_paint_set_stroke_cap bindlib.PreloadProc
 
-func SkPaintSetStrokeCap( unsafe.Pointer,  SkStrokeCapT) {
-	bindlib.CCall2(__imp_sk_paint_set_stroke_cap.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetStrokeCap(arg0 unsafe.Pointer, arg1 SkStrokeCapT) {
+	bindlib.CCall2(__imp_sk_paint_set_stroke_cap.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_stroke_join bindlib.PreloadProc
 
-func SkPaintGetStrokeJoin( unsafe.Pointer) SkStrokeJoinT {
-	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_join.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetStrokeJoin(arg0 unsafe.Pointer) SkStrokeJoinT {
+	__res := bindlib.CCall1(__imp_sk_paint_get_stroke_join.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkStrokeJoinT](__res)
 }
 
 var __imp_sk_paint_set_stroke_join bindlib.PreloadProc
 
-func SkPaintSetStrokeJoin( unsafe.Pointer,  SkStrokeJoinT) {
-	bindlib.CCall2(__imp_sk_paint_set_stroke_join.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetStrokeJoin(arg0 unsafe.Pointer, arg1 SkStrokeJoinT) {
+	bindlib.CCall2(__imp_sk_paint_set_stroke_join.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_set_shader bindlib.PreloadProc
 
-func SkPaintSetShader( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_paint_set_shader.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetShader(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_paint_set_shader.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_set_maskfilter bindlib.PreloadProc
 
-func SkPaintSetMaskfilter( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_paint_set_maskfilter.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetMaskfilter(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_paint_set_maskfilter.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_set_blendmode bindlib.PreloadProc
 
-func SkPaintSetBlendmode( unsafe.Pointer,  SkBlendmodeT) {
-	bindlib.CCall2(__imp_sk_paint_set_blendmode.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetBlendmode(arg0 unsafe.Pointer, arg1 SkBlendmodeT) {
+	bindlib.CCall2(__imp_sk_paint_set_blendmode.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_set_blender bindlib.PreloadProc
@@ -4915,61 +4860,61 @@ func SkPaintSetBlender(paint unsafe.Pointer, blender unsafe.Pointer) {
 
 var __imp_sk_paint_is_dither bindlib.PreloadProc
 
-func SkPaintIsDither( unsafe.Pointer) bool {
-	__res := bindlib.CCall1(__imp_sk_paint_is_dither.Addr(), bindlib.MarshallSyscall())
+func SkPaintIsDither(arg0 unsafe.Pointer) bool {
+	__res := bindlib.CCall1(__imp_sk_paint_is_dither.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[bool](__res)
 }
 
 var __imp_sk_paint_set_dither bindlib.PreloadProc
 
-func SkPaintSetDither( unsafe.Pointer,  bool) {
-	bindlib.CCall2(__imp_sk_paint_set_dither.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetDither(arg0 unsafe.Pointer, arg1 bool) {
+	bindlib.CCall2(__imp_sk_paint_set_dither.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_shader bindlib.PreloadProc
 
-func SkPaintGetShader( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_paint_get_shader.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetShader(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_paint_get_shader.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_paint_get_maskfilter bindlib.PreloadProc
 
-func SkPaintGetMaskfilter( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_paint_get_maskfilter.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetMaskfilter(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_paint_get_maskfilter.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_paint_set_colorfilter bindlib.PreloadProc
 
-func SkPaintSetColorfilter( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_paint_set_colorfilter.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetColorfilter(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_paint_set_colorfilter.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_colorfilter bindlib.PreloadProc
 
-func SkPaintGetColorfilter( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_paint_get_colorfilter.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetColorfilter(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_paint_get_colorfilter.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_paint_set_imagefilter bindlib.PreloadProc
 
-func SkPaintSetImagefilter( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_paint_set_imagefilter.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPaintSetImagefilter(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_paint_set_imagefilter.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_paint_get_imagefilter bindlib.PreloadProc
 
-func SkPaintGetImagefilter( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_paint_get_imagefilter.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetImagefilter(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_paint_get_imagefilter.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_paint_get_blendmode bindlib.PreloadProc
 
-func SkPaintGetBlendmode( unsafe.Pointer) SkBlendmodeT {
-	__res := bindlib.CCall1(__imp_sk_paint_get_blendmode.Addr(), bindlib.MarshallSyscall())
+func SkPaintGetBlendmode(arg0 unsafe.Pointer) SkBlendmodeT {
+	__res := bindlib.CCall1(__imp_sk_paint_get_blendmode.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkBlendmodeT](__res)
 }
 
@@ -5009,146 +4954,146 @@ func SkPathNew() unsafe.Pointer {
 
 var __imp_sk_path_delete bindlib.PreloadProc
 
-func SkPathDelete( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_path_delete.Addr(), bindlib.MarshallSyscall())
+func SkPathDelete(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_path_delete.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_path_move_to bindlib.PreloadProc
 
-func SkPathMoveTo( unsafe.Pointer, x float32, y float32) {
-	bindlib.CCall3(__imp_sk_path_move_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
+func SkPathMoveTo(arg0 unsafe.Pointer, x float32, y float32) {
+	bindlib.CCall3(__imp_sk_path_move_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_sk_path_line_to bindlib.PreloadProc
 
-func SkPathLineTo( unsafe.Pointer, x float32, y float32) {
-	bindlib.CCall3(__imp_sk_path_line_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
+func SkPathLineTo(arg0 unsafe.Pointer, x float32, y float32) {
+	bindlib.CCall3(__imp_sk_path_line_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_sk_path_quad_to bindlib.PreloadProc
 
-func SkPathQuadTo( unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32) {
-	bindlib.CCall5(__imp_sk_path_quad_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1))
+func SkPathQuadTo(arg0 unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32) {
+	bindlib.CCall5(__imp_sk_path_quad_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1))
 }
 
 var __imp_sk_path_conic_to bindlib.PreloadProc
 
-func SkPathConicTo( unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32, w float32) {
-	bindlib.CCall6(__imp_sk_path_conic_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(w))
+func SkPathConicTo(arg0 unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32, w float32) {
+	bindlib.CCall6(__imp_sk_path_conic_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(w))
 }
 
 var __imp_sk_path_cubic_to bindlib.PreloadProc
 
-func SkPathCubicTo( unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32, x2 float32, y2 float32) {
-	bindlib.CCall7(__imp_sk_path_cubic_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
+func SkPathCubicTo(arg0 unsafe.Pointer, x0 float32, y0 float32, x1 float32, y1 float32, x2 float32, y2 float32) {
+	bindlib.CCall7(__imp_sk_path_cubic_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x0), bindlib.MarshallSyscall(y0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2))
 }
 
 var __imp_sk_path_arc_to bindlib.PreloadProc
 
-func SkPathArcTo( unsafe.Pointer, rx float32, ry float32, xAxisRotate float32, largeArc SkPathArcSizeT, sweep SkPathDirectionT, x float32, y float32) {
-	bindlib.CCall8(__imp_sk_path_arc_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(rx), bindlib.MarshallSyscall(ry), bindlib.MarshallSyscall(xAxisRotate), bindlib.MarshallSyscall(largeArc), bindlib.MarshallSyscall(sweep), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
+func SkPathArcTo(arg0 unsafe.Pointer, rx float32, ry float32, xAxisRotate float32, largeArc SkPathArcSizeT, sweep SkPathDirectionT, x float32, y float32) {
+	bindlib.CCall8(__imp_sk_path_arc_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(rx), bindlib.MarshallSyscall(ry), bindlib.MarshallSyscall(xAxisRotate), bindlib.MarshallSyscall(largeArc), bindlib.MarshallSyscall(sweep), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_sk_path_rarc_to bindlib.PreloadProc
 
-func SkPathRarcTo( unsafe.Pointer, rx float32, ry float32, xAxisRotate float32, largeArc SkPathArcSizeT, sweep SkPathDirectionT, x float32, y float32) {
-	bindlib.CCall8(__imp_sk_path_rarc_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(rx), bindlib.MarshallSyscall(ry), bindlib.MarshallSyscall(xAxisRotate), bindlib.MarshallSyscall(largeArc), bindlib.MarshallSyscall(sweep), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
+func SkPathRarcTo(arg0 unsafe.Pointer, rx float32, ry float32, xAxisRotate float32, largeArc SkPathArcSizeT, sweep SkPathDirectionT, x float32, y float32) {
+	bindlib.CCall8(__imp_sk_path_rarc_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(rx), bindlib.MarshallSyscall(ry), bindlib.MarshallSyscall(xAxisRotate), bindlib.MarshallSyscall(largeArc), bindlib.MarshallSyscall(sweep), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y))
 }
 
 var __imp_sk_path_arc_to_with_oval bindlib.PreloadProc
 
-func SkPathArcToWithOval( unsafe.Pointer, oval unsafe.Pointer, startAngle float32, sweepAngle float32, forceMoveTo bool) {
-	bindlib.CCall5(__imp_sk_path_arc_to_with_oval.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(oval), bindlib.MarshallSyscall(startAngle), bindlib.MarshallSyscall(sweepAngle), bindlib.MarshallSyscall(forceMoveTo))
+func SkPathArcToWithOval(arg0 unsafe.Pointer, oval unsafe.Pointer, startAngle float32, sweepAngle float32, forceMoveTo bool) {
+	bindlib.CCall5(__imp_sk_path_arc_to_with_oval.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(oval), bindlib.MarshallSyscall(startAngle), bindlib.MarshallSyscall(sweepAngle), bindlib.MarshallSyscall(forceMoveTo))
 }
 
 var __imp_sk_path_arc_to_with_points bindlib.PreloadProc
 
-func SkPathArcToWithPoints( unsafe.Pointer, x1 float32, y1 float32, x2 float32, y2 float32, radius float32) {
-	bindlib.CCall6(__imp_sk_path_arc_to_with_points.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2), bindlib.MarshallSyscall(radius))
+func SkPathArcToWithPoints(arg0 unsafe.Pointer, x1 float32, y1 float32, x2 float32, y2 float32, radius float32) {
+	bindlib.CCall6(__imp_sk_path_arc_to_with_points.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x1), bindlib.MarshallSyscall(y1), bindlib.MarshallSyscall(x2), bindlib.MarshallSyscall(y2), bindlib.MarshallSyscall(radius))
 }
 
 var __imp_sk_path_close bindlib.PreloadProc
 
-func SkPathClose( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_path_close.Addr(), bindlib.MarshallSyscall())
+func SkPathClose(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_path_close.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_path_add_rect bindlib.PreloadProc
 
-func SkPathAddRect( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT) {
-	bindlib.CCall3(__imp_sk_path_add_rect.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathAddRect(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 SkPathDirectionT) {
+	bindlib.CCall3(__imp_sk_path_add_rect.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2))
 }
 
 var __imp_sk_path_add_rrect bindlib.PreloadProc
 
-func SkPathAddRrect( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT) {
-	bindlib.CCall3(__imp_sk_path_add_rrect.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathAddRrect(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 SkPathDirectionT) {
+	bindlib.CCall3(__imp_sk_path_add_rrect.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2))
 }
 
 var __imp_sk_path_add_rrect_start bindlib.PreloadProc
 
-func SkPathAddRrectStart( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT,  uint32) {
-	bindlib.CCall4(__imp_sk_path_add_rrect_start.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathAddRrectStart(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 SkPathDirectionT, arg3 uint32) {
+	bindlib.CCall4(__imp_sk_path_add_rrect_start.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2), bindlib.MarshallSyscall(arg3))
 }
 
 var __imp_sk_path_add_rounded_rect bindlib.PreloadProc
 
-func SkPathAddRoundedRect( unsafe.Pointer,  unsafe.Pointer,  float32,  float32,  SkPathDirectionT) {
-	bindlib.CCall5(__imp_sk_path_add_rounded_rect.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathAddRoundedRect(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 float32, arg3 float32, arg4 SkPathDirectionT) {
+	bindlib.CCall5(__imp_sk_path_add_rounded_rect.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2), bindlib.MarshallSyscall(arg3), bindlib.MarshallSyscall(arg4))
 }
 
 var __imp_sk_path_add_oval bindlib.PreloadProc
 
-func SkPathAddOval( unsafe.Pointer,  unsafe.Pointer,  SkPathDirectionT) {
-	bindlib.CCall3(__imp_sk_path_add_oval.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathAddOval(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 SkPathDirectionT) {
+	bindlib.CCall3(__imp_sk_path_add_oval.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2))
 }
 
 var __imp_sk_path_add_circle bindlib.PreloadProc
 
-func SkPathAddCircle( unsafe.Pointer, x float32, y float32, radius float32, dir SkPathDirectionT) {
-	bindlib.CCall5(__imp_sk_path_add_circle.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(radius), bindlib.MarshallSyscall(dir))
+func SkPathAddCircle(arg0 unsafe.Pointer, x float32, y float32, radius float32, dir SkPathDirectionT) {
+	bindlib.CCall5(__imp_sk_path_add_circle.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(x), bindlib.MarshallSyscall(y), bindlib.MarshallSyscall(radius), bindlib.MarshallSyscall(dir))
 }
 
 var __imp_sk_path_get_bounds bindlib.PreloadProc
 
-func SkPathGetBounds( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_path_get_bounds.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathGetBounds(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_path_get_bounds.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_path_compute_tight_bounds bindlib.PreloadProc
 
-func SkPathComputeTightBounds( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_path_compute_tight_bounds.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathComputeTightBounds(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_path_compute_tight_bounds.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_path_rmove_to bindlib.PreloadProc
 
-func SkPathRmoveTo( unsafe.Pointer, dx float32, dy float32) {
-	bindlib.CCall3(__imp_sk_path_rmove_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(dx), bindlib.MarshallSyscall(dy))
+func SkPathRmoveTo(arg0 unsafe.Pointer, dx float32, dy float32) {
+	bindlib.CCall3(__imp_sk_path_rmove_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(dx), bindlib.MarshallSyscall(dy))
 }
 
 var __imp_sk_path_rline_to bindlib.PreloadProc
 
-func SkPathRlineTo( unsafe.Pointer, dx float32, yd float32) {
-	bindlib.CCall3(__imp_sk_path_rline_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(dx), bindlib.MarshallSyscall(yd))
+func SkPathRlineTo(arg0 unsafe.Pointer, dx float32, yd float32) {
+	bindlib.CCall3(__imp_sk_path_rline_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(dx), bindlib.MarshallSyscall(yd))
 }
 
 var __imp_sk_path_rquad_to bindlib.PreloadProc
 
-func SkPathRquadTo( unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32) {
-	bindlib.CCall5(__imp_sk_path_rquad_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1))
+func SkPathRquadTo(arg0 unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32) {
+	bindlib.CCall5(__imp_sk_path_rquad_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1))
 }
 
 var __imp_sk_path_rconic_to bindlib.PreloadProc
 
-func SkPathRconicTo( unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32, w float32) {
-	bindlib.CCall6(__imp_sk_path_rconic_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1), bindlib.MarshallSyscall(w))
+func SkPathRconicTo(arg0 unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32, w float32) {
+	bindlib.CCall6(__imp_sk_path_rconic_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1), bindlib.MarshallSyscall(w))
 }
 
 var __imp_sk_path_rcubic_to bindlib.PreloadProc
 
-func SkPathRcubicTo( unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32, dx2 float32, dy2 float32) {
-	bindlib.CCall7(__imp_sk_path_rcubic_to.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1), bindlib.MarshallSyscall(dx2), bindlib.MarshallSyscall(dy2))
+func SkPathRcubicTo(arg0 unsafe.Pointer, dx0 float32, dy0 float32, dx1 float32, dy1 float32, dx2 float32, dy2 float32) {
+	bindlib.CCall7(__imp_sk_path_rcubic_to.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(dx0), bindlib.MarshallSyscall(dy0), bindlib.MarshallSyscall(dx1), bindlib.MarshallSyscall(dy1), bindlib.MarshallSyscall(dx2), bindlib.MarshallSyscall(dy2))
 }
 
 var __imp_sk_path_add_rect_start bindlib.PreloadProc
@@ -5165,15 +5110,15 @@ func SkPathAddArc(cpath unsafe.Pointer, crect unsafe.Pointer, startAngle float32
 
 var __imp_sk_path_get_filltype bindlib.PreloadProc
 
-func SkPathGetFilltype( unsafe.Pointer) SkPathFilltypeT {
-	__res := bindlib.CCall1(__imp_sk_path_get_filltype.Addr(), bindlib.MarshallSyscall())
+func SkPathGetFilltype(arg0 unsafe.Pointer) SkPathFilltypeT {
+	__res := bindlib.CCall1(__imp_sk_path_get_filltype.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[SkPathFilltypeT](__res)
 }
 
 var __imp_sk_path_set_filltype bindlib.PreloadProc
 
-func SkPathSetFilltype( unsafe.Pointer,  SkPathFilltypeT) {
-	bindlib.CCall2(__imp_sk_path_set_filltype.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPathSetFilltype(arg0 unsafe.Pointer, arg1 SkPathFilltypeT) {
+	bindlib.CCall2(__imp_sk_path_set_filltype.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_path_transform bindlib.PreloadProc
@@ -5615,35 +5560,35 @@ func SkPictureRecorderNew() unsafe.Pointer {
 
 var __imp_sk_picture_recorder_delete bindlib.PreloadProc
 
-func SkPictureRecorderDelete( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_picture_recorder_delete.Addr(), bindlib.MarshallSyscall())
+func SkPictureRecorderDelete(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_picture_recorder_delete.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_picture_recorder_begin_recording bindlib.PreloadProc
 
-func SkPictureRecorderBeginRecording( unsafe.Pointer,  unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall2(__imp_sk_picture_recorder_begin_recording.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPictureRecorderBeginRecording(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall2(__imp_sk_picture_recorder_begin_recording.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_picture_recorder_begin_recording_with_bbh_factory bindlib.PreloadProc
 
-func SkPictureRecorderBeginRecordingWithBbhFactory( unsafe.Pointer,  unsafe.Pointer,  unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_picture_recorder_begin_recording_with_bbh_factory.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPictureRecorderBeginRecordingWithBbhFactory(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_picture_recorder_begin_recording_with_bbh_factory.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1), bindlib.MarshallSyscall(arg2))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_picture_recorder_end_recording bindlib.PreloadProc
 
-func SkPictureRecorderEndRecording( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_picture_recorder_end_recording.Addr(), bindlib.MarshallSyscall())
+func SkPictureRecorderEndRecording(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_picture_recorder_end_recording.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_picture_recorder_end_recording_as_drawable bindlib.PreloadProc
 
-func SkPictureRecorderEndRecordingAsDrawable( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_picture_recorder_end_recording_as_drawable.Addr(), bindlib.MarshallSyscall())
+func SkPictureRecorderEndRecordingAsDrawable(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_picture_recorder_end_recording_as_drawable.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
@@ -5656,27 +5601,27 @@ func SkPictureGetRecordingCanvas(crec unsafe.Pointer) unsafe.Pointer {
 
 var __imp_sk_picture_ref bindlib.PreloadProc
 
-func SkPictureRef( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_picture_ref.Addr(), bindlib.MarshallSyscall())
+func SkPictureRef(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_picture_ref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_picture_unref bindlib.PreloadProc
 
-func SkPictureUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_picture_unref.Addr(), bindlib.MarshallSyscall())
+func SkPictureUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_picture_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_picture_get_unique_id bindlib.PreloadProc
 
-func SkPictureGetUniqueId( unsafe.Pointer) uint32 {
-	__res := bindlib.CCall1(__imp_sk_picture_get_unique_id.Addr(), bindlib.MarshallSyscall())
+func SkPictureGetUniqueId(arg0 unsafe.Pointer) uint32 {
+	__res := bindlib.CCall1(__imp_sk_picture_get_unique_id.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[uint32](__res)
 }
 
 var __imp_sk_picture_get_cull_rect bindlib.PreloadProc
 
-func SkPictureGetCullRect( unsafe.Pointer,  unsafe.Pointer) {
-	bindlib.CCall2(__imp_sk_picture_get_cull_rect.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall())
+func SkPictureGetCullRect(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
+	bindlib.CCall2(__imp_sk_picture_get_cull_rect.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(arg1))
 }
 
 var __imp_sk_picture_make_shader bindlib.PreloadProc
@@ -5749,8 +5694,8 @@ func SkRtreeFactoryNew() unsafe.Pointer {
 
 var __imp_sk_rtree_factory_delete bindlib.PreloadProc
 
-func SkRtreeFactoryDelete( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_rtree_factory_delete.Addr(), bindlib.MarshallSyscall())
+func SkRtreeFactoryDelete(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_rtree_factory_delete.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_pixmap_destructor bindlib.PreloadProc
@@ -6977,21 +6922,21 @@ func SkStringNewWithCopy(src *byte, length uint) unsafe.Pointer {
 
 var __imp_sk_string_destructor bindlib.PreloadProc
 
-func SkStringDestructor( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_string_destructor.Addr(), bindlib.MarshallSyscall())
+func SkStringDestructor(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_string_destructor.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_string_get_size bindlib.PreloadProc
 
-func SkStringGetSize( unsafe.Pointer) uint {
-	__res := bindlib.CCall1(__imp_sk_string_get_size.Addr(), bindlib.MarshallSyscall())
+func SkStringGetSize(arg0 unsafe.Pointer) uint {
+	__res := bindlib.CCall1(__imp_sk_string_get_size.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[uint](__res)
 }
 
 var __imp_sk_string_get_c_str bindlib.PreloadProc
 
-func SkStringGetCStr( unsafe.Pointer) *byte {
-	__res := bindlib.CCall1(__imp_sk_string_get_c_str.Addr(), bindlib.MarshallSyscall())
+func SkStringGetCStr(arg0 unsafe.Pointer) *byte {
+	__res := bindlib.CCall1(__imp_sk_string_get_c_str.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[*byte](__res)
 }
 
@@ -7004,15 +6949,15 @@ func SkSurfaceNewNull(width int32, height int32) unsafe.Pointer {
 
 var __imp_sk_surface_new_raster bindlib.PreloadProc
 
-func SkSurfaceNewRaster( unsafe.Pointer, rowBytes uint,  unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_surface_new_raster.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall())
+func SkSurfaceNewRaster(arg0 unsafe.Pointer, rowBytes uint, arg2 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_surface_new_raster.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(arg2))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_surface_new_raster_direct bindlib.PreloadProc
 
-func SkSurfaceNewRasterDirect( unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, releaseProc SkSurfaceRasterReleaseProc, context unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall6(__imp_sk_surface_new_raster_direct.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(releaseProc), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(props))
+func SkSurfaceNewRasterDirect(arg0 unsafe.Pointer, pixels unsafe.Pointer, rowBytes uint, releaseProc SkSurfaceRasterReleaseProc, context unsafe.Pointer, props unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall6(__imp_sk_surface_new_raster_direct.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(pixels), bindlib.MarshallSyscall(rowBytes), bindlib.MarshallSyscall(releaseProc), bindlib.MarshallSyscall(context), bindlib.MarshallSyscall(props))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
@@ -7053,21 +6998,21 @@ func SkSurfaceNewMetalView(context unsafe.Pointer, mtkView unsafe.Pointer, origi
 
 var __imp_sk_surface_unref bindlib.PreloadProc
 
-func SkSurfaceUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_surface_unref.Addr(), bindlib.MarshallSyscall())
+func SkSurfaceUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_surface_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_surface_get_canvas bindlib.PreloadProc
 
-func SkSurfaceGetCanvas( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_surface_get_canvas.Addr(), bindlib.MarshallSyscall())
+func SkSurfaceGetCanvas(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_surface_get_canvas.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_surface_new_image_snapshot bindlib.PreloadProc
 
-func SkSurfaceNewImageSnapshot( unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall1(__imp_sk_surface_new_image_snapshot.Addr(), bindlib.MarshallSyscall())
+func SkSurfaceNewImageSnapshot(arg0 unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall1(__imp_sk_surface_new_image_snapshot.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
@@ -7440,69 +7385,69 @@ func SkFontmgrRefDefault() unsafe.Pointer {
 
 var __imp_sk_fontmgr_unref bindlib.PreloadProc
 
-func SkFontmgrUnref( unsafe.Pointer) {
-	bindlib.CCall1(__imp_sk_fontmgr_unref.Addr(), bindlib.MarshallSyscall())
+func SkFontmgrUnref(arg0 unsafe.Pointer) {
+	bindlib.CCall1(__imp_sk_fontmgr_unref.Addr(), bindlib.MarshallSyscall(arg0))
 }
 
 var __imp_sk_fontmgr_count_families bindlib.PreloadProc
 
-func SkFontmgrCountFamilies( unsafe.Pointer) int32 {
-	__res := bindlib.CCall1(__imp_sk_fontmgr_count_families.Addr(), bindlib.MarshallSyscall())
+func SkFontmgrCountFamilies(arg0 unsafe.Pointer) int32 {
+	__res := bindlib.CCall1(__imp_sk_fontmgr_count_families.Addr(), bindlib.MarshallSyscall(arg0))
 	return bindlib.UnmarshallSyscall[int32](__res)
 }
 
 var __imp_sk_fontmgr_get_family_name bindlib.PreloadProc
 
-func SkFontmgrGetFamilyName( unsafe.Pointer, index int32, familyName unsafe.Pointer) {
-	bindlib.CCall3(__imp_sk_fontmgr_get_family_name.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(index), bindlib.MarshallSyscall(familyName))
+func SkFontmgrGetFamilyName(arg0 unsafe.Pointer, index int32, familyName unsafe.Pointer) {
+	bindlib.CCall3(__imp_sk_fontmgr_get_family_name.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(index), bindlib.MarshallSyscall(familyName))
 }
 
 var __imp_sk_fontmgr_create_styleset bindlib.PreloadProc
 
-func SkFontmgrCreateStyleset( unsafe.Pointer, index int32) unsafe.Pointer {
-	__res := bindlib.CCall2(__imp_sk_fontmgr_create_styleset.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(index))
+func SkFontmgrCreateStyleset(arg0 unsafe.Pointer, index int32) unsafe.Pointer {
+	__res := bindlib.CCall2(__imp_sk_fontmgr_create_styleset.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(index))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_match_family bindlib.PreloadProc
 
-func SkFontmgrMatchFamily( unsafe.Pointer, familyName *byte) unsafe.Pointer {
-	__res := bindlib.CCall2(__imp_sk_fontmgr_match_family.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(familyName))
+func SkFontmgrMatchFamily(arg0 unsafe.Pointer, familyName *byte) unsafe.Pointer {
+	__res := bindlib.CCall2(__imp_sk_fontmgr_match_family.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(familyName))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_match_family_style bindlib.PreloadProc
 
-func SkFontmgrMatchFamilyStyle( unsafe.Pointer, familyName *byte, style unsafe.Pointer) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_fontmgr_match_family_style.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(familyName), bindlib.MarshallSyscall(style))
+func SkFontmgrMatchFamilyStyle(arg0 unsafe.Pointer, familyName *byte, style unsafe.Pointer) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_fontmgr_match_family_style.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(familyName), bindlib.MarshallSyscall(style))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_match_family_style_character bindlib.PreloadProc
 
-func SkFontmgrMatchFamilyStyleCharacter( unsafe.Pointer, familyName *byte, style unsafe.Pointer, bcp47 **byte, bcp47Count int32, character int32) unsafe.Pointer {
-	__res := bindlib.CCall6(__imp_sk_fontmgr_match_family_style_character.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(familyName), bindlib.MarshallSyscall(style), bindlib.MarshallSyscall(bcp47), bindlib.MarshallSyscall(bcp47Count), bindlib.MarshallSyscall(character))
+func SkFontmgrMatchFamilyStyleCharacter(arg0 unsafe.Pointer, familyName *byte, style unsafe.Pointer, bcp47 **byte, bcp47Count int32, character int32) unsafe.Pointer {
+	__res := bindlib.CCall6(__imp_sk_fontmgr_match_family_style_character.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(familyName), bindlib.MarshallSyscall(style), bindlib.MarshallSyscall(bcp47), bindlib.MarshallSyscall(bcp47Count), bindlib.MarshallSyscall(character))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_create_from_data bindlib.PreloadProc
 
-func SkFontmgrCreateFromData( unsafe.Pointer, data unsafe.Pointer, index int32) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_data.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(data), bindlib.MarshallSyscall(index))
+func SkFontmgrCreateFromData(arg0 unsafe.Pointer, data unsafe.Pointer, index int32) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_data.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(data), bindlib.MarshallSyscall(index))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_create_from_stream bindlib.PreloadProc
 
-func SkFontmgrCreateFromStream( unsafe.Pointer, stream unsafe.Pointer, index int32) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_stream.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(stream), bindlib.MarshallSyscall(index))
+func SkFontmgrCreateFromStream(arg0 unsafe.Pointer, stream unsafe.Pointer, index int32) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_stream.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(stream), bindlib.MarshallSyscall(index))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 
 var __imp_sk_fontmgr_create_from_file bindlib.PreloadProc
 
-func SkFontmgrCreateFromFile( unsafe.Pointer, path *byte, index int32) unsafe.Pointer {
-	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_file.Addr(), bindlib.MarshallSyscall(), bindlib.MarshallSyscall(path), bindlib.MarshallSyscall(index))
+func SkFontmgrCreateFromFile(arg0 unsafe.Pointer, path *byte, index int32) unsafe.Pointer {
+	__res := bindlib.CCall3(__imp_sk_fontmgr_create_from_file.Addr(), bindlib.MarshallSyscall(arg0), bindlib.MarshallSyscall(path), bindlib.MarshallSyscall(index))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)
 }
 

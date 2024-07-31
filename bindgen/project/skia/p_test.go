@@ -27,6 +27,12 @@ func TestMergeHeader(t *testing.T) {
 		return nil
 	})
 	b.ReplaceAll(`#include "include/c/sk_types.h"`, ``)
+	//	b.ReplaceAll(`
+	//#include <stdint.h>
+	//#include <stddef.h>`, `
+	////#include <stdint.h>
+	////#include <stddef.h>
+	//`)
 
 	switched := switchEnum(b.String())
 	stream.WriteTruncate("skia.h", switched)
@@ -90,7 +96,7 @@ func switchEnum(src string) string {
 			line = strings.TrimPrefix(line, "}")
 			line = strings.TrimSuffix(line, ";")
 			enumName := strings.TrimSpace(line)
-			lines[start] = "typedef enum " + enumName + " {"
+			lines[start] = "typedef enum " + enumName + "_ {"
 			//lines[i] = "};"
 			start = 0
 		}
