@@ -7,7 +7,6 @@ import (
 	"github.com/ddkwork/golibrary/stream"
 	"io/fs"
 	"path/filepath"
-	"strings"
 	"testing"
 )
 
@@ -34,8 +33,6 @@ func TestMergeHeader(t *testing.T) {
 	////#include <stddef.h>
 	//`)
 
-	switched := switchEnum(b.String())
-	stream.WriteTruncate("skia.h", switched)
 }
 
 func TestBindSkia(t *testing.T) {
@@ -53,69 +50,10 @@ func TestBindSkia(t *testing.T) {
 func TestBindSkiaCAPINew(t *testing.T) {
 	TestMergeHeader(t)
 	pkg := gengo.NewPackage("skia")
-	path := "sk_capi.h"
-	switched := switchEnum(stream.NewBuffer(path).String())
-	stream.WriteTruncate("skia_fixEnum.h", switched)
 	mylog.Check(pkg.Transform("skia", &clang.Options{
-		Sources: []string{"skia_fixEnum.h"},
+		Sources: []string{"sk_capi.h"},
 		//AdditionalParams: []string{},
 	}),
 	)
 	mylog.Check(pkg.WriteToDir("tmp"))
-}
-
-func TestFixEnum(t *testing.T) {
-	org := `
-typedef enum {
-    NONE_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0,
-    DEFER_IMAGE_LOADING_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x01,
-    PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x02,
-} skottie_animation_builder_flags_t;
-
-typedef enum {
-    ANOTHER_ENUM_VALUE = 0,
-    ANOTHER_ENUM_VALUE_2 = 0x01,
-} another_enum_t;
-`
-	expected := `
-typedef enum skottie_animation_builder_flags_t {
-    NONE_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0,
-    DEFER_IMAGE_LOADING_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x01,
-    PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x02,
-};
-
-typedef enum another_enum_t {
-    ANOTHER_ENUM_VALUE = 0,
-    ANOTHER_ENUM_VALUE_2 = 0x01,
-};
-`
-	actual := switchEnum(org)
-	if actual != expected {
-		t.Errorf("actual: %s, expected: %s", actual, expected)
-	}
-}
-
-func switchEnum(src string) string {
-	start := 0
-	lines := strings.Split(src, "\n")
-	for i, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" {
-			continue
-		}
-		if strings.HasPrefix(line, "typedef enum") {
-			start = i
-		}
-		if start > 0 && strings.HasPrefix(line, "}") {
-			line = strings.TrimPrefix(line, "}")
-			line = strings.TrimSuffix(line, ";")
-			enumName := strings.TrimSpace(line)
-			lines[start] = "typedef enum " + enumName + "_ {"
-			//lines[i] = "};"
-			start = 0
-		}
-	}
-
-	actual := strings.Join(lines, "\n")
-	return actual
 }

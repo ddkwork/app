@@ -107,12 +107,12 @@ typedef struct {
 
 // ===== Types from include/core/SkPath.h =====
 
-typedef enum {
+typedef enum sk_path_add_mode_t_ {
     SK_PATH_ADD_MODE_APPEND, // appended to destination unaltered
     SK_PATH_ADD_MODE_EXTEND, // add line if prior contour is not closed
 } sk_path_add_mode_t;
 
-typedef enum {
+typedef enum sk_path_arc_size_t_ {
     SK_PATH_ARC_SIZE_SMALL, // smaller of arc pair
     SK_PATH_ARC_SIZE_LARGE, // larger of arc pair
 } sk_path_arc_size_t;
@@ -121,12 +121,12 @@ typedef struct sk_path_t sk_path_t;
 
 // ===== Types from include/core/SkPathTypes.h =====
 
-typedef enum {
+typedef enum sk_path_direction_t_ {
     SK_PATH_DIRECTION_CW,  // clockwise direction for adding closed contours
     SK_PATH_DIRECTION_CCW, // counter-clockwise direction for adding closed contours
 } sk_path_direction_t;
 
-typedef enum {
+typedef enum sk_path_fill_type_t_ {
     SK_PATH_FILLTYPE_WINDING,         // Specifies that "inside" is computed by a non-zero sum of signed edge crossings
     SK_PATH_FILLTYPE_EVENODD,         // Specifies that "inside" is computed by an odd number of edge crossings
     SK_PATH_FILLTYPE_INVERSE_WINDING, // Same as Winding, but draws outside of the path, rather than inside
@@ -135,7 +135,7 @@ typedef enum {
 
 // ===== Types from include/effects/Sk1DPathEffect.h =====
 
-typedef enum {
+typedef enum sk_path_effect_1d_style_t_ {
     SK_PATH_EFFECT_1D_STYLE_TRANSLATE, // translate the shape to each position
     SK_PATH_EFFECT_1D_STYLE_ROTATE,    // rotate the shape about its center
     SK_PATH_EFFECT_1D_STYLE_MORPH,     // transform each point, and turn lines into curves
@@ -144,7 +144,7 @@ typedef enum {
 
 // ===== Types from include/effects/SkTrimPathEffect.h =====
 
-typedef enum {
+typedef enum sk_path_effect_trim_mode_t_ {
     SK_PATH_EFFECT_TRIM_MODE_NORMAL,   // return the subset path [start,stop]
     SK_PATH_EFFECT_TRIM_MODE_INVERTED, // return the complement/subset paths [0,start] + [stop,1]
 } sk_path_effect_trim_mode_t;
@@ -155,7 +155,7 @@ typedef struct sk_path_effect_t sk_path_effect_t;
 
 // ===== Types from include/pathops/SkPathOps.h =====
 
-typedef enum {
+typedef enum sk_path_op_t_ {
     SK_PATH_OP_DIFFERENCE,         // subtract the op path from the first path
     SK_PATH_OP_INTERSECT,          // intersect the two paths
     SK_PATH_OP_UNION,              // union (inclusive-or) the two paths
@@ -167,7 +167,7 @@ typedef struct sk_op_builder_t sk_op_builder_t;
 
 // ===== Types from include/core/SkSurfaceProps.h =====
 
-typedef enum {
+typedef enum sk_pixel_geometry_t_ {
     SK_PIXEL_GEOMETRY_UNKNOWN,
     SK_PIXEL_GEOMETRY_RGB_H,
     SK_PIXEL_GEOMETRY_BGR_H,
@@ -183,7 +183,7 @@ typedef struct sk_surface_t sk_surface_t;
 
 // ===== Types from include/gpu/GrTypes.h =====
 
-typedef enum {
+typedef enum gr_surface_origin_t_ {
     GR_SURFACE_ORIGIN_TOP_LEFT,
     GR_SURFACE_ORIGIN_BOTTOM_LEFT,
 } gr_surface_origin_t;
@@ -210,7 +210,7 @@ typedef struct gr_backendrendertarget_t gr_backendrendertarget_t;
 
 // ===== Types from include/core/SkBlendMode.h =====
 
-typedef enum {
+typedef enum sk_blend_mode_t_ {
     SK_BLEND_MODE_CLEAR,      // r = 0
     SK_BLEND_MODE_SRC,        // r = s
     SK_BLEND_MODE_DST,        // r = d
@@ -247,7 +247,7 @@ typedef enum {
 
 // ===== Types from include/core/SkBlurTypes.h =====
 
-typedef enum {
+typedef enum sk_blur_style_t_ {
     SK_BLUR_STYLE_NORMAL, // fuzzy inside and outside
     SK_BLUR_STYLE_SOLID,  // solid inside, fuzzy outside
     SK_BLUR_STYLE_OUTER,  // nothing inside, fuzzy outside
@@ -257,7 +257,7 @@ typedef enum {
 
 // ===== Types from include/core/SkClipOp.h =====
 
-typedef enum {
+typedef enum sk_clip_op_t_ {
     SK_CLIP_OP_DIFFERENCE,
     SK_CLIP_OP_INTERSECT,
     SK_CLIP_OP_LAST = SK_CLIP_OP_INTERSECT,
@@ -265,7 +265,7 @@ typedef enum {
 
 // ===== Types from include/effects/SkHighContrastFilter.h =====
 
-typedef enum {
+typedef enum sk_high_contrast_config_invert_style_t_ {
     SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE_NO_INVERT,
     SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE_INVERT_BRIGHTNESS,
     SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE_INVERT_LIGHTNESS,
@@ -280,7 +280,7 @@ typedef struct {
 
 // ===== Types from include/core/SkColor.h =====
 
-typedef enum {
+typedef enum sk_color_channel_t_ {
     SK_COLOR_CHANNEL_RED,
     SK_COLOR_CHANNEL_GREEN,
     SK_COLOR_CHANNEL_BLUE,
@@ -296,13 +296,13 @@ typedef struct sk_color_space_t sk_color_space_t;
 
 // ===== Types from include/core/SkPaint.h =====
 
-typedef enum {
+typedef enum sk_paint_style_t_ {
     SK_PAINT_STYLE_FILL,            // set to fill geometry
     SK_PAINT_STYLE_STROKE,          // set to stroke geometry
     SK_PAINT_STYLE_STROKE_AND_FILL, // set to stroke and fill geometry
 } sk_paint_style_t;
 
-typedef enum {
+typedef enum sk_stroke_cap_t_ {
     SK_STROKE_CAP_BUTT,   // no stroke extension
     SK_STROKE_CAP_ROUND,  // adds circle
     SK_STROKE_CAP_SQUARE, // adds square
@@ -310,7 +310,7 @@ typedef enum {
     SK_STROKE_CAP_DEFAULT = SK_STROKE_CAP_BUTT,
 } sk_stroke_cap_t;
 
-typedef enum {
+typedef enum sk_stroke_join_t_ {
     SK_STROKE_JOIN_MITER, // extends to miter limit
     SK_STROKE_JOIN_ROUND, // adds circle
     SK_STROKE_JOIN_BEVEL, // connects outside edges
@@ -322,7 +322,7 @@ typedef struct sk_paint_t sk_paint_t;
 
 // ===== Types from include/core/SkColorType.h =====
 
-typedef enum {
+typedef enum sk_color_type_t_ {
     SK_COLOR_TYPE_UNKNOWN,          // uninitialized
     SK_COLOR_TYPE_ALPHA_8,          // pixel with alpha in 8-bit byte
     SK_COLOR_TYPE_RGB_565,          // pixel with 5 bits red, 6 bits green, 5 bits blue, in 16-bit word
@@ -362,7 +362,7 @@ typedef enum {
 
 // ===== Types from include/core/SkAlphaType.h =====
 
-typedef enum {
+typedef enum sk_alpha_type_t_ {
     SK_ALPHA_TYPE_UNKNOWN,
     SK_ALPHA_TYPE_OPAQUE,
     SK_ALPHA_TYPE_PREMUL,
@@ -382,7 +382,7 @@ typedef struct {
 
 // ===== Types from include/core/SkImage.h =====
 
-typedef enum {
+typedef enum sk_image_caching_hint_t_ {
     SK_IMAGE_CACHING_HINT_ALLOW,    // allows internally caching decoded and copied pixels
     SK_IMAGE_CACHING_HINT_DISALLOW, // disallows internally caching decoded and copied pixels
 } sk_image_caching_hint_t;
@@ -408,13 +408,13 @@ typedef struct {
     float C;
 } sk_cubic_resampler_t;
 
-typedef enum {
+typedef enum sk_filter_mode_t_ {
     SK_FILTER_MODE_NEAREST,
     SK_FILTER_MODE_LINEAR,
     SK_FILTER_MODE_LAST = SK_FILTER_MODE_LINEAR,
 } sk_filter_mode_t;
 
-typedef enum {
+typedef enum sk_mipmap_mode_t_ {
     SK_MIPMAP_MODE_NONE,
     SK_MIPMAP_MODE_NEAREST,
     SK_MIPMAP_MODE_LINEAR,
@@ -435,14 +435,14 @@ typedef struct sk_typeface_t sk_typeface_t;
 
 // ===== Types from include/core/SkFontTypes.h =====
 
-typedef enum {
+typedef enum sk_font_hinting_t_ {
     SK_FONT_HINTING_NONE,   // glyph outlines unchanged
     SK_FONT_HINTING_SLIGHT, // minimal modification to improve contrast
     SK_FONT_HINTING_NORMAL, // glyph outlines modified to improve contrast
     SK_FONT_HINTING_FULL,   // modifies glyph outlines for maximum contrast
 } sk_font_hinting_t;
 
-typedef enum {
+typedef enum sk_text_encoding_t_ {
     SK_TEXT_ENCODING_UTF8,     // uses bytes to represent UTF-8 or ASCII
     SK_TEXT_ENCODING_UTF16,    // uses two byte words to represent most of Unicode
     SK_TEXT_ENCODING_UTF32,    // uses four byte words to represent all of Unicode
@@ -456,7 +456,7 @@ typedef struct sk_font_style_set_t sk_font_style_set_t;
 
 // ===== Types from include/core/SkFontStyle.h =====
 
-typedef enum {
+typedef enum sk_font_style_weight_t_ {
     SK_FONT_STYLE_WEIGHT_INVISIBLE   = 0,
     SK_FONT_STYLE_WEIGHT_THIN        = 100,
     SK_FONT_STYLE_WEIGHT_EXTRA_LIGHT = 200,
@@ -470,7 +470,7 @@ typedef enum {
     SK_FONT_STYLE_WEIGHT_EXTRA_BLACK = 1000,
 } sk_font_style_weight_t;
 
-typedef enum {
+typedef enum sk_font_style_width_t_ {
     SK_FONT_STYLE_WIDTH_ULTRA_CONDENSED = 1,
     SK_FONT_STYLE_WIDTH_EXTRA_CONDENSED = 2,
     SK_FONT_STYLE_WIDTH_CONDENSED       = 3,
@@ -482,7 +482,7 @@ typedef enum {
     SK_FONT_STYLE_WIDTH_ULTRA_EXPANDED  = 9,
 } sk_font_style_width_t;
 
-typedef enum {
+typedef enum sk_font_style_slant_t_ {
     SK_FONT_STYLE_SLANT_UPRIGHT,
     SK_FONT_STYLE_SLANT_ITALIC,
     SK_FONT_STYLE_SLANT_OBLIQUE,
@@ -492,7 +492,7 @@ typedef struct sk_font_style_t sk_font_style_t;
 
 // ===== Types from include/core/SkFontMetrics.h =====
 
-typedef enum {
+typedef enum sk_font_metrics_flags_t_ {
     SK_FONT_METRICS_FLAG_UNDERLINE_THICKNESS_IS_VALID = 1 << 0, // set if underlineThickness is valid
     SK_FONT_METRICS_FLAG_UNDERLINE_POSITION_IS_VALID  = 1 << 1, // set if underlinePosition is valid
     SK_FONT_METRICS_FLAG_STRIKEOUT_THICKNESS_IS_VALID = 1 << 2, // set if strikeoutThickness is valid
@@ -525,13 +525,13 @@ typedef struct sk_font_t sk_font_t;
 
 // ===== Types from include/core/SkCanvas.h =====
 
-typedef enum {
+typedef enum sk_point_mode_t_ {
     SK_POINT_MODE_POINTS,  // draw each point separately
     SK_POINT_MODE_LINES,   // draw each pair of points as a line segment
     SK_POINT_MODE_POLYGON, // draw the array of points as a open polygon
 } sk_point_mode_t;
 
-typedef enum {
+typedef enum sk_src_rect_constraint_t_ {
     SRC_RECT_CONSTRAINT_STRICT, // Sample only inside bounds; slower
     SRC_RECT_CONSTRAINT_FAST,   // Sample outside bounds; faster
 } sk_src_rect_constraint_t;
@@ -540,7 +540,7 @@ typedef struct sk_canvas_t sk_canvas_t;
 
 // ===== Types from include/core/SkShader.h =====
 
-typedef enum {
+typedef enum sk_tile_mode_t_ {
     SK_TILE_MODE_CLAMP, // Replicate the edge color if the shader draws outside of its original bounds
     SK_TILE_REPEAT,     // Repeat the shader's image horizontally and vertically
     SK_TILE_MIRROR,     // Repeat the shader's image horizontally and vertically, alternating mirror images so that adjacent images always seam

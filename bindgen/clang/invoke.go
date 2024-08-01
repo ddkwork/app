@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"golang.org/x/sync/errgroup"
 
@@ -33,6 +34,10 @@ func (o *Options) ClangPath() string {
 }
 
 func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
+	header := o.Sources[0]
+	switched := switchEnum(stream.NewBuffer(header).String())
+	stream.WriteTruncate(header, switched)
+
 	cmd := exec.Command(o.ClangPath(), opt...)
 	cmd.Args = append(cmd.Args, o.AdditionalParams...)
 	cmd.Args = append(cmd.Args, o.Sources...)
@@ -113,4 +118,29 @@ func Parse_(opt *Options) (ast Node, layout *LayoutMap, err error) {
 	ast = mylog.Check2(ParseAST(res))
 
 	return ast, layout, nil
+}
+
+func switchEnum(src string) string {
+	start := 0
+	lines := strings.Split(src, "\n")
+	for i, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		if strings.HasPrefix(line, "typedef enum") {
+			start = i
+		}
+		if start > 0 && strings.HasPrefix(line, "}") {
+			line = strings.TrimPrefix(line, "}")
+			line = strings.TrimSuffix(line, ";")
+			enumName := strings.TrimSpace(line)
+			lines[start] = "typedef enum " + enumName + "_ {"
+			//lines[i] = "};"
+			start = 0
+		}
+	}
+
+	actual := strings.Join(lines, "\n")
+	return actual
 }
