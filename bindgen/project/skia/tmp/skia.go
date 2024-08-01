@@ -897,15 +897,15 @@ type Anon1104_9 struct {
 	fAnimatorCount    uint
 }
 type (
-	_Int128T                   = any
-	_Uint128T                  = any
-	__NSConstantString         = any
-	SizeT                      = uint64
-	_BuiltinMsVaList           = *byte
-	_BuiltinVaList             = *byte
-	UintptrT                   = uint64
-	VaList                     = *byte
-	SizeT                      = uint64
+	_Int128T           = any
+	_Uint128T          = any
+	__NSConstantString = any
+	SizeT              = uint64
+	_BuiltinMsVaList   = *byte
+	_BuiltinVaList     = *byte
+	UintptrT           = uint64
+	VaList             = *byte
+	// type SizeT = uint64
 	PtrdiffT                   = int64
 	IntptrT                    = int64
 	_VcrtBool                  = bool
@@ -964,23 +964,8 @@ type (
 	SkGlyphPathProc            = unsafe.Pointer
 )
 
-var __imp___va_start bindlib.PreloadProc
-
 // Gengo init function.
 func init() {
-	__imp___va_start = GengoLibrary.ImportNow("__va_start")
-	__imp___va_start = GengoLibrary.ImportNow("__va_start")
-	__imp___security_init_cookie = GengoLibrary.ImportNow("__security_init_cookie")
-	__imp___security_check_cookie = GengoLibrary.ImportNow("__security_check_cookie")
-	__imp___report_gsfailure = GengoLibrary.ImportNow("__report_gsfailure")
-	__imp__invalid_parameter_noinfo = GengoLibrary.ImportNow("_invalid_parameter_noinfo")
-	__imp__invalid_parameter_noinfo_noreturn = GengoLibrary.ImportNow("_invalid_parameter_noinfo_noreturn")
-	__imp__invoke_watson = GengoLibrary.ImportNow("_invoke_watson")
-	__imp__errno = GengoLibrary.ImportNow("_errno")
-	__imp__set_errno = GengoLibrary.ImportNow("_set_errno")
-	__imp__get_errno = GengoLibrary.ImportNow("_get_errno")
-	__imp___threadid = GengoLibrary.ImportNow("__threadid")
-	__imp___threadhandle = GengoLibrary.ImportNow("__threadhandle")
 	__imp_gr_recording_context_unref = GengoLibrary.ImportNow("gr_recording_context_unref")
 	__imp_gr_recording_context_get_max_surface_sample_count_for_color_type = GengoLibrary.ImportNow("gr_recording_context_get_max_surface_sample_count_for_color_type")
 	__imp_gr_recording_context_get_backend = GengoLibrary.ImportNow("gr_recording_context_get_backend")
@@ -1908,11 +1893,6 @@ func init() {
 	bindlib.Validate((*Anon1073_9)(nil), 24, 4, "fMaxAniso", 0, "fUseCubic", 4, "fCubic", 8, "fFilter", 16, "fMipmap", 20)
 	bindlib.Validate((*Anon1104_9)(nil), 32, 8, "fTotalLoadTimeMS", 0, "fJsonParseTimeMS", 4, "fSceneParseTimeMS", 8, "fJsonSize", 16, "fAnimatorCount", 24)
 }
-func _VaStart(arg0 **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
-
-var __imp___va_start bindlib.PreloadProc
-
-func _VaStart(arg0 *VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
 
 var __imp___security_init_cookie bindlib.PreloadProc
 
