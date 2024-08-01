@@ -1,11 +1,21 @@
 
+typedef unsigned char      uint8_t;   // 无符号8位整数
+typedef unsigned short     uint16_t;  // 无符号16位整数
+typedef unsigned int       uint32_t;  // 无符号32位整数
+typedef unsigned long long uint64_t;  // 无符号64位整数
+typedef signed char        int8_t;    // 有符号8位整数
+typedef signed short       int16_t;   // 有符号16位整数
+typedef signed int         int32_t;   // 有符号32位整数
+typedef signed long long   int64_t;   // 有符号64位整数
+typedef unsigned char bool;           // 使用 typedef 定义 bool 类型
+
 #ifndef CSKIA_DEFINED
 #define CSKIA_DEFINED
 
-#include <stdint.h>
-#include <stddef.h>
+//#include <stdint.h>
+//#include <stddef.h>
 #ifndef __cplusplus
-#include <stdbool.h>
+//#include <stdbool.h>
 #endif // __cplusplus
 
 #if !defined(SK_C_API)
@@ -950,3 +960,4 @@ SK_C_API void register_image_codecs();
 #endif // __cplusplus
 
 #endif // SKIA_DEFINED
+

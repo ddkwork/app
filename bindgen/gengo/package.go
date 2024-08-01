@@ -63,31 +63,7 @@ func (p *Package) Fprint(fn func(path string) (io.WriteCloser, error)) error {
 		file := mylog.Check2(fn(name))
 		p.Restorer.Fprint(file, f)
 		mylog.Check(file.Close())
-
 		buffer := stream.NewBuffer(p.path)
-		buffer.ReplaceAll(`func _VaStart(arg0 **byte) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
-
-var __imp___va_start bindlib.PreloadProc
-
-func _VaStart(arg0 *VaList) { bindlib.CCall1(__imp___va_start.Addr(), bindlib.MarshallSyscall(arg0)) }
-
-`, ``)
-		buffer.ReplaceAll(`	__imp___va_start = GengoLibrary.ImportNow("__va_start")
-	__imp___va_start = GengoLibrary.ImportNow("__va_start")
-	__imp___security_init_cookie = GengoLibrary.ImportNow("__security_init_cookie")
-	__imp___security_check_cookie = GengoLibrary.ImportNow("__security_check_cookie")
-	__imp___report_gsfailure = GengoLibrary.ImportNow("__report_gsfailure")
-	__imp__invalid_parameter_noinfo = GengoLibrary.ImportNow("_invalid_parameter_noinfo")
-	__imp__invalid_parameter_noinfo_noreturn = GengoLibrary.ImportNow("_invalid_parameter_noinfo_noreturn")
-	__imp__invoke_watson = GengoLibrary.ImportNow("_invoke_watson")
-	__imp__errno = GengoLibrary.ImportNow("_errno")
-	__imp__set_errno = GengoLibrary.ImportNow("_set_errno")
-	__imp__get_errno = GengoLibrary.ImportNow("_get_errno")
-	__imp___threadid = GengoLibrary.ImportNow("__threadid")
-	__imp___threadhandle = GengoLibrary.ImportNow("__threadhandle")`, ``)
-		buffer.ReplaceAll(`var __imp___va_start bindlib.PreloadProc`, ``)
-		//stream.WriteGoFile(p.path, buffer)
-		//return nil
 		stream.WriteGoFile(p.path, RemoveDuplicates(buffer.String()))
 	}
 	return nil

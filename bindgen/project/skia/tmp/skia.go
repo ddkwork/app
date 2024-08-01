@@ -566,20 +566,6 @@ const (
 	PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS SkottieAnimationBuilderFlagsT = 2
 )
 
-type _CrtLocaleDataPublic struct {
-	_LocalePctype     *uint16
-	_LocaleMbCurMax   int32
-	_LocaleLcCodepage uint32
-}
-type _CrtLocalePointers struct {
-	Locinfo unsafe.Pointer
-	Mbcinfo unsafe.Pointer
-}
-type _Mbstatet struct {
-	_Wchar uint64
-	_Byte  uint16
-	_State uint16
-}
 type SkColor4fT struct {
 	fR float32
 	fG float32
@@ -903,48 +889,25 @@ type (
 	SizeT              = uint64
 	_BuiltinMsVaList   = *byte
 	_BuiltinVaList     = *byte
-	UintptrT           = uint64
-	VaList             = *byte
-	// type SizeT = uint64
-	PtrdiffT                   = int64
-	IntptrT                    = int64
-	_VcrtBool                  = bool
-	WcharT                     = uint16
-	Int8T                      = int8
-	Int16T                     = int16
-	Int32T                     = int32
-	Int64T                     = int64
-	Uint8T                     = uint8
-	Uint16T                    = uint16
-	Uint32T                    = uint32
-	Uint64T                    = uint64
-	IntLeast8T                 = int8
-	IntLeast16T                = int16
-	IntLeast32T                = int32
-	IntLeast64T                = int64
-	UintLeast8T                = uint8
-	UintLeast16T               = uint16
-	UintLeast32T               = uint32
-	UintLeast64T               = uint64
-	IntFast8T                  = int8
-	IntFast16T                 = int32
-	IntFast32T                 = int32
-	IntFast64T                 = int64
-	UintFast8T                 = uint8
-	UintFast16T                = uint32
-	UintFast32T                = uint32
-	UintFast64T                = uint64
-	IntmaxT                    = int64
-	UintmaxT                   = uint64
-	_CrtBool                   = bool
-	ErrnoT                     = int32
-	WintT                      = uint16
-	WctypeT                    = uint16
-	_Time32T                   = int64
-	TimeT                      = int64
-	_LocaleT                   = unsafe.Pointer
-	MbstateT                   = any
-	RsizeT                     = uint
+	Uint8T             = uint8
+	Uint16T            = uint16
+	Uint32T            = uint32
+	Uint64T            = uint64
+	Int8T              = int8
+	Int16T             = int16
+	Int32T             = int32
+	Int64T             = int64
+	Bool               = uint8
+	IntptrT            = *int32
+	// type Uint8T = uint8
+	// type Uint16T = uint16
+	// type Uint32T = uint32
+	// type Uint64T = uint64
+	// type Int8T = int8
+	// type Int16T = int16
+	// type Int32T = int32
+	// type Int64T = int64
+	// type Bool = uint8
 	SkColorT                   = uint32
 	SkPmcolorT                 = uint32
 	SkVectorT                  = SkPointT
@@ -963,6 +926,8 @@ type (
 	SkSurfaceRasterReleaseProc = unsafe.Pointer
 	SkGlyphPathProc            = unsafe.Pointer
 )
+
+var __imp_gr_recording_context_unref bindlib.PreloadProc
 
 // Gengo init function.
 func init() {
@@ -1850,9 +1815,6 @@ func init() {
 	__imp_sksg_invalidation_controller_begin = GengoLibrary.ImportNow("sksg_invalidation_controller_begin")
 	__imp_sksg_invalidation_controller_end = GengoLibrary.ImportNow("sksg_invalidation_controller_end")
 	__imp_sksg_invalidation_controller_reset = GengoLibrary.ImportNow("sksg_invalidation_controller_reset")
-	bindlib.Validate((*_CrtLocaleDataPublic)(nil), 16, 8, "_LocalePctype", 0, "_LocaleMbCurMax", 8, "_LocaleLcCodepage", 12)
-	bindlib.Validate((*_CrtLocalePointers)(nil), 16, 8, "Locinfo", 0, "Mbcinfo", 8)
-	bindlib.Validate((*_Mbstatet)(nil), 8, 4, "_Wchar", 0, "_Byte", 4, "_State", 6)
 	bindlib.Validate((*SkColor4fT)(nil), 16, 4, "fR", 0, "fG", 4, "fB", 8, "fA", 12)
 	bindlib.Validate((*SkPointT)(nil), 8, 4, "X", 0, "Y", 4)
 	bindlib.Validate((*SkIrectT)(nil), 16, 4, "Left", 0, "Top", 4, "Right", 8, "Bottom", 12)
@@ -1893,75 +1855,6 @@ func init() {
 	bindlib.Validate((*SkSamplingOptionsT)(nil), 24, 4, "fMaxAniso", 0, "fUseCubic", 4, "fCubic", 8, "fFilter", 16, "fMipmap", 20)
 	bindlib.Validate((*SkottieAnimationBuilderStatsT)(nil), 32, 8, "fTotalLoadTimeMS", 0, "fJsonParseTimeMS", 4, "fSceneParseTimeMS", 8, "fJsonSize", 16, "fAnimatorCount", 24)
 }
-
-var __imp___security_init_cookie bindlib.PreloadProc
-
-func _SecurityInitCookie() { bindlib.CCall0(__imp___security_init_cookie.Addr()) }
-
-var __imp___security_check_cookie bindlib.PreloadProc
-
-func _SecurityCheckCookie(_StackCookie uintptr) {
-	bindlib.CCall1(__imp___security_check_cookie.Addr(), bindlib.MarshallSyscall(_StackCookie))
-}
-
-var __imp___report_gsfailure bindlib.PreloadProc
-
-func _ReportGsfailure(_StackCookie uintptr) {
-	bindlib.CCall1(__imp___report_gsfailure.Addr(), bindlib.MarshallSyscall(_StackCookie))
-}
-
-var __imp__invalid_parameter_noinfo bindlib.PreloadProc
-
-func _InvalidParameterNoinfo() { bindlib.CCall0(__imp__invalid_parameter_noinfo.Addr()) }
-
-var __imp__invalid_parameter_noinfo_noreturn bindlib.PreloadProc
-
-func _InvalidParameterNoinfoNoreturn() {
-	bindlib.CCall0(__imp__invalid_parameter_noinfo_noreturn.Addr())
-}
-
-var __imp__invoke_watson bindlib.PreloadProc
-
-func _InvokeWatson(_Expression *WcharT, _FunctionName *WcharT, _FileName *WcharT, _LineNo uint32, _Reserved uintptr) {
-	bindlib.CCall5(__imp__invoke_watson.Addr(), bindlib.MarshallSyscall(_Expression), bindlib.MarshallSyscall(_FunctionName), bindlib.MarshallSyscall(_FileName), bindlib.MarshallSyscall(_LineNo), bindlib.MarshallSyscall(_Reserved))
-}
-
-var __imp__errno bindlib.PreloadProc
-
-func _Errno() *int32 {
-	__res := bindlib.CCall0(__imp__errno.Addr())
-	return bindlib.UnmarshallSyscall[*int32](__res)
-}
-
-var __imp__set_errno bindlib.PreloadProc
-
-func _SetErrno(_Value int32) ErrnoT {
-	__res := bindlib.CCall1(__imp__set_errno.Addr(), bindlib.MarshallSyscall(_Value))
-	return bindlib.UnmarshallSyscall[ErrnoT](__res)
-}
-
-var __imp__get_errno bindlib.PreloadProc
-
-func _GetErrno(_Value *int32) ErrnoT {
-	__res := bindlib.CCall1(__imp__get_errno.Addr(), bindlib.MarshallSyscall(_Value))
-	return bindlib.UnmarshallSyscall[ErrnoT](__res)
-}
-
-var __imp___threadid bindlib.PreloadProc
-
-func _Threadid() uint64 {
-	__res := bindlib.CCall0(__imp___threadid.Addr())
-	return bindlib.UnmarshallSyscall[uint64](__res)
-}
-
-var __imp___threadhandle bindlib.PreloadProc
-
-func _Threadhandle() uintptr {
-	__res := bindlib.CCall0(__imp___threadhandle.Addr())
-	return bindlib.UnmarshallSyscall[uintptr](__res)
-}
-
-var __imp_gr_recording_context_unref bindlib.PreloadProc
 
 func GrRecordingContextUnref(context unsafe.Pointer) {
 	bindlib.CCall1(__imp_gr_recording_context_unref.Addr(), bindlib.MarshallSyscall(context))

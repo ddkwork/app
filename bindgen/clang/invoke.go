@@ -37,7 +37,22 @@ func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
 	header := o.Sources[0]
 	switched := switchEnum(stream.NewBuffer(header).String())
 	switched = switchStruct(switched)
-	stream.WriteTruncate(header, switched)
+	buffer := stream.NewBuffer(`
+typedef unsigned char      uint8_t;   // 无符号8位整数
+typedef unsigned short     uint16_t;  // 无符号16位整数
+typedef unsigned int       uint32_t;  // 无符号32位整数
+typedef unsigned long long uint64_t;  // 无符号64位整数
+typedef signed char        int8_t;    // 有符号8位整数
+typedef signed short       int16_t;   // 有符号16位整数
+typedef signed int         int32_t;   // 有符号32位整数
+typedef signed long long   int64_t;   // 有符号64位整数
+typedef unsigned char bool;           // 使用 typedef 定义 bool 类型
+
+typedef int* intptr_t;
+`)
+	buffer.WriteStringLn(switched)
+	buffer.ReplaceAll(`#include `, `//#include `)
+	stream.WriteTruncate(header, buffer.String())
 
 	cmd := exec.Command(o.ClangPath(), opt...)
 	cmd.Args = append(cmd.Args, o.AdditionalParams...)
