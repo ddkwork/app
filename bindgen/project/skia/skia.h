@@ -89,7 +89,7 @@ typedef uint32_t sk_pmcolor_t;
 #define sk_color_get_g(c)               (((c) >>  8) & 0xFF)
 #define sk_color_get_b(c)               (((c) >>  0) & 0xFF)
 
-typedef struct sk_color4f_t {
+typedef struct sk_color4f_t_ {
     float fR;
     float fG;
     float fB;
@@ -147,35 +147,35 @@ typedef enum sk_surfaceprops_flags_t_ {
 
 typedef struct sk_surfaceprops_t sk_surfaceprops_t;
 
-typedef struct {
+typedef struct sk_point_t_ {
     float   x;
     float   y;
 } sk_point_t;
 
 typedef sk_point_t sk_vector_t;
 
-typedef struct {
+typedef struct sk_irect_t_ {
     int32_t left;
     int32_t top;
     int32_t right;
     int32_t bottom;
 } sk_irect_t;
 
-typedef struct {
+typedef struct sk_rect_t_ {
     float   left;
     float   top;
     float   right;
     float   bottom;
 } sk_rect_t;
 
-typedef struct {
+typedef struct sk_matrix_t_ {
     float scaleX,  skewX, transX;
     float  skewY, scaleY, transY;
     float persp0, persp1, persp2;
 } sk_matrix_t;
 
 // row major
-typedef struct {
+typedef struct sk_matrix44_t_ {
     // name: m<row><col>
     float m00, m01, m02, m03; // row 0
     float m10, m11, m12, m13; // row 1
@@ -308,28 +308,28 @@ typedef enum sk_blendmode_t_ {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct {
+typedef struct sk_point3_t_ {
     float   x;
     float   y;
     float   z;
 } sk_point3_t;
 
-typedef struct {
+typedef struct sk_ipoint_t_ {
     int32_t   x;
     int32_t   y;
 } sk_ipoint_t;
 
-typedef struct {
+typedef struct sk_size_t_ {
     float   w;
     float   h;
 } sk_size_t;
 
-typedef struct {
+typedef struct sk_isize_t_ {
     int32_t   w;
     int32_t   h;
 } sk_isize_t;
 
-typedef struct {
+typedef struct sk_fontmetrics_t_ {
     uint32_t fFlags;
     float    fTop;
     float    fAscent;
@@ -507,7 +507,7 @@ typedef enum sk_codec_zero_initialized_t_ {
     NO_SK_CODEC_ZERO_INITIALIZED,
 } sk_codec_zero_initialized_t;
 
-typedef struct {
+typedef struct sk_codec_options_t_ {
     sk_codec_zero_initialized_t fZeroInitialized;
     sk_irect_t* fSubset;
     int fFrameIndex;
@@ -620,7 +620,7 @@ typedef enum gr_surfaceorigin_t_ {
     BOTTOM_LEFT_GR_SURFACE_ORIGIN,
 } gr_surfaceorigin_t;
 
-typedef struct {
+typedef struct gr_context_options_t_ {
     bool      fAvoidStencilBuffers;
     int       fRuntimeProgramCacheSize;
     size_t    fGlyphCacheTextureMaximumBytes;
@@ -652,14 +652,14 @@ typedef struct gr_glinterface_t gr_glinterface_t;
 typedef void (*gr_gl_func_ptr)(void);
 typedef gr_gl_func_ptr (*gr_gl_get_proc)(void* ctx, const char* name);
 
-typedef struct {
+typedef struct gr_gl_textureinfo_t_ {
     unsigned int fTarget;
     unsigned int fID;
     unsigned int fFormat;
     bool fProtected;
 } gr_gl_textureinfo_t;
 
-typedef struct {
+typedef struct gr_gl_framebufferinfo_t_ {
     unsigned int fFBOID;
     unsigned int fFormat;
     bool fProtected;
@@ -679,7 +679,7 @@ typedef struct gr_vk_memory_allocator_t gr_vk_memory_allocator_t;
 typedef VKAPI_ATTR void (VKAPI_CALL *gr_vk_func_ptr)(void);
 typedef gr_vk_func_ptr (*gr_vk_get_proc)(void* ctx, const char* name, vk_instance_t* instance, vk_device_t* device);
 
-typedef struct {
+typedef struct gr_vk_backendcontext_t_ {
     vk_instance_t*                          fInstance;
     vk_physical_device_t*                   fPhysicalDevice;
     vk_device_t*                            fDevice;
@@ -702,7 +702,7 @@ typedef struct {
 
 typedef intptr_t gr_vk_backendmemory_t;
 
-typedef struct {
+typedef struct gr_vk_alloc_t_ {
     uint64_t               fMemory;
     uint64_t               fOffset;
     uint64_t               fSize;
@@ -711,7 +711,7 @@ typedef struct {
     bool                   _private_fUsesSystemHeap;
 } gr_vk_alloc_t;
 
-typedef struct {
+typedef struct gr_vk_ycbcrconversioninfo_t_ {
     uint32_t  fFormat;
     uint64_t  fExternalFormat;
     uint32_t  fYcbcrModel;
@@ -723,7 +723,7 @@ typedef struct {
     uint32_t  fFormatFeatures;
 } gr_vk_ycbcrconversioninfo_t;
 
-typedef struct {
+typedef struct gr_vk_imageinfo_t_ {
     uint64_t                        fImage;
     gr_vk_alloc_t                   fAlloc;
     uint32_t                        fImageTiling;
@@ -745,7 +745,7 @@ typedef struct vk_queue_t vk_queue_t;
 
 #define gr_mtl_handle_t const void*
 
-typedef struct {
+typedef struct gr_mtl_textureinfo_t_ {
     const void* fTexture;
 } gr_mtl_textureinfo_t;
 
@@ -765,7 +765,7 @@ typedef enum sk_lattice_recttype_t_ {
     FIXED_COLOR_SK_LATTICE_RECT_TYPE,
 } sk_lattice_recttype_t;
 
-typedef struct {
+typedef struct sk_lattice_t_ {
     const int* fXDivs;
     const int* fYDivs;
     const sk_lattice_recttype_t* fRectTypes;
@@ -804,7 +804,7 @@ typedef enum sk_bitmap_allocflags_t_ {
     ZERO_PIXELS_SK_BITMAP_ALLOC_FLAGS = 1 << 0,
 } sk_bitmap_allocflags_t;
 
-typedef struct {
+typedef struct sk_time_datetime_t_ {
     int16_t  fTimeZoneMinutes;
     uint16_t fYear;
     uint8_t  fMonth;
@@ -815,7 +815,7 @@ typedef struct {
     uint8_t  fSecond;
 } sk_time_datetime_t;
 
-typedef struct {
+typedef struct sk_document_pdf_metadata_t_ {
     sk_string_t*        fTitle;
     sk_string_t*        fAuthor;
     sk_string_t*        fSubject;
@@ -829,7 +829,7 @@ typedef struct {
     int                 fEncodingQuality;
 } sk_document_pdf_metadata_t;
 
-typedef struct {
+typedef struct sk_imageinfo_t_ {
     sk_colorspace_t* colorspace;
     int32_t          width;
     int32_t          height;
@@ -848,7 +848,7 @@ typedef enum sk_codecanimation_blend_t_ {
     SRC_SK_CODEC_ANIMATION_BLEND        = 1,
 } sk_codecanimation_blend_t;
 
-typedef struct {
+typedef struct sk_codec_frameinfo_t_ {
     int fRequiredFrame;
     int fDuration;
     bool fFullyReceived;
@@ -869,7 +869,7 @@ typedef enum sk_vertices_vertex_mode_t_ {
 
 typedef struct sk_vertices_t sk_vertices_t;
 
-typedef struct sk_colorspace_transfer_fn_t {
+typedef struct sk_colorspace_transfer_fn_t_ {
     float fG;
     float fA;
     float fB;
@@ -879,7 +879,7 @@ typedef struct sk_colorspace_transfer_fn_t {
     float fF;
 } sk_colorspace_transfer_fn_t;
 
-typedef struct sk_colorspace_primaries_t {
+typedef struct sk_colorspace_primaries_t_ {
     float fRX;
     float fRY;
     float fGX;
@@ -890,7 +890,7 @@ typedef struct sk_colorspace_primaries_t {
     float fWY;
 } sk_colorspace_primaries_t;
 
-typedef struct sk_colorspace_xyz_t {
+typedef struct sk_colorspace_xyz_t_ {
     float fM00;
     float fM01;
     float fM02;
@@ -910,7 +910,7 @@ typedef enum sk_highcontrastconfig_invertstyle_t_ {
     INVERT_LIGHTNESS_SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE,
 } sk_highcontrastconfig_invertstyle_t;
 
-typedef struct {
+typedef struct sk_highcontrastconfig_t_ {
     bool fGrayscale;
     sk_highcontrastconfig_invertstyle_t fInvertStyle;
     float fContrast;
@@ -930,7 +930,7 @@ typedef enum sk_pngencoder_filterflags_t_ {
                                        PAETH_SK_PNGENCODER_FILTER_FLAGS,
 } sk_pngencoder_filterflags_t;
 
-typedef struct {
+typedef struct sk_pngencoder_options_t_ {
     sk_pngencoder_filterflags_t fFilterFlags;
     int fZLibLevel;
     void* fComments;
@@ -949,7 +949,7 @@ typedef enum sk_jpegencoder_alphaoption_t_ {
     BLEND_ON_BLACK_SK_JPEGENCODER_ALPHA_OPTION,
 } sk_jpegencoder_alphaoption_t;
 
-typedef struct {
+typedef struct sk_jpegencoder_options_t_ {
     int fQuality;
     sk_jpegencoder_downsample_t fDownsample;
     sk_jpegencoder_alphaoption_t fAlphaOption;
@@ -963,7 +963,7 @@ typedef enum sk_webpencoder_compression_t_ {
     LOSSLESS_SK_WEBPENCODER_COMPTRESSION,
 } sk_webpencoder_compression_t;
 
-typedef struct {
+typedef struct sk_webpencoder_options_t_ {
     sk_webpencoder_compression_t fCompression;
     float fQuality;
     const sk_colorspace_icc_profile_t* fICCProfile;
@@ -991,14 +991,14 @@ typedef enum sk_rrect_corner_t_ {
 typedef struct sk_textblob_t sk_textblob_t;
 typedef struct sk_textblob_builder_t sk_textblob_builder_t;
 
-typedef struct {
+typedef struct sk_textblob_builder_runbuffer_t_ {
     void* glyphs;
     void* pos;
     void* utf8text;
     void* clusters;
 } sk_textblob_builder_runbuffer_t;
 
-typedef struct {
+typedef struct sk_rsxform_t_ {
     float fSCos;
     float fSSin;
     float fTX;
@@ -1038,7 +1038,7 @@ typedef enum sk_runtimeeffect_uniform_flags_t_ {
     HALF_PRECISION_SK_RUNTIMEEFFECT_UNIFORM_FLAGS = 0x10,
 } sk_runtimeeffect_uniform_flags_t;
 
-typedef struct {
+typedef struct sk_runtimeeffect_uniform_t_ {
     const char* fName;
     size_t fNameLength;
     size_t fOffset;
@@ -1047,7 +1047,7 @@ typedef struct {
     sk_runtimeeffect_uniform_flags_t fFlags;
 } sk_runtimeeffect_uniform_t;
 
-typedef struct {
+typedef struct sk_runtimeeffect_child_t_ {
     const char* fName;
     size_t fNameLength;
     sk_runtimeeffect_child_type_t fType;
@@ -1065,12 +1065,12 @@ typedef enum sk_mipmap_mode_t_ {
     LINEAR_SK_MIPMAP_MODE,
 } sk_mipmap_mode_t;
 
-typedef struct {
+typedef struct sk_cubic_resampler_t_ {
     float fB;
     float fC;
 } sk_cubic_resampler_t;
 
-typedef struct {
+typedef struct sk_sampling_options_t_ {
     int fMaxAniso;
     bool fUseCubic;
     sk_cubic_resampler_t fCubic;
@@ -1101,7 +1101,7 @@ typedef enum skottie_animation_builder_flags_t_ {
     PREFER_EMBEDDED_FONTS_SKOTTIE_ANIMATION_BUILDER_FLAGS = 0x02,
 } skottie_animation_builder_flags_t;
 
-typedef struct {
+typedef struct skottie_animation_builder_stats_t_ {
     float fTotalLoadTimeMS;
     float fJsonParseTimeMS;
     float fSceneParseTimeMS;
