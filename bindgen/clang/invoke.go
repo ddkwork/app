@@ -36,6 +36,7 @@ func (o *Options) ClangPath() string {
 func (o *Options) ClangCommand(opt ...string) ([]byte, error) {
 	header := o.Sources[0]
 	switched := switchEnum(stream.NewBuffer(header).String())
+	switched = switchStruct(switched)
 	stream.WriteTruncate(header, switched)
 
 	cmd := exec.Command(o.ClangPath(), opt...)
@@ -136,6 +137,34 @@ func switchEnum(src string) string {
 			line = strings.TrimSuffix(line, ";")
 			enumName := strings.TrimSpace(line)
 			lines[start] = "typedef enum " + enumName + "_ {"
+			//lines[i] = "};"
+			start = 0
+		}
+	}
+
+	actual := strings.Join(lines, "\n")
+	return actual
+}
+
+func switchStruct(src string) string {
+	start := 0
+	lines := strings.Split(src, "\n")
+	for i, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		if strings.HasPrefix(line, "typedef struct") {
+			if strings.Contains(line, ";") {
+				continue
+			}
+			start = i
+		}
+		if start > 0 && strings.HasPrefix(line, "}") {
+			line = strings.TrimPrefix(line, "}")
+			line = strings.TrimSuffix(line, ";")
+			enumName := strings.TrimSpace(line)
+			lines[start] = "typedef struct " + enumName + "_ {"
 			//lines[i] = "};"
 			start = 0
 		}

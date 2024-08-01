@@ -1,3 +1,4 @@
+
 #ifndef CSKIA_DEFINED
 #define CSKIA_DEFINED
 
@@ -37,7 +38,7 @@ typedef struct sk_text_blob_t sk_text_blob_t;
 
 typedef struct sk_text_blob_builder_t sk_text_blob_builder_t;
 
-typedef struct {
+typedef struct sk_text_blob_builder_run_buffer_t_ {
     uint16_t* glyphs;
     float*    pos;
     char*     utf8text;
@@ -50,19 +51,19 @@ typedef struct sk_data_t sk_data_t;
 
 // ===== Types from include/core/SkPoint.h =====
 
-typedef struct {
+typedef struct sk_ipoint_t_ {
     int32_t x;
     int32_t y;
 } sk_ipoint_t;
 
-typedef struct {
+typedef struct sk_point_t_ {
     float x;
     float y;
 } sk_point_t;
 
 // ===== Types from include/core/SkPoint3.h ====
 
-typedef struct {
+typedef struct sk_point3_t_ {
     float x;
     float y;
     float z;
@@ -70,21 +71,21 @@ typedef struct {
 
 // ===== Types from include/core/SkSize.h =====
 
-typedef struct {
+typedef struct sk_isize_t_ {
     int32_t w;
     int32_t h;
 } sk_isize_t;
 
 // ===== Types from include/core/SkRect.h =====
 
-typedef struct {
+typedef struct sk_irect_t_ {
     int32_t left;
     int32_t top;
     int32_t right;
     int32_t bottom;
 } sk_irect_t;
 
-typedef struct {
+typedef struct sk_rect_t_ {
     float left;
     float top;
     float right;
@@ -93,7 +94,7 @@ typedef struct {
 
 // ===== Types from include/core/SkMatrix.h =====
 
-typedef struct {
+typedef struct sk_matrix_t_ {
     float scaleX;
     float skewX;
     float transX;
@@ -190,7 +191,7 @@ typedef enum gr_surface_origin_t_ {
 
 // ===== Types from include/gpu/gl/GrGLTypes.h =====
 
-typedef struct {
+typedef struct gr_gl_framebufferinfo_t_ {
     unsigned int fFBOID;
     unsigned int fFormat;
     bool         fProtected;
@@ -272,7 +273,7 @@ typedef enum sk_high_contrast_config_invert_style_t_ {
     SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE_LAST = SK_HIGH_CONTRAST_CONFIG_INVERT_STYLE_INVERT_LIGHTNESS,
 } sk_high_contrast_config_invert_style_t;
 
-typedef struct {
+typedef struct sk_high_contrast_config_t_ {
     bool                                   grayscale;
     sk_high_contrast_config_invert_style_t invertStyle;
     float                                  contrast;
@@ -372,7 +373,7 @@ typedef enum sk_alpha_type_t_ {
 
 // ===== Types from include/core/SkImageInfo.h =====
 
-typedef struct {
+typedef struct sk_image_info_t_ {
     sk_color_space_t* colorSpace;
     sk_color_type_t   colorType;
     sk_alpha_type_t   alphaType;
@@ -403,7 +404,7 @@ typedef struct sk_color_filter_t sk_color_filter_t;
 
 // ===== Types from include/core/SkSamplingOptions.h =====
 
-typedef struct {
+typedef struct sk_cubic_resampler_t_ {
     float B;
     float C;
 } sk_cubic_resampler_t;
@@ -421,7 +422,7 @@ typedef enum sk_mipmap_mode_t_ {
     SK_MIPMAP_MODE_LAST = SK_MIPMAP_MODE_LINEAR,
 } sk_mipmap_mode_t;
 
-typedef struct {
+typedef struct sk_sampling_options_t_ {
 	int                  maxAniso;
     bool                 useCubic;
     sk_cubic_resampler_t cubic;
@@ -500,7 +501,7 @@ typedef enum sk_font_metrics_flags_t_ {
     SK_FONT_METRICS_FLAG_BOUNDS_INVALID               = 1 << 4, // set if top, bottom, xMin, xMax invalid
 } sk_font_metrics_flags_t;
 
-typedef struct {
+typedef struct sk_font_metrics_t_ {
     uint32_t flags;              // FontMetricsFlags indicating which metrics are valid
     float    top;                // greatest extent above origin of any glyph bounding box, typically negative; deprecated with variable fonts
     float    ascent;             // distance to reserve above baseline, typically negative
@@ -552,7 +553,7 @@ typedef struct sk_shader_t sk_shader_t;
 
 // ===== Types from include/core/SkTime.h =====
 
-typedef struct {
+typedef struct sk_date_time_t_ {
 	int16_t  timeZoneMinutes;
 	uint16_t year;
 	uint8_t  month;
@@ -571,7 +572,7 @@ typedef struct sk_dynamic_memory_wstream_t sk_dynamic_memory_wstream_t;
 
 // ===== Types from include/docs/SkPDFDocument.h =====
 
-typedef struct {
+typedef struct sk_metadata_t_ {
     char*          title;
     char*          author;
     char*          subject;
