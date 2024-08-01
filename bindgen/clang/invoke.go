@@ -137,7 +137,9 @@ func switchEnum(src string) string {
 			line = strings.TrimSuffix(line, ";")
 			enumName := strings.TrimSpace(line)
 			lines[start] = "typedef enum " + enumName + "_ {"
-			//lines[i] = "};"
+			if strings.TrimSpace(lines[start+1]) == "{" {
+				lines[start+1] = ""
+			}
 			start = 0
 		}
 	}
@@ -165,7 +167,9 @@ func switchStruct(src string) string {
 			line = strings.TrimSuffix(line, ";")
 			enumName := strings.TrimSpace(line)
 			lines[start] = "typedef struct " + enumName + "_ {"
-			//lines[i] = "};"
+			if strings.TrimSpace(lines[start+1]) == "{" {
+				lines[start+1] = ""
+			}
 			start = 0
 		}
 	}
