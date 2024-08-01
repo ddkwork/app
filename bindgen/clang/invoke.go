@@ -46,7 +46,7 @@ typedef signed char        int8_t;    // 有符号8位整数
 typedef signed short       int16_t;   // 有符号16位整数
 typedef signed int         int32_t;   // 有符号32位整数
 typedef signed long long   int64_t;   // 有符号64位整数
-typedef unsigned char bool;           // 使用 typedef 定义 bool 类型
+typedef int bool;           // 使用 typedef 定义 bool 类型
 
 typedef int* intptr_t;
 `)
@@ -171,10 +171,23 @@ func switchStruct(src string) string {
 		if line == "" {
 			continue
 		}
+
+		//debug
+		//if strings.Contains(line, "typedef struct SYMBOL") {
+		//	println()
+		//}
+
 		if strings.HasPrefix(line, "typedef struct") {
-			if strings.Contains(line, ";") {
-				continue
+			after, found := strings.CutPrefix(strings.TrimSpace(line), "typedef struct ")
+			if found {
+				//if after=="{" ||strings.TrimSpace(lines[start+1]) == "{"{
+				if after != "{" {
+					continue
+				}
 			}
+			//if strings.Contains(line, ";") || strings.Contains(line, "*") || strings.Contains(line, "_") {
+			//	continue
+			//}
 			start = i
 		}
 		if start > 0 && strings.HasPrefix(line, "}") {
