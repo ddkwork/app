@@ -50,6 +50,20 @@ func TestBindSkia(t *testing.T) {
 	mylog.Check(pkg.WriteToDir("tmp"))
 }
 
+func TestBindSkiaCAPINew(t *testing.T) {
+	TestMergeHeader(t)
+	pkg := gengo.NewPackage("skia")
+	path := "sk_capi.h"
+	switched := switchEnum(stream.NewBuffer(path).String())
+	stream.WriteTruncate("skia_fixEnum.h", switched)
+	mylog.Check(pkg.Transform("skia", &clang.Options{
+		Sources: []string{"skia_fixEnum.h"},
+		//AdditionalParams: []string{},
+	}),
+	)
+	mylog.Check(pkg.WriteToDir("tmp"))
+}
+
 func TestFixEnum(t *testing.T) {
 	org := `
 typedef enum {
