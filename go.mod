@@ -19,8 +19,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/oreans/virtualizersdk v0.0.0-20230130114934-0d2f064839d3
 	github.com/qiniu/x v1.13.10
-	github.com/richardwilkes/toolbox v1.99.0
-	github.com/richardwilkes/unison v0.72.1
+	github.com/richardwilkes/toolbox v1.114.2
 	github.com/saferwall/pe v1.5.4
 	github.com/spyre-project/spyre v1.2.5
 	github.com/stretchr/testify v1.9.0
@@ -35,7 +34,6 @@ require (
 require (
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/can1357/gengo v0.2.0 // indirect
-	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dc0d/caseconv v0.5.0 // indirect
 	github.com/dlclark/regexp2 v1.11.2 // indirect
@@ -52,17 +50,13 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
-	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/richardwilkes/json v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/scjalliance/comshim v0.0.0-20231116235529-bbacf79a4691 // indirect
 	github.com/secDre4mer/pkcs7 v0.0.0-20240322103146-665324a4461d // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/yuin/goldmark v1.7.4 // indirect
-	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/term v0.22.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
