@@ -77,7 +77,7 @@ func NewPanel() *Panel {
 }
 
 func PanelSetBorder(panel unison.Paneler) {
-	panel.AsPanel().SetBorder(unison.NewEmptyBorder(unison.Insets{Bottom: 2 * unison.StdHSpacing}))
+	panel.AsPanel().SetBorder(unison.NewEmptyBorder(unison.Insets{Bottom: unison.StdVSpacing}))
 }
 
 func (p *Panel) AddChildren(children ...unison.Paneler) *Panel {
