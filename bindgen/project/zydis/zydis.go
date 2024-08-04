@@ -3588,9 +3588,9 @@ type DecodedOperand struct {
 	Attributes   OperandAttributes
 	// The type of the operand.
 	Type OperandType
-	Anon5338_5
+	Anon5350_5
 }
-type Anon5338_5 struct {
+type Anon5350_5 struct {
 	Raw [5]int64
 }
 type AccessedFlags struct {
@@ -3785,7 +3785,7 @@ type DecodedInstructionRaw struct {
 	PrefixCount U8
 	Prefixes    [15]DecodedInstructionRawPrefixes_
 	Encoding2   InstructionEncoding
-	Anon6217_5
+	Anon6229_5
 	Modrm DecodedInstructionModRm_
 	Sib   DecodedInstructionRawSib_
 	Disp  DecodedInstructionRawDisp_
@@ -3797,7 +3797,7 @@ type DecodedInstructionRawPrefixes_ struct {
 	// The prefix byte.
 	Value U8
 }
-type Anon6217_5 struct {
+type Anon6229_5 struct {
 	Raw [15]byte
 }
 type DecodedInstructionModRm_ struct {
@@ -3904,14 +3904,14 @@ type DecoderContext struct {
 	// Contains the effective address-size index.
 	// 0 = 16 bit, 1 = 32 bit, 2 = 64 bit
 	EaszIndex     U8
-	VectorUnified Anon6451_5
-	RegInfo       Anon6467_5
-	Evex          Anon6504_5
-	Mvex          Anon6518_5
+	VectorUnified Anon6463_5
+	RegInfo       Anon6479_5
+	Evex          Anon6516_5
+	Mvex          Anon6530_5
 	// The scale factor for EVEX/MVEX compressed 8-bit displacement values.
 	Cd8Scale U8
 }
-type Anon6451_5 struct {
+type Anon6463_5 struct {
 	W    U8
 	R    U8
 	X    U8
@@ -3923,7 +3923,7 @@ type Anon6451_5 struct {
 	Vvvv U8
 	Mask U8
 }
-type Anon6467_5 struct {
+type Anon6479_5 struct {
 	// Signals if the `modrm.mod == 3` or `reg` form is forced for the instruction.
 	IsModReg Bool
 	// The final register id for the `reg` encoded register.
@@ -3941,13 +3941,13 @@ type Anon6467_5 struct {
 	// is present.
 	IdIndex U8
 }
-type Anon6504_5 struct {
+type Anon6516_5 struct {
 	// The EVEX tuple-type.
 	TupleType U8
 	// The EVEX element-size.
 	ElementSize U8
 }
-type Anon6518_5 struct {
+type Anon6530_5 struct {
 	// The MVEX functionality.
 	Functionality U8
 }
@@ -4195,7 +4195,7 @@ type Formatter struct {
 	HexUppercase Bool
 	// The `ZYDIS_FORMATTER_PROP_HEX_FORCE_LEADING_NUMBER` property.
 	HexForceLeadingNumber Bool
-	NumberFormat          [2][2]Anon11276_5
+	NumberFormat          [2][2]Anon11288_5
 	// The `ZYDIS_FORMATTER_FUNC_PRE_INSTRUCTION` function.
 	FuncPreInstruction FormatterFunc
 	// The `ZYDIS_FORMATTER_FUNC_POST_INSTRUCTION` function.
@@ -4235,7 +4235,7 @@ type Formatter struct {
 	// The `ZYDIS_FORMATTER_FUNC_PRINT_DECORATOR` function.
 	FuncPrintDecorator FormatterDecoratorFunc
 }
-type Anon11276_5 struct {
+type Anon11288_5 struct {
 	// A pointer to the `ZyanStringView` to use as prefix/suffix.
 	String *StringView
 	// The `ZyanStringView` to use as prefix/suffix
@@ -4246,9 +4246,9 @@ type Anon11276_5 struct {
 type InstructionSegments struct {
 	// The number of logical instruction segments.
 	Count    U8
-	Segments [9]Anon11687_5
+	Segments [9]Anon11699_5
 }
-type Anon11687_5 struct {
+type Anon11699_5 struct {
 	// The type of the segment.
 	Type InstructionSegment
 	// The offset of the segment relative to the start of the instruction (in bytes).
@@ -4279,6 +4279,16 @@ type (
 	SizeT              = uint64
 	_BuiltinMsVaList   = *byte
 	_BuiltinVaList     = *byte
+	Uint8T             = uint8
+	Uint16T            = uint16
+	Uint32T            = uint32
+	Uint64T            = uint64
+	Int8T              = int8
+	Int16T             = int16
+	Int32T             = int32
+	Int64T             = int64
+	Bool               = int32
+	IntptrT            = *int32
 	U8                 = uint8
 	U16                = uint16
 	U32                = uint32
@@ -4291,212 +4301,185 @@ type (
 	ISize              = int64
 	UPointer           = uint64
 	IPointer           = int64
+	// Defines the `ZyanVoidPointer` data-type.
+	VoidPointer = unsafe.Pointer
+	// Defines the `ZyanConstVoidPointer` data-type.
+	ConstVoidPointer = unsafe.Pointer
+	// Defines the `ZyanBool` data-type.
+	// Represents a default boolean data-type where `0` is interpreted as `false` and all other values
+	// as `true`.
+	Bool = U8
+	// Defines the `ZyanTernary` data-type.
+	// The `ZyanTernary` is a balanced ternary type that uses three truth values indicating `true`,
+	// `false` and an indeterminate third value.
+	Ternary = I8
+	// Defines the `ZyanCharPointer` data-type.
+	// This type is most often used to represent null-terminated strings aka. C-style strings.
+	CharPointer = *byte
+	// Defines the `ZyanConstCharPointer` data-type.
+	// This type is most often used to represent null-terminated strings aka. C-style strings.
+	ConstCharPointer = *byte
+	// Defines the `ZydisElementSize` datatype.
+	ElementSize = U16
+	// Defines the `ZydisOperandActions` data-type.
+	OperandActions = U8
+	// Defines the `ZydisInstructionAttributes` data-type.
+	InstructionAttributes = U64
+	// Defines the `ZydisRegisterWidth` data-type.
+	RegisterWidth = U16
+	// Defines the `ZydisOperandAttributes` data-type.
+	OperandAttributes = U8
+	// Defines the `ZydisAccessedFlagsMask` data-type.
+	AccessedFlagsMask = U32
+	// Defines the `ZyanStatus` data type.
+	Status = U32
+	// Defines the `ZyanAllocatorAllocate` function prototype.
+	//
+	// @param allocator A pointer to the `ZyanAllocator` instance.
+	//
+	// @param p Receives a pointer to the first memory block sufficient to hold an
+	// array of `n` elements with a size of `element_size`.
+	//
+	// @param element_size The size of a single element.
+	//
+	// @param n The number of elements to allocate storage for.
+	//
+	// @return A zyan status code.
+	// This prototype is used for the `allocate()` and `reallocate()` functions.
+	// The result of the `reallocate()` function is undefined, if `p` does not point to a memory block
+	// previously obtained by `(re-)allocate()`.
+	AllocatorAllocate = unsafe.Pointer
+	// Defines the `ZyanAllocatorDeallocate` function prototype.
+	//
+	// @param allocator A pointer to the `ZyanAllocator` instance.
+	//
+	// @param p The pointer obtained from `(re-)allocate()`.
+	//
+	// @param element_size The size of a single element.
+	//
+	// @param n The number of elements earlier passed to `(re-)allocate()`.
+	//
+	// @return A zyan status code.
+	AllocatorDeallocate = unsafe.Pointer
+	// Defines the `ZyanEqualityComparison` function prototype.
+	//
+	// @param left A pointer to the first element.
+	//
+	// @param right A pointer to the second element.
+	//
+	// @return This function should return `ZYAN_TRUE` if the `left` element equals the `right` one
+	// or `ZYAN_FALSE`, if not.
+	EqualityComparison = unsafe.Pointer
+	// Defines the `ZyanComparison` function prototype.
+	//
+	// @param left A pointer to the first element.
+	//
+	// @param right A pointer to the second element.
+	//
+	// @return This function should return values in the following range:
+	// `left == right -> result == 0`
+	// `left
+	// <
+	// right -> result
+	// <
+	// 0`
+	// `left >  right -> result  > 0`
+	Comparison = unsafe.Pointer
+	// Defines the `ZyanMemberProcedure` function prototype.
+	//
+	// @param object A pointer to the object.
+	MemberProcedure = unsafe.Pointer
+	// Defines the `ZyanConstMemberProcedure` function prototype.
+	//
+	// @param object A pointer to the object.
+	ConstMemberProcedure = unsafe.Pointer
+	// Defines the `ZyanMemberFunction` function prototype.
+	//
+	// @param object A pointer to the object.
+	//
+	// @return A zyan status code.
+	MemberFunction = unsafe.Pointer
+	// Defines the `ZyanConstMemberFunction` function prototype.
+	//
+	// @param object A pointer to the object.
+	//
+	// @return A zyan status code.
+	ConstMemberFunction = unsafe.Pointer
+	// Defines the `ZyanStringFlags` data-type.
+	StringFlags = U8
+	// Defines the `ZydisTokenType` data-type.
+	TokenType = U8
+	// Defines the `ZydisFormatterTokenConst` data-type.
+	FormatterTokenConst = FormatterToken
+	// Defines the `ZydisFormatterFunc` function prototype.
+	//
+	// @param formatter A pointer to the `ZydisFormatter` instance.
+	//
+	// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
+	//
+	// @param context A pointer to the `ZydisFormatterContext` struct.
+	//
+	// @return A zyan status code.
+	// Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the formatting
+	// process to fail (see exceptions below).
+	// Returning `ZYDIS_STATUS_SKIP_TOKEN` is valid for functions of the following types and will
+	// instruct the formatter to omit the whole operand:
+	// - `ZYDIS_FORMATTER_FUNC_PRE_OPERAND`
+	// - `ZYDIS_FORMATTER_FUNC_POST_OPERAND`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_REG`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_MEM`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_PTR`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_IMM`
+	// This function prototype is used by functions of the following types:
+	// - `ZYDIS_FORMATTER_FUNC_PRE_INSTRUCTION`
+	// - `ZYDIS_FORMATTER_FUNC_POST_INSTRUCTION`
+	// - `ZYDIS_FORMATTER_FUNC_PRE_OPERAND`
+	// - `ZYDIS_FORMATTER_FUNC_POST_OPERAND`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_INSTRUCTION`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_MNEMONIC`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_PREFIXES`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_REG`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_MEM`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_PTR`
+	// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_IMM`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_ADDRESS_ABS`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_ADDRESS_REL`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_DISP`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_IMM`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_TYPECAST`
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_SEGMENT`
+	FormatterFunc = unsafe.Pointer
+	// Defines the `ZydisFormatterRegisterFunc` function prototype.
+	//
+	// @param formatter A pointer to the `ZydisFormatter` instance.
+	//
+	// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
+	//
+	// @param context A pointer to the `ZydisFormatterContext` struct.
+	//
+	// @param reg The register.
+	//
+	// @return Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the
+	// formatting process to fail.
+	// This function prototype is used by functions of the following types:
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_REGISTER`.
+	FormatterRegisterFunc = unsafe.Pointer
+	// Defines the `ZydisFormatterDecoratorFunc` function prototype.
+	//
+	// @param formatter A pointer to the `ZydisFormatter` instance.
+	//
+	// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
+	//
+	// @param context A pointer to the `ZydisFormatterContext` struct.
+	//
+	// @param decorator The decorator type.
+	//
+	// @return Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the
+	// formatting process to fail.
+	// This function type is used for:
+	// - `ZYDIS_FORMATTER_FUNC_PRINT_DECORATOR`
+	FormatterDecoratorFunc = unsafe.Pointer
 )
-
-// Defines the `ZyanVoidPointer` data-type.
-type VoidPointer = unsafe.Pointer
-
-// Defines the `ZyanConstVoidPointer` data-type.
-type ConstVoidPointer = unsafe.Pointer
-
-// Defines the `ZyanBool` data-type.
-// Represents a default boolean data-type where `0` is interpreted as `false` and all other values
-// as `true`.
-type Bool = U8
-
-// Defines the `ZyanTernary` data-type.
-// The `ZyanTernary` is a balanced ternary type that uses three truth values indicating `true`,
-// `false` and an indeterminate third value.
-type Ternary = I8
-
-// Defines the `ZyanCharPointer` data-type.
-// This type is most often used to represent null-terminated strings aka. C-style strings.
-type CharPointer = *byte
-
-// Defines the `ZyanConstCharPointer` data-type.
-// This type is most often used to represent null-terminated strings aka. C-style strings.
-type ConstCharPointer = *byte
-
-// Defines the `ZydisElementSize` datatype.
-type ElementSize = U16
-
-// Defines the `ZydisOperandActions` data-type.
-type OperandActions = U8
-
-// Defines the `ZydisInstructionAttributes` data-type.
-type InstructionAttributes = U64
-
-// Defines the `ZydisRegisterWidth` data-type.
-type RegisterWidth = U16
-
-// Defines the `ZydisOperandAttributes` data-type.
-type OperandAttributes = U8
-
-// Defines the `ZydisAccessedFlagsMask` data-type.
-type AccessedFlagsMask = U32
-
-// Defines the `ZyanStatus` data type.
-type Status = U32
-
-// Defines the `ZyanAllocatorAllocate` function prototype.
-//
-// @param allocator A pointer to the `ZyanAllocator` instance.
-//
-// @param p Receives a pointer to the first memory block sufficient to hold an
-// array of `n` elements with a size of `element_size`.
-//
-// @param element_size The size of a single element.
-//
-// @param n The number of elements to allocate storage for.
-//
-// @return A zyan status code.
-// This prototype is used for the `allocate()` and `reallocate()` functions.
-// The result of the `reallocate()` function is undefined, if `p` does not point to a memory block
-// previously obtained by `(re-)allocate()`.
-type AllocatorAllocate = unsafe.Pointer
-
-// Defines the `ZyanAllocatorDeallocate` function prototype.
-//
-// @param allocator A pointer to the `ZyanAllocator` instance.
-//
-// @param p The pointer obtained from `(re-)allocate()`.
-//
-// @param element_size The size of a single element.
-//
-// @param n The number of elements earlier passed to `(re-)allocate()`.
-//
-// @return A zyan status code.
-type AllocatorDeallocate = unsafe.Pointer
-
-// Defines the `ZyanEqualityComparison` function prototype.
-//
-// @param left A pointer to the first element.
-//
-// @param right A pointer to the second element.
-//
-// @return This function should return `ZYAN_TRUE` if the `left` element equals the `right` one
-// or `ZYAN_FALSE`, if not.
-type EqualityComparison = unsafe.Pointer
-
-// Defines the `ZyanComparison` function prototype.
-//
-// @param left A pointer to the first element.
-//
-// @param right A pointer to the second element.
-//
-// @return This function should return values in the following range:
-// `left == right -> result == 0`
-// `left
-// <
-// right -> result
-// <
-// 0`
-// `left >  right -> result  > 0`
-type Comparison = unsafe.Pointer
-
-// Defines the `ZyanMemberProcedure` function prototype.
-//
-// @param object A pointer to the object.
-type MemberProcedure = unsafe.Pointer
-
-// Defines the `ZyanConstMemberProcedure` function prototype.
-//
-// @param object A pointer to the object.
-type ConstMemberProcedure = unsafe.Pointer
-
-// Defines the `ZyanMemberFunction` function prototype.
-//
-// @param object A pointer to the object.
-//
-// @return A zyan status code.
-type MemberFunction = unsafe.Pointer
-
-// Defines the `ZyanConstMemberFunction` function prototype.
-//
-// @param object A pointer to the object.
-//
-// @return A zyan status code.
-type ConstMemberFunction = unsafe.Pointer
-
-// Defines the `ZyanStringFlags` data-type.
-type StringFlags = U8
-
-// Defines the `ZydisTokenType` data-type.
-type TokenType = U8
-
-// Defines the `ZydisFormatterTokenConst` data-type.
-type FormatterTokenConst = FormatterToken
-
-// Defines the `ZydisFormatterFunc` function prototype.
-//
-// @param formatter A pointer to the `ZydisFormatter` instance.
-//
-// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
-//
-// @param context A pointer to the `ZydisFormatterContext` struct.
-//
-// @return A zyan status code.
-// Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the formatting
-// process to fail (see exceptions below).
-// Returning `ZYDIS_STATUS_SKIP_TOKEN` is valid for functions of the following types and will
-// instruct the formatter to omit the whole operand:
-// - `ZYDIS_FORMATTER_FUNC_PRE_OPERAND`
-// - `ZYDIS_FORMATTER_FUNC_POST_OPERAND`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_REG`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_MEM`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_PTR`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_IMM`
-// This function prototype is used by functions of the following types:
-// - `ZYDIS_FORMATTER_FUNC_PRE_INSTRUCTION`
-// - `ZYDIS_FORMATTER_FUNC_POST_INSTRUCTION`
-// - `ZYDIS_FORMATTER_FUNC_PRE_OPERAND`
-// - `ZYDIS_FORMATTER_FUNC_POST_OPERAND`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_INSTRUCTION`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_MNEMONIC`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_PREFIXES`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_REG`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_MEM`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_PTR`
-// - `ZYDIS_FORMATTER_FUNC_FORMAT_OPERAND_IMM`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_ADDRESS_ABS`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_ADDRESS_REL`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_DISP`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_IMM`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_TYPECAST`
-// - `ZYDIS_FORMATTER_FUNC_PRINT_SEGMENT`
-type FormatterFunc = unsafe.Pointer
-
-// Defines the `ZydisFormatterRegisterFunc` function prototype.
-//
-// @param formatter A pointer to the `ZydisFormatter` instance.
-//
-// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
-//
-// @param context A pointer to the `ZydisFormatterContext` struct.
-//
-// @param reg The register.
-//
-// @return Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the
-// formatting process to fail.
-// This function prototype is used by functions of the following types:
-// - `ZYDIS_FORMATTER_FUNC_PRINT_REGISTER`.
-type FormatterRegisterFunc = unsafe.Pointer
-
-// Defines the `ZydisFormatterDecoratorFunc` function prototype.
-//
-// @param formatter A pointer to the `ZydisFormatter` instance.
-//
-// @param buffer A pointer to the `ZydisFormatterBuffer` struct.
-//
-// @param context A pointer to the `ZydisFormatterContext` struct.
-//
-// @param decorator The decorator type.
-//
-// @return Returning a status code other than `ZYAN_STATUS_SUCCESS` will immediately cause the
-// formatting process to fail.
-// This function type is used for:
-// - `ZYDIS_FORMATTER_FUNC_PRINT_DECORATOR`
-type FormatterDecoratorFunc = unsafe.Pointer
 
 var __imp_ZydisCategoryGetString bindlib.PreloadProc
 
@@ -4640,7 +4623,7 @@ func init() {
 	bindlib.Validate((*DecodedOperandImm)(nil), 16, 8, "IsSigned", 0, "IsRelative", 1, "Value", 8)
 	bindlib.Validate((*DecodedOperandImmValue_)(nil), 8, 8)
 	bindlib.Validate((*DecodedOperand)(nil), 80, 8, "Id", 0, "Visibility", 4, "Actions", 8, "Encoding", 12, "Size", 16, "ElementType", 20, "ElementSize", 24, "ElementCount", 26, "Attributes", 28, "Type", 32)
-	bindlib.Validate((*Anon5338_5)(nil), 40, 8)
+	bindlib.Validate((*Anon5350_5)(nil), 40, 8)
 	bindlib.Validate((*AccessedFlags)(nil), 20, 4, "Tested", 0, "Modified", 4, "Set0", 8, "Set1", 12, "Undefined", 16)
 	bindlib.Validate((*DecodedInstructionRawRex)(nil), 5, 1, "W", 0, "R", 1, "X", 2, "B", 3, "Offset", 4)
 	bindlib.Validate((*DecodedInstructionRawXop)(nil), 9, 1, "R", 0, "X", 1, "B", 2, "MMmmm", 3, "W", 4, "Vvvv", 5, "L", 6, "Pp", 7, "Offset", 8)
@@ -4656,7 +4639,7 @@ func init() {
 	bindlib.Validate((*DecodedInstructionMeta)(nil), 20, 4, "Category", 0, "IsaSet", 4, "IsaExt", 8, "BranchType", 12, "ExceptionClass", 16)
 	bindlib.Validate((*DecodedInstructionRaw)(nil), 216, 8, "PrefixCount", 0, "Prefixes", 4, "Encoding2", 124, "Modrm", 143, "Sib", 147, "Disp", 152, "Imm", 168)
 	bindlib.Validate((*DecodedInstructionRawPrefixes_)(nil), 8, 4, "Type", 0, "Value", 4)
-	bindlib.Validate((*Anon6217_5)(nil), 15, 1)
+	bindlib.Validate((*Anon6229_5)(nil), 15, 1)
 	bindlib.Validate((*DecodedInstructionModRm_)(nil), 4, 1, "Mod", 0, "Reg", 1, "Rm", 2, "Offset", 3)
 	bindlib.Validate((*DecodedInstructionRawSib_)(nil), 4, 1, "Scale", 0, "Index", 1, "Base", 2, "Offset", 3)
 	bindlib.Validate((*DecodedInstructionRawDisp_)(nil), 16, 8, "Value", 0, "Size", 8, "Offset", 9)
@@ -4664,10 +4647,10 @@ func init() {
 	bindlib.Validate((*DecodedInstructionRawImmValue_)(nil), 8, 8)
 	bindlib.Validate((*DecodedInstruction)(nil), 328, 8, "MachineMode", 0, "Mnemonic", 4, "Length", 8, "Encoding", 12, "OpcodeMap", 16, "Opcode", 20, "StackWidth", 21, "OperandWidth", 22, "AddressWidth", 23, "OperandCount", 24, "OperandCountVisible", 25, "Attributes", 32, "CpuFlags", 40, "FpuFlags", 48, "Avx", 56, "Meta", 92, "Raw", 112)
 	bindlib.Validate((*DecoderContext)(nil), 32, 8, "Definition", 0, "EoszIndex", 8, "EaszIndex", 9, "VectorUnified", 10, "RegInfo", 20, "Evex", 26, "Mvex", 28, "Cd8Scale", 29)
-	bindlib.Validate((*Anon6451_5)(nil), 10, 1, "W", 0, "R", 1, "X", 2, "B", 3, "L", 4, "Ll", 5, "R2", 6, "V2", 7, "Vvvv", 8, "Mask", 9)
-	bindlib.Validate((*Anon6467_5)(nil), 6, 1, "IsModReg", 0, "IdReg", 1, "IdRm", 2, "IdNdsndd", 3, "IdBase", 4, "IdIndex", 5)
-	bindlib.Validate((*Anon6504_5)(nil), 2, 1, "TupleType", 0, "ElementSize", 1)
-	bindlib.Validate((*Anon6518_5)(nil), 1, 1, "Functionality", 0)
+	bindlib.Validate((*Anon6463_5)(nil), 10, 1, "W", 0, "R", 1, "X", 2, "B", 3, "L", 4, "Ll", 5, "R2", 6, "V2", 7, "Vvvv", 8, "Mask", 9)
+	bindlib.Validate((*Anon6479_5)(nil), 6, 1, "IsModReg", 0, "IdReg", 1, "IdRm", 2, "IdNdsndd", 3, "IdBase", 4, "IdIndex", 5)
+	bindlib.Validate((*Anon6516_5)(nil), 2, 1, "TupleType", 0, "ElementSize", 1)
+	bindlib.Validate((*Anon6530_5)(nil), 1, 1, "Functionality", 0)
 	bindlib.Validate((*Decoder)(nil), 12, 4, "MachineMode", 0, "StackWidth", 4, "DecoderMode", 8)
 	bindlib.Validate((*EncoderOperand)(nil), 64, 8, "Type", 0, "Reg", 4, "Mem", 16, "Ptr", 48, "Imm", 56)
 	bindlib.Validate((*EncoderOperandReg_)(nil), 8, 4, "Value", 0, "Is4", 4)
@@ -4685,9 +4668,9 @@ func init() {
 	bindlib.Validate((*FormatterBuffer)(nil), 80, 8, "IsTokenList", 0, "Capacity", 8, "String", 16)
 	bindlib.Validate((*FormatterContext)(nil), 40, 8, "Instruction", 0, "Operands", 8, "Operand", 16, "RuntimeAddress", 24, "UserData", 32)
 	bindlib.Validate((*Formatter)(nil), 584, 8, "Style", 0, "ForceMemorySize", 4, "ForceMemorySegment", 5, "ForceMemoryScale", 6, "ForceRelativeBranches", 7, "ForceRelativeRiprel", 8, "PrintBranchSize", 9, "DetailedPrefixes", 10, "AddrBase", 12, "AddrSignedness", 16, "AddrPaddingAbsolute", 20, "AddrPaddingRelative", 24, "DispBase", 28, "DispSignedness", 32, "DispPadding", 36, "ImmBase", 40, "ImmSignedness", 44, "ImmPadding", 48, "CasePrefixes", 52, "CaseMnemonic", 56, "CaseRegisters", 60, "CaseTypecasts", 64, "CaseDecorators", 68, "HexUppercase", 72, "HexForceLeadingNumber", 73, "NumberFormat", 80, "FuncPreInstruction", 432, "FuncPostInstruction", 440, "FuncFormatInstruction", 448, "FuncPreOperand", 456, "FuncPostOperand", 464, "FuncFormatOperandReg", 472, "FuncFormatOperandMem", 480, "FuncFormatOperandPtr", 488, "FuncFormatOperandImm", 496, "FuncPrintMnemonic", 504, "FuncPrintRegister", 512, "FuncPrintAddressAbs", 520, "FuncPrintAddressRel", 528, "FuncPrintDisp", 536, "FuncPrintImm", 544, "FuncPrintTypecast", 552, "FuncPrintSegment", 560, "FuncPrintPrefixes", 568, "FuncPrintDecorator", 576)
-	bindlib.Validate((*Anon11276_5)(nil), 88, 8, "String", 0, "StringData", 8, "Buffer", 72)
+	bindlib.Validate((*Anon11288_5)(nil), 88, 8, "String", 0, "StringData", 8, "Buffer", 72)
 	bindlib.Validate((*InstructionSegments)(nil), 76, 4, "Count", 0, "Segments", 4)
-	bindlib.Validate((*Anon11687_5)(nil), 8, 4, "Type", 0, "Offset", 4, "Size", 5)
+	bindlib.Validate((*Anon11699_5)(nil), 8, 4, "Type", 0, "Offset", 4, "Size", 5)
 	bindlib.Validate((*DisassembledInstruction)(nil), 1232, 8, "RuntimeAddress", 0, "Info", 8, "Operands", 336, "Text", 1136)
 }
 
@@ -7084,75 +7067,75 @@ func (s *DecodedOperandImmValue_) SetS(v I64) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon5338_5) Reg() DecodedOperandReg {
+func (s Anon5350_5) Reg() DecodedOperandReg {
 	return bindlib.ReadBitcast[DecodedOperandReg](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon5338_5) SetReg(v DecodedOperandReg) {
+func (s *Anon5350_5) SetReg(v DecodedOperandReg) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon5338_5) Mem() DecodedOperandMem {
+func (s Anon5350_5) Mem() DecodedOperandMem {
 	return bindlib.ReadBitcast[DecodedOperandMem](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon5338_5) SetMem(v DecodedOperandMem) {
+func (s *Anon5350_5) SetMem(v DecodedOperandMem) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon5338_5) Ptr() DecodedOperandPtr {
+func (s Anon5350_5) Ptr() DecodedOperandPtr {
 	return bindlib.ReadBitcast[DecodedOperandPtr](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon5338_5) SetPtr(v DecodedOperandPtr) {
+func (s *Anon5350_5) SetPtr(v DecodedOperandPtr) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon5338_5) Imm() DecodedOperandImm {
+func (s Anon5350_5) Imm() DecodedOperandImm {
 	return bindlib.ReadBitcast[DecodedOperandImm](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon5338_5) SetImm(v DecodedOperandImm) {
+func (s *Anon5350_5) SetImm(v DecodedOperandImm) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon6217_5) Rex() DecodedInstructionRawRex {
+func (s Anon6229_5) Rex() DecodedInstructionRawRex {
 	return bindlib.ReadBitcast[DecodedInstructionRawRex](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon6217_5) SetRex(v DecodedInstructionRawRex) {
+func (s *Anon6229_5) SetRex(v DecodedInstructionRawRex) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon6217_5) Xop() DecodedInstructionRawXop {
+func (s Anon6229_5) Xop() DecodedInstructionRawXop {
 	return bindlib.ReadBitcast[DecodedInstructionRawXop](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon6217_5) SetXop(v DecodedInstructionRawXop) {
+func (s *Anon6229_5) SetXop(v DecodedInstructionRawXop) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon6217_5) Vex() DecodedInstructionRawVex {
+func (s Anon6229_5) Vex() DecodedInstructionRawVex {
 	return bindlib.ReadBitcast[DecodedInstructionRawVex](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon6217_5) SetVex(v DecodedInstructionRawVex) {
+func (s *Anon6229_5) SetVex(v DecodedInstructionRawVex) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon6217_5) Evex() DecodedInstructionRawEvex {
+func (s Anon6229_5) Evex() DecodedInstructionRawEvex {
 	return bindlib.ReadBitcast[DecodedInstructionRawEvex](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon6217_5) SetEvex(v DecodedInstructionRawEvex) {
+func (s *Anon6229_5) SetEvex(v DecodedInstructionRawEvex) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon6217_5) Mvex() DecodedInstructionRawMvex {
+func (s Anon6229_5) Mvex() DecodedInstructionRawMvex {
 	return bindlib.ReadBitcast[DecodedInstructionRawMvex](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon6217_5) SetMvex(v DecodedInstructionRawMvex) {
+func (s *Anon6229_5) SetMvex(v DecodedInstructionRawMvex) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 

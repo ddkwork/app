@@ -12,12 +12,12 @@ const GengoLibraryName = "libdemo"
 var GengoLibrary = bindlib.NewLibrary(GengoLibraryName)
 
 type Cr3Type struct {
-	Anon10_5
+	Anon46_5
 }
-type Anon10_5 struct {
+type Anon46_5 struct {
 	Raw [1]int64
 }
-type Anon14_9 struct {
+type Anon50_9 struct {
 	Pcid            Uint64
 	PageFrameNumber Uint64
 	Reserved1       Uint64
@@ -31,8 +31,38 @@ type (
 	SizeT              = uint64
 	_BuiltinMsVaList   = *byte
 	_BuiltinVaList     = *byte
-	Uint64             = uint64
-	Pcr3Type           = *Cr3Type
+	Uint8T             = uint8
+	Uint16T            = uint16
+	Uint32T            = uint32
+	Uint64T            = uint64
+	Int8T              = int8
+	Int16T             = int16
+	Int32T             = int32
+	Int64T             = int64
+	Bool               = int32
+	IntptrT            = *int32
+	// type Uint8T = uint8
+	// type Uint16T = uint16
+	// type Uint32T = uint32
+	// type Uint64T = uint64
+	// type Int8T = int8
+	// type Int16T = int16
+	// type Int32T = int32
+	// type Int64T = int64
+	// type Bool = int32
+	// type IntptrT = *int32
+	// type Uint8T = uint8
+	// type Uint16T = uint16
+	// type Uint32T = uint32
+	// type Uint64T = uint64
+	// type Int8T = int8
+	// type Int16T = int16
+	// type Int32T = int32
+	// type Int64T = int64
+	// type Bool = int32
+	// type IntptrT = *int32
+	Uint64   = uint64
+	Pcr3Type = *Cr3Type
 )
 
 var __imp_hello bindlib.PreloadProc
@@ -41,22 +71,22 @@ var __imp_hello bindlib.PreloadProc
 func init() {
 	__imp_hello = GengoLibrary.ImportNow("hello")
 	bindlib.Validate((*Cr3Type)(nil), 8, 8)
-	bindlib.Validate((*Anon10_5)(nil), 8, 8)
-	bindlib.Validate((*Anon14_9)(nil), 8, 8, "Pcid", 0, "PageFrameNumber", 1, "Reserved1", 6, "Reserved_2", 7, "PcidInvalidate", 7)
+	bindlib.Validate((*Anon46_5)(nil), 8, 8)
+	bindlib.Validate((*Anon50_9)(nil), 8, 8, "Pcid", 0, "PageFrameNumber", 1, "Reserved1", 6, "Reserved_2", 7, "PcidInvalidate", 7)
 }
 func Hello() { bindlib.CCall0(__imp_hello.Addr()) }
-func (s Anon10_5) Flags() Uint64 {
+func (s Anon46_5) Flags() Uint64 {
 	return bindlib.ReadBitcast[Uint64](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon10_5) SetFlags(v Uint64) {
+func (s *Anon46_5) SetFlags(v Uint64) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
 
-func (s Anon10_5) Fields() Anon14_9 {
-	return bindlib.ReadBitcast[Anon14_9](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
+func (s Anon46_5) Fields() Anon50_9 {
+	return bindlib.ReadBitcast[Anon50_9](unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0))
 }
 
-func (s *Anon10_5) SetFields(v Anon14_9) {
+func (s *Anon46_5) SetFields(v Anon50_9) {
 	bindlib.WriteBitcast(unsafe.Add(unsafe.Pointer(unsafe.SliceData(s.Raw[:])), 0), v)
 }
