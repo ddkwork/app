@@ -361,13 +361,20 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 		parent.AddChild(rowPanel)
 		for _, token := range tokens {
 			colour := style.Get(token.Type).Colour
-			label := unison.NewLabel()
-			label.OnBackgroundInk = unison.RGB(
+			label := unison.NewRichLabel()
+			color := unison.RGB(
 				int(colour.Red()),
 				int(colour.Green()),
 				int(colour.Blue()),
 			)
-			label.Text = (token.Value)
+			label.Text = unison.NewText(token.Value, &unison.TextDecoration{
+				Font:           font,
+				Foreground:     color,
+				Background:     unison.ContentColor,
+				BaselineOffset: 0,
+				Underline:      false,
+				StrikeThrough:  false,
+			})
 			label.OnBackgroundInk = ink
 			rowPanel.AddChild(label)
 		}
