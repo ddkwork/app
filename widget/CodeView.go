@@ -9,8 +9,8 @@ import (
 	"github.com/ddkwork/golibrary/stream"
 	"github.com/ddkwork/golibrary/stream/languages"
 
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/paintstyle"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/paintstyle"
 )
 
 type CodeView struct {
@@ -96,8 +96,7 @@ func (c *CodeView) newCodeView(tokens []chroma.Token, style *chroma.Style) {
 	var row *unison.Text
 
 	fnNewLine := func() {
-		label := unison.NewLabel()
-		// label.BackgroundInk = CodeBackground
+		label := unison.NewRichLabel()
 		label.OnBackgroundInk = CodeBackground
 		label.Text = row
 		row = nil
@@ -105,17 +104,17 @@ func (c *CodeView) newCodeView(tokens []chroma.Token, style *chroma.Style) {
 	}
 
 	decoration := &unison.TextDecoration{
-		Font: unison.DefaultLabelTheme.Font,
-		// BackgroundInk: CodeBackground,
-		OnBackgroundInk: CodeBackground,
-		BaselineOffset:  0,
-		Underline:       false,
-		StrikeThrough:   false,
+		Font:           unison.DefaultLabelTheme.Font,
+		Foreground:     CodeBackground,
+		Background:     CodeBackground,
+		BaselineOffset: 0,
+		Underline:      false,
+		StrikeThrough:  false,
 	}
 
 	for _, token := range tokens {
 		tokenColor := getTokenColor(style, token)
-		decoration.OnBackgroundInk = tokenColor
+		decoration.Foreground = tokenColor
 		if row == nil {
 			row = unison.NewText("", decoration)
 		}
@@ -123,13 +122,13 @@ func (c *CodeView) newCodeView(tokens []chroma.Token, style *chroma.Style) {
 		switch token.Type {
 		case chroma.Text: // todo fleetStyle
 			for _, v := range token.Value {
+				if row == nil {
+					row = unison.NewText("", decoration)
+				}
 				switch v {
 				case '\n':
 					fnNewLine()
 				case '\t':
-					if row == nil {
-						row = unison.NewText("", decoration)
-					}
 					row.AddString(indent, decoration)
 				default:
 					row.AddString(string(v), decoration)

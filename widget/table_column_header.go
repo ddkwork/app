@@ -1,38 +1,53 @@
+// Copyright ©2021-2022 by Richard A. Wilkes. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, version 2.0. If a copy of the MPL was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+// This Source Code Form is "Incompatible With Secondary Licenses", as
+// defined by the Mozilla Public License, version 2.0.
+
 package widget
 
 import (
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/align"
-	"github.com/richardwilkes/unison/enums/paintstyle"
-	"github.com/richardwilkes/unison/enums/side"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/align"
+	"github.com/ddkwork/unison/enums/paintstyle"
+	"github.com/ddkwork/unison/enums/side"
 )
 
+// TableColumnHeader defines the methods a table column header must implement.
 type TableColumnHeader[T any] interface {
 	unison.Paneler
 	SortState() unison.SortState
 	SetSortState(state unison.SortState)
 }
 
+// DefaultTableColumnHeaderTheme holds the default TableColumnHeaderTheme values for TableColumnHeaders. Modifying this
+// data will not alter existing TableColumnHeaders, but will alter any TableColumnHeaders created in the future.
 var DefaultTableColumnHeaderTheme = unison.LabelTheme{
-	TextDecoration: unison.TextDecoration{
-		Font:            unison.LabelFont,
-		OnBackgroundInk: unison.ThemeOnSurface,
-	},
-	Gap:    3,
-	HAlign: align.Middle,
-	VAlign: align.Middle,
-	Side:   side.Left,
+	Font:            unison.LabelFont,
+	OnBackgroundInk: unison.OnBackgroundColor,
+	Gap:             3,
+	HAlign:          align.Middle,
+	VAlign:          align.Middle,
+	Side:            side.Left,
 }
 
+// DefaultTableColumnHeader provides a default table column header panel.
 type DefaultTableColumnHeader[T any] struct {
-	*unison.Label
+	unison.Label
 	sortState     unison.SortState
 	sortIndicator *unison.DrawableSVG
 }
 
+// NewTableColumnHeader creates a new table column header panel.
 func NewTableColumnHeader[T any](title, tooltip string) *DefaultTableColumnHeader[T] {
 	h := &DefaultTableColumnHeader[T]{
-		Label: unison.NewLabel(),
+		Label: unison.Label{
+			LabelTheme: DefaultTableColumnHeaderTheme,
+			Text:       title,
+		},
 		sortState: unison.SortState{
 			Order:     -1,
 			Ascending: true,
@@ -40,8 +55,6 @@ func NewTableColumnHeader[T any](title, tooltip string) *DefaultTableColumnHeade
 		},
 	}
 	h.Self = h
-	h.LabelTheme = DefaultTableColumnHeaderTheme
-	h.SetTitle(title)
 	h.SetSizer(h.DefaultSizes)
 	h.DrawCallback = h.DefaultDraw
 	h.MouseUpCallback = h.DefaultMouseUp
@@ -51,9 +64,11 @@ func NewTableColumnHeader[T any](title, tooltip string) *DefaultTableColumnHeade
 	return h
 }
 
+// DefaultSizes provides the default sizing.
 func (h *DefaultTableColumnHeader[T]) DefaultSizes(hint unison.Size) (minSize, prefSize, maxSize unison.Size) {
-	prefSize, _ = unison.LabelContentSizes(h.Text, h.Drawable, h.Font, h.Side, h.Gap)
+	prefSize = unison.LabelSize(h.TextCache.Text(h.Text, h.Font), h.Drawable, h.Side, h.Gap)
 
+	// Account for the potential sort indicator
 	baseline := h.Font.Baseline()
 	prefSize.Width += h.LabelTheme.Gap + baseline
 	if prefSize.Height < baseline {
@@ -61,19 +76,21 @@ func (h *DefaultTableColumnHeader[T]) DefaultSizes(hint unison.Size) (minSize, p
 	}
 
 	if b := h.Border(); b != nil {
-		prefSize = prefSize.Add(b.Insets().Size())
+		prefSize.AddInsets(b.Insets())
 	}
-	prefSize = prefSize.Ceil().ConstrainForHint(hint)
+	prefSize.GrowToInteger()
+	prefSize.ConstrainForHint(hint)
 	return prefSize, prefSize, prefSize
 }
 
+// DefaultDraw provides the default drawing.
 func (h *DefaultTableColumnHeader[T]) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 	r := h.ContentRect(false)
 	if h.sortIndicator != nil {
 		r.Width -= h.LabelTheme.Gap + h.sortIndicator.LogicalSize().Width
 	}
-	unison.DrawLabel(canvas, r, h.HAlign, h.VAlign, h.Font, h.Text, h.OnBackgroundInk, nil, h.Drawable, h.Side, h.Gap,
-		!h.Enabled())
+	unison.DrawLabel(canvas, r, h.HAlign, h.VAlign, h.TextCache.Text(h.Text, h.Font), h.OnBackgroundInk, h.Drawable, h.Side,
+		h.Gap, !h.Enabled())
 	if h.sortIndicator != nil {
 		size := h.sortIndicator.LogicalSize()
 		r.X = r.Right() + h.LabelTheme.Gap
@@ -87,10 +104,12 @@ func (h *DefaultTableColumnHeader[T]) DefaultDraw(canvas *unison.Canvas, _ uniso
 	}
 }
 
+// SortState returns the current SortState.
 func (h *DefaultTableColumnHeader[T]) SortState() unison.SortState {
 	return h.sortState
 }
 
+// SetSortState sets the SortState.
 func (h *DefaultTableColumnHeader[T]) SetSortState(state unison.SortState) {
 	if h.sortState != state {
 		h.sortState = state
@@ -99,12 +118,12 @@ func (h *DefaultTableColumnHeader[T]) SetSortState(state unison.SortState) {
 			if h.sortState.Ascending {
 				h.sortIndicator = &unison.DrawableSVG{
 					SVG:  unison.SortAscendingSVG,
-					Size: unison.Size{Width: baseline, Height: baseline},
+					Size: unison.NewSize(baseline, baseline),
 				}
 			} else {
 				h.sortIndicator = &unison.DrawableSVG{
 					SVG:  unison.SortDescendingSVG,
-					Size: unison.Size{Width: baseline, Height: baseline},
+					Size: unison.NewSize(baseline, baseline),
 				}
 			}
 		} else {
@@ -114,11 +133,9 @@ func (h *DefaultTableColumnHeader[T]) SetSortState(state unison.SortState) {
 	}
 }
 
-func (h *DefaultTableColumnHeader[T]) DefaultMouseUp(where unison.Point, button int, _ unison.Modifiers) bool {
-	if button == unison.ButtonRight {
-		return false
-	}
-	if h.sortState.Sortable && where.In(h.ContentRect(false)) {
+// DefaultMouseUp provides the default mouse up handling.
+func (h *DefaultTableColumnHeader[T]) DefaultMouseUp(where unison.Point, _ int, _ unison.Modifiers) bool {
+	if h.sortState.Sortable && h.ContentRect(false).ContainsPoint(where) {
 		if header, ok := h.Parent().Self.(*TableHeader[T]); ok {
 			header.SortOn(h)
 			header.ApplySort()

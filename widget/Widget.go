@@ -14,9 +14,9 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
 
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/align"
-	"github.com/richardwilkes/unison/enums/behavior"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/align"
+	"github.com/ddkwork/unison/enums/behavior"
 )
 
 type API interface {
@@ -77,7 +77,7 @@ func NewPanel() *Panel {
 }
 
 func PanelSetBorder(panel unison.Paneler) {
-	panel.AsPanel().SetBorder(unison.NewEmptyBorder(unison.NewSymmetricInsets(unison.StdHSpacing, unison.StdVSpacing)))
+	panel.AsPanel().SetBorder(unison.NewEmptyBorder(unison.Insets{Bottom: 2 * unison.StdHSpacing}))
 }
 
 func (p *Panel) AddChildren(children ...unison.Paneler) *Panel {
@@ -106,12 +106,17 @@ func SetScrollLayout(paneler unison.Paneler, Columns int) {
 
 func NewScrollPanelFill(content unison.Paneler) *unison.ScrollPanel {
 	scrollArea := unison.NewScrollPanel()
+	scrollArea.SetBorder(unison.NewLineBorder(unison.ControlEdgeColor, 0, unison.NewUniformInsets(1), false))
 	scrollArea.SetContent(content, behavior.Fill, behavior.Fill) // 滚动条与布局边缘重叠
 	scrollArea.SetLayoutData(&unison.FlexLayoutData{
-		HAlign: align.Fill,
-		VAlign: align.Fill,
-		HGrab:  true,
-		VGrab:  true,
+		SizeHint: unison.Size{},
+		MinSize:  unison.Size{},
+		HSpan:    1,
+		VSpan:    1,
+		HAlign:   align.Fill,
+		VAlign:   align.Fill,
+		HGrab:    true,
+		VGrab:    true,
 	})
 	scrollArea.Content().AsPanel().ValidateScrollRoot()
 	return scrollArea
@@ -180,21 +185,21 @@ func NewButton(Text string, ClickCallback func()) *unison.Button {
 	b.ClickCallback = ClickCallback
 	b.CornerRadius = 18
 	b.HMargin = 12
-	b.SetTitle(Text)
+	b.Text = (Text)
 	b.EdgeInk = unison.White
 
 	b.MouseEnterCallback = func(where unison.Point, mod unison.Modifiers) bool { // todo bug new version not working
 		if b.Drawable != nil {
 			sizedDrawable, ok := b.Drawable.(*unison.SizedDrawable)
 			if ok {
-				sizedDrawable.Size = sizedDrawable.Size.Add(unison.NewSize(1, 1))
+				sizedDrawable.Size = *sizedDrawable.Size.Add(unison.NewSize(1, 1))
 				b.Drawable = sizedDrawable
 			}
 		}
 		size := b.Font.Size()
 		size++
 		b.Font = b.Font.Face().Font(size)
-		b.SetTitle(Text)
+		b.Text = (Text)
 		b.MarkForRedraw()
 		return true
 	}
@@ -210,7 +215,7 @@ func NewButton(Text string, ClickCallback func()) *unison.Button {
 		size := b.Font.Size()
 		size--
 		b.Font = b.Font.Face().Font(size)
-		b.SetTitle(Text)
+		b.Text = (Text)
 		b.MarkForRedraw()
 		return true
 	}
@@ -261,12 +266,12 @@ func NewLogView(data string) *unison.Panel {
 	for _, token := range tokens {
 		colour := style.Get(token.Type).Colour
 		label := unison.NewLabel()
-		label.TextDecoration.OnBackgroundInk = unison.RGB(
+		label.OnBackgroundInk = unison.RGB(
 			int(colour.Red()),
 			int(colour.Green()),
 			int(colour.Blue()),
 		)
-		label.SetTitle(token.Value)
+		label.Text = (token.Value)
 		rowPanel.AddChild(label)
 	}
 	return panel.AsPanel()
@@ -281,12 +286,12 @@ func NewDsScriptView(path string) *unison.Panel {
 	for _, token := range tokens {
 		colour := style.Get(token.Type).Colour
 		label := unison.NewLabel()
-		label.TextDecoration.OnBackgroundInk = unison.RGB(
+		label.OnBackgroundInk = unison.RGB(
 			int(colour.Red()),
 			int(colour.Green()),
 			int(colour.Blue()),
 		)
-		label.SetTitle(token.Value)
+		label.Text = (token.Value)
 		rowPanel.AddChild(label)
 	}
 	return panel.AsPanel()
@@ -588,7 +593,7 @@ func NewKeyValuePanel() *unison.Panel {
 
 func NewLabelRightAlign(kvt KeyValueToolTip) *unison.Label {
 	label := unison.NewLabel()
-	label.SetTitle(i18n.Text(kvt.Key))
+	label.Text = (i18n.Text(kvt.Key))
 	label.Tooltip = unison.NewTooltipWithText(kvt.Tooltip)
 	label.SetLayoutData(&unison.FlexLayoutData{
 		SizeHint: unison.Size{},
@@ -661,7 +666,7 @@ func createTextFieldsPanel() *unison.Panel {
 
 func createTextField(labelText, fieldText string, panel *unison.Panel) *unison.Field {
 	lbl := unison.NewLabel()
-	lbl.SetTitle(labelText)
+	lbl.Text = (labelText)
 	lbl.HAlign = align.End
 	lbl.SetLayoutData(&unison.FlexLayoutData{
 		HSpan:  1,
@@ -686,7 +691,7 @@ func createTextField(labelText, fieldText string, panel *unison.Panel) *unison.F
 
 func createMultiLineTextField(labelText, fieldText string, panel *unison.Panel) *unison.Field {
 	lbl := unison.NewLabel()
-	lbl.SetTitle(labelText)
+	lbl.Text = (labelText)
 	lbl.HAlign = align.End
 	lbl.SetLayoutData(&unison.FlexLayoutData{
 		HSpan:  1,

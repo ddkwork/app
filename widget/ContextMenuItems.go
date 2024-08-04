@@ -3,7 +3,7 @@ package widget
 import (
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream/maps"
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 type idMgr struct {

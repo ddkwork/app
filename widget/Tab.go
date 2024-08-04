@@ -4,7 +4,7 @@ import (
 	"github.com/richardwilkes/toolbox/i18n"
 
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 var (
@@ -26,7 +26,7 @@ type TabClose struct {
 	ScrollPanel *unison.ScrollPanel
 }
 
-func (t *TabClose) SetTitle(title string) {
+func (t *TabClose) Text(title string) {
 	t.title = title
 }
 
@@ -154,7 +154,7 @@ func NewTabs(tabContents ...TabContent) []*Tab { // todo delete
 	return tabs
 }
 
-func (t *Tab) SetTitle(title string) {
+func (t *Tab) Text(title string) {
 	t.title = title
 }
 

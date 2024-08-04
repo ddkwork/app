@@ -3,7 +3,7 @@ package widget
 import (
 	"strings"
 
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 func InstallContainerConversionHandlers[T any](paneler unison.Paneler, table *Node[T]) {

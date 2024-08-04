@@ -10,7 +10,7 @@ import (
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
 	"github.com/ddkwork/golibrary/stream/datasize"
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 // https://github.com/y4v8/filewatcher

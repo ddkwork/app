@@ -8,8 +8,8 @@ import (
 	"github.com/richardwilkes/toolbox/log/tracelog"
 
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/thememode"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/thememode"
 )
 
 /*

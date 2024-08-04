@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 // Godoc todo 单个返回值没有小括号的强制加上了，泛型的函数和方法 not 提取  C:\Program Files\Go\src\go\doc

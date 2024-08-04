@@ -1,9 +1,25 @@
+// Copyright ©2021-2022 by Richard A. Wilkes. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, version 2.0. If a copy of the MPL was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+// This Source Code Form is "Incompatible With Secondary Licenses", as
+// defined by the Mozilla Public License, version 2.0.
+
 package widget
 
 import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"github.com/ddkwork/golibrary/stream"
+	"github.com/ddkwork/golibrary/stream/languages"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/app"
+	"github.com/ddkwork/unison/enums/align"
+	"github.com/ddkwork/unison/enums/paintstyle"
+	"github.com/richardwilkes/toolbox/i18n"
 	"path/filepath"
 	"slices"
 	"sort"
@@ -11,29 +27,21 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ddkwork/golibrary/stream/languages"
-
-	"github.com/ddkwork/app"
-
-	"github.com/ddkwork/golibrary/stream"
-	"github.com/richardwilkes/unison/enums/align"
-
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/google/uuid"
-	"github.com/richardwilkes/toolbox"
-	"github.com/richardwilkes/toolbox/i18n"
 	"github.com/richardwilkes/toolbox/xmath"
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/paintstyle"
+	"github.com/richardwilkes/toolbox/xmath/geom"
 )
 
 var zeroUUID = uuid.UUID{}
 
+// TableDragData holds the data from a table row drag.
 type TableDragData[T any] struct {
 	Table *Node[T]
 	Rows  []*Node[T]
 }
 
+// ColumnInfo holds column information.
 type ColumnInfo struct {
 	ID          int
 	Current     float32
@@ -56,45 +64,50 @@ type tableHitRect struct {
 	handler func()
 }
 
+// DefaultTableTheme holds the default TableTheme values for Tables. Modifying this data will not alter existing Tables,
+// but will alter any Tables created in the future.
 var DefaultTableTheme = TableTheme{
-	BackgroundInk:          unison.ThemeBelowSurface,
-	OnBackgroundInk:        unison.ThemeOnBelowSurface,
-	BandingInk:             unison.ThemeSurface,
-	OnBandingInk:           unison.ThemeOnSurface,
-	InteriorDividerInk:     unison.ThemeAboveSurface,
-	SelectionInk:           unison.ThemeFocus,
-	OnSelectionInk:         unison.ThemeOnFocus,
-	InactiveSelectionInk:   unison.ThemeDeepFocus,
-	OnInactiveSelectionInk: unison.ThemeOnDeepFocus,
-	IndirectSelectionInk:   unison.ThemeDeeperFocus,
-	OnIndirectSelectionInk: unison.ThemeOnDeeperFocus,
+	BackgroundInk:          unison.ContentColor,
+	OnBackgroundInk:        unison.OnContentColor,
+	BandingInk:             unison.BandingColor,
+	OnBandingInk:           unison.OnBandingColor,
+	InteriorDividerInk:     unison.InteriorDividerColor,
+	SelectionInk:           unison.SelectionColor,
+	OnSelectionInk:         unison.OnSelectionColor,
+	InactiveSelectionInk:   unison.InactiveSelectionColor,
+	OnInactiveSelectionInk: unison.OnInactiveSelectionColor,
+	IndirectSelectionInk:   unison.IndirectSelectionColor,
+	OnIndirectSelectionInk: unison.OnIndirectSelectionColor,
 	Padding:                unison.NewUniformInsets(4),
 	HierarchyIndent:        16,
 	MinimumRowHeight:       16,
 	ColumnResizeSlop:       4,
+	ShowRowDivider:         true,
 	ShowColumnDivider:      true,
 }
 
+// TableTheme holds theming data for a Node.
 type TableTheme struct {
-	BackgroundInk          unison.Ink    `json:"-"`
-	OnBackgroundInk        unison.Ink    `json:"-"`
-	BandingInk             unison.Ink    `json:"-"`
-	OnBandingInk           unison.Ink    `json:"-"`
-	InteriorDividerInk     unison.Ink    `json:"-"`
-	SelectionInk           unison.Ink    `json:"-"`
-	OnSelectionInk         unison.Ink    `json:"-"`
-	InactiveSelectionInk   unison.Ink    `json:"-"`
-	OnInactiveSelectionInk unison.Ink    `json:"-"`
-	IndirectSelectionInk   unison.Ink    `json:"-"`
-	OnIndirectSelectionInk unison.Ink    `json:"-"`
-	Padding                unison.Insets `json:"-"`
-	HierarchyColumnID      int           `json:"-"`
-	HierarchyIndent        float32       `json:"-"`
-	MinimumRowHeight       float32       `json:"-"`
-	ColumnResizeSlop       float32       `json:"-"`
-	ShowRowDivider         bool          `json:"-"`
-	ShowColumnDivider      bool          `json:"-"`
+	BackgroundInk          unison.Ink
+	OnBackgroundInk        unison.Ink
+	BandingInk             unison.Ink
+	OnBandingInk           unison.Ink
+	InteriorDividerInk     unison.Ink
+	SelectionInk           unison.Ink
+	OnSelectionInk         unison.Ink
+	InactiveSelectionInk   unison.Ink
+	OnInactiveSelectionInk unison.Ink
+	IndirectSelectionInk   unison.Ink
+	OnIndirectSelectionInk unison.Ink
+	Padding                unison.Insets
+	HierarchyColumnID      int
+	HierarchyIndent        float32
+	MinimumRowHeight       float32
+	ColumnResizeSlop       float32
+	ShowRowDivider         bool
+	ShowColumnDivider      bool
 }
+
 type CellData struct {
 	Text     string
 	MaxWidth float32
@@ -118,10 +131,13 @@ type TableContext[T any] struct {
 	JsonName                 string
 	IsDocument               bool
 }
+
+// Node provides a control that can display data in columns and rows.
 type Node[T any] struct {
 	unison.Panel `json:"-"`
 	TableTheme   `json:"-"`
-	MarshalRow   func(node *Node[T]) (cells []CellData) `json:"-"`
+
+	MarshalRow func(node *Node[T]) (cells []CellData) `json:"-"`
 
 	ID         uuid.UUID      `json:"id"`
 	Type       string         `json:"type"`
@@ -133,10 +149,10 @@ type Node[T any] struct {
 
 	SelectionChangedCallback func() `json:"-"`
 	DoubleClickCallback      func() `json:"-"`
-	DragRemovedRowsCallback  func() `json:"-"`
-	DropOccurredCallback     func() `json:"-"`
+	DragRemovedRowsCallback  func() `json:"-"` // Called whenever a drag removes one or more rows from a model, but only if the source and destination tables were different.
+	DropOccurredCallback     func() `json:"-"` // Called whenever a drop occurs that modifies the model.
 	Columns                  []ColumnInfo
-	filteredRows             []*Node[T]
+	filteredRows             []*Node[T] // Note that we use the difference between nil and an empty slice here
 	header                   *TableHeader[T]
 	selMap                   map[uuid.UUID]bool
 	selAnchor                uuid.UUID
@@ -346,12 +362,12 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 		for _, token := range tokens {
 			colour := style.Get(token.Type).Colour
 			label := unison.NewLabel()
-			label.TextDecoration.OnBackgroundInk = unison.RGB(
+			label.OnBackgroundInk = unison.RGB(
 				int(colour.Red()),
 				int(colour.Green()),
 				int(colour.Blue()),
 			)
-			label.SetTitle(token.Value)
+			label.Text = (token.Value)
 			label.OnBackgroundInk = ink
 			rowPanel.AddChild(label)
 		}
@@ -367,11 +383,11 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 	}
 	for _, line := range lines {
 		label := unison.NewLabel()
-		label.SetTitle(line.String())
+		label.Text = (line.String())
 		label.Font = font
 		label.LabelTheme.OnBackgroundInk = ink
 		if data.Disabled {
-			label.LabelTheme.BackgroundInk = unison.DarkRed
+			label.LabelTheme.OnBackgroundInk = unison.DarkRed
 		}
 		size := unison.LabelFont.Size() + 7
 
@@ -397,7 +413,7 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
 		label := unison.NewLabel()
-		label.SetTitle(field.Name)
+		label.Text = (field.Name)
 		Columns = append(Columns, ColumnInfo{
 			ID:          i,
 			Current:     0,
@@ -524,12 +540,12 @@ func newTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 
 	for i, column := range root.Columns {
 		text := unison.NewText(column.Cell, &unison.TextDecoration{
-			Font:            unison.LabelFont,
-			BackgroundInk:   nil,
-			OnBackgroundInk: nil,
-			BaselineOffset:  0,
-			Underline:       false,
-			StrikeThrough:   false,
+			Font:           unison.LabelFont,
+			Background:     nil,
+			Foreground:     nil,
+			BaselineOffset: 0,
+			Underline:      false,
+			StrikeThrough:  false,
 		})
 		root.Columns[i].Minimum = text.Width() + root.Padding.Left + root.Padding.Right
 	}
@@ -729,6 +745,37 @@ func (n *Node[T]) AddChild(child *Node[T]) {
 	n.Children = append(n.Children, child)
 }
 
+// NewTable creates a new Node control.
+//func NewTable[T any](model TableModel[T]) *Node[T] {
+//	t := &Node[T]{
+//		TableTheme:            DefaultTableTheme,
+//		Model:                 model,
+//		selMap:                make(map[uuid.UUID]bool),
+//		interactionRow:        -1,
+//		interactionColumn:     -1,
+//		lastMouseMotionRow:    -1,
+//		lastMouseMotionColumn: -1,
+//	}
+//	t.Self = t
+//	t.SetFocusable(true)
+//	t.SetSizer(t.DefaultSizes)
+//	t.GainedFocusCallback = t.DefaultFocusGained
+//	t.DrawCallback = t.DefaultDraw
+//	t.UpdateCursorCallback = t.DefaultUpdateCursorCallback
+//	t.UpdateTooltipCallback = t.DefaultUpdateTooltipCallback
+//	t.MouseMoveCallback = t.DefaultMouseMove
+//	t.MouseDownCallback = t.DefaultMouseDown
+//	t.MouseDragCallback = t.DefaultMouseDrag
+//	t.MouseUpCallback = t.DefaultMouseUp
+//	t.MouseEnterCallback = t.DefaultMouseEnter
+//	t.MouseExitCallback = t.DefaultMouseExit
+//	t.KeyDownCallback = t.DefaultKeyDown
+//	t.InstallCmdHandlers(unison.SelectAllItemID, unison.AlwaysEnabled, func(_ any) { t.SelectAll() })
+//	t.wasDragged = false
+//	return t
+//}
+
+// ColumnIndexForID returns the column index with the given ID, or -1 if not found.
 func (n *Node[T]) ColumnIndexForID(id int) int {
 	for i, c := range n.Columns {
 		if c.ID == id {
@@ -738,16 +785,21 @@ func (n *Node[T]) ColumnIndexForID(id int) int {
 	return -1
 }
 
+// SetDrawRowRange sets a restricted range for sizing and drawing the table. This is intended primarily to be able to
+// draw different sections of the table on separate pages of a display and should not be used for anything requiring
+// interactivity.
 func (n *Node[T]) SetDrawRowRange(start, endBefore int) {
 	n.startRow = start
 	n.endBeforeRow = endBefore
 }
 
+// ClearDrawRowRange clears any restricted range for sizing and drawing the table.
 func (n *Node[T]) ClearDrawRowRange() {
 	n.startRow = 0
 	n.endBeforeRow = 0
 }
 
+// CurrentDrawRowRange returns the range of rows that are considered for sizing and drawing.
 func (n *Node[T]) CurrentDrawRowRange() (start, endBefore int) {
 	if n.startRow < n.endBeforeRow && n.startRow >= 0 && n.endBeforeRow <= len(n.rowCache) {
 		return n.startRow, n.endBeforeRow
@@ -755,6 +807,7 @@ func (n *Node[T]) CurrentDrawRowRange() (start, endBefore int) {
 	return 0, len(n.rowCache)
 }
 
+// DefaultDraw provides the default drawing.
 func (n *Node[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 	selectionInk := n.SelectionInk
 	if !n.Focused() {
@@ -839,7 +892,8 @@ func (n *Node[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 		for c := firstCol; c < len(n.Columns) && rect.X < lastX; c++ {
 			fg, bg, selected, indirectlySelected, focused := n.cellParams(r, c)
 			rect.Width = n.Columns[c].Current
-			cellRect := rect.Inset(n.Padding)
+			cellRect := rect
+			cellRect.Inset(n.Padding)
 			row := n.rowCache[r].row
 			if n.Columns[c].ID == n.HierarchyColumnID {
 				if row.CanHaveChildren() {
@@ -848,9 +902,7 @@ func (n *Node[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 					canvas.Save()
 					left := cellRect.X + n.HierarchyIndent*float32(n.rowCache[r].depth) + disclosureIndent
 					top := cellRect.Y + (n.MinimumRowHeight-disclosureSize)/2
-					dSize := unison.Size{Width: disclosureSize, Height: disclosureSize}
-					n.hitRects = append(n.hitRects,
-						n.newTableHitRect(unison.Rect{Point: unison.Point{X: left, Y: top}, Size: dSize}, row))
+					n.hitRects = append(n.hitRects, n.newTableHitRect(unison.NewRect(left, top, disclosureSize, disclosureSize), row))
 					canvas.Translate(left, top)
 					if row.IsOpen() {
 						offset := disclosureSize / 2
@@ -858,7 +910,7 @@ func (n *Node[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 						canvas.Rotate(90)
 						canvas.Translate(-offset, -offset)
 					}
-					canvas.DrawPath(unison.CircledChevronRightSVG.PathForSize(dSize),
+					canvas.DrawPath(unison.CircledChevronRightSVG.PathForSize(unison.NewSize(disclosureSize, disclosureSize)),
 						fg.Paint(canvas, cellRect, paintstyle.Fill))
 					canvas.Restore()
 				}
@@ -926,6 +978,7 @@ func (n *Node[T]) uninstallCell(cell *unison.Panel) {
 	cell.RemoveFromParent()
 }
 
+// RowHeights returns the heights of each row.
 func (n *Node[T]) RowHeights() []float32 {
 	heights := make([]float32, len(n.rowCache))
 	for i := range n.rowCache {
@@ -934,6 +987,7 @@ func (n *Node[T]) RowHeights() []float32 {
 	return heights
 }
 
+// OverRow returns the row index that the y coordinate is over, or -1 if it isn't over any row.
 func (n *Node[T]) OverRow(y float32) int {
 	var insets unison.Insets
 	if border := n.Border(); border != nil {
@@ -953,6 +1007,7 @@ func (n *Node[T]) OverRow(y float32) int {
 	return -1
 }
 
+// OverColumn returns the column index that the x coordinate is over, or -1 if it isn't over any column.
 func (n *Node[T]) OverColumn(x float32) int {
 	var insets unison.Insets
 	if border := n.Border(); border != nil {
@@ -972,6 +1027,8 @@ func (n *Node[T]) OverColumn(x float32) int {
 	return -1
 }
 
+// OverColumnDivider returns the column index of the column divider that the x coordinate is over, or -1 if it isn't
+// over any column divider.
 func (n *Node[T]) OverColumnDivider(x float32) int {
 	if len(n.Columns) < 2 {
 		return -1
@@ -993,6 +1050,7 @@ func (n *Node[T]) OverColumnDivider(x float32) int {
 	return -1
 }
 
+// CellWidth returns the current width of a given cell.
 func (n *Node[T]) CellWidth(row, col int) float32 {
 	if row < 0 || col < 0 || row >= len(n.rowCache) || col >= len(n.Columns) {
 		return 0
@@ -1004,6 +1062,7 @@ func (n *Node[T]) CellWidth(row, col int) float32 {
 	return width
 }
 
+// ColumnEdges returns the x-coordinates of the left and right sides of the column.
 func (n *Node[T]) ColumnEdges(col int) (left, right float32) {
 	if col < 0 || col >= len(n.Columns) {
 		return 0, 0
@@ -1031,6 +1090,7 @@ func (n *Node[T]) ColumnEdges(col int) (left, right float32) {
 	return left, right
 }
 
+// CellFrame returns the frame of the given cell.
 func (n *Node[T]) CellFrame(row, col int) unison.Rect {
 	if row < 0 || col < 0 || row >= len(n.rowCache) || col >= len(n.Columns) {
 		return unison.Rect{}
@@ -1053,10 +1113,8 @@ func (n *Node[T]) CellFrame(row, col int) unison.Rect {
 			y++
 		}
 	}
-	rect := unison.Rect{
-		Point: unison.Point{X: x, Y: y},
-		Size:  unison.Size{Width: n.Columns[col].Current, Height: n.rowCache[row].height},
-	}.Inset(n.Padding)
+	rect := unison.NewRect(x, y, n.Columns[col].Current, n.rowCache[row].height)
+	rect.Inset(n.Padding)
 	if n.Columns[col].ID == n.HierarchyColumnID {
 		indent := n.HierarchyIndent*float32(n.rowCache[row].depth+1) + n.Padding.Left
 		rect.X += indent
@@ -1068,6 +1126,7 @@ func (n *Node[T]) CellFrame(row, col int) unison.Rect {
 	return rect
 }
 
+// RowFrame returns the frame of the row.
 func (n *Node[T]) RowFrame(row int) unison.Rect {
 	if row < 0 || row >= len(n.rowCache) {
 		return unison.Rect{}
@@ -1097,6 +1156,7 @@ func (n *Node[T]) newTableHitRect(rect unison.Rect, row *Node[T]) tableHitRect {
 	}
 }
 
+// DefaultFocusGained provides the default focus gained handling.
 func (n *Node[T]) DefaultFocusGained() {
 	switch {
 	case n.interactionRow != -1:
@@ -1109,6 +1169,7 @@ func (n *Node[T]) DefaultFocusGained() {
 	n.MarkForRedraw()
 }
 
+// DefaultUpdateCursorCallback provides the default cursor update handling.
 func (n *Node[T]) DefaultUpdateCursorCallback(where unison.Point) *unison.Cursor {
 	if !n.PreventUserColumnResize {
 		if over := n.OverColumnDivider(where.X); over != -1 {
@@ -1124,13 +1185,13 @@ func (n *Node[T]) DefaultUpdateCursorCallback(where unison.Point) *unison.Cursor
 				var cursor *unison.Cursor
 				rect := n.CellFrame(row, col)
 				n.installCell(cell, rect)
-				where = where.Sub(rect.Point)
+				where.Subtract(rect.Point)
 				target := cell.PanelAt(where)
 				for target != n.AsPanel() {
 					if target.UpdateCursorCallback == nil {
 						target = target.Parent()
 					} else {
-						toolbox.Call(func() { cursor = target.UpdateCursorCallback(cell.PointTo(where, target)) })
+						mylog.Call(func() { cursor = target.UpdateCursorCallback(cell.PointTo(where, target)) })
 						break
 					}
 				}
@@ -1142,6 +1203,7 @@ func (n *Node[T]) DefaultUpdateCursorCallback(where unison.Point) *unison.Cursor
 	return nil
 }
 
+// DefaultUpdateTooltipCallback provides the default tooltip update handling.
 func (n *Node[T]) DefaultUpdateTooltipCallback(where unison.Point, avoid unison.Rect) unison.Rect {
 	if row := n.OverRow(where.Y); row != -1 {
 		if col := n.OverColumn(where.X); col != -1 {
@@ -1149,21 +1211,21 @@ func (n *Node[T]) DefaultUpdateTooltipCallback(where unison.Point, avoid unison.
 			if cell.HasInSelfOrDescendants(func(p *unison.Panel) bool { return p.UpdateTooltipCallback != nil || p.Tooltip != nil }) {
 				rect := n.CellFrame(row, col)
 				n.installCell(cell, rect)
-				where = where.Sub(rect.Point)
+				where.Subtract(rect.Point)
 				target := cell.PanelAt(where)
 				n.Tooltip = nil
 				n.TooltipImmediate = false
 				for target != n.AsPanel() {
-					avoid = target.RectToRoot(target.ContentRect(true)).Align()
+					avoid = target.RectToRoot(target.ContentRect(true))
+					avoid.Align()
 					if target.UpdateTooltipCallback != nil {
-						toolbox.Call(func() { avoid = target.UpdateTooltipCallback(cell.PointTo(where, target), avoid) })
+						mylog.Call(func() { avoid = target.UpdateTooltipCallback(cell.PointTo(where, target), avoid) })
 					}
 					if target.Tooltip != nil {
 						n.Tooltip = target.Tooltip
 						n.TooltipImmediate = target.TooltipImmediate
 						break
 					}
-
 					target = target.Parent()
 				}
 				n.uninstallCell(cell)
@@ -1172,7 +1234,9 @@ func (n *Node[T]) DefaultUpdateTooltipCallback(where unison.Point, avoid unison.
 			if cell.Tooltip != nil {
 				n.Tooltip = cell.Tooltip
 				n.TooltipImmediate = cell.TooltipImmediate
-				return n.RectToRoot(n.CellFrame(row, col)).Align()
+				avoid = n.RectToRoot(n.CellFrame(row, col))
+				avoid.Align()
+				return avoid
 			}
 		}
 	}
@@ -1180,6 +1244,7 @@ func (n *Node[T]) DefaultUpdateTooltipCallback(where unison.Point, avoid unison.
 	return unison.Rect{}
 }
 
+// DefaultMouseEnter provides the default mouse enter handling.
 func (n *Node[T]) DefaultMouseEnter(where unison.Point, mod unison.Modifiers) bool {
 	row := n.OverRow(where.Y)
 	col := n.OverColumn(where.X)
@@ -1192,7 +1257,7 @@ func (n *Node[T]) DefaultMouseEnter(where unison.Point, mod unison.Modifiers) bo
 		cell := n.cell(row, col)
 		rect := n.CellFrame(row, col)
 		n.installCell(cell, rect)
-		where = where.Sub(rect.Point)
+		where.Subtract(rect.Point)
 		target := cell.PanelAt(where)
 		if target != n.lastMouseEnterCellPanel && n.lastMouseEnterCellPanel != nil {
 			n.DefaultMouseExit()
@@ -1200,7 +1265,7 @@ func (n *Node[T]) DefaultMouseEnter(where unison.Point, mod unison.Modifiers) bo
 			n.lastMouseMotionColumn = col
 		}
 		if target.MouseEnterCallback != nil {
-			toolbox.Call(func() { target.MouseEnterCallback(cell.PointTo(where, target), mod) })
+			mylog.Call(func() { target.MouseEnterCallback(cell.PointTo(where, target), mod) })
 		}
 		n.uninstallCell(cell)
 		n.lastMouseEnterCellPanel = target
@@ -1208,6 +1273,7 @@ func (n *Node[T]) DefaultMouseEnter(where unison.Point, mod unison.Modifiers) bo
 	return true
 }
 
+// DefaultMouseMove provides the default mouse move handling.
 func (n *Node[T]) DefaultMouseMove(where unison.Point, mod unison.Modifiers) bool {
 	n.DefaultMouseEnter(where, mod)
 	if n.lastMouseEnterCellPanel != nil {
@@ -1216,22 +1282,23 @@ func (n *Node[T]) DefaultMouseMove(where unison.Point, mod unison.Modifiers) boo
 		cell := n.cell(row, col)
 		rect := n.CellFrame(row, col)
 		n.installCell(cell, rect)
-		where = where.Sub(rect.Point)
+		where.Subtract(rect.Point)
 		if target := cell.PanelAt(where); target.MouseMoveCallback != nil {
-			toolbox.Call(func() { target.MouseMoveCallback(cell.PointTo(where, target), mod) })
+			mylog.Call(func() { target.MouseMoveCallback(cell.PointTo(where, target), mod) })
 		}
 		n.uninstallCell(cell)
 	}
 	return true
 }
 
+// DefaultMouseExit provides the default mouse exit handling.
 func (n *Node[T]) DefaultMouseExit() bool {
 	if n.lastMouseEnterCellPanel != nil && n.lastMouseEnterCellPanel.MouseExitCallback != nil &&
 		n.lastMouseMotionColumn != -1 && n.lastMouseMotionRow >= 0 && n.lastMouseMotionRow < len(n.rowCache) {
 		cell := n.cell(n.lastMouseMotionRow, n.lastMouseMotionColumn)
 		rect := n.CellFrame(n.lastMouseMotionRow, n.lastMouseMotionColumn)
 		n.installCell(cell, rect)
-		toolbox.Call(func() { n.lastMouseEnterCellPanel.MouseExitCallback() })
+		mylog.Call(func() { n.lastMouseEnterCellPanel.MouseExitCallback() })
 		n.uninstallCell(cell)
 	}
 	n.lastMouseEnterCellPanel = nil
@@ -1240,6 +1307,7 @@ func (n *Node[T]) DefaultMouseExit() bool {
 	return true
 }
 
+// DefaultMouseDown provides the default mouse down handling.
 func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, mod unison.Modifiers) bool {
 	if n.Window().InDrag() {
 		return false
@@ -1279,7 +1347,7 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 			}
 		}
 		for _, one := range n.hitRects {
-			if where.In(one.Rect) {
+			if one.ContainsPoint(where) {
 				return true
 			}
 		}
@@ -1292,11 +1360,11 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 				n.interactionColumn = col
 				rect := n.CellFrame(row, col)
 				n.installCell(cell, rect)
-				where = where.Sub(rect.Point)
+				where.Subtract(rect.Point)
 				stop := false
 				if target := cell.PanelAt(where); target.MouseDownCallback != nil {
 					n.lastMouseDownCellPanel = target
-					toolbox.Call(func() {
+					mylog.Call(func() {
 						stop = target.MouseDownCallback(cell.PointTo(where, target), button,
 							clickCount, mod)
 					})
@@ -1310,7 +1378,7 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 		rowData := n.rowCache[row].row
 		id := rowData.UUID()
 		switch {
-		case mod&unison.ShiftModifier != 0:
+		case mod&unison.ShiftModifier != 0: // Extend selection from anchor
 			selAnchorIndex := -1
 			if n.selAnchor != zeroUUID {
 				for i, c := range n.rowCache {
@@ -1326,22 +1394,22 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 					n.selMap[n.rowCache[i].row.UUID()] = true
 				}
 				n.notifyOfSelectionChange()
-			} else if !n.selMap[id] {
+			} else if !n.selMap[id] { // No anchor, so behave like a regular click
 				n.selMap = make(map[uuid.UUID]bool)
 				n.selMap[id] = true
 				n.selAnchor = id
 				n.notifyOfSelectionChange()
 			}
-		case mod.DiscontiguousSelectionDown():
+		case mod.DiscontiguousSelectionDown(): // Toggle single row
 			if n.selMap[id] {
 				delete(n.selMap, id)
 			} else {
 				n.selMap[id] = true
 			}
 			n.notifyOfSelectionChange()
-		case n.selMap[id]:
+		case n.selMap[id]: // Sets lastClick so that on mouse up, we can treat a click and click and hold differently
 			n.lastSel = id
-		default:
+		default: // If not already selected, replace selection with current row and make it the anchor
 			n.selMap = make(map[uuid.UUID]bool)
 			n.selMap[id] = true
 			n.selAnchor = id
@@ -1349,7 +1417,7 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 		}
 		n.MarkForRedraw()
 		if button == unison.ButtonLeft && clickCount == 2 && n.DoubleClickCallback != nil && len(n.selMap) != 0 {
-			toolbox.Call(n.DoubleClickCallback)
+			mylog.Call(n.DoubleClickCallback)
 		}
 	}
 	return true
@@ -1357,10 +1425,11 @@ func (n *Node[T]) DefaultMouseDown(where unison.Point, button, clickCount int, m
 
 func (n *Node[T]) notifyOfSelectionChange() {
 	if n.SelectionChangedCallback != nil {
-		toolbox.Call(n.SelectionChangedCallback)
+		mylog.Call(n.SelectionChangedCallback)
 	}
 }
 
+// DefaultMouseDrag provides the default mouse drag handling.
 func (n *Node[T]) DefaultMouseDrag(where unison.Point, button int, mod unison.Modifiers) bool {
 	n.wasDragged = true
 	stop := false
@@ -1392,8 +1461,8 @@ func (n *Node[T]) DefaultMouseDrag(where unison.Point, button int, mod unison.Mo
 			cell := n.cell(n.interactionRow, n.interactionColumn)
 			rect := n.CellFrame(n.interactionRow, n.interactionColumn)
 			n.installCell(cell, rect)
-			where = where.Sub(rect.Point)
-			toolbox.Call(func() {
+			where.Subtract(rect.Point)
+			mylog.Call(func() {
 				stop = n.lastMouseDownCellPanel.MouseDragCallback(cell.PointTo(where, n.lastMouseDownCellPanel), button, mod)
 			})
 			n.uninstallCell(cell)
@@ -1402,11 +1471,12 @@ func (n *Node[T]) DefaultMouseDrag(where unison.Point, button int, mod unison.Mo
 	return stop
 }
 
+// DefaultMouseUp provides the default mouse up handling.
 func (n *Node[T]) DefaultMouseUp(where unison.Point, button int, mod unison.Modifiers) bool {
 	stop := false
 	if !n.dividerDrag && button == unison.ButtonLeft {
 		for _, one := range n.hitRects {
-			if where.In(one.Rect) {
+			if one.ContainsPoint(where) {
 				one.handler()
 				stop = true
 				break
@@ -1427,21 +1497,21 @@ func (n *Node[T]) DefaultMouseUp(where unison.Point, button int, mod unison.Modi
 		cell := n.cell(n.interactionRow, n.interactionColumn)
 		rect := n.CellFrame(n.interactionRow, n.interactionColumn)
 		n.installCell(cell, rect)
-		where = where.Sub(rect.Point)
-		toolbox.Call(func() {
+		where.Subtract(rect.Point)
+		mylog.Call(func() {
 			stop = n.lastMouseDownCellPanel.MouseUpCallback(cell.PointTo(where, n.lastMouseDownCellPanel), button, mod)
 		})
 		n.uninstallCell(cell)
 	}
 	n.lastMouseDownCellPanel = nil
-	n.interactionRow = -1
 	return stop
 }
 
+// DefaultKeyDown provides the default key down handling.
 func (n *Node[T]) DefaultKeyDown(keyCode unison.KeyCode, mod unison.Modifiers, _ bool) bool {
 	if unison.IsControlAction(keyCode, mod) {
 		if n.DoubleClickCallback != nil && len(n.selMap) != 0 {
-			toolbox.Call(n.DoubleClickCallback)
+			mylog.Call(n.DoubleClickCallback)
 		}
 		return true
 	}
@@ -1514,6 +1584,8 @@ func (n *Node[T]) DefaultKeyDown(keyCode unison.KeyCode, mod unison.Modifiers, _
 	return true
 }
 
+// PruneSelectionOfUndisclosedNodes removes any nodes in the selection map that are no longer disclosed from the
+// selection map.
 func (n *Node[T]) PruneSelectionOfUndisclosedNodes() {
 	if !n.selNeedsPrune {
 		return
@@ -1538,6 +1610,7 @@ func (n *Node[T]) PruneSelectionOfUndisclosedNodes() {
 	}
 }
 
+// FirstSelectedRowIndex returns the first selected row index, or -1 if there is no selection.
 func (n *Node[T]) FirstSelectedRowIndex() int {
 	if len(n.selMap) == 0 {
 		return -1
@@ -1550,6 +1623,7 @@ func (n *Node[T]) FirstSelectedRowIndex() int {
 	return -1
 }
 
+// LastSelectedRowIndex returns the last selected row index, or -1 if there is no selection.
 func (n *Node[T]) LastSelectedRowIndex() int {
 	if len(n.selMap) == 0 {
 		return -1
@@ -1562,6 +1636,7 @@ func (n *Node[T]) LastSelectedRowIndex() int {
 	return -1
 }
 
+// IsRowOrAnyParentSelected returns true if the specified row index or any of its parents are selected.
 func (n *Node[T]) IsRowOrAnyParentSelected(index int) bool {
 	if index < 0 || index >= len(n.rowCache) {
 		return false
@@ -1575,6 +1650,7 @@ func (n *Node[T]) IsRowOrAnyParentSelected(index int) bool {
 	return false
 }
 
+// IsRowSelected returns true if the specified row index is selected.
 func (n *Node[T]) IsRowSelected(index int) bool {
 	if index < 0 || index >= len(n.rowCache) {
 		return false
@@ -1582,6 +1658,8 @@ func (n *Node[T]) IsRowSelected(index int) bool {
 	return n.selMap[n.rowCache[index].row.UUID()]
 }
 
+// SelectedRows returns the currently selected rows. If 'minimal' is true, then children of selected rows that may also
+// be selected are not returned, just the topmost row that is selected in any given hierarchy.
 func (n *Node[T]) SelectedRows(minimal bool) []*Node[T] {
 	n.PruneSelectionOfUndisclosedNodes()
 	if len(n.selMap) == 0 {
@@ -1596,11 +1674,13 @@ func (n *Node[T]) SelectedRows(minimal bool) []*Node[T] {
 	return rows
 }
 
+// CopySelectionMap returns a copy of the current selection map.
 func (n *Node[T]) CopySelectionMap() map[uuid.UUID]bool {
 	n.PruneSelectionOfUndisclosedNodes()
 	return copySelMap(n.selMap)
 }
 
+// SetSelectionMap sets the current selection map.
 func (n *Node[T]) SetSelectionMap(selMap map[uuid.UUID]bool) {
 	n.selMap = copySelMap(selMap)
 	n.selNeedsPrune = true
@@ -1616,16 +1696,19 @@ func copySelMap(selMap map[uuid.UUID]bool) map[uuid.UUID]bool {
 	return result
 }
 
+// HasSelection returns true if there is a selection.
 func (n *Node[T]) HasSelection() bool {
 	n.PruneSelectionOfUndisclosedNodes()
 	return len(n.selMap) != 0
 }
 
+// SelectionCount returns the number of rows explicitly selected.
 func (n *Node[T]) SelectionCount() int {
 	n.PruneSelectionOfUndisclosedNodes()
 	return len(n.selMap)
 }
 
+// ClearSelection clears the selection.
 func (n *Node[T]) ClearSelection() {
 	if len(n.selMap) == 0 {
 		return
@@ -1637,6 +1720,7 @@ func (n *Node[T]) ClearSelection() {
 	n.notifyOfSelectionChange()
 }
 
+// SelectAll selects all rows.
 func (n *Node[T]) SelectAll() {
 	n.selMap = make(map[uuid.UUID]bool, len(n.rowCache))
 	n.selNeedsPrune = false
@@ -1652,6 +1736,8 @@ func (n *Node[T]) SelectAll() {
 	n.notifyOfSelectionChange()
 }
 
+// SelectByIndex selects the given indexes. The first one will be considered the anchor selection if no existing anchor
+// selection exists.
 func (n *Node[T]) SelectByIndex(indexes ...int) {
 	for _, index := range indexes {
 		if index >= 0 && index < len(n.rowCache) {
@@ -1667,6 +1753,8 @@ func (n *Node[T]) SelectByIndex(indexes ...int) {
 	n.notifyOfSelectionChange()
 }
 
+// SelectRange selects the given range. The start will be considered the anchor selection if no existing anchor
+// selection exists.
 func (n *Node[T]) SelectRange(start, end int) {
 	start = max(start, 0)
 	end = min(end, len(n.rowCache)-1)
@@ -1685,6 +1773,7 @@ func (n *Node[T]) SelectRange(start, end int) {
 	n.notifyOfSelectionChange()
 }
 
+// DeselectByIndex deselects the given indexes.
 func (n *Node[T]) DeselectByIndex(indexes ...int) {
 	for _, index := range indexes {
 		if index >= 0 && index < len(n.rowCache) {
@@ -1695,6 +1784,7 @@ func (n *Node[T]) DeselectByIndex(indexes ...int) {
 	n.notifyOfSelectionChange()
 }
 
+// DeselectRange deselects the given range.
 func (n *Node[T]) DeselectRange(start, end int) {
 	start = max(start, 0)
 	end = min(end, len(n.rowCache)-1)
@@ -1708,6 +1798,8 @@ func (n *Node[T]) DeselectRange(start, end int) {
 	n.notifyOfSelectionChange()
 }
 
+// DiscloseRow ensures the given row can be viewed by opening all parents that lead to it. Returns true if any
+// modification was made.
 func (n *Node[T]) DiscloseRow(row *Node[T], delaySync bool) bool {
 	modified := false
 	p := row.Parent()
@@ -1729,6 +1821,7 @@ func (n *Node[T]) DiscloseRow(row *Node[T], delaySync bool) bool {
 	return modified
 }
 
+// RootRowCount returns the number of top-level rows.
 func (n *Node[T]) RootRowCount() int {
 	if n.filteredRows != nil {
 		return len(n.filteredRows)
@@ -1736,6 +1829,7 @@ func (n *Node[T]) RootRowCount() int {
 	return n.RootRowCount()
 }
 
+// RootRows returns the top-level rows. Do not alter the returned list.
 func (n *Node[T]) RootRows() []*Node[T] {
 	if n.filteredRows != nil {
 		return n.filteredRows
@@ -1743,6 +1837,7 @@ func (n *Node[T]) RootRows() []*Node[T] {
 	return n.Children
 }
 
+// SetRootRows sets the top-level rows this table will display. This will call SyncToModel() automatically.
 func (n *Node[T]) SetRootRows(rows []*Node[T]) {
 	n.filteredRows = nil
 	n.Children = rows
@@ -1752,6 +1847,7 @@ func (n *Node[T]) SetRootRows(rows []*Node[T]) {
 	n.SyncToModel()
 }
 
+// SyncToModel causes the table to update its internal caches to reflect the current model.
 func (n *Node[T]) SyncToModel() {
 	rowCount := 0
 	roots := n.RootRows()
@@ -1822,13 +1918,16 @@ func (n *Node[T]) heightForColumns(rowData *Node[T], row, depth int) float32 {
 	return max(xmath.Ceil(height), n.MinimumRowHeight)
 }
 
-func (n *Node[T]) cellPrefSize(rowData *Node[T], row, col int, widthConstraint float32) unison.Size {
+func (n *Node[T]) cellPrefSize(rowData *Node[T], row, col int, widthConstraint float32) geom.Size32 {
 	fg, bg, selected, indirectlySelected, focused := n.cellParams(row, col)
 	cell := rowData.ColumnCell(row, col, fg, bg, selected, indirectlySelected, focused).AsPanel()
 	_, size, _ := cell.Sizes(unison.Size{Width: widthConstraint})
 	return size
 }
 
+// SizeColumnsToFitWithExcessIn sizes each column to its preferred size, with the exception of the column with the given
+// ID, which gets set to any remaining width left over. If the provided column ID doesn't exist, the first column will
+// be used instead.
 func (n *Node[T]) SizeColumnsToFitWithExcessIn(columnID int) {
 	excessColumnIndex := max(n.ColumnIndexForID(columnID), 0)
 	current := make([]float32, len(n.Columns))
@@ -1877,6 +1976,8 @@ func (n *Node[T]) SizeColumnsToFitWithExcessIn(columnID int) {
 	}
 }
 
+// SizeColumnsToFit sizes each column to its preferred size. If 'adjust' is true, the Node's FrameRect will be set to
+// its preferred size as well.
 func (n *Node[T]) SizeColumnsToFit(adjust bool) {
 	current := make([]float32, len(n.Columns))
 	for col := range n.Columns {
@@ -1918,6 +2019,8 @@ func (n *Node[T]) SizeColumnsToFit(adjust bool) {
 	}
 }
 
+// SizeColumnToFit sizes the specified column to its preferred size. If 'adjust' is true, the Node's FrameRect will be
+// set to its preferred size as well.
 func (n *Node[T]) SizeColumnToFit(col int, adjust bool) {
 	if col < 0 || col >= len(n.Columns) {
 		return
@@ -1955,6 +2058,9 @@ func (n *Node[T]) SizeColumnToFit(col int, adjust bool) {
 	}
 }
 
+// EventuallySizeColumnsToFit sizes each column to its preferred size after a short delay, allowing multiple
+// back-to-back calls to this function to only do work once. If 'adjust' is true, the Node's FrameRect will be set to
+// its preferred size as well.
 func (n *Node[T]) EventuallySizeColumnsToFit(adjust bool) {
 	if !n.awaitingSizeColumnsToFit {
 		n.awaitingSizeColumnsToFit = true
@@ -1965,6 +2071,8 @@ func (n *Node[T]) EventuallySizeColumnsToFit(adjust bool) {
 	}
 }
 
+// EventuallySyncToModel syncs the table to its underlying model after a short delay, allowing multiple back-to-back
+// calls to this function to only do work once.
 func (n *Node[T]) EventuallySyncToModel() {
 	if !n.awaitingSyncToModel {
 		n.awaitingSyncToModel = true
@@ -1975,6 +2083,7 @@ func (n *Node[T]) EventuallySyncToModel() {
 	}
 }
 
+// DefaultSizes provides the default sizing.
 func (n *Node[T]) DefaultSizes(_ unison.Size) (minSize, prefSize, maxSize unison.Size) {
 	for col := range n.Columns {
 		prefSize.Width += n.Columns[col].Current
@@ -1990,12 +2099,13 @@ func (n *Node[T]) DefaultSizes(_ unison.Size) (minSize, prefSize, maxSize unison
 		prefSize.Height += float32((endBeforeRow - startRow) - 1)
 	}
 	if border := n.Border(); border != nil {
-		prefSize = prefSize.Add(border.Insets().Size())
+		prefSize.AddInsets(border.Insets())
 	}
-	prefSize = prefSize.Ceil()
+	prefSize.GrowToInteger()
 	return prefSize, prefSize, prefSize
 }
 
+// RowFromIndex returns the row data for the given index.
 func (n *Node[T]) RowFromIndex(index int) *Node[T] {
 	if index < 0 || index >= len(n.rowCache) {
 		var zero *Node[T]
@@ -2004,6 +2114,7 @@ func (n *Node[T]) RowFromIndex(index int) *Node[T] {
 	return n.rowCache[index].row
 }
 
+// RowToIndex returns the row's index within the displayed data, or -1 if it isn't currently in the disclosed rows.
 func (n *Node[T]) RowToIndex(rowData *Node[T]) int {
 	id := rowData.UUID()
 	for row, data := range n.rowCache {
@@ -2014,26 +2125,34 @@ func (n *Node[T]) RowToIndex(rowData *Node[T]) int {
 	return -1
 }
 
+// LastRowIndex returns the index of the last row. Will be -1 if there are no rows.
 func (n *Node[T]) LastRowIndex() int {
 	return len(n.rowCache) - 1
 }
 
+// ScrollRowIntoView scrolls the row at the given index into view.
 func (n *Node[T]) ScrollRowIntoView(row int) {
-	if frame := n.RowFrame(row); !frame.Empty() {
+	if frame := n.RowFrame(row); !frame.IsEmpty() {
 		n.ScrollRectIntoView(frame)
 	}
 }
 
+// ScrollRowCellIntoView scrolls the cell from the row and column at the given indexes into view.
 func (n *Node[T]) ScrollRowCellIntoView(row, col int) {
-	if frame := n.CellFrame(row, col); !frame.Empty() {
+	if frame := n.CellFrame(row, col); !frame.IsEmpty() {
 		n.ScrollRectIntoView(frame)
 	}
 }
 
+// IsFiltered returns true if a filter is currently applied. When a filter is applied, no hierarchy is display and no
+// modifications to the row data should be performed.
 func (n *Node[T]) IsFiltered() bool {
 	return n.filteredRows != nil
 }
 
+// ApplyFilter applies a filter to the data. When a non-nil filter is applied, all rows (recursively) are passed through
+// the filter. Only those that the filter returns false for will be visible in the table. When a filter is applied, no
+// hierarchy is display and no modifications to the row data should be performed.
 func (n *Node[T]) ApplyFilter(filter func(row *Node[T]) bool) {
 	if filter == nil {
 		if n.filteredRows == nil {
@@ -2063,6 +2182,8 @@ func (n *Node[T]) applyFilter(row *Node[T], filter func(row *Node[T]) bool) {
 	}
 }
 
+// InstallDragSupport installs default drag support into a table. This will chain a function to any existing
+// MouseDragCallback.
 func (n *Node[T]) InstallDragSupport(svg *unison.SVG, dragKey, singularName, pluralName string) {
 	orig := n.MouseDragCallback
 	n.MouseDragCallback = func(where unison.Point, button int, mod unison.Modifiers) bool {
@@ -2087,6 +2208,13 @@ func (n *Node[T]) InstallDragSupport(svg *unison.SVG, dragKey, singularName, plu
 	}
 }
 
+// InstallDropSupport installs default drop support into a table. This will replace any existing DataDragOverCallback,
+// DataDragExitCallback, and DataDragDropCallback functions. It will also chain a function to any existing
+// DrawOverCallback. The shouldMoveDataCallback is called when a drop is about to occur to determine if the data should
+// be moved (i.e. removed from the source) or copied to the destination. The willDropCallback is called before the
+// actual data changes are made, giving an opportunity to start an undo event, which should be returned. The
+// didDropCallback is called after data changes are made and is passed the undo event (if any) returned by the
+// willDropCallback, so that the undo event can be completed and posted.
 func InstallDropSupport[T any, U any](t *Node[T], dragKey string, shouldMoveDataCallback func(from, to *Node[T]) bool, willDropCallback func(from, to *Node[T], move bool) *unison.UndoEdit[U], didDropCallback func(undo *unison.UndoEdit[U], from, to *Node[T], move bool)) *TableDrop[T, U] {
 	drop := &TableDrop[T, U]{
 		Table:                  t,
@@ -2103,6 +2231,7 @@ func InstallDropSupport[T any, U any](t *Node[T], dragKey string, shouldMoveData
 	return drop
 }
 
+// CountTableRows returns the number of table rows, including all descendants, whether open or not.
 func CountTableRows[T any](rows []*Node[T]) int {
 	count := len(rows)
 	for _, row := range rows {
@@ -2113,6 +2242,7 @@ func CountTableRows[T any](rows []*Node[T]) int {
 	return count
 }
 
+// RowContainsRow returns true if 'descendant' is in fact a descendant of 'ancestor'.
 func RowContainsRow[T any](ancestor, descendant *Node[T]) bool {
 	var zero *Node[T]
 	for descendant != zero && descendant != ancestor {

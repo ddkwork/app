@@ -14,10 +14,10 @@ import (
 	"github.com/richardwilkes/toolbox"
 	"github.com/richardwilkes/toolbox/txt"
 
-	"github.com/richardwilkes/unison"
-	"github.com/richardwilkes/unison/enums/align"
-	"github.com/richardwilkes/unison/enums/paintstyle"
-	"github.com/richardwilkes/unison/enums/pathop"
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/align"
+	"github.com/ddkwork/unison/enums/paintstyle"
+	"github.com/ddkwork/unison/enums/pathop"
 )
 
 type lineEndingType byte
@@ -198,11 +198,12 @@ func (f *Field) DefaultSizes(hint unison.Size) (minSize, prefSize, maxSize uniso
 	}
 	prefSize.Width += 2 // Allow room for the cursor on either side of the text
 	minWidth := f.MinimumTextWidth + 2 + insets.Width()
-	prefSize = prefSize.Add(insets.Size()).Ceil()
+	prefSize.AddInsets(insets)
+	prefSize.GrowToInteger()
 	if hint.Width >= 1 && hint.Width < minWidth {
 		hint.Width = minWidth
 	}
-	prefSize = prefSize.ConstrainForHint(hint)
+	prefSize.ConstrainForHint(hint)
 	if hint.Width > 0 && prefSize.Width < hint.Width {
 		prefSize.Width = hint.Width
 	}
@@ -321,7 +322,7 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 			if f.Watermark != "" {
 				text := unison.NewText(f.Watermark, &unison.TextDecoration{
 					Font: f.Font,
-					OnBackgroundInk: &unison.ColorFilteredInk{
+					Background: &unison.ColorFilteredInk{
 						OriginalInk: ink,
 						ColorFilter: unison.Alpha30Filter(),
 					},
@@ -340,35 +341,41 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 		} else {
 			var row *unison.Text
 			f.lines = make([]*unison.Text, 0) // todo remove top init
-			fnNewLine := func() {
-				if row != nil { // todo bug
-					f.lines = append(f.lines, row)
-					row = nil
-				}
-			}
 
-			decoration := &unison.TextDecoration{Font: unison.LabelFont}
-			fnInitRow := func() {
-				if row == nil {
-					row = unison.NewText("", decoration)
-				}
+			CodeBackground := unison.RGB(43, 43, 43)
+
+			decoration := &unison.TextDecoration{
+				Font:           unison.LabelFont,
+				Foreground:     CodeBackground,
+				Background:     CodeBackground,
+				BaselineOffset: 0,
+				Underline:      false,
+				StrikeThrough:  false,
+			}
+			fnNewLine := func() {
+				f.lines = append(f.lines, row)
+				row = nil
 			}
 
 			for _, token := range f.tokens {
 				tokenColor := getTokenColor(f.codeStyle, token)
-				decoration.OnBackgroundInk = tokenColor
-				fnInitRow()
+				decoration.Background = tokenColor
+				//decoration.Foreground = tokenColor
+				if row == nil {
+					row = unison.NewText("", decoration)
+				}
 				switch token.Type {
 				case chroma.Text:
 					for _, v := range token.Value {
+						if row == nil {
+							row = unison.NewText("", decoration)
+						}
 						switch v {
 						case '\n':
 							fnNewLine()
 						case '\t':
-							fnInitRow()
 							row.AddString(indent, decoration)
 						default:
-							fnInitRow()
 							row.AddString(string(v), decoration)
 						}
 					}
@@ -394,8 +401,8 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 					selEnd := min(f.selectionEnd, end)
 					if selStart > start {
 						t := unison.NewTextFromRunes(f.obscureIfNeeded(f.runes[start:selStart]), &unison.TextDecoration{
-							Font:            f.Font,
-							OnBackgroundInk: ink,
+							Font:       f.Font,
+							Background: ink,
 						})
 						t.Draw(canvas, left, textBaseLine)
 						left += t.Width()
@@ -405,8 +412,8 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 						e--
 					}
 					t := unison.NewTextFromRunes(f.obscureIfNeeded(f.runes[selStart:e]), &unison.TextDecoration{
-						Font:            f.Font,
-						OnBackgroundInk: f.OnSelectionInk,
+						Font:       f.Font,
+						Background: f.OnSelectionInk,
 					})
 					right := left + t.Width()
 					selRect := unison.Rect{
@@ -421,15 +428,15 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 							e--
 						}
 						unison.NewTextFromRunes(f.obscureIfNeeded(f.runes[selEnd:e]), &unison.TextDecoration{
-							Font:            f.Font,
-							OnBackgroundInk: ink,
+							Font:       f.Font,
+							Background: ink,
 						}).Draw(canvas, right, textBaseLine)
 					}
 				} else {
-					//line.AdjustDecorations(func(decoration *unison.TextDecoration) {
-					//	// decoration.Foreground = ink //todo remove this? we need append color slice?
-					//	decoration.Foreground = ink // todo remove this? we need append color slice?
-					//})
+					line.AdjustDecorations(func(decoration *unison.TextDecoration) {
+						// decoration.Foreground = ink //todo remove this? we need append color slice?
+						decoration.Foreground = unison.Black // todo remove this? we need append color slice?
+					})
 					line.Draw(canvas, textLeft+f.scrollOffset.X, textBaseLine)
 				}
 				if !hasSelectionRange && enabled && focused && f.selectionEnd >= start && (f.selectionEnd < end || (!f.multiLine && f.selectionEnd <= end)) {

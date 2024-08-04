@@ -6,3 +6,4 @@ bindgen/astCC/sdk-api-docs.zip
 reset git.cmd
 bindgen/project/zydis/merge/amalgamated-dist
 cmake-build-debug
+widget新版本bug，无法调试.tar

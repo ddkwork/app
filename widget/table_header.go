@@ -1,27 +1,40 @@
+// Copyright ©2021-2022 by Richard A. Wilkes. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, version 2.0. If a copy of the MPL was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+// This Source Code Form is "Incompatible With Secondary Licenses", as
+// defined by the Mozilla Public License, version 2.0.
+
 package widget
 
 import (
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/paintstyle"
 	"slices"
 	"sort"
 
-	"github.com/richardwilkes/unison"
-
 	"github.com/richardwilkes/toolbox/txt"
 	"github.com/richardwilkes/toolbox/xmath"
-	"github.com/richardwilkes/unison/enums/paintstyle"
 )
 
+// DefaultTableHeaderTheme holds the default TableHeaderTheme values for TableHeaders. Modifying this data will not
+// alter existing TableHeaders, but will alter any TableHeaders created in the future.
 var DefaultTableHeaderTheme = TableHeaderTheme{
-	BackgroundInk:        unison.ThemeAboveSurface,
-	InteriorDividerColor: unison.ThemeAboveSurface,
+	BackgroundInk:        unison.ControlColor,
+	InteriorDividerColor: unison.InteriorDividerColor,
+	HeaderBorder:         unison.NewLineBorder(unison.InteriorDividerColor, 0, unison.Insets{Bottom: 1}, false),
 }
 
+// TableHeaderTheme holds theming data for a TableHeader.
 type TableHeaderTheme struct {
 	BackgroundInk        unison.Ink
 	InteriorDividerColor unison.Ink
 	HeaderBorder         unison.Border
 }
 
+// TableHeader provides a header for a Node.
 type TableHeader[T any] struct {
 	unison.Panel
 	TableHeaderTheme
@@ -35,6 +48,7 @@ type TableHeader[T any] struct {
 	inHeader             bool
 }
 
+// NewTableHeader creates a new TableHeader.
 func NewTableHeader[T any](table *Node[T], columnHeaders ...TableColumnHeader[T]) *TableHeader[T] {
 	h := &TableHeader[T]{
 		TableHeaderTheme: DefaultTableHeaderTheme,
@@ -56,6 +70,7 @@ func NewTableHeader[T any](table *Node[T], columnHeaders ...TableColumnHeader[T]
 	return h
 }
 
+// DefaultSizes provides the default sizing.
 func (h *TableHeader[T]) DefaultSizes(_ unison.Size) (minSize, prefSize, maxSize unison.Size) {
 	prefSize.Width = h.table.FrameRect().Size.Width
 	prefSize.Height = h.heightForColumns()
@@ -63,9 +78,10 @@ func (h *TableHeader[T]) DefaultSizes(_ unison.Size) (minSize, prefSize, maxSize
 		insets := border.Insets()
 		prefSize.Height += insets.Height()
 	}
-	return unison.Size{Width: 16, Height: prefSize.Height}, prefSize, prefSize
+	return unison.NewSize(16, prefSize.Height), prefSize, prefSize
 }
 
+// ColumnFrame returns the frame of the given column.
 func (h *TableHeader[T]) ColumnFrame(col int) unison.Rect {
 	if col < 0 || col >= len(h.table.Columns) {
 		return unison.Rect{}
@@ -78,10 +94,9 @@ func (h *TableHeader[T]) ColumnFrame(col int) unison.Rect {
 			x++
 		}
 	}
-	return unison.Rect{
-		Point: unison.Point{X: x, Y: insets.Top},
-		Size:  unison.Size{Width: h.table.Columns[col].Current, Height: h.FrameRect().Height - insets.Height()},
-	}.Inset(h.table.Padding)
+	rect := unison.NewRect(x, insets.Top, h.table.Columns[col].Current, h.FrameRect().Height-insets.Height())
+	rect.Inset(h.table.Padding)
+	return rect
 }
 
 func (h *TableHeader[T]) heightForColumns() float32 {
@@ -120,6 +135,7 @@ func (h *TableHeader[T]) combinedInsets() unison.Insets {
 	return insets
 }
 
+// DefaultDraw provides the default drawing.
 func (h *TableHeader[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 	canvas.DrawRect(dirty, h.BackgroundInk.Paint(canvas, dirty, paintstyle.Fill))
 
@@ -156,7 +172,8 @@ func (h *TableHeader[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 	lastX := dirty.Right()
 	for c := firstCol; c < len(h.table.Columns) && rect.X < lastX; c++ {
 		rect.Width = h.table.Columns[c].Current
-		cellRect := rect.Inset(h.table.Padding)
+		cellRect := rect
+		cellRect.Inset(h.table.Padding)
 		if c < len(h.ColumnHeaders) {
 			cell := h.ColumnHeaders[c].AsPanel()
 			h.installCell(cell, cellRect)
@@ -178,7 +195,6 @@ func (h *TableHeader[T]) DefaultDraw(canvas *unison.Canvas, dirty unison.Rect) {
 func (h *TableHeader[T]) installCell(cell *unison.Panel, frame unison.Rect) {
 	cell.SetFrameRect(frame)
 	cell.ValidateLayout()
-
 	h.AsPanel().AddChild(cell)
 }
 
@@ -186,6 +202,7 @@ func (h *TableHeader[T]) uninstallCell(cell *unison.Panel) {
 	cell.RemoveFromParent()
 }
 
+// DefaultUpdateCursorCallback provides the default cursor update handling.
 func (h *TableHeader[T]) DefaultUpdateCursorCallback(where unison.Point) *unison.Cursor {
 	if !h.table.PreventUserColumnResize {
 		if over := h.table.OverColumnDivider(where.X); over != -1 {
@@ -199,7 +216,8 @@ func (h *TableHeader[T]) DefaultUpdateCursorCallback(where unison.Point) *unison
 		if cell.UpdateCursorCallback != nil {
 			rect := h.ColumnFrame(col)
 			h.installCell(cell, rect)
-			cursor := cell.UpdateCursorCallback(where.Sub(rect.Point))
+			where.Subtract(rect.Point)
+			cursor := cell.UpdateCursorCallback(where)
 			h.uninstallCell(cell)
 			return cursor
 		}
@@ -207,26 +225,33 @@ func (h *TableHeader[T]) DefaultUpdateCursorCallback(where unison.Point) *unison
 	return nil
 }
 
-func (h *TableHeader[T]) DefaultUpdateTooltipCallback(where unison.Point, _ unison.Rect) unison.Rect {
+// DefaultUpdateTooltipCallback provides the default tooltip update handling.
+func (h *TableHeader[T]) DefaultUpdateTooltipCallback(where unison.Point, suggestedAvoidInRoot unison.Rect) unison.Rect {
 	if col := h.table.OverColumn(where.X); col != -1 {
 		cell := h.ColumnHeaders[col].AsPanel()
 		if cell.UpdateTooltipCallback != nil {
 			rect := h.ColumnFrame(col)
 			h.installCell(cell, rect)
-			avoid := cell.UpdateTooltipCallback(where.Sub(rect.Point), h.RectToRoot(rect).Align())
+			where.Subtract(rect.Point)
+			rect = h.RectToRoot(rect)
+			rect.Align()
+			avoid := cell.UpdateTooltipCallback(where, rect)
 			h.Tooltip = cell.Tooltip
 			h.uninstallCell(cell)
 			return avoid
 		}
 		if cell.Tooltip != nil {
 			h.Tooltip = cell.Tooltip
-			return h.RectToRoot(h.ColumnFrame(col)).Align()
+			suggestedAvoidInRoot = h.RectToRoot(h.ColumnFrame(col))
+			suggestedAvoidInRoot.Align()
+			return suggestedAvoidInRoot
 		}
 	}
 	h.Tooltip = nil
 	return unison.Rect{}
 }
 
+// DefaultMouseMove provides the default mouse move handling.
 func (h *TableHeader[T]) DefaultMouseMove(where unison.Point, mod unison.Modifiers) bool {
 	stop := false
 	if col := h.table.OverColumn(where.X); col != -1 {
@@ -234,13 +259,15 @@ func (h *TableHeader[T]) DefaultMouseMove(where unison.Point, mod unison.Modifie
 		if cell.MouseMoveCallback != nil {
 			rect := h.ColumnFrame(col)
 			h.installCell(cell, rect)
-			stop = cell.MouseMoveCallback(where.Sub(rect.Point), mod)
+			where.Subtract(rect.Point)
+			stop = cell.MouseMoveCallback(where, mod)
 			h.uninstallCell(cell)
 		}
 	}
 	return stop
 }
 
+// DefaultMouseDown provides the default mouse down handling.
 func (h *TableHeader[T]) DefaultMouseDown(where unison.Point, button, clickCount int, mod unison.Modifiers) bool {
 	h.interactionColumn = -1
 	h.inHeader = false
@@ -278,13 +305,15 @@ func (h *TableHeader[T]) DefaultMouseDown(where unison.Point, button, clickCount
 		if cell.MouseDownCallback != nil {
 			rect := h.ColumnFrame(col)
 			h.installCell(cell, rect)
-			stop = cell.MouseDownCallback(where.Sub(rect.Point), button, clickCount, mod)
+			where.Subtract(rect.Point)
+			stop = cell.MouseDownCallback(where, button, clickCount, mod)
 			h.uninstallCell(cell)
 		}
 	}
 	return stop
 }
 
+// DefaultMouseDrag provides the default mouse drag handling.
 func (h *TableHeader[T]) DefaultMouseDrag(where unison.Point, _ int, _ unison.Modifiers) bool {
 	if !h.table.PreventUserColumnResize && !h.inHeader && h.interactionColumn != -1 {
 		width := h.columnResizeBase + where.X - h.columnResizeStart
@@ -310,6 +339,7 @@ func (h *TableHeader[T]) DefaultMouseDrag(where unison.Point, _ int, _ unison.Mo
 	return false
 }
 
+// DefaultMouseUp provides the default mouse up handling.
 func (h *TableHeader[T]) DefaultMouseUp(where unison.Point, button int, mod unison.Modifiers) bool {
 	stop := false
 	if h.inHeader && h.interactionColumn != -1 {
@@ -317,13 +347,16 @@ func (h *TableHeader[T]) DefaultMouseUp(where unison.Point, button int, mod unis
 		if cell.MouseUpCallback != nil {
 			rect := h.ColumnFrame(h.interactionColumn)
 			h.installCell(cell, rect)
-			stop = cell.MouseUpCallback(where.Sub(rect.Point), button, mod)
+			where.Subtract(rect.Point)
+			stop = cell.MouseUpCallback(where, button, mod)
 			h.uninstallCell(cell)
 		}
 	}
 	return stop
 }
 
+// SortOn adjusts the sort such that the specified header is the primary sort column. If the header was already the
+// primary sort column, then its ascending/descending flag will be flipped instead.
 func (h *TableHeader[T]) SortOn(header TableColumnHeader[T]) {
 	if header.SortState().Sortable {
 		headers := make([]TableColumnHeader[T], len(h.ColumnHeaders))
@@ -370,6 +403,7 @@ type headerWithIndex[T any] struct {
 	header TableColumnHeader[T]
 }
 
+// HasSort returns true if at least one column is marked for sorting.
 func (h *TableHeader[T]) HasSort() bool {
 	for _, hdr := range h.ColumnHeaders {
 		if ss := hdr.SortState(); ss.Sortable && ss.Order >= 0 {
@@ -379,6 +413,7 @@ func (h *TableHeader[T]) HasSort() bool {
 	return false
 }
 
+// ApplySort sorts the table according to the current sort criteria.
 func (h *TableHeader[T]) ApplySort() {
 	headers := make([]*headerWithIndex[T], len(h.ColumnHeaders))
 	for i, hdr := range h.ColumnHeaders {
@@ -408,7 +443,7 @@ func (h *TableHeader[T]) ApplySort() {
 	if h.table.filteredRows == nil {
 		roots := slices.Clone(h.table.RootRows())
 		h.applySort(headers, roots)
-		h.table.SetRootRows(roots)
+		h.table.SetRootRows(roots) // Avoid resetting the selection by directly updating the model
 	} else {
 		h.applySort(headers, h.table.filteredRows)
 	}

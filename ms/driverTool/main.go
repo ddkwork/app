@@ -12,7 +12,7 @@ import (
 	"github.com/ddkwork/app"
 	"github.com/ddkwork/app/widget"
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/richardwilkes/unison"
+	"github.com/ddkwork/unison"
 )
 
 //go:embed icon.png

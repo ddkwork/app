@@ -1,14 +1,24 @@
+// Copyright ©2021-2022 by Richard A. Wilkes. All rights reserved.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, version 2.0. If a copy of the MPL was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+// This Source Code Form is "Incompatible With Secondary Licenses", as
+// defined by the Mozilla Public License, version 2.0.
+
 package widget
 
 import (
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/paintstyle"
 	"slices"
 
-	"github.com/richardwilkes/unison"
-
 	"github.com/google/uuid"
-	"github.com/richardwilkes/unison/enums/paintstyle"
 )
 
+// TableDrop provides default support for dropping data into a table. This should only be instantiated by a call to
+// Node.InstallDropSupport().
 type TableDrop[T any, U any] struct {
 	Table                  *Node[T]
 	DragKey                string
@@ -25,13 +35,15 @@ type TableDrop[T any, U any] struct {
 	inDragOver             bool
 }
 
+// DrawOverCallback handles drawing the drop zone feedback.
 func (d *TableDrop[T, U]) DrawOverCallback(gc *unison.Canvas, rect unison.Rect) {
 	if d.originalDrawOver != nil {
 		d.originalDrawOver(gc, rect)
 	}
 	if d.inDragOver {
-		r := d.Table.ContentRect(false).Inset(unison.NewUniformInsets(1))
-		paint := unison.ThemeWarning.Paint(gc, r, paintstyle.Stroke)
+		r := d.Table.ContentRect(false)
+		r.Inset(unison.NewUniformInsets(1))
+		paint := unison.DropAreaColor.Paint(gc, r, paintstyle.Stroke)
 		paint.SetStrokeWidth(2)
 		paint.SetColorFilter(unison.Alpha30Filter())
 		gc.DrawRect(r, paint)
@@ -41,6 +53,7 @@ func (d *TableDrop[T, U]) DrawOverCallback(gc *unison.Canvas, rect unison.Rect) 
 	}
 }
 
+// DataDragOverCallback handles determining if a given drag is one that we are interested in.
 func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[string]any) bool {
 	if d.Table.filteredRows != nil {
 		return false
@@ -54,7 +67,7 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 			contentRect := d.Table.ContentRect(false)
 			hierarchyColumnIndex := d.Table.ColumnIndexForID(d.Table.HierarchyColumnID)
 			if where.Y >= contentRect.Bottom()-2 {
-
+				// Over bottom edge, adding to end of top-level rows
 				d.TargetParent = zero
 				d.TargetIndex = d.Table.RootRowCount()
 				rect := d.Table.RowFrame(last)
@@ -64,23 +77,23 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 				return true
 			}
 			if rowIndex := d.Table.OverRow(where.Y); rowIndex != -1 {
-
+				// Over row
 				d.TargetIndex = -1
 				row := d.Table.RowFromIndex(rowIndex)
 				rect := d.Table.CellFrame(rowIndex, max(hierarchyColumnIndex, 0))
 				if where.Y >= d.Table.RowFrame(rowIndex).CenterY() {
 					d.top = min(rect.Bottom()+1+d.Table.Padding.Bottom, contentRect.Bottom()-1)
 					d.left = rect.X
-
+					// Over lower half of row
 					if row.CanHaveChildren() {
-
+						// Row is a container; add to container at index 0
 						d.TargetParent = row
 						d.TargetIndex = 0
 						if hierarchyColumnIndex != -1 {
 							d.left += d.Table.HierarchyIndent
 						}
 					} else {
-
+						// Row is not a container; add as sibling below this row
 						d.TargetParent = row.Parent()
 						if row = d.Table.RowFromIndex(rowIndex + 1); row == zero {
 							if d.TargetParent == zero {
@@ -91,7 +104,7 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 						}
 					}
 				} else {
-
+					// Over upper half of row; add to parent of this row at this row's index
 					d.TargetParent = row.Parent()
 					d.top = max(rect.Y-d.Table.Padding.Bottom, 1)
 					d.left = rect.X
@@ -113,11 +126,11 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 						d.TargetIndex = len(children)
 					}
 				}
-
+				// Check to make sure we aren't trying to drop into the items being moved
 				if d.TargetParent != zero && d.TableDragData.Table == d.Table {
 					for _, r := range d.TableDragData.Rows {
 						if RowContainsRow(r, d.TargetParent) {
-
+							// Can't drop into itself, so abort
 							d.inDragOver = false
 							d.TargetParent = zero
 							break
@@ -127,7 +140,7 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 				d.Table.MarkForRedraw()
 				return true
 			}
-
+			// Not over any row, adding to end of top-level rows
 			d.TargetParent = zero
 			d.TargetIndex = d.Table.RootRowCount()
 			rect := d.Table.RowFrame(last)
@@ -140,6 +153,7 @@ func (d *TableDrop[T, U]) DataDragOverCallback(where unison.Point, data map[stri
 	return false
 }
 
+// DataDragExitCallback handles resetting the state when a drag is no longer of interest.
 func (d *TableDrop[T, U]) DataDragExitCallback() {
 	d.inDragOver = false
 	var zero *Node[T]
@@ -147,6 +161,7 @@ func (d *TableDrop[T, U]) DataDragExitCallback() {
 	d.Table.MarkForRedraw()
 }
 
+// DataDragDropCallback handles processing a drop.
 func (d *TableDrop[T, U]) DataDragDropCallback(_ unison.Point, data map[string]any) {
 	var savedScrollX, savedScrollY float32
 	if scroller := d.Table.ScrollRoot(); scroller != nil {
@@ -168,7 +183,7 @@ func (d *TableDrop[T, U]) DataDragDropCallback(_ unison.Point, data map[string]a
 		}
 		rows := slices.Clone(d.TableDragData.Rows)
 		if move {
-
+			// Remove the drag rows from their original places
 			commonParents := collectCommonParents(rows)
 			for parent, list := range commonParents {
 				var children []*Node[T]
@@ -187,21 +202,25 @@ func (d *TableDrop[T, U]) DataDragDropCallback(_ unison.Point, data map[string]a
 			d.TableDragData.Table.ClearSelection()
 			d.TableDragData.Table.SyncToModel()
 
+			// Set the new parent
 			for _, row := range rows {
 				row.SetParent(d.TargetParent)
 			}
 
+			// Notify the source table if it is different from the destination
 			if d.Table != d.TableDragData.Table {
 				if d.Table != d.TableDragData.Table && d.TableDragData.Table.DragRemovedRowsCallback != nil {
 					d.TableDragData.Table.DragRemovedRowsCallback()
 				}
 			}
 		} else {
+			// Make a copy of the data
 			for i, row := range rows {
 				rows[i] = row.CloneForTarget(d.Table, d.TargetParent)
 			}
 		}
 
+		// Insert the rows into their new location
 		var targetRows []*Node[T]
 		if d.TargetParent == zero {
 			targetRows = d.Table.RootRows()
@@ -216,12 +235,14 @@ func (d *TableDrop[T, U]) DataDragDropCallback(_ unison.Point, data map[string]a
 			d.Table.SyncToModel()
 		}
 
+		// Restore selection
 		selMap := make(map[uuid.UUID]bool, len(rows))
 		for _, row := range rows {
 			selMap[row.UUID()] = true
 		}
 		d.Table.SetSelectionMap(selMap)
 
+		// Notify the destination table
 		if d.Table.DropOccurredCallback != nil {
 			d.Table.DropOccurredCallback()
 		}
