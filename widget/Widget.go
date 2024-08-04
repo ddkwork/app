@@ -208,7 +208,8 @@ func NewButton(Text string, ClickCallback func()) *unison.Button {
 		if b.Drawable != nil {
 			sizedDrawable, ok := b.Drawable.(*unison.SizedDrawable)
 			if ok {
-				sizedDrawable.Size = sizedDrawable.Size.Sub(unison.NewSize(1, 1))
+				sizedDrawable.Size.Width -= 1
+				sizedDrawable.Size.Height -= 1
 				b.Drawable = sizedDrawable
 			}
 		}
