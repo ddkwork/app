@@ -26,13 +26,6 @@ func TestMergeHeader(t *testing.T) {
 		return nil
 	})
 	b.ReplaceAll(`#include "include/c/sk_types.h"`, ``)
-	//	b.ReplaceAll(`
-	//#include <stdint.h>
-	//#include <stddef.h>`, `
-	////#include <stdint.h>
-	////#include <stddef.h>
-	//`)
-
 }
 
 func TestBindSkia(t *testing.T) {
