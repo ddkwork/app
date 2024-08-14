@@ -419,7 +419,7 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
 		label := unison.NewLabel()
-		label.Text = (field.Name)
+		label.Text = field.Name
 		Columns = append(Columns, ColumnInfo{
 			ID:          i,
 			Current:     0,

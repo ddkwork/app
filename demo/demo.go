@@ -67,6 +67,15 @@ func layout() unison.Paneler {
 
 		},
 		SetRootRowsCallBack: func(root *widget.Node[Data]) {
+			containerSum := widget.NewContainerNode("all", Data{
+				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
+				//Trade:  MeatKind,
+				//Seller: "杨学春",
+				//Name:   "",
+				//Amount: 19.4 * 45,
+				//Note:   "二流",
+			})
+
 			container := widget.NewContainerNode("8号", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
 				//Trade:  MeatKind,
@@ -381,9 +390,9 @@ func layout() unison.Paneler {
 				Note:   "支付宝，买菜",
 			})
 
-			root.AddChild(container)
-			root.AddChild(giftContainer)
-
+			containerSum.AddChild(container)
+			containerSum.AddChild(giftContainer)
+			root.AddChild(containerSum)
 		},
 		JsonName:   "demo",
 		IsDocument: false,
