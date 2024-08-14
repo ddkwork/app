@@ -134,7 +134,10 @@ func (h *DefaultTableColumnHeader[T]) SetSortState(state unison.SortState) {
 }
 
 // DefaultMouseUp provides the default mouse up handling.
-func (h *DefaultTableColumnHeader[T]) DefaultMouseUp(where unison.Point, _ int, _ unison.Modifiers) bool {
+func (h *DefaultTableColumnHeader[T]) DefaultMouseUp(where unison.Point, button int, _ unison.Modifiers) bool {
+	if button == unison.ButtonRight {
+		return false
+	}
 	if h.sortState.Sortable && h.ContentRect(false).ContainsPoint(where) {
 		if header, ok := h.Parent().Self.(*TableHeader[T]); ok {
 			header.SortOn(h)
