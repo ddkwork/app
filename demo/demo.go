@@ -35,12 +35,9 @@ func layout() unison.Paneler {
 			sum := 0.00
 			if node.Container() {
 				timeFmt = node.Sum()
-				for _, child := range node.Children {
-					sum += child.Data.Amount //todo bug
-				}
-				//node.Walk(func(node *widget.Node[Data]) {
-				//	sum += node.Data.Amount //todo bug
-				//})
+				node.Walk(func(node *widget.Node[Data]) {
+					sum += node.Data.Amount
+				})
 				sumFmt = strconv.FormatFloat(sum, 'f', 2, 64)
 				trade = ""
 			}
