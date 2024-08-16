@@ -418,6 +418,7 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	fields := stream.ReflectVisibleFields(data)
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
+		field.Name = i18n.Text(field.Name)
 		label := unison.NewLabel()
 		label.Text = field.Name
 		Columns = append(Columns, ColumnInfo{
