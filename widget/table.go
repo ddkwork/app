@@ -393,6 +393,9 @@ func addWrappedText(parent *unison.Panel, ink unison.Ink, font unison.Font, data
 		label.Text = line.String()
 		label.Font = font
 		label.LabelTheme.OnBackgroundInk = ink
+		if data.FgColor != 0 {
+			label.LabelTheme.OnBackgroundInk = data.FgColor
+		}
 		if data.Disabled {
 			label.LabelTheme.OnBackgroundInk = unison.DarkRed
 		}
