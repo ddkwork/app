@@ -419,6 +419,9 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
 		field.Name = i18n.Text(field.Name)
+		if field.Tag.Get("table") != "_" {
+			field.Name = field.Tag.Get("table")
+		}
 		label := unison.NewLabel()
 		label.Text = field.Name
 		Columns = append(Columns, ColumnInfo{
