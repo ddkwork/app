@@ -214,6 +214,9 @@ func (n *Node[T]) Sum() string {
 	// container column 0 key is empty string
 	key := n.Type
 	key = strings.TrimSuffix(key, ContainerKeyPostfix)
+	if n.LenChildren() == 0 {
+		return key
+	}
 	key += " (" + fmt.Sprint(n.LenChildren()) + ")"
 	return key
 }
