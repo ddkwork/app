@@ -41,7 +41,6 @@ func ConvertToContainer[T any](table *Node[T]) {
 		if data := row; data != nil && !data.Container() {
 			data.SetType(data.GetType() + ContainerKeyPostfix)
 			data.SetOpen(true)
-			println()
 		}
 	}
 	if len(before.Children) > 0 {

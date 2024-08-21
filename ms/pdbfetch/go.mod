@@ -1,6 +1,6 @@
 module pdbfetch
 
-go 1.23
+go 1.23.0
 
 require github.com/edsrzf/mmap-go v1.1.0
 
