@@ -2271,7 +2271,7 @@ func (n *Node[T]) RemoveFromParent() {
 	n.parent.Remove(n.ID)
 }
 
-func (n *Node[T]) Remove(id uuid.UUID) {
+func (n *Node[T]) Remove(id uuid.UUID) { //todo add remove callback
 	if n.ID == id {
 		n.parent.Remove(id)
 		return
