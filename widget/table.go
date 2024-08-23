@@ -727,9 +727,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			Do: func(a any) {
 				rows := n.SelectedRows(false)
 				for _, row := range rows {
-					//mylog.Todo("bug: deleting a node doesn'n update the model")
-					//row.Children = slices.Delete(row.Children, i, i+1)
-					n.Remove(row.ID)
+					row.Remove(row.ID)
 				}
 				n.SyncToModel()
 			},
