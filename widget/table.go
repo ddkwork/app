@@ -699,12 +699,12 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
-				node := NewNode(data)
+				//node := NewNode(data)
 				rows := n.SelectedRows(false)
 				for _, row := range rows {
-					row.AddChild(node)
-					n.SyncToModel()
+					row.AddChildByData(row.Data)
 				}
+				n.SyncToModel()
 			},
 		},
 		ContextMenuItem{
@@ -712,12 +712,12 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
-				container := NewContainerNode(n.Type, data)
+				//container := NewContainerNode(n.Type, data)
 				rows := n.SelectedRows(false)
 				for _, row := range rows {
-					row.AddChild(container)
-					n.SyncToModel()
+					row.AddContainerByData(row.Type, row.Data)
 				}
+				n.SyncToModel()
 			},
 		},
 		ContextMenuItem{
