@@ -695,7 +695,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			Do:    func(a any) { ConvertToNonContainer(n) },
 		},
 		ContextMenuItem{
-			Title: "NewNode",
+			Title: "New",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
@@ -708,7 +708,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			},
 		},
 		ContextMenuItem{
-			Title: "NewContainerNode",
+			Title: "NewContainer",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
@@ -721,20 +721,21 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			},
 		},
 		ContextMenuItem{
-			Title: "DeleteNode",
+			Title: "Delete",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
 				rows := n.SelectedRows(false)
-				for i, row := range rows {
-					mylog.Todo("bug: deleting a node doesn'n update the model")
-					slices.Delete(row.Children, i, i+1)
+				for _, row := range rows {
+					//mylog.Todo("bug: deleting a node doesn'n update the model")
+					//row.Children = slices.Delete(row.Children, i, i+1)
+					n.Remove(row.ID)
 				}
 				n.SyncToModel()
 			},
 		},
 		ContextMenuItem{
-			Title: "duplicateNode",
+			Title: "duplicate",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
@@ -746,7 +747,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			},
 		},
 		ContextMenuItem{
-			Title: "EditNode",
+			Title: "Edit",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do:    func(a any) { mylog.Todo("implement edit node") },
@@ -2273,12 +2274,17 @@ func (n *Node[T]) RemoveFromParent() {
 }
 
 func (n *Node[T]) Remove(id uuid.UUID) {
+	if n.ID == id {
+		n.parent.Remove(id)
+		return
+	}
 	for i, child := range n.Children {
 		if child.ID == id {
 			n.Children = slices.Delete(n.Children, i, i+1)
-			break
+			return
 		}
 	}
+	mylog.Check("Node not found in parent")
 }
 
 func (n *Node[T]) Find(id uuid.UUID) *Node[T] {
