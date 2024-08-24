@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.0-20240807032548-2d6a9a212679
+	github.com/ddkwork/golibrary v0.0.0-20240824094649-0784b16f2688
 	github.com/ebitengine/purego v0.8.0-alpha.3.0.20240717153933-b9dbbd0c9d2c
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
@@ -27,8 +27,8 @@ require (
 	github.com/zyantific/zydis-go v1.2.1
 	golang.org/x/arch v0.8.0
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
-	golang.org/x/sync v0.7.0
-	golang.org/x/sys v0.22.0
+	golang.org/x/sync v0.8.0
+	golang.org/x/sys v0.24.0
 )
 
 require (
@@ -57,10 +57,10 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/mod v0.19.0 // indirect
-	golang.org/x/term v0.22.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.23.0 // indirect
+	golang.org/x/mod v0.20.0 // indirect
+	golang.org/x/term v0.23.0 // indirect
+	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/tools v0.24.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/gofumpt v0.7.0 // indirect
