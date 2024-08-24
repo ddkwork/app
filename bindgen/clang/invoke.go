@@ -173,7 +173,7 @@ func switchStruct(src string) string {
 		}
 
 		//debug
-		//if strings.Contains(line, "typedef struct SYMBOL") {
+		//if strings.Has(line, "typedef struct SYMBOL") {
 		//	println()
 		//}
 
@@ -185,7 +185,7 @@ func switchStruct(src string) string {
 					continue
 				}
 			}
-			//if strings.Contains(line, ";") || strings.Contains(line, "*") || strings.Contains(line, "_") {
+			//if strings.Has(line, ";") || strings.Has(line, "*") || strings.Has(line, "_") {
 			//	continue
 			//}
 			start = i

@@ -3898,10 +3898,10 @@ type DecodedInstruction struct {
 type DecoderContext struct {
 	// A pointer to the internal instruction definition.
 	Definition unsafe.Pointer
-	// Contains the effective operand-size index.
+	// Has the effective operand-size index.
 	// 0 = 16 bit, 1 = 32 bit, 2 = 64 bit
 	EoszIndex U8
-	// Contains the effective address-size index.
+	// Has the effective address-size index.
 	// 0 = 16 bit, 1 = 32 bit, 2 = 64 bit
 	EaszIndex     U8
 	VectorUnified Anon6463_5

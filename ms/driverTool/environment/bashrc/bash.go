@@ -69,7 +69,7 @@ func (o *object) UpdateBash() string {
 	//		if !ok {
 	//			return ""
 	//		}
-	//		if strings.Contains(lines[0], "source") {
+	//		if strings.Has(lines[0], "source") {
 	//			b.Reset()
 	//			if !mylog.Error2(b.WriteString(strings.Replace(string(buf), lines[0], bash, 1))) {
 	//				return ""
