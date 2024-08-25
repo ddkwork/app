@@ -547,8 +547,12 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 //go:embed EditIni.png
 var rowPngBuffer []byte
 
+func NewRoot[T any](data T) *Node[T] {
+	return NewContainerNode("root", data)
+}
+
 func newTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *TableHeader[T]) {
-	root := NewContainerNode("root", data)
+	root := NewRoot(data)
 	root.MarshalRow = ctx.MarshalRow
 	// root.contextMenuItems = ctx.ContextMenuItems
 	// root.root = root
@@ -2324,6 +2328,16 @@ func (n *Node[T]) WalkQueue(callback func(node *Node[T])) {
 			queue = append(queue, child)
 		}
 	}
+}
+
+func (n *Node[T]) Containers() []*Node[T] {
+	containers := make([]*Node[T], 0)
+	for _, child := range n.Children {
+		if child.Container() {
+			containers = append(containers, child)
+		}
+	}
+	return containers
 }
 
 func (n *Node[T]) WalkContainer(callback func(node *Node[T])) {
