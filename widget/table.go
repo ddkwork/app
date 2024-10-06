@@ -424,8 +424,8 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	fields := stream.ReflectVisibleFields(data)
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
-		field.Name = i18n.Text(field.Name)
-		if field.Tag.Get("table") != "_" {
+		//field.Name = i18n.Text(field.Name)
+		if field.Tag.Get("table") != "" {
 			field.Name = field.Tag.Get("table")
 		}
 		label := unison.NewLabel()
