@@ -11,8 +11,8 @@ import (
 	"github.com/ddkwork/golibrary/stream"
 
 	"github.com/alecthomas/chroma/v2"
-	"github.com/richardwilkes/toolbox"
-	"github.com/richardwilkes/toolbox/txt"
+	"github.com/ddkwork/toolbox"
+	"github.com/ddkwork/toolbox/txt"
 
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/enums/align"

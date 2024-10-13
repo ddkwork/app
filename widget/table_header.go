@@ -15,8 +15,8 @@ import (
 	"slices"
 	"sort"
 
-	"github.com/richardwilkes/toolbox/txt"
-	"github.com/richardwilkes/toolbox/xmath"
+	"github.com/ddkwork/toolbox/txt"
+	"github.com/ddkwork/toolbox/xmath"
 )
 
 // DefaultTableHeaderTheme holds the default TableHeaderTheme values for TableHeaders. Modifying this data will not

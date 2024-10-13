@@ -9,7 +9,7 @@ import (
 
 	"github.com/ddkwork/golibrary/stream/languages"
 
-	"github.com/richardwilkes/toolbox/i18n"
+	"github.com/ddkwork/toolbox/i18n"
 
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
