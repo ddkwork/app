@@ -699,7 +699,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			Do:    func(a any) { ConvertToNonContainer(n) },
 		},
 		ContextMenuItem{
-			Title: "New",
+			Title: "NewOrderedMap",
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {

@@ -176,7 +176,7 @@ const (
 	INTERSECT_SK_CLIPOP  SkClipopT = 1
 )
 
-// Enum describing format of encoded data.
+// Types describing format of encoded data.
 type SkEncodedImageFormatT int32
 
 const (
