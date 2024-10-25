@@ -7,7 +7,7 @@ import (
 
 func TestName(t *testing.T) {
 	g := stream.NewGeneratedFile()
-	g.Types(
+	g.EnumTypes(
 		"trade", //交易类型
 		[]string{
 			"smoke",

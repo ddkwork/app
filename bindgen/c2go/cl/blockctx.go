@@ -502,7 +502,7 @@ func (p *bfType) String() string {
 
 /*
 	func (p *blockCtx) initCTypes() {
-		pkg := p.pkg.Types
+		pkg := p.pkg.EnumTypes
 		scope := pkg.Scope()
 		p.tyI128 = ctypes.NotImpl
 		p.tyU128 = ctypes.NotImpl

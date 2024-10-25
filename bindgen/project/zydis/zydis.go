@@ -3182,7 +3182,7 @@ const (
 	OPERAND_SIZE_HINT_REQUIRED_BITS OperandSizeHint = 3
 )
 
-// Types selecting the syntax to format the disassembly in.
+// EnumTypes selecting the syntax to format the disassembly in.
 type FormatterStyle int32
 
 const (
@@ -3202,7 +3202,7 @@ const (
 	FORMATTER_STYLE_REQUIRED_BITS FormatterStyle = 2
 )
 
-// Types selecting a property of the formatter.
+// EnumTypes selecting a property of the formatter.
 type FormatterProperty int32
 
 const (
@@ -3326,7 +3326,7 @@ const (
 	FORMATTER_PROP_REQUIRED_BITS FormatterProperty = 5
 )
 
-// Types defining different mantissae to be used during formatting.
+// EnumTypes defining different mantissae to be used during formatting.
 type NumericBase int32
 
 const (
@@ -3340,7 +3340,7 @@ const (
 	NUMERIC_BASE_REQUIRED_BITS NumericBase = 1
 )
 
-// Types defining the signeness of integers to be used during formatting.
+// EnumTypes defining the signeness of integers to be used during formatting.
 type Signedness int32
 
 const (
@@ -3357,7 +3357,7 @@ const (
 	SIGNEDNESS_REQUIRED_BITS Signedness = 2
 )
 
-// Types definining magic values that receive special treatment when used as padding properties
+// EnumTypes definining magic values that receive special treatment when used as padding properties
 // of the formatter.
 type Padding int32
 
@@ -3373,7 +3373,7 @@ const (
 	PADDING_REQUIRED_BITS Padding = 32
 )
 
-// Types selecting a formatter function to be replaced with hooks.
+// EnumTypes selecting a formatter function to be replaced with hooks.
 // Do NOT change the order of the values this enum or the function fields inside the
 // `ZydisFormatter` struct.
 type FormatterFunction int32
@@ -3449,7 +3449,7 @@ const (
 	FORMATTER_FUNC_REQUIRED_BITS FormatterFunction = 5
 )
 
-// Types of all decorator types.
+// EnumTypes of all decorator types.
 type Decorator int32
 
 const (
