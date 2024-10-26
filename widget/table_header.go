@@ -10,10 +10,11 @@
 package widget
 
 import (
-	"github.com/ddkwork/unison"
-	"github.com/ddkwork/unison/enums/paintstyle"
 	"slices"
 	"sort"
+
+	"github.com/ddkwork/unison"
+	"github.com/ddkwork/unison/enums/paintstyle"
 
 	"github.com/ddkwork/toolbox/txt"
 	"github.com/ddkwork/toolbox/xmath"

@@ -11,5 +11,4 @@ func Test_switchStruct(t *testing.T) {
 		      long long unsigned Value;
 		      
 		  } SYMBOL, *PSYMBOL;`))
-
 }

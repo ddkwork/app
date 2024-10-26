@@ -1,12 +1,13 @@
 package main
 
 import (
+	"strconv"
+	"time"
+
 	"github.com/ddkwork/app/widget"
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/app"
-	"strconv"
-	"time"
 )
 
 func main() {
@@ -17,12 +18,12 @@ func main() {
 
 type Data struct {
 	Time time.Time
-	//收支类型 string
+	// 收支类型 string
 	Trade  TradeKind
-	Seller string  //商家姓名
-	Name   string  //挂礼人
-	Amount float64 //金额
-	Note   string  //备注
+	Seller string  // 商家姓名
+	Name   string  // 挂礼人
+	Amount float64 // 金额
+	Note   string  // 备注
 }
 
 func layout() unison.Paneler {
@@ -61,25 +62,24 @@ func layout() unison.Paneler {
 			}
 		},
 		SelectionChangedCallback: func(root *widget.Node[Data]) {
-
 		},
 		SetRootRowsCallBack: func(root *widget.Node[Data]) {
 			containerSum := widget.NewContainerNode("all", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				//Trade:  MeatKind,
-				//Seller: "杨学春",
-				//Name:   "",
-				//Amount: 19.4 * 45,
-				//Note:   "二流",
+				// Trade:  MeatKind,
+				// Seller: "杨学春",
+				// Name:   "",
+				// Amount: 19.4 * 45,
+				// Note:   "二流",
 			})
 
 			container := widget.NewContainerNode("8号", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				//Trade:  MeatKind,
-				//Seller: "杨学春",
-				//Name:   "",
-				//Amount: 19.4 * 45,
-				//Note:   "二流",
+				// Trade:  MeatKind,
+				// Seller: "杨学春",
+				// Name:   "",
+				// Amount: 19.4 * 45,
+				// Note:   "二流",
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
@@ -182,7 +182,7 @@ func layout() unison.Paneler {
 				Note:   "",
 			})
 			container.AddChildByData(Data{
-				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")), //todo
+				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")), // todo
 				Trade:  OtherKind,
 				Seller: "",
 				Name:   "",
@@ -264,11 +264,11 @@ func layout() unison.Paneler {
 			//////////////////挂礼
 			giftContainer := widget.NewContainerNode("gift", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				//Trade:  MeatKind,
-				//Seller: "杨学春",
-				//Name:   "",
-				//Amount: 19.4 * 45,
-				//Note:   "二流",
+				// Trade:  MeatKind,
+				// Seller: "杨学春",
+				// Name:   "",
+				// Amount: 19.4 * 45,
+				// Note:   "二流",
 			})
 
 			giftContainer.AddChildByData(Data{

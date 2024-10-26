@@ -360,7 +360,7 @@ func (f *Field) DefaultDraw(canvas *unison.Canvas, _ unison.Rect) {
 			for _, token := range f.tokens {
 				tokenColor := getTokenColor(f.codeStyle, token)
 				decoration.Background = tokenColor
-				//decoration.Foreground = tokenColor
+				// decoration.Foreground = tokenColor
 				if row == nil {
 					row = unison.NewText("", decoration)
 				}

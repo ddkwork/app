@@ -11,6 +11,7 @@ package widget
 
 import (
 	"fmt"
+
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/enums/paintstyle"
 )

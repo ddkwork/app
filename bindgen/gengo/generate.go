@@ -659,7 +659,7 @@ func (mod Module) EmitFrom(ast clang.Node, layouts *clang.LayoutMap) {
 		qualType = strings.TrimSpace(qualType)
 		// ZydisDecodedInstructionRawEvex │ struct ZydisDecodedInstructionRawEvex
 		if qualType == td.Name {
-			//mylog.Warning(td.Name, qualType)
+			// mylog.Warning(td.Name, qualType)
 			return true
 		}
 		mod.EmitTypedef(td)

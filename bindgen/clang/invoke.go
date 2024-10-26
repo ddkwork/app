@@ -61,11 +61,8 @@ typedef int* intptr_t;
 	e := &bytes.Buffer{}
 	cmd.Stdout = buf
 	cmd.Stderr = e
-	err := cmd.Run()
-	if err != nil {
-		log.Panicln(e.String())
-		return nil, fmt.Errorf("failed to run clang: %w", err)
-	}
+	mylog.Check(cmd.Run())
+
 	return buf.Bytes(), nil
 
 	c := make([]string, 0)
@@ -112,8 +109,8 @@ func Parse(opt *Options) (ast Node, layout *LayoutMap, err error) {
 		if e != nil {
 			return e
 		}
-		//debug
-		//println(string(res))
+		// debug
+		// println(string(res))
 		layout, e = ParseLayoutMap(res)
 		return e
 	})
@@ -180,7 +177,7 @@ func switchStruct(src string) string {
 		if strings.HasPrefix(line, "typedef struct") {
 			after, found := strings.CutPrefix(strings.TrimSpace(line), "typedef struct ")
 			if found {
-				//if after=="{" ||strings.TrimSpace(lines[start+1]) == "{"{
+				// if after=="{" ||strings.TrimSpace(lines[start+1]) == "{"{
 				if after != "{" {
 					continue
 				}

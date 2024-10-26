@@ -1,9 +1,11 @@
 package main
 
-type USHORT uint16
-type ULONG uint32
-type BYTE uint8
-type CHAR byte
+type (
+	USHORT uint16
+	ULONG  uint32
+	BYTE   uint8
+	CHAR   byte
+)
 
 // IDSECTOR 结构体定义
 type IDSECTOR struct {

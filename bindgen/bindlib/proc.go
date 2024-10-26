@@ -1,9 +1,10 @@
 package bindlib
 
 import (
+	"sync/atomic"
+
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ebitengine/purego"
-	"sync/atomic"
 )
 
 const INVALID_PROC = ^uintptr(0)

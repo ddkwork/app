@@ -10,9 +10,10 @@
 package widget
 
 import (
+	"slices"
+
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/enums/paintstyle"
-	"slices"
 
 	"github.com/google/uuid"
 )

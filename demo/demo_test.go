@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/ddkwork/golibrary/stream"
 	"testing"
+
+	"github.com/ddkwork/golibrary/stream"
 )
 
 func TestName(t *testing.T) {
 	g := stream.NewGeneratedFile()
 	g.EnumTypes(
-		"trade", //交易类型
+		"trade", // 交易类型
 		[]string{
 			"smoke",
 			"wine",

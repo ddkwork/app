@@ -106,7 +106,7 @@ func SetScrollLayout(paneler unison.Paneler, Columns int) {
 
 func NewScrollPanelFill(content unison.Paneler) *unison.ScrollPanel {
 	scrollArea := unison.NewScrollPanel()
-	//scrollArea.SetBorder(unison.NewLineBorder(unison.ControlEdgeColor, 0, unison.NewUniformInsets(1), false))
+	// scrollArea.SetBorder(unison.NewLineBorder(unison.ControlEdgeColor, 0, unison.NewUniformInsets(1), false))
 	scrollArea.SetContent(content, behavior.Fill, behavior.Fill) // 滚动条与布局边缘重叠
 	scrollArea.SetLayoutData(&unison.FlexLayoutData{
 		SizeHint: unison.Size{},
@@ -749,7 +749,7 @@ func createListPanel() *unison.Panel {
 	_, prefSize, _ := lst.Sizes(unison.Size{})
 	lst.SetFrameRect(unison.Rect{Size: prefSize})
 	scroller := unison.NewScrollPanel()
-	//scroller.SetBorder(unison.NewLineBorder(unison.ThemeSurfaceEdge, 0, unison.NewUniformInsets(1), false))
+	// scroller.SetBorder(unison.NewLineBorder(unison.ThemeSurfaceEdge, 0, unison.NewUniformInsets(1), false))
 	scroller.SetContent(lst, behavior.Fill, behavior.Fill)
 	scroller.SetLayoutData(&unison.FlexLayoutData{
 		HSpan:  1,

@@ -1,13 +1,14 @@
 package skia
 
 import (
+	"io/fs"
+	"path/filepath"
+	"testing"
+
 	"github.com/ddkwork/app/bindgen/clang"
 	"github.com/ddkwork/app/bindgen/gengo"
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
-	"io/fs"
-	"path/filepath"
-	"testing"
 )
 
 func TestMergeHeader(t *testing.T) {
@@ -34,7 +35,7 @@ func TestBindSkia(t *testing.T) {
 	path := "skia.h"
 	mylog.Check(pkg.Transform("skia", &clang.Options{
 		Sources: []string{path},
-		//AdditionalParams: []string{},
+		// AdditionalParams: []string{},
 	}),
 	)
 	mylog.Check(pkg.WriteToDir("tmp"))
@@ -45,7 +46,7 @@ func TestBindSkiaCAPINew(t *testing.T) {
 	pkg := gengo.NewPackage("skia")
 	mylog.Check(pkg.Transform("skia", &clang.Options{
 		Sources: []string{"sk_capi.h"},
-		//AdditionalParams: []string{},
+		// AdditionalParams: []string{},
 	}),
 	)
 	mylog.Check(pkg.WriteToDir("tmp"))

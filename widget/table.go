@@ -13,6 +13,13 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"path/filepath"
+	"slices"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/ddkwork/golibrary/stream"
 	"github.com/ddkwork/golibrary/stream/languages"
 	"github.com/ddkwork/toolbox/i18n"
@@ -20,12 +27,6 @@ import (
 	"github.com/ddkwork/unison/app"
 	"github.com/ddkwork/unison/enums/align"
 	"github.com/ddkwork/unison/enums/paintstyle"
-	"path/filepath"
-	"slices"
-	"sort"
-	"strconv"
-	"strings"
-	"time"
 
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/toolbox/xmath"
@@ -424,7 +425,7 @@ func initHeader(data any) (Columns []ColumnInfo) {
 	fields := stream.ReflectVisibleFields(data)
 	Columns = make([]ColumnInfo, 0, len(fields))
 	for i, field := range fields {
-		//field.Name = i18n.Text(field.Name)
+		// field.Name = i18n.Text(field.Name)
 		if field.Tag.Get("table") != "" {
 			field.Name = field.Tag.Get("table")
 		}
@@ -703,7 +704,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
-				//node := NewNode(data)
+				// node := NewNode(data)
 				rows := n.SelectedRows(false)
 				for _, row := range rows {
 					row.AddChildByData(row.Data)
@@ -716,7 +717,7 @@ func newNode[T any](typeKey string, isContainer bool, data T) *Node[T] {
 			id:    0,
 			Can:   func(a any) bool { return true },
 			Do: func(a any) {
-				//container := NewContainerNode(n.Type, data)
+				// container := NewContainerNode(n.Type, data)
 				rows := n.SelectedRows(false)
 				for _, row := range rows {
 					row.AddContainerByData(row.Type, row.Data)
@@ -2275,7 +2276,7 @@ func (n *Node[T]) RemoveFromParent() {
 	n.parent.Remove(n.ID)
 }
 
-func (n *Node[T]) Remove(id uuid.UUID) { //todo add remove callback
+func (n *Node[T]) Remove(id uuid.UUID) { // todo add remove callback
 	if n.ID == id {
 		n.parent.Remove(id)
 		return
