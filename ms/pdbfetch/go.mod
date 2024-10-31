@@ -19,6 +19,6 @@ require (
 )
 
 require (
-	github.com/ddkwork/golibrary v0.0.0-20241029021157-35d589b91bef
+	github.com/ddkwork/golibrary v0.0.0-20241031185127-e917076643ca
 	golang.org/x/sys v0.25.0 // indirect
 )
