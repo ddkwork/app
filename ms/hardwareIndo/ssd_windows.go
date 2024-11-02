@@ -121,17 +121,17 @@ func (s *ssdInfo) Get() (ok bool) {
 	mylog.HexDump("index 0 address", b)
 
 	info := (*struct__IDINFO)(unsafe.Pointer(&b[0]))
-	SerialNumber := stream.SerialNumber(stream.NewBuffer(info.SerialNumber[:]).String())
-	ModelNumber := stream.SerialNumber(stream.NewBuffer(info.ModelNumber[:]).String())
-	FirmwareRev := stream.SerialNumber(stream.NewBuffer(info.FirmwareRev[:]).String())
+	SerialNumber := stream.SwapAdjacent(stream.NewBuffer(info.SerialNumber[:]).String())
+	ModelNumber := stream.SwapAdjacent(stream.NewBuffer(info.ModelNumber[:]).String())
+	FirmwareRev := stream.SwapAdjacent(stream.NewBuffer(info.FirmwareRev[:]).String())
 
-	mylog.Info("serialNumber", strconv.Quote(SerialNumber))
-	mylog.Info("ModelNumber", strconv.Quote(ModelNumber))
-	mylog.Info("FirmwareRev", strconv.Quote(FirmwareRev))
+	mylog.Info("serialNumber", strconv.Quote(SerialNumber.String()))
+	mylog.Info("ModelNumber", strconv.Quote(ModelNumber.String()))
+	mylog.Info("FirmwareRev", strconv.Quote(FirmwareRev.String()))
 	*s = ssdInfo{
-		SerialNumber: SerialNumber,
-		ModelNumber:  ModelNumber,
-		Version:      FirmwareRev,
+		SerialNumber: SerialNumber.String(),
+		ModelNumber:  ModelNumber.String(),
+		Version:      FirmwareRev.String(),
 	}
 	return true
 }
