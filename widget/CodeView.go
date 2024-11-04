@@ -118,7 +118,7 @@ func (c *CodeView) newCodeView(tokens []chroma.Token, style *chroma.Style) {
 		if row == nil {
 			row = unison.NewText("", decoration)
 		}
-		// mylog.Struct(token)
+		// mylog.Struct("todo",token)
 		switch token.Type {
 		case chroma.Text: // todo fleetStyle
 			for _, v := range token.Value {

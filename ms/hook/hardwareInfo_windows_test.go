@@ -20,5 +20,5 @@ func Test_hardware(t *testing.T) {
 	if !h.MacInfo.Get() {
 		return
 	}
-	mylog.Struct(h)
+	mylog.Struct("hardware", h)
 }
