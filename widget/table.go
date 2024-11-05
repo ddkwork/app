@@ -776,7 +776,7 @@ func (n *Node[T]) AddChild(child *Node[T]) {
 //		lastMouseMotionRow:    -1,
 //		lastMouseMotionColumn: -1,
 //	}
-//	t.Self = t
+//	t.Uint64 = t
 //	t.SetFocusable(true)
 //	t.SetSizer(t.DefaultSizes)
 //	t.GainedFocusCallback = t.DefaultFocusGained
