@@ -3,7 +3,7 @@ package rapidenvironmenteditor
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/ddkwork/golibrary/assert"
 
 	"github.com/ddkwork/golibrary/mylog"
 )
