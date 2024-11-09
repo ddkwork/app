@@ -49,7 +49,7 @@ func IopXxxControlFile(info *xed.FilterInfo) {
 				if !b2 {
 					continue
 				}
-				info.DstFunctionRVA = int(imm)
+				info.DstFunctionRVA = uint64(imm)
 				info.Ok = true
 				return
 			}

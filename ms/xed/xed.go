@@ -80,7 +80,7 @@ type (
 		OpcodeData      []byte // 从导出表中取出的api虚拟地址取出100个字节大小的操作码，反汇编接口会自动识别ret指令停止
 		BaseFunctionRVA uint32 // 从导出表中取出的api虚拟地址
 		InstructionsLen int    // 找到目标函数停止时执行的指令长度
-		DstFunctionRVA  int    // 相对于停止搜索时候的目标函数虚拟地址
+		DstFunctionRVA  uint64 // 相对于停止搜索时候的目标函数虚拟地址
 		SysCallNumber   uint32 // 内核api编号，其实就是那两个表的切片下标，偏移，一个意思
 		Ok              bool   // 是否找到目标函数，来源是观察符号或者调试确定位置之类的操作
 	}

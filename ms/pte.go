@@ -77,7 +77,7 @@ func MmFreeNonCachedMemory(info *xed.FilterInfo) {
 				}
 				info.InstructionsLen += nextInst.Len
 				info.InstructionsLen += nextInst2.Len
-				info.DstFunctionRVA = int(imm)
+				info.DstFunctionRVA = uint64(imm)
 				info.Ok = true
 				return
 			}

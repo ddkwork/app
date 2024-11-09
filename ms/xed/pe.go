@@ -1,9 +1,8 @@
 package xed
 
 import (
-	"github.com/saferwall/pe"
-
 	"github.com/ddkwork/golibrary/mylog"
+	"github.com/saferwall/pe"
 )
 
 func ParserPe(filename string) (file *pe.File) {

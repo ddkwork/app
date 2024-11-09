@@ -83,7 +83,7 @@ func ZwDeviceIoControlFile(info *xed.FilterInfo) {
 					continue
 				}
 				info.InstructionsLen += next.Len
-				info.DstFunctionRVA = int(rel)
+				info.DstFunctionRVA = uint64(rel)
 				info.SysCallNumber = uint32(imm)
 				info.Ok = true
 				return
@@ -115,7 +115,7 @@ func KiServiceInternal(info *xed.FilterInfo) {
 				if !b {
 					continue
 				}
-				info.DstFunctionRVA = int(mem.Disp)
+				info.DstFunctionRVA = uint64((mem.Disp))
 				info.Ok = true
 				return
 			}
