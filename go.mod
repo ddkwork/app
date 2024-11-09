@@ -23,7 +23,6 @@ require (
 	github.com/qiniu/x v1.13.10
 	github.com/saferwall/pe v1.5.4
 	github.com/spyre-project/spyre v1.2.5
-	github.com/stretchr/testify v1.9.0
 	github.com/valyala/fastjson v1.6.4
 	github.com/zyantific/zydis-go v1.2.1
 	golang.org/x/arch v0.8.0
@@ -39,7 +38,6 @@ require (
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/can1357/gengo v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dc0d/caseconv v0.5.0 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
@@ -52,12 +50,11 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
-	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/richardwilkes/json v0.3.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/scjalliance/comshim v0.0.0-20231116235529-bbacf79a4691 // indirect
@@ -69,7 +66,7 @@ require (
 	golang.org/x/exp/shiny v0.0.0-20241009180824-f66d83c29e7c // indirect
 	golang.org/x/image v0.21.0 // indirect
 	golang.org/x/mod v0.21.0 // indirect
-	golang.org/x/term v0.23.0 // indirect
+	golang.org/x/term v0.25.0 // indirect
 	golang.org/x/text v0.19.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
