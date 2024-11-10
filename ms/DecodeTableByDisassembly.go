@@ -4,10 +4,8 @@ import (
 	"fmt"
 
 	"github.com/ddkwork/app/ms/xed"
-
-	"golang.org/x/arch/x86/x86asm"
-
 	"github.com/ddkwork/golibrary/mylog"
+	"golang.org/x/arch/x86/x86asm"
 )
 
 func DecodeTableByDisassembly() {
@@ -115,7 +113,7 @@ func KiServiceInternal(info *xed.FilterInfo) {
 				if !b {
 					continue
 				}
-				info.DstFunctionRVA = uint64((mem.Disp))
+				info.DstFunctionRVA = uint64(mem.Disp)
 				info.Ok = true
 				return
 			}

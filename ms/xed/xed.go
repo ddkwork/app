@@ -3,10 +3,9 @@ package xed
 import (
 	"fmt"
 
-	"golang.org/x/arch/x86/x86asm"
-
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
+	"golang.org/x/arch/x86/x86asm"
 )
 
 func (o *object[T]) IsImm(a x86asm.Arg) (x86asm.Imm, bool) {

@@ -2,9 +2,8 @@ package ms
 
 import (
 	"github.com/ddkwork/app/ms/xed"
-	"golang.org/x/arch/x86/x86asm"
-
 	"github.com/ddkwork/golibrary/mylog"
+	"golang.org/x/arch/x86/x86asm"
 )
 
 func NtDeviceIoControlFile() {
