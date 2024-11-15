@@ -2,18 +2,14 @@ package clang
 
 import (
 	"bytes"
-	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/sync/errgroup"
-
-	"github.com/ddkwork/golibrary/stream"
-
 	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/golibrary/stream"
+	"golang.org/x/sync/errgroup"
 )
 
 type Options struct {
