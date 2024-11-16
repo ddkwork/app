@@ -26,7 +26,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.23.0'
+          go-version: '1.23.3'
 
       - name: Install dependencies
         run: go mod tidy
@@ -46,7 +46,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.23.0'
+          go-version: '1.23.3'
 
       - name: Install dependencies
         run: go mod tidy

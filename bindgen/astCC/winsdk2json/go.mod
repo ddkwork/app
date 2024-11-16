@@ -1,6 +1,6 @@
 module github.com/saferwall/winsdk2json
 
-go 1.23.0
+go 1.23.3
 
 require (
 	github.com/ddkwork/golibrary v0.0.0-20241109061650-bd3e94f7b3cf
