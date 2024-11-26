@@ -10,10 +10,10 @@ import (
 )
 
 func TestUpdateAppModule(t *testing.T) {
-	if !stream.IsDir("D:\\workspace\\workspace\\branch\\golibrary") {
+	if !stream.IsDir("D:\\workspace\\workspace\\golibrary") {
 		return
 	}
-	mylog.Check(os.Chdir("D:\\workspace\\workspace\\branch\\golibrary"))
+	mylog.Check(os.Chdir("D:\\workspace\\workspace\\golibrary"))
 	session := stream.RunCommand("git log -1 --format=\"%H\"")
 	mylog.Check(os.Chdir("D:\\workspace\\workspace\\app"))
 	id := mylog.Check2(strconv.Unquote(session.Output.String()))
