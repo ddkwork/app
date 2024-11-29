@@ -38,8 +38,8 @@ func LoadLibraryEmbed(data []byte) (LoadedLibrary, error) {
 	name := "." + hex.EncodeToString(hash[:4]) + ".gengo.dll"
 	path := cache + name
 	if stat, e := os.Stat(path); e != nil || stat.Size() != int64(len(data)) {
-		os.MkdirAll(cache, 0755)
-		mylog.Check(os.WriteFile(path, data, 0755))
+		os.MkdirAll(cache, 0o755)
+		mylog.Check(os.WriteFile(path, data, 0o755))
 	}
 	return LoadLibrary(path)
 }

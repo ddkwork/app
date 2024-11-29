@@ -2,8 +2,8 @@ package widget
 
 import (
 	"github.com/ddkwork/golibrary/mylog"
-	"github.com/ddkwork/golibrary/stream/maps"
 	"github.com/ddkwork/unison"
+	"github.com/goradd/maps"
 )
 
 type idMgr struct {

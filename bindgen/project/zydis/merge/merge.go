@@ -140,7 +140,7 @@ func Merge() {
 		fmt.Println("Output directory exists. Deleting.")
 		mylog.Check(os.RemoveAll(OutputDir))
 	}
-	mylog.Check(os.Mkdir(OutputDir, 0755))
+	mylog.Check(os.Mkdir(OutputDir, 0o755))
 	coveredHeaders := make(map[string]bool)
 	zydisH := filepath.Join(OutputDir, "Zydis.h")
 	file := mylog.Check2(os.Create(zydisH))

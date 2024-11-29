@@ -28,7 +28,7 @@ func WriteStrSliceToFile(filename string, data []string) (int, error) {
 	file := mylog.Check2(os.OpenFile(
 		filename,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
-		0666,
+		0o666,
 	))
 
 	defer file.Close()
@@ -299,7 +299,7 @@ func WriteBytesFile(filename string, r io.Reader) (int, error) {
 	file := mylog.Check2(os.OpenFile(
 		filename,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
-		0666,
+		0o666,
 	))
 
 	defer file.Close()

@@ -11,7 +11,7 @@ import (
 	"github.com/ddkwork/app/ms/xed"
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
-	"github.com/ddkwork/golibrary/stream/maps"
+	"github.com/goradd/maps"
 )
 
 func DecodeTableByDll() {
@@ -36,15 +36,14 @@ func DecodeNtApi(filename string) (ntApis []NtApi) {
 		}
 		if strings.HasPrefix(entry.Name, "Nt") {
 			data := mylog.Check2(file.GetData(entry.FunctionRVA, xed.OpcodeDataSize))
-
 			x := xed.New(data).Decode64()
-			index := int64(0)
+			index := uint32(0)
 			for _, instruction := range x.Instructions {
 				imm, o := x.MovEaxImm(instruction)
 				if !o {
 					continue
 				}
-				index = imm
+				index = uint32(imm)
 				break
 			}
 			if strings.Contains(filename, "win32") {
@@ -76,13 +75,12 @@ func DecodeNtApi(filename string) (ntApis []NtApi) {
 	s.WriteStringLn(winver.WindowVersion())
 	t := table.New(s)
 	t.SetRowLines(false)
-	t.SetHeaders("Id", "Name", "Index", "IndexHex")
+	t.SetHeaders("Id", "Name", "Index")
 
 	for i, call := range ntApis {
 		t.AddRow(fmt.Sprint(i+1),
 			call.Name,
-			fmt.Sprint(call.Index),
-			fmt.Sprintf("%#x", call.Index),
+			stream.FormatInteger(call.Index),
 		)
 	}
 	time.Sleep(time.Second)

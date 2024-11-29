@@ -283,7 +283,7 @@ type (
 		ArgValue   int32 // 计算物理地址，通过传入 kernelBase
 
 		Name  string
-		Index int64
+		Index uint32
 	}
 )
 
