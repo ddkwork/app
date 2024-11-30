@@ -4,9 +4,9 @@
 package hardwareIndo
 
 import (
+	"encoding/binary"
 	"fmt"
 
-	"encoding/binary"
 	"github.com/ddkwork/app/ms/hardwareIndo/cpuid"
 
 	"github.com/ddkwork/golibrary/stream"

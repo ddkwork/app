@@ -31,12 +31,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"pdbfetch/pkg/pe"
 	"runtime"
 	"strconv"
 	"strings"
 	"time"
-
-	"pdbfetch/pkg/pe"
 
 	"github.com/ddkwork/golibrary/mylog"
 )

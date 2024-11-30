@@ -19,7 +19,7 @@ func main() {
 type Data struct {
 	Time time.Time
 	// 收支类型 string
-	Trade  TradeKind
+	Trade  TradeType
 	Seller string  // 商家姓名
 	Name   string  // 挂礼人
 	Amount float64 // 金额
@@ -66,7 +66,7 @@ func layout() unison.Paneler {
 		SetRootRowsCallBack: func(root *widget.Node[Data]) {
 			containerSum := widget.NewContainerNode("all", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				// Trade:  MeatKind,
+				// Trade:  MeatType,
 				// Seller: "杨学春",
 				// Name:   "",
 				// Amount: 19.4 * 45,
@@ -75,7 +75,7 @@ func layout() unison.Paneler {
 
 			container := widget.NewContainerNode("8号", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				// Trade:  MeatKind,
+				// Trade:  MeatType,
 				// Seller: "杨学春",
 				// Name:   "",
 				// Amount: 19.4 * 45,
@@ -83,7 +83,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -16,
@@ -91,7 +91,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -29,
@@ -99,7 +99,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -20,
@@ -108,7 +108,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -10,
@@ -117,7 +117,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -5,
@@ -125,7 +125,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -10,
@@ -133,7 +133,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -40,
@@ -141,7 +141,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -32,
@@ -149,7 +149,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -500,
@@ -157,7 +157,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国科",
 				Amount: -500,
@@ -166,7 +166,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -18,
@@ -175,7 +175,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -29,
@@ -183,7 +183,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")), // todo
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -18,
@@ -191,7 +191,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -2,
@@ -200,7 +200,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -101,
@@ -209,7 +209,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -94,
@@ -218,7 +218,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -660,
@@ -227,7 +227,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-08")),
-				Trade:  MeatKind,
+				Trade:  MeatType,
 				Seller: "杨学春",
 				Name:   "",
 				Amount: -19.4 * 45,
@@ -236,7 +236,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -15,
@@ -245,7 +245,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -24,
@@ -254,7 +254,7 @@ func layout() unison.Paneler {
 
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -130,
@@ -264,7 +264,7 @@ func layout() unison.Paneler {
 			//////////////////挂礼
 			giftContainer := widget.NewContainerNode("gift", Data{
 				Time: mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				// Trade:  MeatKind,
+				// Trade:  MeatType,
 				// Seller: "杨学春",
 				// Name:   "",
 				// Amount: 19.4 * 45,
@@ -273,7 +273,7 @@ func layout() unison.Paneler {
 
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "彭光坤",
 				Amount: 100,
@@ -281,7 +281,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "彭光文",
 				Amount: 100,
@@ -289,7 +289,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "罗得华",
 				Amount: 100,
@@ -297,7 +297,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国伟",
 				Amount: 200,
@@ -305,7 +305,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国友",
 				Amount: 200,
@@ -314,7 +314,7 @@ func layout() unison.Paneler {
 
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨周泽",
 				Amount: 150,
@@ -322,7 +322,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国富",
 				Amount: 100,
@@ -330,7 +330,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨红春",
 				Amount: 500,
@@ -338,7 +338,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国双",
 				Amount: 200,
@@ -346,7 +346,7 @@ func layout() unison.Paneler {
 			})
 			giftContainer.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "杨国安",
 				Amount: 200,
@@ -354,7 +354,7 @@ func layout() unison.Paneler {
 			})
 			//container.AddChildByData(Data{
 			//	Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-			//	Trade:  OtherKind,
+			//	Trade:  OtherType,
 			//	Seller: "",
 			//	Name:   "彭光学",
 			//	Amount: 300,
@@ -362,7 +362,7 @@ func layout() unison.Paneler {
 			//})
 			//container.AddChildByData(Data{
 			//	Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-			//	Trade:  OtherKind,
+			//	Trade:  OtherType,
 			//	Seller: "",
 			//	Name:   "杨同泽",
 			//	Amount: 200,
@@ -372,7 +372,7 @@ func layout() unison.Paneler {
 			///////////zhifubao/
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -180,
@@ -380,7 +380,7 @@ func layout() unison.Paneler {
 			})
 			container.AddChildByData(Data{
 				Time:   mylog.Check2(time.Parse("2006-01-02", "2024-08-09")),
-				Trade:  OtherKind,
+				Trade:  OtherType,
 				Seller: "",
 				Name:   "",
 				Amount: -140,
