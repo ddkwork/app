@@ -58,9 +58,9 @@ func (c *cpuInfo) Get() (ok bool) {
 		Edx: edx,
 	}
 	b := stream.NewBuffer("")
-	b.Write(binary.LittleEndian.PutUint32(ebx))
-	b.Write(binary.LittleEndian.PutUint32(edx))
-	b.Write(binary.LittleEndian.PutUint32(ecx))
+	b.Write(binary.LittleEndian.AppendUint32(nil, ebx))
+	b.Write(binary.LittleEndian.AppendUint32(nil, edx))
+	b.Write(binary.LittleEndian.AppendUint32(nil, ecx))
 	c.Vendor = b.String()
 	// mylog.Info("cpu vendor", b.String())
 
