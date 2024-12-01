@@ -8,7 +8,7 @@ import (
 
 type idMgr struct {
 	index int
-	idMao *safemap.SafeMap[int, bool]
+	idMao *safemap.M[int, bool]
 }
 
 func (i *idMgr) add() int {
@@ -24,7 +24,7 @@ func (i *idMgr) add() int {
 func newIdMgr() *idMgr {
 	s := &idMgr{
 		index: unison.UserBaseID,
-		idMao: new(safemap.SafeMap[int, bool]),
+		idMao: new(safemap.M[int, bool]),
 	}
 	return s
 }
