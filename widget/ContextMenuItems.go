@@ -26,7 +26,6 @@ func newIdMgr() *idMgr {
 		index: unison.UserBaseID,
 		idMao: new(safemap.SafeMap[int, bool]),
 	}
-	s.idMao.Init()
 	return s
 }
 
