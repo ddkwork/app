@@ -139,17 +139,17 @@ func parseStruct(structBeg, structBody, structEnd string) Struct {
 	// Remove "FAR *" like expressions.
 	structEnd = stripStructEnd(structEnd)
 
-	// Get struct members
+	// GetMust struct members
 	winStruct.Members = parseStructBody(structBody)
 
-	// Get Struct typedefed name if exists.
+	// GetMust Struct typedefed name if exists.
 	regTypeDefName := regexp.MustCompile(`typedef struct ([\w]+)`)
 	m := regTypeDefName.FindStringSubmatch(structBeg)
 	if len(m) > 0 {
 		winStruct.TypedefName = m[1]
 	}
 
-	// Get struct name and potential aliases.
+	// GetMust struct name and potential aliases.
 	structEnd = utils.SpaceFieldsJoin(structEnd)
 	n := strings.Split(structEnd, ",")
 	if len(n) > 0 {

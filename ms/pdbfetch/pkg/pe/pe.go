@@ -348,7 +348,7 @@ func (p *PEFile) parseSections(offset int) (newOffset int, err error) {
 		section.RawData = make([]byte, section.SizeOfRawData)
 		copy(section.RawData, p.data[section.PointerToRawData:section.PointerToRawData+section.SizeOfRawData])
 
-		// Get relocations.
+		// GetMust relocations.
 		if section.PointerToRelocations != uint32(0) {
 			numberOfRelocs := int(section.NumberOfRelocations)
 			section.Relocations = make([]*Relocation, numberOfRelocs)
@@ -643,13 +643,13 @@ func (p *PEFile) getDataBounds(rva, length uint32) (start, size int) {
 	return offset, end
 }
 
-// Get an ASCII string from within the data at an RVA considering section
+// GetMust an ASCII string from within the data at an RVA considering section
 func (p *PEFile) getStringAtRva(rva uint32) []byte {
 	start, _ := p.getDataBounds(rva, 0)
 	return p.getStringFromData(start)
 }
 
-// Get an ASCII string from within the data.
+// GetMust an ASCII string from within the data.
 func (p *PEFile) getStringFromData(offset int) []byte {
 	if offset > p.dataLen {
 		return []byte{}

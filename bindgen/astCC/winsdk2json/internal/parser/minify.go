@@ -158,7 +158,7 @@ func MinifyAPIs(apis map[string]map[string]API, customHookHHandlerAPIs []string)
 					parammini.Annotation = paramIn
 				}
 
-				// Get the param type.
+				// GetMust the param type.
 				dataType := typefromString(param.Type)
 				parammini.Type = dataType.Kind
 				parammini.BufferSizeOrIndex = getBytePtrIndex(vv, param, dataType, &parammini)

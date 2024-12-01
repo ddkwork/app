@@ -245,15 +245,15 @@ func main() {
 
 		// Only PDB 7 files are supported.
 		if debugDir.InfoPdb70 != nil {
-			// Get the PDB GUID string.
+			// GetMust the PDB GUID string.
 			pdbGuid := pe.GuidFromWindowsArray(debugDir.InfoPdb70.Signature)
 			pdbGuidStr := mylog.Check2(pdbGuid.ToString("N"))
 
-			// Get the PDB filename.
+			// GetMust the PDB filename.
 			fullPdbPath := string(debugDir.SymbolName)
 			pdbName := filepath.Base(fullPdbPath)
 
-			// Get the PDB age string.
+			// GetMust the PDB age string.
 			pdbAgeStr := strconv.FormatUint(uint64(debugDir.InfoPdb70.Age), 16)
 
 			// Compile the download URL for the symbol file.

@@ -39,7 +39,7 @@ func (p *PEFile) parseDebugDirectory(rva, size uint32) (err error) {
 					return errors.New("corrupt codeview data")
 				}
 
-				// Get OMF signature
+				// GetMust OMF signature
 				if mylog.Check(p.parseInterface(&omfSignature, dataOffset, omfSignatureSize)); err != nil {
 					return err
 				}
@@ -54,13 +54,13 @@ func (p *PEFile) parseDebugDirectory(rva, size uint32) (err error) {
 						return errors.New("corrupt PDB 7.0 data")
 					}
 
-					// Get CV info
+					// GetMust CV info
 					if mylog.Check(p.parseInterface(&cvInfoPdb, dataOffset, cvInfoPdb70Size)); err != nil {
 						return err
 					}
 					debugDir.InfoPdb70 = &cvInfoPdb
 
-					// Get the symbol file name.
+					// GetMust the symbol file name.
 					debugDir.SymbolName = p.getStringFromData(dataOffset + cvInfoPdb70Size)
 
 				} else if omfSignature.Signature == CV_PDB_20_SIGNATUE {
@@ -73,13 +73,13 @@ func (p *PEFile) parseDebugDirectory(rva, size uint32) (err error) {
 						return errors.New("corrupt PDB 2.0 data")
 					}
 
-					// Get CV info
+					// GetMust CV info
 					if mylog.Check(p.parseInterface(&cvInfoPdb, dataOffset, cvInfoPdb20Size)); err != nil {
 						return err
 					}
 					debugDir.InfoPdb20 = &cvInfoPdb
 
-					// Get the symbol file name.
+					// GetMust the symbol file name.
 					debugDir.SymbolName = p.getStringFromData(dataOffset + cvInfoPdb20Size)
 				}
 			}

@@ -263,7 +263,7 @@ func ReadAll(filePath string) ([]byte, error) {
 
 	defer file.Close()
 
-	// Get the file size to know how much we need to allocate
+	// GetMust the file size to know how much we need to allocate
 	fileinfo := mylog.Check2(file.Stat())
 
 	filesize := fileinfo.Size()

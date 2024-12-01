@@ -2,6 +2,7 @@ package ms
 
 import (
 	"fmt"
+	"github.com/ddkwork/golibrary/safemap"
 	"sort"
 	"strings"
 	"time"
@@ -59,7 +60,7 @@ func DecodeNtApi(filename string) (ntApis []NtApi) {
 	}
 	ntApis = make([]NtApi, m.Len())
 	for i, s := range m.Keys() {
-		get := m.Get(s)
+		get := m.GetMust(s)
 		ntApis[i] = get
 	}
 	sort.Slice(ntApis, func(i, j int) bool {

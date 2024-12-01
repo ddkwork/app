@@ -254,7 +254,7 @@ func (p *BaseProvider) removePrefixes(name string) string {
 
 func (p *BaseProvider) NameGetter(name string) string {
 	if name == "" {
-		name = "Get"
+		name = "GetMust"
 		mylog.Warning("Empty field name, using default getter name", name)
 	}
 	return name

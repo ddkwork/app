@@ -90,7 +90,7 @@ func runOld() {
 	// Initialize built-in compiler data types.
 	parser.InitBuiltInTypes()
 
-	// Get the list of files in the Windows SDK.
+	// GetMust the list of files in the Windows SDK.
 	files := mylog.Check2(utils.WalkAllFilesInDir(sdkumPath))
 
 	files = append(files, ".\\assets\\custom-def.h")

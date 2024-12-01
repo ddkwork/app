@@ -445,7 +445,7 @@ func (mod Module) EmitFunction(n *clang.FunctionDecl) {
 		})
 	}
 
-	// Get the result type.
+	// GetMust the result type.
 	var result, result2 dst.Expr
 	{
 		before, _, ok := strings.Cut(n.Type.QualType, "(")
