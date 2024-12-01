@@ -11,7 +11,6 @@ import (
 	"github.com/ddkwork/app/ms/xed"
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
-	"github.com/goradd/maps"
 )
 
 func DecodeTableByDll() {
@@ -26,7 +25,7 @@ func DecodeTableByDll() {
 // D:\clone\systeminformer-master\SystemInformer\ksyscall.c
 func DecodeNtApi(filename string) (ntApis []NtApi) {
 	file := xed.ParserPe(filename)
-	m := new(maps.SafeMap[string, NtApi])
+	m := new(safemap.SafeMap[string, NtApi])
 	for _, entry := range file.Export.Functions {
 		if entry.Name == "NtGetTickCount" {
 			continue

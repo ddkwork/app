@@ -3,14 +3,12 @@ package main
 import (
 	"testing"
 
-	"github.com/goradd/maps"
-
 	"github.com/ddkwork/golibrary/stream"
 )
 
 func TestName(t *testing.T) {
 	g := stream.NewGeneratedFile()
-	m := new(maps.SafeSliceMap[string, string])
+	m := safemap.NewOrdered[string, string]()
 	m.Set("smoke", "烟")
 	m.Set("wine", "酒")
 	m.Set("meat", "肉")

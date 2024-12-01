@@ -2,13 +2,13 @@ package widget
 
 import (
 	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/golibrary/safemap"
 	"github.com/ddkwork/unison"
-	"github.com/goradd/maps"
 )
 
 type idMgr struct {
 	index int
-	idMao *maps.SafeMap[int, bool]
+	idMao *safemap.SafeMap[int, bool]
 }
 
 func (i *idMgr) add() int {
@@ -22,10 +22,12 @@ func (i *idMgr) add() int {
 }
 
 func newIdMgr() *idMgr {
-	return &idMgr{
+	s := &idMgr{
 		index: unison.UserBaseID,
-		idMao: new(maps.SafeMap[int, bool]),
+		idMao: new(safemap.SafeMap[int, bool]),
 	}
+	s.idMao.Init()
+	return s
 }
 
 var defaultIdMgr = newIdMgr()
