@@ -21,7 +21,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/oreans/virtualizersdk v0.0.0-20230130114934-0d2f064839d3
 	github.com/qiniu/x v1.13.10
-	github.com/saferwall/pe v1.5.4
+	github.com/saferwall/pe v1.5.6
 	github.com/spyre-project/spyre v1.2.5
 	github.com/valyala/fastjson v1.6.4
 	github.com/zyantific/zydis-go v1.2.1

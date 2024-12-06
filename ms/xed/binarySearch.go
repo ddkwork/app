@@ -40,7 +40,6 @@ func DecodeTableByBinarySearchFunc() {
 func BinarySearchFunc(data []byte, Pattern string) (index int, ok bool) {
 	all := strings.ReplaceAll(Pattern, `/x`, "")
 	decodeString := mylog.Check2(hex.DecodeString(all))
-
 	return slices.BinarySearchFunc(data, decodeString, func(b byte, bytes []byte) int {
 		for _, b2 := range bytes {
 			if b2 == 0 {
