@@ -7,9 +7,9 @@ require (
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
 	github.com/ddkwork/golibrary v0.0.0-20250101093329-d96f6524ebe4
-	github.com/ddkwork/toolbox v0.0.0-20241013161004-026a13407120
-	github.com/ddkwork/unison v0.0.0-20241013162326-b9a18ce1a207
-	github.com/ebitengine/purego v0.8.0
+	github.com/ddkwork/toolbox v0.0.0-20250101105944-e2445f71afc4
+	github.com/ddkwork/unison v0.0.0-20250101110142-818e695fe1c0
+	github.com/ebitengine/purego v0.8.1
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
 	github.com/gorpher/gowin32 v0.0.11
@@ -48,8 +48,8 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/yuin/goldmark v1.7.6 // indirect
-	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
+	github.com/yuin/goldmark v1.7.8 // indirect
+	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67 // indirect
 	golang.org/x/image v0.23.0 // indirect
 	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/term v0.25.0 // indirect
