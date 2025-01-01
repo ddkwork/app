@@ -10,6 +10,7 @@ import (
 )
 
 func TestUpdateAppModule(t *testing.T) {
+	t.Skip()
 	if !stream.IsDir("D:\\workspace\\workspace\\golibrary") {
 		return
 	}

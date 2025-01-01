@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/ddkwork/golibrary/safemap"
 	"testing"
 
 	"github.com/ddkwork/golibrary/stream"
@@ -8,7 +9,7 @@ import (
 
 func TestName(t *testing.T) {
 	g := stream.NewGeneratedFile()
-	m := safemap.NewOrdered[string, string]()
+	m := new(safemap.M[string, string])
 	m.Set("smoke", "烟")
 	m.Set("wine", "酒")
 	m.Set("meat", "肉")

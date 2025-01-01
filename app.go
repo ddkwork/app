@@ -4,9 +4,8 @@ import (
 	"log"
 	"log/slog"
 
-	"github.com/ddkwork/toolbox/log/tracelog"
-
 	"github.com/ddkwork/golibrary/mylog"
+	"github.com/ddkwork/toolbox/log/tracelog"
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/enums/thememode"
 )

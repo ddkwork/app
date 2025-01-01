@@ -4287,7 +4287,7 @@ type (
 	Int16T             = int16
 	Int32T             = int32
 	Int64T             = int64
-	Bool               = int32
+	//Bool               = int32
 	IntptrT            = *int32
 	U8                 = uint8
 	U16                = uint16

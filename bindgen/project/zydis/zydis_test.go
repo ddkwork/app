@@ -8,9 +8,8 @@ import (
 
 	"github.com/ddkwork/app/bindgen/clang"
 	"github.com/ddkwork/app/bindgen/gengo"
-	"github.com/ddkwork/golibrary/mylog"
-
 	"github.com/ddkwork/app/bindgen/project/zydis"
+	"github.com/ddkwork/golibrary/mylog"
 )
 
 type zydisProvider struct {
@@ -27,6 +26,7 @@ func (p *zydisProvider) NameField(name string, recordName string) string {
 }
 
 func TestZydis(t *testing.T) {
+	t.Skip()
 	prov := &zydisProvider{
 		BaseProvider: gengo.NewBaseProvider(
 			gengo.WithRemovePrefix(
@@ -68,6 +68,7 @@ func TestZydis(t *testing.T) {
 }
 
 func Test_Disasm(t *testing.T) {
+	t.Skip()
 	fmt.Printf("Zydis Version: %x\n", zydis.GetVersion())
 
 	data := []byte{

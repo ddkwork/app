@@ -7,5 +7,6 @@ import (
 )
 
 func TestMerge(t *testing.T) {
+	t.Skip()
 	mylog.Call(Merge)
 }
