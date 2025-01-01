@@ -3,7 +3,7 @@ module github.com/saferwall/winsdk2json
 go 1.23.3
 
 require (
-	github.com/ddkwork/golibrary v0.0.0-20241109061650-bd3e94f7b3cf
+	github.com/ddkwork/golibrary v0.0.0-20250101083646-7f7ce7d4075c
 	github.com/dlclark/regexp2 v1.11.4
 	github.com/spf13/cobra v1.8.1
 	github.com/xlab/c-for-go v1.2.0
@@ -28,11 +28,11 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
 	golang.org/x/exp/shiny v0.0.0-20241009180824-f66d83c29e7c // indirect
-	golang.org/x/image v0.21.0 // indirect
-	golang.org/x/mod v0.21.0 // indirect
-	golang.org/x/sys v0.26.0 // indirect
-	golang.org/x/text v0.19.0 // indirect
-	golang.org/x/tools v0.26.0 // indirect
+	golang.org/x/image v0.23.0 // indirect
+	golang.org/x/mod v0.22.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/tools v0.28.0 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/opt v0.1.3 // indirect
 	modernc.org/sortutil v1.2.0 // indirect
