@@ -16,6 +16,8 @@ github.com/ddkwork/golibrary v0.0.0-20241109061650-bd3e94f7b3cf h1:KMEqQ0haYTMet
 github.com/ddkwork/golibrary v0.0.0-20241109061650-bd3e94f7b3cf/go.mod h1:qiMzDxTwpLJ9hDTOdffR1FHJ44sZbshtVl5fvt2l/Cs=
 github.com/ddkwork/golibrary v0.0.0-20250101083646-7f7ce7d4075c h1:aRjCD0Un5kbwxfXL0Bpiqc+FTm4xHMBZQRFftGbYT98=
 github.com/ddkwork/golibrary v0.0.0-20250101083646-7f7ce7d4075c/go.mod h1:fzfhl61kUu+Sn22VCEojlYr9lE8X0SZmbOocICR+0s0=
+github.com/ddkwork/golibrary v0.0.0-20250101093329-d96f6524ebe4 h1:V32GfCpHQp5dZXTKw8K4BhKbtbmaUaP31t5eRpInN/g=
+github.com/ddkwork/golibrary v0.0.0-20250101093329-d96f6524ebe4/go.mod h1:fzfhl61kUu+Sn22VCEojlYr9lE8X0SZmbOocICR+0s0=
 github.com/edsrzf/mmap-go v1.1.0 h1:6EUwBLQ/Mcr1EYLE4Tn1VdW1A4ckqCQWZBw8Hr0kjpQ=
 github.com/edsrzf/mmap-go v1.1.0/go.mod h1:19H/e8pUPLicwkyNgOykDXkJ9F0MHE+Z52B8EIth78Q=
 github.com/fatih/color v1.17.0 h1:GlRw1BRJxkpqUCBKzKOw098ed57fEsKeNjpTe3cSjK4=
