@@ -1,12 +1,12 @@
 module github.com/ddkwork/app
 
-go 1.23.3
+go 1.24.0
 
 require (
-	github.com/alecthomas/chroma/v2 v2.14.0
+	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.0-20250101093329-d96f6524ebe4
+	github.com/ddkwork/golibrary v0.0.88-0.20250216081829-938757a0a8d6
 	github.com/ddkwork/toolbox v0.0.0-20250101105944-e2445f71afc4
 	github.com/ddkwork/unison v0.0.0-20250101110142-818e695fe1c0
 	github.com/ebitengine/purego v0.8.1
@@ -22,8 +22,8 @@ require (
 	github.com/valyala/fastjson v1.6.4
 	github.com/zyantific/zydis-go v1.2.1
 	golang.org/x/arch v0.8.0
-	golang.org/x/sync v0.10.0
-	golang.org/x/sys v0.28.0
+	golang.org/x/sync v0.11.0
+	golang.org/x/sys v0.30.0
 )
 
 require (
@@ -31,7 +31,7 @@ require (
 	github.com/can1357/gengo v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/dc0d/caseconv v0.5.0 // indirect
-	github.com/dlclark/regexp2 v1.11.4 // indirect
+	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/go-enry/go-oniguruma v1.2.1 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
@@ -50,11 +50,11 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/yuin/goldmark v1.7.8 // indirect
 	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67 // indirect
-	golang.org/x/image v0.23.0 // indirect
-	golang.org/x/mod v0.22.0 // indirect
+	golang.org/x/image v0.24.0 // indirect
+	golang.org/x/mod v0.23.0 // indirect
 	golang.org/x/term v0.25.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/tools v0.30.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/gofumpt v0.7.0 // indirect
