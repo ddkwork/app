@@ -2,6 +2,7 @@ package widget
 
 import (
 	"math"
+	"strings"
 	"time"
 	"unicode"
 
@@ -231,7 +232,7 @@ func (f *Field) buildLines(wrapWidth float32) (lines []*unison.Text, endsWithLin
 		decoration := &unison.TextDecoration{Font: f.Font}
 		if f.multiLine {
 			endsWithLineFeed = make([]lineEndingType, 0, 16)
-			for _, line := range stream.NewBuffer(string(f.runes)).ToLines() {
+			for line := range strings.Lines(string(f.runes)) {
 				one := unison.NewText(f.obscureStringIfNeeded(line), decoration)
 				if f.wrap && wrapWidth > 0 {
 					parts := one.BreakToWidth(wrapWidth)

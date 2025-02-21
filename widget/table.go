@@ -2547,8 +2547,7 @@ func (n *Node[T]) Document() string {
 	s := stream.NewBuffer("")
 	// s.WriteStringLn("// interface or method name here")
 	// s.WriteStringLn("/*")
-	lines := stream.NewBuffer(n.String()).ToLines()
-	for _, line := range lines {
+	for line := range strings.Lines(n.String()) {
 		s.WriteStringLn("  " + line)
 	}
 	// s.WriteStringLn("*/")

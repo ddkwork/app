@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"strings"
 
 	"github.com/ddkwork/golibrary/mylog"
@@ -99,21 +98,17 @@ func (o *object) OpenWineRep() (ok bool) {
 		return true
 	}
 	pacmanConfName := "/etc/pacman.conf"
-	pacmanConfBody := mylog.Check2(os.ReadFile(pacmanConfName))
-
-	lines := stream.NewBuffer(pacmanConfBody).ToLines()
-	for i, line := range lines {
-		if strings.Contains(line, "#[multilib]") {
-			if strings.Contains(lines[i+1], "#Include = /etc/pacman.d/mirrorlist") {
-				lines[i] = "[multilib]"
-				lines[i+1] = "Include = /etc/pacman.d/mirrorlist"
-			}
-		}
-	}
 	body := stream.NewBuffer("")
-	for _, line := range lines {
-		body.WriteStringLn(line)
+	for line := range stream.ReadFileToLines(pacmanConfName) {
+		//if strings.Contains(line, "#[multilib]") {
+		//	if strings.Contains(lines[i+1], "#Include = /etc/pacman.d/mirrorlist") {
+		//		lines[i] = "[multilib]"
+		//		lines[i+1] = "Include = /etc/pacman.d/mirrorlist"
+		//	}
+		//}
+		body.WriteStringLn(strings.TrimPrefix(line, "#"))
 	}
+
 	stream.WriteTruncate(pacmanConfName, body.Bytes())
 	install := `
 now you can install wine use theme commands
