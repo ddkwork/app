@@ -4288,19 +4288,19 @@ type (
 	Int32T             = int32
 	Int64T             = int64
 	//Bool               = int32
-	IntptrT            = *int32
-	U8                 = uint8
-	U16                = uint16
-	U32                = uint32
-	U64                = uint64
-	I8                 = int8
-	I16                = int16
-	I32                = int32
-	I64                = int64
-	USize              = uint64
-	ISize              = int64
-	UPointer           = uint64
-	IPointer           = int64
+	IntptrT  = *int32
+	U8       = uint8
+	U16      = uint16
+	U32      = uint32
+	U64      = uint64
+	I8       = int8
+	I16      = int16
+	I32      = int32
+	I64      = int64
+	USize    = uint64
+	ISize    = int64
+	UPointer = uint64
+	IPointer = int64
 	// Defines the `ZyanVoidPointer` data-type.
 	VoidPointer = unsafe.Pointer
 	// Defines the `ZyanConstVoidPointer` data-type.
