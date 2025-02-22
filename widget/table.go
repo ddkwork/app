@@ -13,6 +13,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"github.com/ddkwork/app/languages"
 	"path/filepath"
 	"slices"
 	"sort"

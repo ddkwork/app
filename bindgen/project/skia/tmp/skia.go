@@ -2,9 +2,8 @@
 package skia
 
 import (
-	"unsafe"
-
 	"github.com/ddkwork/app/bindgen/bindlib"
+	"unsafe"
 )
 
 const GengoLibraryName = "skia"
@@ -459,35 +458,23 @@ type SkMetadataT struct {
 	Unused          float32
 	encodingQuality int32
 }
-type (
-	_Int128T           = any
-	_Uint128T          = any
-	__NSConstantString = any
-	SizeT              = uint64
-	_BuiltinMsVaList   = *byte
-	_BuiltinVaList     = *byte
-	Uint8T             = uint8
-	Uint16T            = uint16
-	Uint32T            = uint32
-	Uint64T            = uint64
-	Int8T              = int8
-	Int16T             = int16
-	Int32T             = int32
-	Int64T             = int64
-	Bool               = int32
-	IntptrT            = *int32
-	// type Uint8T = uint8
-	// type Uint16T = uint16
-	// type Uint32T = uint32
-	// type Uint64T = uint64
-	// type Int8T = int8
-	// type Int16T = int16
-	// type Int32T = int32
-	// type Int64T = int64
-	// type Bool = int32
-	// type IntptrT = *int32
-	SkColorT = uint32
-)
+type _Int128T = any
+type _Uint128T = any
+type __NSConstantString = any
+type SizeT = uint64
+type _BuiltinMsVaList = *byte
+type _BuiltinVaList = *byte
+type Uint8T = uint8
+type Uint16T = uint16
+type Uint32T = uint32
+type Uint64T = uint64
+type Int8T = int8
+type Int16T = int16
+type Int32T = int32
+type Int64T = int64
+type Bool = int32
+type IntptrT = *int32
+type SkColorT = uint32
 
 var __imp_gr_backendrendertarget_new_gl bindlib.PreloadProc
 
@@ -794,7 +781,6 @@ func init() {
 	bindlib.Validate((*SkDateTimeT)(nil), 10, 2, "timeZoneMinutes", 0, "Year", 2, "Month", 4, "dayOfWeek", 5, "Day", 6, "Hour", 7, "Minute", 8, "Second", 9)
 	bindlib.Validate((*SkMetadataT)(nil), 80, 8, "Title", 0, "Author", 8, "Subject", 16, "Keywords", 24, "Creator", 32, "Producer", 40, "Creation", 48, "Modified", 58, "rasterDPI", 68, "Unused", 72, "encodingQuality", 76)
 }
-
 func GrBackendrendertargetNewGl(width int32, height int32, samples int32, stencils int32, glInfo *GrGlFramebufferinfoT) unsafe.Pointer {
 	__res := bindlib.CCall5(__imp_gr_backendrendertarget_new_gl.Addr(), bindlib.MarshallSyscall(width), bindlib.MarshallSyscall(height), bindlib.MarshallSyscall(samples), bindlib.MarshallSyscall(stencils), bindlib.MarshallSyscall(glInfo))
 	return bindlib.UnmarshallSyscall[unsafe.Pointer](__res)

@@ -1,6 +1,7 @@
 package widget
 
 import (
+	"github.com/ddkwork/app/languages"
 	"math"
 	"strings"
 	"time"
