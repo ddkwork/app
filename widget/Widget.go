@@ -7,8 +7,6 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ddkwork/golibrary/stream/languages"
-
 	"github.com/ddkwork/toolbox/i18n"
 
 	"github.com/ddkwork/golibrary/mylog"

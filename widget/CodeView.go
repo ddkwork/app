@@ -1,13 +1,13 @@
 package widget
 
 import (
+	"github.com/ddkwork/app/languages"
 	"path/filepath"
 
 	"github.com/alecthomas/chroma/v2"
 
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"
-	"github.com/ddkwork/golibrary/stream/languages"
 
 	"github.com/ddkwork/unison"
 	"github.com/ddkwork/unison/enums/paintstyle"

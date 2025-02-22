@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250221114559-8a02d569f328
+	github.com/ddkwork/golibrary v0.0.91-0.20250222100916-fc8029a3f592
 	github.com/ddkwork/toolbox v0.0.0-20250221043304-e2865d103f34
 	github.com/ddkwork/unison v0.0.0-20250221064127-b3a4eae98f92
 	github.com/ebitengine/purego v0.8.1
@@ -37,10 +37,10 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/go-enry/go-oniguruma v1.2.1 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
-	github.com/go-text/typesetting v0.2.1 // indirect
+	github.com/go-text/typesetting v0.3.0 // indirect
 	github.com/google/cabbie v1.0.5 // indirect
 	github.com/google/glazier v0.0.0-20240520165816-35e21f94768f // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
@@ -52,8 +52,8 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/yuin/goldmark v1.7.8 // indirect
-	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67 // indirect
-	golang.org/x/exp/shiny v0.0.0-20240707233637-46b078467d37 // indirect
+	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
+	golang.org/x/exp/shiny v0.0.0-20250218142911-aa4b98e5adaa // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/mod v0.23.0 // indirect
 	golang.org/x/term v0.25.0 // indirect
