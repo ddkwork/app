@@ -8,7 +8,7 @@ require (
 	github.com/dave/dst v0.27.3
 	github.com/ddkwork/golibrary v0.0.91-0.20250223131750-a8104c43bca2
 	github.com/ddkwork/toolbox v0.0.0-20250223132126-bc1aa33ca017
-	github.com/ddkwork/unison v0.0.0-20250223132541-758d7214d111
+	github.com/ddkwork/unison v0.0.0-20250223133607-c57f5eaea336
 	github.com/ebitengine/purego v0.8.2
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
