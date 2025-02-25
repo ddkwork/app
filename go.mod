@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250224160512-cae108870eee
+	github.com/ddkwork/golibrary v0.0.91-0.20250225120832-ed50dea89457
 	github.com/ddkwork/toolbox v0.0.0-20250223132126-bc1aa33ca017
 	github.com/ddkwork/unison v0.0.0-20250223133607-c57f5eaea336
 	github.com/ebitengine/purego v0.8.2
@@ -27,7 +27,7 @@ require (
 )
 
 require (
-	gioui.org v0.8.0 // indirect
+	gioui.org v0.8.1-0.20250223181602-72a72a2bc21a // indirect
 	gioui.org/shader v1.0.8 // indirect
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/can1357/gengo v0.2.0 // indirect
