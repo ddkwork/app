@@ -6,9 +6,9 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250305161447-d6e22f9038bf
+	github.com/ddkwork/golibrary v0.0.91-0.20250305180712-ddf6d725a722
 	github.com/ddkwork/toolbox v0.0.0-20250305101644-ff54d4ae6db5
-	github.com/ddkwork/unison v0.0.0-20250305122932-9fffac22edaf
+	github.com/ddkwork/unison v0.0.0-20250305192606-0cfa1c750290
 	github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
@@ -22,8 +22,8 @@ require (
 	github.com/valyala/fastjson v1.6.4
 	github.com/zyantific/zydis-go v1.2.1
 	golang.org/x/arch v0.8.0
-	golang.org/x/sync v0.11.0
-	golang.org/x/sys v0.30.0
+	golang.org/x/sync v0.12.0
+	golang.org/x/sys v0.31.0
 )
 
 require (
@@ -52,10 +52,10 @@ require (
 	github.com/yuin/goldmark v1.7.8 // indirect
 	golang.org/x/exp v0.0.0-20250228200357-dead58393ab7 // indirect
 	golang.org/x/exp/shiny v0.0.0-20250228200357-dead58393ab7 // indirect
-	golang.org/x/image v0.24.0 // indirect
-	golang.org/x/mod v0.23.0 // indirect
+	golang.org/x/image v0.25.0 // indirect
+	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/term v0.29.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/tools v0.30.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
