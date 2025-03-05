@@ -6,9 +6,9 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250305075445-8b9cd41bb9a4
-	github.com/ddkwork/toolbox v0.0.0-20250227042439-d5b6fa483d45
-	github.com/ddkwork/unison v0.0.0-20250227042440-cc1aeb4b8b86
+	github.com/ddkwork/golibrary v0.0.91-0.20250305161447-d6e22f9038bf
+	github.com/ddkwork/toolbox v0.0.0-20250305101644-ff54d4ae6db5
+	github.com/ddkwork/unison v0.0.0-20250305122932-9fffac22edaf
 	github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
@@ -39,7 +39,6 @@ require (
 	github.com/google/cabbie v1.0.5 // indirect
 	github.com/google/glazier v0.0.0-20240520165816-35e21f94768f // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
