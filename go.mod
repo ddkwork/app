@@ -6,10 +6,10 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250227042052-d984f0dc2c03
-	github.com/ddkwork/toolbox v0.0.0-20250223132126-bc1aa33ca017
-	github.com/ddkwork/unison v0.0.0-20250223133607-c57f5eaea336
-	github.com/ebitengine/purego v0.8.2
+	github.com/ddkwork/golibrary v0.0.91-0.20250301142411-1110965f054b
+	github.com/ddkwork/toolbox v0.0.0-20250227042439-d5b6fa483d45
+	github.com/ddkwork/unison v0.0.0-20250227042440-cc1aeb4b8b86
+	github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
 	github.com/gorpher/gowin32 v0.0.11
@@ -29,10 +29,8 @@ require (
 require (
 	gioui.org v0.8.1-0.20250223181602-72a72a2bc21a // indirect
 	gioui.org/shader v1.0.8 // indirect
-	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/can1357/gengo v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/dc0d/caseconv v0.5.0 // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/go-enry/go-oniguruma v1.2.1 // indirect
@@ -41,6 +39,7 @@ require (
 	github.com/google/cabbie v1.0.5 // indirect
 	github.com/google/glazier v0.0.0-20240520165816-35e21f94768f // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
@@ -52,14 +51,13 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/yuin/goldmark v1.7.8 // indirect
-	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
-	golang.org/x/exp/shiny v0.0.0-20250218142911-aa4b98e5adaa // indirect
+	golang.org/x/exp v0.0.0-20250228200357-dead58393ab7 // indirect
+	golang.org/x/exp/shiny v0.0.0-20250228200357-dead58393ab7 // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/mod v0.23.0 // indirect
-	golang.org/x/term v0.25.0 // indirect
+	golang.org/x/term v0.29.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	golang.org/x/tools v0.30.0 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	mvdan.cc/gofumpt v0.7.0 // indirect
 )

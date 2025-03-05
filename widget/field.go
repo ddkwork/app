@@ -1,11 +1,12 @@
 package widget
 
 import (
-	"github.com/ddkwork/app/languages"
 	"math"
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/ddkwork/app/languages"
 
 	"github.com/ddkwork/golibrary/mylog"
 	"github.com/ddkwork/golibrary/stream"

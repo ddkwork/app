@@ -2,11 +2,12 @@ package widget
 
 import (
 	"fmt"
-	"github.com/ddkwork/app/languages"
 	"log/slog"
 	"reflect"
 	"strings"
 	"unicode"
+
+	"github.com/ddkwork/app/languages"
 
 	"github.com/ddkwork/toolbox/i18n"
 

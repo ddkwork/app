@@ -1,8 +1,9 @@
 package widget
 
 import (
-	"github.com/ddkwork/app/languages"
 	"path/filepath"
+
+	"github.com/ddkwork/app/languages"
 
 	"github.com/alecthomas/chroma/v2"
 
