@@ -7,8 +7,8 @@ require (
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
 	github.com/ddkwork/golibrary v0.0.91-0.20250305180712-ddf6d725a722
-	github.com/ddkwork/toolbox v0.0.0-20250305101644-ff54d4ae6db5
-	github.com/ddkwork/unison v0.0.0-20250305192606-0cfa1c750290
+	github.com/ddkwork/toolbox v0.0.0-20250305193143-9c6c727ef4b0
+	github.com/ddkwork/unison v0.0.0-20250305194627-1e381fd909f9
 	github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53
 	github.com/go-enry/go-enry/v2 v2.8.8
 	github.com/google/uuid v1.6.0
