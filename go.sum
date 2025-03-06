@@ -30,8 +30,8 @@ github.com/ddkwork/golibrary v0.0.91-0.20250306083701-983ead031b04 h1:i5LqTlgB9J
 github.com/ddkwork/golibrary v0.0.91-0.20250306083701-983ead031b04/go.mod h1:asHnV6kPJrWJ5J2QeDZnQawJ1iroGQVifvC8+UoMaXA=
 github.com/ddkwork/toolbox v0.0.0-20250306061020-57d9d0f8a742 h1:NDwORRjLyLT/J+QC5TYxtgnCReutmwWOPF1m7eRCRCU=
 github.com/ddkwork/toolbox v0.0.0-20250306061020-57d9d0f8a742/go.mod h1:pgrt/7NU7Ifj67+GiJVZiZ2HnBnr8vOVGKiSbK9L+EM=
-github.com/ddkwork/unison v0.0.0-20250306061023-0f7a1c214589 h1:w4berCTlo+JGK7RGfqK/cEwpO7KXd0uUM2NhNFcmuAA=
-github.com/ddkwork/unison v0.0.0-20250306061023-0f7a1c214589/go.mod h1:g1hDYmutO5dVp8KroXVeHL/HszgEQMTJnzOvNzFLkOM=
+github.com/ddkwork/unison v0.0.0-20250306083908-410dca5a873e h1:1CT6MWEBqih8W03bVHhIQ9QoZqy/ftWL95l/k4k9gQU=
+github.com/ddkwork/unison v0.0.0-20250306083908-410dca5a873e/go.mod h1:hkyjAM2r4OOTGwU1SZ8pfn+x4f/jHbC1wlzD/ofDoxM=
 github.com/dlclark/regexp2 v1.11.5 h1:Q/sSnsKerHeCkc/jSTNq1oCm7KiVgUMZRDUoRu0JQZQ=
 github.com/dlclark/regexp2 v1.11.5/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
 github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53 h1:y31FAV0LwnzpfVBd+ZDPl/LQWKnNSDWv9qy8Gakl9LM=
