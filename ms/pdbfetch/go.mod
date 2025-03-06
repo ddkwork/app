@@ -11,13 +11,11 @@ require (
 	github.com/google/go-cmp v0.7.0 // indirect
 	golang.org/x/exp/shiny v0.0.0-20250228200357-dead58393ab7 // indirect
 	golang.org/x/image v0.25.0 // indirect
-	golang.org/x/mod v0.24.0 // indirect
-	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
-	golang.org/x/tools v0.31.0 // indirect
+	golang.org/x/tools v0.30.0 // indirect
 )
 
 require (
-	github.com/ddkwork/golibrary v0.0.91-0.20250306044045-85bbe24a4e0f
+	github.com/ddkwork/golibrary v0.0.91-0.20250305180712-ddf6d725a722
 	golang.org/x/sys v0.31.0 // indirect
 )
