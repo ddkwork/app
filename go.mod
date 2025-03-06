@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/aquasecurity/table v1.8.0
 	github.com/dave/dst v0.27.3
-	github.com/ddkwork/golibrary v0.0.91-0.20250306062730-5f886ac6cff1
+	github.com/ddkwork/golibrary v0.0.91-0.20250306083343-21f236d60891
 	github.com/ddkwork/toolbox v0.0.0-20250306061020-57d9d0f8a742
 	github.com/ddkwork/unison v0.0.0-20250306061023-0f7a1c214589
 	github.com/ebitengine/purego v0.9.0-alpha.2.0.20250211193246-e9fe9ab98c53
