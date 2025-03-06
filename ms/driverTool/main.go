@@ -100,11 +100,11 @@ func (s *StructView) Layout() unison.Paneler {
 		[]string{"load", "unload"},
 		func() {
 			d.Load(structView.MetaData.ReloadPath)
-			log.SetText(mylog.Body())
+			log.SetText(mylog.Row())
 		},
 		func() {
 			d.Unload()
-			log.SetText(mylog.Body())
+			log.SetText(mylog.Row())
 		},
 	)
 	rowPanel.AddChild(widget.NewVSpacer())
