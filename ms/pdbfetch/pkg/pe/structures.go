@@ -1093,7 +1093,7 @@ func (r *BoundForwarderRef) String() string {
 
 // Helper functions
 
-func structString(fileOffset int, structName string, iface interface{}) string {
+func structString(fileOffset int, structName string, iface any) string {
 	sType := reflect.TypeOf(iface)
 	sValue := reflect.ValueOf(iface)
 	values := "[" + structName + "]\n"
@@ -1143,7 +1143,7 @@ func flagString(flagMap map[string]bool) string {
 	return "Flags: " + strings.TrimSuffix(values, " | ") + "\n"
 }
 
-func EmptyStruct(iface interface{}) bool {
+func EmptyStruct(iface any) bool {
 	value := reflect.ValueOf(iface)
 	for i := 0; i < value.NumField(); i++ {
 		field := value.Field(i)

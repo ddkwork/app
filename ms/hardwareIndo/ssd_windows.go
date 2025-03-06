@@ -137,7 +137,7 @@ func (s *ssdInfo) Get() (ok bool) {
 }
 
 // https://github.com/gioui/gio/blob/main/internal/byteslice/byteslice.go
-func Struct(s interface{}) []byte {
+func Struct(s any) []byte {
 	v := reflect.ValueOf(s)
 	sz := int(v.Elem().Type().Size())
 	return unsafe.Slice((*byte)(unsafe.Pointer(v.Pointer())), sz)

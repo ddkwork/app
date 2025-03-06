@@ -1,7 +1,7 @@
 package hardwareIndo
 
 type (
-	Interface interface{}
+	Interface any
 	object    struct {
 		MacInfo *systemScanner
 		CpuInfo *cpuInfo

@@ -389,7 +389,7 @@ func (p *PEFile) parseSections(offset int) (newOffset int, err error) {
 	return newOffset, nil
 }
 
-func (p *PEFile) parseInterface(iface interface{}, offset, size int) (err error) {
+func (p *PEFile) parseInterface(iface any, offset, size int) (err error) {
 	_ = mylog.Check2(p.reader.Seek(int64(offset), io.SeekStart))
 
 	mylog.Check(binary.Read(p.reader, binary.LittleEndian, iface))
@@ -400,7 +400,7 @@ func (p *PEFile) parseInterface(iface interface{}, offset, size int) (err error)
 func (p *PEFile) parseDataDirectories() error {
 	var dataDirs map[string]*DataDirectory
 
-	funcMap := map[string]interface{}{
+	funcMap := map[string]any{
 		"IMAGE_DIRECTORY_ENTRY_IMPORT": p.parseImportDirectory,
 		"IMAGE_DIRECTORY_ENTRY_EXPORT": p.parseExportDirectory,
 		// TODO at a later time
