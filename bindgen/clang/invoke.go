@@ -57,6 +57,8 @@ typedef int* intptr_t;
 	e := &bytes.Buffer{}
 	cmd.Stdout = buf
 	cmd.Stderr = e
+	defer println(e.String())
+	defer println(buf.String())
 	mylog.Check(cmd.Run())
 
 	return buf.Bytes(), nil
