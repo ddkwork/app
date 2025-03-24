@@ -507,7 +507,7 @@ func NewTable[T any](data T, ctx TableContext[T]) (table *Node[T], header *Table
 				mylog.Check(json.Unmarshal(b.Bytes(), table)) // todo test need a zero table?
 				fnUpdate()
 			}
-			mylog.Struct("todo", files)
+			mylog.Struct(files)
 		}
 	}
 
